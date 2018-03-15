@@ -1,0 +1,10 @@
+host:
+port: 5432
+gis_database:
+tabular_database:
+database_username:
+database_password:
+gis_schema:
+tabular_schema:
+carto_api_key:
+carto_url: 'https://user.carto.com'
