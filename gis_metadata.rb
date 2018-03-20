@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'active_record'
+require 'active_support/core_ext/hash'
 require 'yaml'
 require 'pry-byebug'
 require 'nokogiri'
@@ -26,8 +27,8 @@ def all_metadata
   ActiveRecord::Base.connection.execute(sql)
 end
 
-definition = Nokogiri::XML(all_metadata[10]['definition'])
-documentation = Nokogiri::XML(all_metadata[10]['documentation'])
+definition = Nokogiri::XML(all_metadata[11]['definition'])
+documentation = Nokogiri::XML(all_metadata[11]['documentation'])
 
 # Food Retailers (2016)
 # Overview
@@ -40,13 +41,15 @@ documentation = Nokogiri::XML(all_metadata[10]['documentation'])
 
 DESIRED_FIELDS = %w[]
 
-documentation.xpath('//attr').each do |attribute|
-  puts "{\n"
-  attribute.children.each do |property|
-    puts "\"#{property.name}\":\"#{property.inner_html}\"," unless property.name == 'attrdomv'
-  end
-  puts "}\n"
-end
+puts Hash.from_xml(all_metadata[11]['documentation']).to_json
+
+# documentation.xpath('//attr').each do |attribute|
+#   puts "{\n"
+#   attribute.children.each do |property|
+#     puts "\"#{property.name}\":\"#{property.inner_html}\"," unless property.name == 'attrdomv'
+#   end
+#   puts "}\n"
+# end
 
 # binding.pry
 
