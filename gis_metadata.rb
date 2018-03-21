@@ -4,6 +4,7 @@ require 'active_support/core_ext/hash'
 require 'yaml'
 require 'pry-byebug'
 require 'nokogiri'
+require 'rack'
 
 @settings = YAML.load_file('settings.yml')
 
@@ -30,27 +31,14 @@ end
 definition = Nokogiri::XML(all_metadata[11]['definition'])
 documentation = Nokogiri::XML(all_metadata[11]['documentation'])
 
-# Food Retailers (2016)
-# Overview
-# Food Retailers locations across Massachusetts in 2016
-# Source: Reference USA, MassGIS and Tufts University
-# Date: 2016 (retailers), April 2016 (MassGIS – Farmers Markets)
-# Description of Dataset: This is a Massachusetts food retailer and farmers market dataset. Food retailer data was compiled, cleaned, and categorized for food retailers with one of the eight relevant primary NAICS codes: 445110, 445120, 445210, 445220, 445230, 452910, 446,110, 445110. This data was downloaded from ReferenceUSA. This dataset also includes farmers markets, downloaded from MassGIS.
-# Description of Source: This Dataset is part of the Food Access Index completed in partnership with the 2016 Tufts University Field Project and MAPC. See the Food Access Index report for more details.
-# Updating data: This dataset will be updated when data is validated on a more granular level when working with Mass in Motion communities or municipal partners
+metadata = []
 
-DESIRED_FIELDS = %w[]
+all_metadata.each do |table|
+  metadata << Hash.from_xml(table['documentation']) unless table['documentation'].blank?
+end
 
-puts Hash.from_xml(all_metadata[11]['documentation']).to_json
+app = Proc.new do |env|
+    ['200', {'Content-Type' => 'application/json'}, [metadata.to_json]]
+end
 
-# documentation.xpath('//attr').each do |attribute|
-#   puts "{\n"
-#   attribute.children.each do |property|
-#     puts "\"#{property.name}\":\"#{property.inner_html}\"," unless property.name == 'attrdomv'
-#   end
-#   puts "}\n"
-# end
-
-# binding.pry
-
-puts 'done'
+Rack::Handler::WEBrick.run app
