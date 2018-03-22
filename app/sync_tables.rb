@@ -70,6 +70,8 @@ def carto_tables
   JSON.parse(response.body)['synchronizations'].pluck('name')
 end
 
+binding.pry
+
 tables_to_sync = ActiveRecord::Base.connection.tables - carto_tables
 no_permission_to_sync = ActiveRecord::Base.connection.tables - tables_with_permission
 tables_with_permission_to_sync = tables_to_sync - no_permission_to_sync
