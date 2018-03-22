@@ -1,2 +1,2 @@
-require_relative 'app/api'
-run MetadataService::API.new
+require_relative 'app/gis_metadata'
+run GisMetadata::API.new
