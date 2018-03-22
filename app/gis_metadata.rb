@@ -6,7 +6,7 @@ require 'pry-byebug'
 require 'nokogiri'
 require 'rack'
 
-@settings = YAML.load_file('settings.yml')
+@settings = YAML.load_file('../config/settings.yml')
 
 ActiveRecord::Base.establish_connection(
   adapter:  'postgresql',

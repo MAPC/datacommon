@@ -18,6 +18,9 @@ GEM
     pry-byebug (3.4.2)
       byebug (~> 9.0)
       pry (~> 0.10)
+    rack (2.0.4)
+    rack-test (0.8.3)
+      rack (>= 1.0, < 3)
     rspec (3.6.0)
       rspec-core (~> 3.6.0)
       rspec-expectations (~> 3.6.0)
@@ -40,6 +43,7 @@ DEPENDENCIES
   faraday
   nokogiri
   pry-byebug
+  rack-test
   rspec
 
 RUBY VERSION

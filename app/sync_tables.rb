@@ -1,42 +1,20 @@
 #!/usr/bin/env ruby
 require 'active_record'
 require 'faraday'
-require 'yaml'
 require 'pry-byebug'
+require 'yaml'
 
-@settings = YAML.load_file('settings.yml')
+@settings = YAML.load_file('../config/settings.yml')
 
 ActiveRecord::Base.establish_connection(
   adapter:  'postgresql',
   host: @settings['host'],
   port: @settings['port'],
-  database: @settings['gis_database'],
+  database: @settings['tabular_database'],
   username: @settings['database_username'],
   password: @settings['database_password'],
-  schema_search_path: @settings['gis_schema']
+  schema_search_path: @settings['tabular_schema']
 )
-
-def columns_in_table(name, schema=@settings['gis_schema'])
-  sql = <<~SQL
-    SELECT
-      column_name
-    FROM
-      information_schema.columns
-    WHERE
-      table_schema = '#{schema}'
-    AND
-      table_name   = '#{name}';
-  SQL
-  ActiveRecord::Base.connection.execute(sql).pluck('column_name')
-end
-
-def sql_query(table)
-  columns = columns_in_table(table).reject { |column_name| column_name == 'shape' }
-  "SELECT " +
-  columns.join(', ') +
-  ', sde.ST_AsText(sde.ST_Transform(shape, 4326)) AS the_geom' +
-  " FROM #{@settings['gis_schema']}.#{table};"
-end
 
 def record_item_queue(table, id)
   open('import_list.csv', 'a') do |f|
@@ -44,7 +22,7 @@ def record_item_queue(table, id)
   end
 end
 
-def add_carto_sync_for(table, schema=@settings['gis_schema'])
+def add_carto_sync_for(table, schema=@settings['tabular_schema'])
   response = Faraday.post do |req|
     req.url "#{@settings['carto_url']}/api/v1/synchronizations/"
     req.params['api_key'] = @settings['carto_api_key']
@@ -53,13 +31,12 @@ def add_carto_sync_for(table, schema=@settings['gis_schema'])
                     "provider": "postgres",
                     "connection": {
                       "server": @settings['host'],
-                      "database": @settings['gis_database'],
+                      "database": @settings['tabular_database'],
                       "port": @settings['port'],
                       "username": @settings['database_username'],
                       "password": @settings['database_password']
                     },
                     "table": table,
-                    "sql_query": sql_query(table),
                     "schema": schema
                   },
                   "interval": 2592000
@@ -70,8 +47,7 @@ def add_carto_sync_for(table, schema=@settings['gis_schema'])
   record_item_queue(table, parsed_body['data_import']['item_queue_id'])
 end
 
-# Need to make sure all tables we want have permission for viewer user.
-def tables_with_permission(schema=@settings['gis_schema'])
+def tables_with_permission(schema=@settings['tabular_schema'])
   sql = <<~SQL
   SELECT
       tablename
@@ -97,5 +73,4 @@ end
 tables_to_sync = ActiveRecord::Base.connection.tables - carto_tables
 no_permission_to_sync = ActiveRecord::Base.connection.tables - tables_with_permission
 tables_with_permission_to_sync = tables_to_sync - no_permission_to_sync
-binding.pry
-tables_with_permission_to_sync.each { |table| add_carto_sync_for(table) }
+tables_with_permission_to_sync.first(1).each { |table| add_carto_sync_for(table) }
