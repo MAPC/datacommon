@@ -1,2 +1,2 @@
 require_relative 'app/gis_metadata'
-run GisMetadata::API.new
+run GeospatialMetadata::API.new

@@ -1,10 +1,18 @@
-host:
-port: 5432
-gis_database:
-tabular_database:
-database_username:
-database_password:
-gis_schema:
-tabular_schema:
-carto_api_key:
-carto_url: 'https://user.carto.com'
+database:
+  host:
+  username:
+  password:
+  port: 5433
+  geospatial:
+    database:
+    schema:
+      data:
+      metadata:
+  tabular:
+    database:
+    schema:
+      data:
+      metadata:
+carto:
+  api_key: ''
+  url: 'https://user.carto.com'

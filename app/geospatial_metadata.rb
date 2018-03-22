@@ -6,18 +6,18 @@ require 'pry-byebug'
 require 'nokogiri'
 require 'rack'
 
-module GisMetadata
+module GeospatialMetadata
   class API
     @settings = YAML.load_file('config/settings.yml')
 
     ActiveRecord::Base.establish_connection(
       adapter:  'postgresql',
-      host: @settings['host'],
-      port: @settings['port'],
-      database: @settings['gis_database'],
-      username: @settings['database_username'],
-      password: @settings['database_password'],
-      schema_search_path: 'sde'
+      host: @settings['database']['host'],
+      port: @settings['database']['port'],
+      database: @settings['database']['geospatial']['database'],
+      username: @settings['database']['username'],
+      password: @settings['database']['password'],
+      schema_search_path: @settings['database']['geospatial']['schema']['metadata']
     )
 
     def all_metadata
