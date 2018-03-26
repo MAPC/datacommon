@@ -1,13 +1,13 @@
 require "rack/test"
-require_relative "../app/geospatial_metadata.rb"
+require_relative "../app/tabular_metadata.rb"
 
-RSpec.describe "serve geospatial metadata" do
+RSpec.describe "serve tabular metadata" do
   include Rack::Test::Methods
 
   def app
     Rack::Builder.new do
       map '/' do
-        run GeospatialMetadata::API.new
+        run TabularMetadata::API.new
       end
     end.to_app
   end

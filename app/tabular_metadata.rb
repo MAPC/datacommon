@@ -5,7 +5,7 @@ require 'yaml'
 require 'nokogiri'
 require 'rack'
 
-module GeospatialMetadata
+module TabularMetadata
   class API
     template = ERB.new File.new("config/settings.yml").read
     @settings = YAML.load template.result(binding)
@@ -14,34 +14,34 @@ module GeospatialMetadata
       adapter:  'postgresql',
       host: @settings['database']['host'],
       port: @settings['database']['port'],
-      database: @settings['database']['geospatial']['database'],
+      database: @settings['database']['tabular']['database'],
       username: @settings['database']['username'],
       password: @settings['database']['password'],
-      schema_search_path: @settings['database']['geospatial']['schema']['metadata']
+      schema_search_path: @settings['database']['tabular']['schema']['metadata']
     )
 
-    def all_metadata
+    def metadata_for(tablename)
       sql = <<~SQL
       SELECT
-        name, definition, documentation
+        orderid,name,alias,details
       FROM
-        gdb_items;
+        #{tablename};
       SQL
       ActiveRecord::Base.connection.execute(sql)
     end
 
     def response
-        metadata = []
+      metadata = []
 
-        all_metadata.each do |table|
-          metadata << Hash.from_xml(table['documentation']) unless table['documentation'].blank?
-        end
+      ActiveRecord::Base.connection.tables.each do |table|
+        metadata << metadata_for(table).to_json
+      end
 
-        [200, {'Content-Type' => 'application/json'}, [metadata.to_json]]
+      [200, {'Content-Type' => 'application/json'}, [metadata.to_json]]
     end
 
     def call(env)
        response
-     end
+    end
   end
 end
