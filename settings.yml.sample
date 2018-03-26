@@ -1,5 +1,5 @@
 host:
-port: 5432
+port: 5433
 gis_database:
 tabular_database:
 database_username:
