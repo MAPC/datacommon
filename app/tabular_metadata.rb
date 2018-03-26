@@ -4,11 +4,11 @@ require 'active_support/core_ext/hash'
 require 'yaml'
 require 'nokogiri'
 require 'rack'
-require 'pry-byebug'
 
 module TabularMetadata
   class API
-    @settings = YAML.load_file('config/settings.yml')
+    template = ERB.new File.new("config/settings.yml").read
+    @settings = YAML.load template.result(binding)
 
     ActiveRecord::Base.establish_connection(
       adapter:  'postgresql',

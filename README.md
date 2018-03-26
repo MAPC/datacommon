@@ -2,7 +2,7 @@
 
 ## Installation
 1. `bundle install`
-2. Setup your database settings: `cp config/settings.yml.sample config/settings.yml`
+2. Setup your database settings by either replacing the values in settings.yml with real values or settings them in your `.env` file.
 3. `bundle exec rackup`
 
 ## Testing

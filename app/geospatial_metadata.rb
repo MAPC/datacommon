@@ -2,13 +2,13 @@
 require 'active_record'
 require 'active_support/core_ext/hash'
 require 'yaml'
-require 'pry-byebug'
 require 'nokogiri'
 require 'rack'
 
 module GeospatialMetadata
   class API
-    @settings = YAML.load_file('config/settings.yml')
+    template = ERB.new File.new("config/settings.yml").read
+    @settings = YAML.load template.result(binding)
 
     ActiveRecord::Base.establish_connection(
       adapter:  'postgresql',

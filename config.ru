@@ -1,3 +1,4 @@
+require 'dotenv/load'
 require_relative 'app/geospatial_metadata'
 require_relative 'app/tabular_metadata'
 map '/geospatial' do
