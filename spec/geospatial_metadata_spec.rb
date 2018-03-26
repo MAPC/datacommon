@@ -1,7 +1,7 @@
 require "rack/test"
 require_relative "../app/geospatial_metadata.rb"
 
-RSpec.describe "serve gis metadata" do
+RSpec.describe "serve geospatial metadata" do
   include Rack::Test::Methods
 
   def app
