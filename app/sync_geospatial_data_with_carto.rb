@@ -4,19 +4,19 @@ require 'faraday'
 require 'yaml'
 require 'pry-byebug'
 
-@settings = YAML.load_file('settings.yml')
+@settings = YAML.load_file('../config/settings.yml')
 
 ActiveRecord::Base.establish_connection(
   adapter:  'postgresql',
-  host: @settings['host'],
-  port: @settings['port'],
-  database: @settings['gis_database'],
-  username: @settings['database_username'],
-  password: @settings['database_password'],
-  schema_search_path: @settings['gis_schema']
+  host: @settings['database']['host'],
+  port: @settings['database']['port'],
+  database: @settings['database']['geospatial']['database'],
+  username: @settings['database']['username'],
+  password: @settings['database']['password'],
+  schema_search_path: @settings['database']['geospatial']['schema']['data']
 )
 
-def columns_in_table(name, schema=@settings['gis_schema'])
+def columns_in_table(name, schema=@settings['database']['geospatial']['schema']['data'])
   sql = <<~SQL
     SELECT
       column_name
@@ -35,7 +35,7 @@ def sql_query(table)
   "SELECT " +
   columns.join(', ') +
   ', sde.ST_AsText(sde.ST_Transform(shape, 4326)) AS the_geom' +
-  " FROM #{@settings['gis_schema']}.#{table};"
+  " FROM #{@settings['database']['geospatial']['schema']['data']}.#{table};"
 end
 
 def record_item_queue(table, id)
@@ -44,19 +44,19 @@ def record_item_queue(table, id)
   end
 end
 
-def add_carto_sync_for(table, schema=@settings['gis_schema'])
+def add_carto_sync_for(table, schema=@settings['database']['geospatial']['schema']['data'])
   response = Faraday.post do |req|
-    req.url "#{@settings['carto_url']}/api/v1/synchronizations/"
-    req.params['api_key'] = @settings['carto_api_key']
+    req.url "#{@settings['carto']['url']}/api/v1/synchronizations/"
+    req.params['api_key'] = @settings['carto']['api_key']
     req.body =  {
                   "connector": {
                     "provider": "postgres",
                     "connection": {
-                      "server": @settings['host'],
-                      "database": @settings['gis_database'],
-                      "port": @settings['port'],
-                      "username": @settings['database_username'],
-                      "password": @settings['database_password']
+                      "server": @settings['database']['host'],
+                      "database": @settings['database']['geospatial']['database'],
+                      "port": @settings['database']['port'],
+                      "username": @settings['database']['username'],
+                      "password": @settings['database']['password']
                     },
                     "table": table,
                     "sql_query": sql_query(table),
@@ -71,7 +71,7 @@ def add_carto_sync_for(table, schema=@settings['gis_schema'])
 end
 
 # Need to make sure all tables we want have permission for viewer user.
-def tables_with_permission(schema=@settings['gis_schema'])
+def tables_with_permission(schema=@settings['database']['geospatial']['schema']['data'])
   sql = <<~SQL
   SELECT
       tablename
@@ -87,8 +87,8 @@ end
 
 def carto_tables
   response = Faraday.get do |req|
-    req.url "#{@settings['carto_url']}/api/v1/synchronizations"
-    req.params['api_key'] = @settings['carto_api_key']
+    req.url "#{@settings['carto']['url']}/api/v1/synchronizations"
+    req.params['api_key'] = @settings['carto']['api_key']
     req.headers["content-type"] = 'application/json'
   end
   JSON.parse(response.body)['synchronizations'].pluck('name')

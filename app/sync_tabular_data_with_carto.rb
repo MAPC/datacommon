@@ -4,16 +4,16 @@ require 'faraday'
 require 'pry-byebug'
 require 'yaml'
 
-@settings = YAML.load_file('settings.yml')
+@settings = YAML.load_file('../config/settings.yml')
 
 ActiveRecord::Base.establish_connection(
   adapter:  'postgresql',
-  host: @settings['host'],
-  port: @settings['port'],
-  database: @settings['tabular_database'],
-  username: @settings['database_username'],
-  password: @settings['database_password'],
-  schema_search_path: @settings['tabular_schema']
+  host: @settings['database']['host'],
+  port: @settings['database']['port'],
+  database: @settings['database']['tabular']['database'],
+  username: @settings['database']['username'],
+  password: @settings['database']['password'],
+  schema_search_path: @settings['database']['tabular']['schema']['data']
 )
 
 def record_item_queue(table, id)
@@ -22,21 +22,22 @@ def record_item_queue(table, id)
   end
 end
 
-def add_carto_sync_for(table, schema=@settings['tabular_schema'])
+def add_carto_sync_for(table, schema=@settings['database']['tabular']['schema']['data'])
   response = Faraday.post do |req|
-    req.url "#{@settings['carto_url']}/api/v1/synchronizations/"
-    req.params['api_key'] = @settings['carto_api_key']
+    req.url "#{@settings['carto']['url']}/api/v1/synchronizations/"
+    req.params['api_key'] = @settings['carto']['api_key']
     req.body =  {
                   "connector": {
                     "provider": "postgres",
                     "connection": {
-                      "server": @settings['host'],
-                      "database": @settings['tabular_database'],
-                      "port": @settings['port'],
-                      "username": @settings['database_username'],
-                      "password": @settings['database_password']
+                      "server": @settings['database']['host'],
+                      "database": @settings['database']['tabular']['database'],
+                      "port": @settings['database']['port'],
+                      "username": @settings['database']['username'],
+                      "password": @settings['database']['password']
                     },
                     "table": table,
+                    "sql_query": sql_query(table),
                     "schema": schema
                   },
                   "interval": 2592000
@@ -47,7 +48,7 @@ def add_carto_sync_for(table, schema=@settings['tabular_schema'])
   record_item_queue(table, parsed_body['data_import']['item_queue_id'])
 end
 
-def tables_with_permission(schema=@settings['tabular_schema'])
+def tables_with_permission(schema=@settings['database']['tabular']['schema']['data'])
   sql = <<~SQL
   SELECT
       tablename
