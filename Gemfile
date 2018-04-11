@@ -9,3 +9,10 @@ gem 'activerecord'
 gem 'rake'
 gem 'pg'
 gem 'dotenv'
+
+group :development do
+  gem "capistrano", "~> 3.10", require: false
+  gem 'capistrano-bundler'
+  gem 'capistrano-passenger'
+  gem 'capistrano-rvm'
+end
