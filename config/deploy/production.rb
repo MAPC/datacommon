@@ -32,6 +32,7 @@ server "live.mapc.org", user: "datacommon", roles: %w{app db web}
 # Feel free to add new variables to customise your setup.
 set :passenger_restart_command, 'passenger-config restart-app'
 set :rvm_custom_path, '/usr/share/rvm'
+set :branch, 'master'
 
 
 # Custom SSH Options
