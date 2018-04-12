@@ -9,6 +9,7 @@ gem 'activerecord'
 gem 'rake'
 gem 'pg'
 gem 'dotenv'
+gem 'activesupport'
 
 group :development do
   gem "capistrano", "~> 3.10", require: false
