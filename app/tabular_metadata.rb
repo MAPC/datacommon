@@ -4,6 +4,7 @@ require 'active_support/core_ext/hash'
 require 'yaml'
 require 'nokogiri'
 require 'rack'
+require 'erb'
 
 module TabularMetadata
   class API
