@@ -84,6 +84,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  activesupport
   capistrano (~> 3.10)
   capistrano-bundler
   capistrano-passenger
