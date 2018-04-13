@@ -8,18 +8,20 @@ require 'erb'
 
 module GeospatialMetadata
   class API
-    template = ERB.new File.new("config/settings.yml").read
-    @settings = YAML.load template.result(binding)
+    def connect_to_gis_database
+      template = ERB.new File.new("config/settings.yml").read
+      @settings = YAML.load template.result(binding)
 
-    ActiveRecord::Base.establish_connection(
-      adapter:  'postgresql',
-      host: @settings['database']['host'],
-      port: @settings['database']['port'],
-      database: @settings['database']['geospatial']['database'],
-      username: @settings['database']['username'],
-      password: @settings['database']['password'],
-      schema_search_path: @settings['database']['geospatial']['schema']['metadata']
-    )
+      ActiveRecord::Base.establish_connection(
+        adapter:  'postgresql',
+        host: @settings['database']['host'],
+        port: @settings['database']['port'],
+        database: @settings['database']['geospatial']['database'],
+        username: @settings['database']['username'],
+        password: @settings['database']['password'],
+        schema_search_path: @settings['database']['geospatial']['schema']['metadata']
+      )
+    end
 
     def all_metadata
       sql = <<~SQL
@@ -32,6 +34,7 @@ module GeospatialMetadata
     end
 
     def response
+        connect_to_gis_database
         metadata = []
 
         all_metadata.each do |table|

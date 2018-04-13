@@ -5,21 +5,24 @@ require 'yaml'
 require 'nokogiri'
 require 'rack'
 require 'erb'
+require 'pry-byebug'
 
 module TabularMetadata
   class API
-    template = ERB.new File.new("config/settings.yml").read
-    @settings = YAML.load template.result(binding)
+    def connect_to_tabular_database
+      template = ERB.new File.new("config/settings.yml").read
+      @settings = YAML.load template.result(binding)
 
-    ActiveRecord::Base.establish_connection(
-      adapter:  'postgresql',
-      host: @settings['database']['host'],
-      port: @settings['database']['port'],
-      database: @settings['database']['tabular']['database'],
-      username: @settings['database']['username'],
-      password: @settings['database']['password'],
-      schema_search_path: @settings['database']['tabular']['schema']['metadata']
-    )
+      ActiveRecord::Base.establish_connection(
+        adapter:  'postgresql',
+        host: @settings['database']['host'],
+        port: @settings['database']['port'],
+        database: @settings['database']['tabular']['database'],
+        username: @settings['database']['username'],
+        password: @settings['database']['password'],
+        schema_search_path: @settings['database']['tabular']['schema']['metadata']
+      )
+    end
 
     def metadata_for(tablename)
       sql = <<~SQL
@@ -32,6 +35,7 @@ module TabularMetadata
     end
 
     def response
+      connect_to_tabular_database
       metadata = []
 
       ActiveRecord::Base.connection.tables.each do |table|
