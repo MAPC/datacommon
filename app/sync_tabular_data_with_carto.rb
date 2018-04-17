@@ -64,8 +64,8 @@ end
 
 def carto_tables
   response = Faraday.get do |req|
-    req.url "#{@settings['carto_url']}/api/v1/synchronizations"
-    req.params['api_key'] = @settings['carto_api_key']
+    req.url "#{@settings['carto']['url']}/api/v1/synchronizations"
+    req.params['api_key'] = @settings['carto']['api_key']
     req.headers["content-type"] = 'application/json'
   end
   JSON.parse(response.body)['synchronizations'].pluck('name')
