@@ -92,7 +92,7 @@ def carto_tables
     req.params['api_key'] = @settings['carto']['api_key']
     req.headers["content-type"] = 'application/json'
   end
-  JSON.parse(response.body)['synchronizations'].pluck('name')
+  JSON.parse(response.body)['synchronizations'].pluck('name').compact
 end
 
 tables_to_sync = ActiveRecord::Base.connection.tables - carto_tables
