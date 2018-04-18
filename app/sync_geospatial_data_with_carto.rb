@@ -31,7 +31,7 @@ def columns_in_table(name, schema=@settings['database']['geospatial']['schema'][
 end
 
 def sql_query(table)
-  return "SELECT * FROM #{@settings['database']['geospatial']['schema']['data']}.#{table};" unless columns_in_table.include?('shape')
+  return "SELECT * FROM #{@settings['database']['geospatial']['schema']['data']}.#{table};" unless columns_in_table(table).include?('shape')
   columns = columns_in_table(table).reject { |column_name| column_name == 'shape' }
   "SELECT " +
   columns.join(', ') +
@@ -98,5 +98,5 @@ end
 tables_to_sync = ActiveRecord::Base.connection.tables - carto_tables
 no_permission_to_sync = ActiveRecord::Base.connection.tables - tables_with_permission
 tables_with_permission_to_sync = tables_to_sync - no_permission_to_sync
-binding.pry
+tables_with_permission_to_sync.reject! { table_name| table_name =~ /(parcel)|(i\d+)|(sde)/i }
 tables_with_permission_to_sync.each { |table| add_carto_sync_for(table) }
