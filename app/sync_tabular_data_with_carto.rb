@@ -73,4 +73,4 @@ end
 tables_to_sync = ActiveRecord::Base.connection.tables - carto_tables
 no_permission_to_sync = ActiveRecord::Base.connection.tables - tables_with_permission
 tables_with_permission_to_sync = tables_to_sync - no_permission_to_sync
-tables_with_permission_to_sync.first(1).each { |table| add_carto_sync_for(table) }
+tables_with_permission_to_sync.each { |table| add_carto_sync_for(table) }
