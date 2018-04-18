@@ -37,7 +37,6 @@ def add_carto_sync_for(table, schema=@settings['database']['tabular']['schema'][
                       "password": @settings['database']['password']
                     },
                     "table": table,
-                    "sql_query": sql_query(table),
                     "schema": schema
                   },
                   "interval": 2592000
