@@ -31,6 +31,7 @@ def columns_in_table(name, schema=@settings['database']['geospatial']['schema'][
 end
 
 def sql_query(table)
+  return "SELECT * FROM #{@settings['database']['geospatial']['schema']['data']}.#{table};" unless columns_in_table.include?('shape')
   columns = columns_in_table(table).reject { |column_name| column_name == 'shape' }
   "SELECT " +
   columns.join(', ') +
