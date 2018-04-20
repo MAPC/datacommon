@@ -4,7 +4,7 @@ require 'faraday'
 require 'yaml'
 require 'pry-byebug'
 
-@settings = YAML.load_file('../config/settings.yml')
+@settings = YAML.load_file(File.join(__dir__, '..', 'config', 'settings.yml'))
 
 ActiveRecord::Base.establish_connection(
   adapter:  'postgresql',
@@ -40,7 +40,7 @@ def sql_query(table)
 end
 
 def record_item_queue(table, id)
-  open('import_list.csv', 'a') do |f|
+  open(File.join(__dir__, 'import_list.csv'), 'a') do |f|
     f.puts "#{table},#{id}"
   end
 end
@@ -99,4 +99,13 @@ tables_to_sync = ActiveRecord::Base.connection.tables - carto_tables
 no_permission_to_sync = ActiveRecord::Base.connection.tables - tables_with_permission
 tables_with_permission_to_sync = tables_to_sync - no_permission_to_sync
 tables_with_permission_to_sync.reject! { |table_name| table_name =~ /(parcel)|(i\d+)|(sde)/i }
-tables_with_permission_to_sync.each { |table| add_carto_sync_for(table) }
+puts 'Number to sync:' + tables_with_permission_to_sync.count.to_s
+
+count = tables_with_permission_to_sync.count
+
+while count > 0
+  tables_with_permission_to_sync.first(5).each {|table| add_carto_sync_for(table) }
+  tables_with_permission_to_sync -= tables_with_permission_to_sync.first(5)
+  count -= 5
+  sleep 45
+end
