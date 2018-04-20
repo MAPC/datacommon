@@ -17,7 +17,7 @@ ActiveRecord::Base.establish_connection(
 )
 
 def record_item_queue(table, id)
-  open(File.join(__dir__, 'import_list.csv'), 'a') do |f|
+  open(File.join(__dir__, '..', 'log', 'import_list.csv'), 'a') do |f|
     f.puts "#{table},#{id}"
   end
 end
