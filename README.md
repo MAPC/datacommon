@@ -8,8 +8,8 @@
 5. Make sure to setup cron with rvm `rvm cron setup`
 6. Insert the following entries in cron (`crontab -e`)
 ```
-0,30 * * * * /var/www/datacommon/current/app/sync_tabular_data_with_carto.rb
-15,45 * * * * /var/www/datacommon/current/app/sync_geospatial_data_with_carto.rb
+0,30 * * * * cd /var/www/datacommon/current && /home/datacommon/.rvm/gems/ruby-2.5.0/bin/bundle exec /var/www/datacommon/current/app/sync_tabular_data_with_carto.rb
+15,45 * * * * cd /var/www/datacommon/current && /home/datacommon/.rvm/gems/ruby-2.5.0/bin/bundle exec /var/www/datacommon/current/app/sync_geospatial_data_with_carto.rb
 ```
 
 ## Testing
