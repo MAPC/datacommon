@@ -43,11 +43,12 @@ module GeospatialMetadata
 
     def response(request)
         connect_to_gis_database
+        prefix = 'gisdata.mapc.'
         metadata = {}
 
         if request.params['tables']
           tables = request.params['tables'].split(',')
-          tables.map!{|x| "gisdata.mapc.#{x}"}
+          tables.map!{|x| "#{prefix}#{x}"}
         else
           tables = nil
         end
@@ -65,9 +66,11 @@ module GeospatialMetadata
         end
 
         metadata_for(tables, columns).each do |table|
-          metadata[table['name']] = {}
-          metadata[table['name']]['documentation'] = Hash.from_xml(table['documentation']) unless table['documentation'].blank?
-          metadata[table['name']]['definition'] = Hash.from_xml(table['definition']) unless table['definition'].blank?
+          table_name = table['name'].sub(prefix, '')
+
+          metadata[table_name] = {}
+          metadata[table_name]['documentation'] = Hash.from_xml(table['documentation']) unless table['documentation'].blank?
+          metadata[table_name]['definition'] = Hash.from_xml(table['definition']) unless table['definition'].blank?
         end
 
         [200, {'Content-Type' => 'application/json'}, [metadata.to_json]]
