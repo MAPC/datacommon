@@ -35,7 +35,6 @@ module TabularMetadata
     end
 
     def response(request)
-      puts request.params.inspect
       connect_to_tabular_database
       metadata = {}
 
