@@ -15,3 +15,8 @@
 ## Testing
 All tests are written in RSpec.
 1. `bundle exec rake`
+
+## Usage
+
+The cron tasks will sync tabular and geospatial tables from our ArcSDE data in Postgres to the target CartoDB instance.
+The rack app will serve up the metadata for these tables in JSON from the ArcSDE Postgres tables at http://server.com/tabular and http://server.com/geospatial where server.com is the server you have deployed this app to.
