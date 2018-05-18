@@ -24,29 +24,42 @@ module TabularMetadata
       )
     end
 
-    def metadata_for(tablename)
+    def metadata_for(tablename, columns)
       sql = <<~SQL
       SELECT
-        orderid,name,alias,details
+        #{columns}
       FROM
         #{tablename};
       SQL
       ActiveRecord::Base.connection.execute(sql)
     end
 
-    def response
+    def response(request)
+      puts request.params.inspect
       connect_to_tabular_database
-      metadata = []
+      metadata = {}
 
-      ActiveRecord::Base.connection.tables.each do |table|
-        metadata << metadata_for(table).to_json
+      if request.params['tables']
+        tables = request.params['tables'].split(',')
+      else
+        tables = ActiveRecord::Base.connection.tables
+      end
+
+      if request.params['columns']
+        columns = request.params['columns']
+      else
+        columns = 'name,alias,details'
+      end
+
+      tables.each do |table|
+        metadata[table] = metadata_for(table, columns)
       end
 
       [200, {'Content-Type' => 'application/json'}, [metadata.to_json]]
     end
 
     def call(env)
-       response
+      response(Rack::Request.new(env))
     end
   end
 end
