@@ -24,12 +24,21 @@ module TabularMetadata
       )
     end
 
-    def metadata_for(tablename, columns)
+    def metadata_for(tablename, columns, subset)
+
+      if subset == 'meta'
+        limit_clause = 'LIMIT 15'
+      else
+        limit_clause = ''
+      end
+
       sql = <<~SQL
       SELECT
         #{columns}
       FROM
-        #{tablename};
+        #{tablename}
+        #{limit_clause}
+        ;
       SQL
       ActiveRecord::Base.connection.execute(sql)
     end
@@ -51,7 +60,7 @@ module TabularMetadata
       end
 
       tables.each do |table|
-        metadata[table] = metadata_for(table, columns)
+        metadata[table] = metadata_for(table, columns, request.params['subset'])
       end
 
       [200, {'Content-Type' => 'application/json'}, [metadata.to_json]]
