@@ -6,7 +6,9 @@ require_relative 'app/tabular_metadata'
 
 use Rack::Cors do
   known_origins = [
-    'http://localhost:4200' 
+    'http://localhost:4200',
+    'http://staging.data-browser.mapc.org',
+    'http://data-browser.mapc.org',
   ]
 
   allow do

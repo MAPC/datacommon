@@ -25,7 +25,6 @@ module TabularMetadata
     end
 
     def metadata_for(tablename, columns, subset)
-
       if subset == 'meta'
         limit_clause = 'LIMIT 15'
       else
