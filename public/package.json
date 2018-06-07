@@ -1,0 +1,30 @@
+{
+  "name": "public",
+  "version": "1.0.0",
+  "description": "DataCommon Front-end",
+  "main": "index.html",
+  "repository": "https://github.com/mapc/datacommon",
+  "author": "Eric Youngberg <eyoungberg@mapc.org>",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "dependencies": {
+    "babel-plugin-root-import": "^6.0.0",
+    "history": "^4.7.2",
+    "node-sass": "^4.9.0",
+    "prop-types": "^15.6.1",
+    "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
+    "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "redux": "^2.0.0 || ^3.0.0 || ^4.0.0-0",
+    "redux-devtools-extension": "^2.13.2",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3"
+  }
+}
