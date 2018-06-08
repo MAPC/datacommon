@@ -1,0 +1,16 @@
+._clear {
+  &:after {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
+  }
+}
+
+._vertical-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+}

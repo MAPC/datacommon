@@ -1,0 +1,18 @@
+// Media query
+@mixin media($size) {
+  @if $size == 'x-small' {
+    @media (max-width: 480px) { @content; }
+  } @else if $size == 'small' {
+    @media (max-width: 670px) { @content; }
+  } @else if $size == 'medium-small' {
+    @media (max-width: 960px) { @content; }
+  } @else if $size == 'medium' {
+    @media (max-width: 1180px) { @content; }
+  } @else if $size == 'large' {
+    @media (max-width: 1280px) { @content; }
+  } @else if $size == 'x-large' {
+    @media (max-width: 1600px) { @content; }
+  } @else {
+    @media (max-width: $size) { @content; }
+  }
+}
