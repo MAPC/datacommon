@@ -1,0 +1,23 @@
+._clear {
+  &:after {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both; 
+  }
+}
+
+._vertical-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+}
+
+._spinner {
+  animation: spinning;
+  animation-duration: 1.2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
