@@ -35,7 +35,7 @@ def sql_query(table)
   columns = columns_in_table(table).reject { |column_name| column_name == 'shape' }
   "SELECT " +
   columns.join(', ') +
-  ', sde.ST_AsText(sde.ST_Transform(shape, 4326)) AS the_geom' +
+  ", NULLIF(sde.ST_AsText(sde.ST_Transform(shape, 4326))::text, 'EMPTY')" +
   " FROM #{@settings['database']['geospatial']['schema']['data']}.#{table};"
 end
 
