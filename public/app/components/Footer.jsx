@@ -1,5 +1,9 @@
 import React from 'react';
 
+import mapcLogo from '~/assets/images/mapc-logo.svg';
+import twitterImg from '~/assets/images/twitter.svg';
+import instagramImg from '~/assets/images/instagram.svg';
+
 
 class Footer extends React.Component {
 
@@ -7,7 +11,7 @@ class Footer extends React.Component {
     return (
       <footer>
         <div className="container">
-          <img className="mapc-logo" src="/assets/images/mapc-logo.svg" alt="MAPC Logo" />
+          <img className="mapc-logo" src={mapcLogo} alt="MAPC Logo" />
           <ul className="contact-list">
             <li>
               <a href="https://goo.gl/maps/5GP7YcEtS1E2">
@@ -31,12 +35,12 @@ class Footer extends React.Component {
             <ul className="social-list">
               <li>
                 <a href="https://twitter.com/MAPCMetroBoston">
-                  <img src="/assets/images/twitter.svg" alt="MAPC on Twitter" />
+                  <img src={twitterImg} alt="MAPC on Twitter" />
                 </a>
               </li>
               <li>
                 <a href="">
-                  <img src="/assets/images/instagram.svg" alt="MAPC on Instagram" />
+                  <img src={instagramImg} alt="MAPC on Instagram" />
                 </a>
               </li>
             </ul>

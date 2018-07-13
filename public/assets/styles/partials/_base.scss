@@ -6,7 +6,8 @@ body {
 
   background: $color_bg-light;
 
-  & > .ember-view {
+  & > .ember-view,
+  #root > .component.App {
     display: flex;
     flex-direction: column;
 
