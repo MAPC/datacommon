@@ -1,0 +1,68 @@
+header {
+  width: 100%;
+  padding: 16px 0 10px;
+
+  text-align: center;
+
+  background: $color_bg-light;
+
+  .container { display: flex; }
+
+  nav {
+    flex: 1 0;
+
+    div, ul { display: inline-block; }
+  }
+
+  .header-brand {
+    font-weight: 500;
+    font-size: $font_size-large;
+
+    a:hover { color: $color_font-dark--brand; }
+
+    img {
+      top: 5px;
+
+      height: 29px;
+      width: 29px;
+      margin-right: 5px;
+    }
+  }
+
+  ul {
+    margin-left: 2em;
+
+    font-size: $font_size-small;
+
+    li {
+      display: inline-block;
+
+      margin: auto 2em;
+    }
+
+    a {
+      $_speed: .12s;
+      color: $color_font-medium;
+
+      transition: color $_speed;
+
+      &:hover {
+        color: $color_font-medium--dark;
+
+        transition: color $_speed;
+      }
+
+      &.active {
+        color: $color_font-dark;
+        font-weight: 700;
+
+        transition: color $_speed;
+
+        &:hover { color: $color_font-dark--brand; }
+      }
+    }
+  }
+
+  .login-button { flex: 0 1; }
+
+}

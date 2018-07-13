@@ -1,0 +1,40 @@
+.component.search-bar {
+  z-index: 10;
+
+  min-width: 400px;
+  //max-width: 0px;
+
+  &:after {
+    @extend ._pseudo;
+    @extend ._gradient;
+
+    height: 5px;
+    width: 100%;
+  }
+
+  input {
+    width: 100%; 
+    padding: .7em 1.4em;
+
+    font-size: $font_size-medium;
+    font-weight: 100;
+    font-family: $font_family-primary;
+
+    border: none;
+    outline: none;
+  }
+
+  ul {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    z-index: -1;
+
+    width: 100%;
+    max-height: 50vh;
+
+    border: 1px solid $color_font-medium;
+    border-top: none;
+  }
+
+}

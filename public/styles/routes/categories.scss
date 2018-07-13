@@ -1,0 +1,37 @@
+.route.categories {
+
+  .search-bar { width: 60%; }
+
+  .category-lists {
+    @extend ._partial-bg;
+
+    .container { display: flex; }
+
+    .scrollable-menus {
+      flex: 1 0 29%;
+
+      max-width: 29%;
+      margin-right: 2%;
+
+      background: $color_bg-light;
+
+      &:nth-of-type(3) {
+        flex: 1 0 40%;
+        max-width: 40%;
+
+        margin-right: 0;
+      }
+
+      h3 {
+        margin: 0;
+        padding: .5em 1.4em;
+
+        font-size: $font_size-xsmall;
+        font-weight: 400;
+
+        border: 1px solid $color_font-medium;
+      }
+    }
+  }
+
+}

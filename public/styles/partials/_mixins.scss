@@ -16,3 +16,10 @@
     @media (max-width: $size) { @content; }
   }
 }
+
+@mixin partialGradient($piece, $total) {
+  $finish: mix($color_brand-secondary, $color_brand-primary, ($piece / $total) * 100);
+  $start: mix($color_brand-secondary, $color_brand-primary, (($piece - 1) / $total) * 100);
+
+  background: linear-gradient(to right, $start, $finish);
+}

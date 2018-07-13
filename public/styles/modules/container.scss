@@ -1,0 +1,9 @@
+.container {
+  width: 92.5%;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  text-align: left;
+
+  &.tight { padding: 0 7.07rem; }
+}

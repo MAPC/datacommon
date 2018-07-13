@@ -1,6 +1,46 @@
 body {
   color: $color_font-dark;
+  font-size: $font_size-base;
   font-family: $font_family-primary;
 
   background: $color_bg-light;
+
+  & > .ember-view {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100vh;
+  }
+}
+
+main {
+  flex: 1 1;
+
+  padding-bottom: 50px;
+}
+
+.divider-column {
+  position: relative;
+
+  padding: 0 !important;
+}
+
+.scroll-horizontal-rotated {
+  overflow-x: auto;
+  transform:rotateX(180deg);
+  -ms-transform:rotateX(180deg); /* IE 9 */
+  -webkit-transform:rotateX(180deg); /* Safari and Chrome */
+}
+
+.cancel-rotate {
+  transform:rotateX(180deg);
+  -ms-transform:rotateX(180deg); /* IE 9 */
+  -webkit-transform:rotateX(180deg); /* Safari and Chrome */
+}
+
+.lift { box-shadow: 0 2px 4px rgba(0,0,0,.14); }
+
+.page-header {
+  padding: 2rem 0;
+  background: $color_bg-medium;
 }

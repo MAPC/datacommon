@@ -8,13 +8,19 @@ import { history, store } from './store';
 import AppContainer from './containers/AppContainer';
 
 
-const Index = () => (
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <Route path="/" component={AppContainer} />
-    </ConnectedRouter>
-  </Provider>
-);
+class Index extends React.Component {
+
+  render() {
+    return (
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Route path="/" component={AppContainer} />
+        </ConnectedRouter>
+      </Provider>
+    );
+  }
+
+};
 
 ReactDOM.render(
   <Index />,

@@ -21,3 +21,27 @@
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
+
+._pseudo {
+  content: '';
+  display: block;
+  height: 0;
+}
+
+._partial-bg {
+  &:after {
+    @extend ._pseudo;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    width: 100%;
+    height: 65px;
+
+    background: $color_bg-medium;
+  }
+}
+
+._gradient { background: linear-gradient(to right, $color_brand-primary, $color_brand-secondary); }

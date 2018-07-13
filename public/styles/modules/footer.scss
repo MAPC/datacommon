@@ -1,0 +1,68 @@
+footer {
+  $_opaque: .8;
+
+  z-index: 0;
+
+  padding: 15px;
+
+  color: rgba($color_font-light, $_opaque);
+  font-size: #{(10/16)}rem;
+
+  background: $color_bg-dark;
+
+  .container { 
+    display: flex; 
+    vertical-align: middle;
+  }
+
+  .mapc-logo {
+    height: 45px;  
+    margin: auto;
+    margin-right: 40px;
+  }
+
+  ul {
+    flex: 1 1;
+    vertical-align: middle;
+
+    padding: 0;
+    margin: auto;
+
+    list-style: none; 
+
+    &.contact-list li { 
+      padding: 6px 15px;
+
+      border-right: 1px solid rgba($color_font-light, $_opaque);
+      &:last-of-type { border-right: none; }
+    }
+
+    &.social-list {
+      display: inline-block;
+
+      li { margin-left: 20px; }
+    }
+
+    li { display: inline-block; }
+
+    img {
+      height: 20px; 
+    }
+  }
+  
+  a { 
+    color: $color_font-light; 
+
+    opacity: $_opaque;
+    transition: opacity .18s;
+
+    &:hover {
+      color: $color_font-light; 
+
+      opacity: 1; 
+      transition: opacity .18s;
+    }
+  }
+
+  .social { margin: auto; }
+}
