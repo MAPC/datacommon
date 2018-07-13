@@ -15,11 +15,11 @@ $color_font-dark--brand: mix($color_brand-primary, $color_font-dark, 25);
 
 $font_family-primary: 'skolar-sans-latin', Helvetica, sans-serif;
 
-$font_size-base: 14px;
+$font_size-base: 16px;
 $font_size-base--rem: 1rem;
-$font_size-xsmall: .8571rem;  // 12px
-$font_size-small: 1.1429rem;  // 16px
-$font_size-medium: 1.4286rem; // 20px
-$font_size-large: 2.1429rem;  // 30px
+$font_size-xsmall: .75rem;  // 12px
+$font_size-small: 1rem;  // 16px
+$font_size-medium: 1.25rem; // 20px
+$font_size-large: 1.875rem;  // 30px
 
 $elem_button-radius: 5px;

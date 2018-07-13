@@ -1,6 +1,8 @@
-//@import 'normalize'; // Using the Normalize.css library to help with reset
+@import 'normalize'; // Using the Normalize.css library to help with reset
 
-* { 
+html { font-size: $font_size-base; }
+
+* {
   position: relative;
   box-sizing: border-box;
 }
@@ -8,12 +10,14 @@
 a {
   color: $color_font-dark;
   text-decoration: none;
+
   outline: none;
 }
 
 button, img { outline: none; }
 
 ul {
-  list-style: none;
   padding: 0;
+
+  list-style: none;
 }

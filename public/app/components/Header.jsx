@@ -1,5 +1,7 @@
 import React from 'react';
 
+import logoImg from '~/assets/images/logo.svg';
+
 
 class Header extends React.Component {
 
@@ -10,7 +12,7 @@ class Header extends React.Component {
           <nav>
             <div className="header-brand">
               <a href="/">
-                <img src="/assets/images/logo.svg" alt="DataCommon Logo" />
+                <img src={logoImg} alt="DataCommon Logo" />
                 DataCommon
               </a>
             </div>
