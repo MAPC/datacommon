@@ -4,7 +4,7 @@ import { routerMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import rootReducer from '~/app/reducers/root-reducer';
+import rootReducer from '~/app/reducers/root';
 
 
 export const history = createHistory();
@@ -16,7 +16,7 @@ export const store = ((initialState, _history) => (
       applyMiddleware(
         middleware,
         routerMiddleware(_history)
-      ) 
+      )
     )
   )
 ))({}, history);

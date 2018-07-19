@@ -1,8 +1,8 @@
-.component.search-bar {
+.component.search-bar, .component.SearchBar {
   z-index: 10;
 
   min-width: 400px;
-  //max-width: 0px;
+  margin: 0 auto;
 
   &:after {
     @extend ._pseudo;
@@ -13,7 +13,7 @@
   }
 
   input {
-    width: 100%; 
+    width: 100%;
     padding: .7em 1.4em;
 
     font-size: $font_size-medium;

@@ -1,7 +1,11 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import Header from './Header';
-import Footer from './Footer';
+import Faq from './Faq';
+import Home from './Home';
+import Header from './partials/Header';
+import Footer from './partials/Footer';
+import CommunityProfiles from '../containers/CommunityProfiles';
 
 
 class App extends React.Component {
@@ -12,6 +16,11 @@ class App extends React.Component {
         <Header />
 
         <main>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/faq" component={Faq} />
+            <Route path="/community-profiles" component={CommunityProfiles} />
+          </Switch>
         </main>
 
         <Footer />

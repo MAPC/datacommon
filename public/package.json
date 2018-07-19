@@ -10,6 +10,8 @@
     "start": "parcel index.html"
   },
   "dependencies": {
+    "babel-plugin-wildcard": "^5.0.0",
+    "fs": "npm:fs",
     "history": "^4.7.2",
     "prop-types": "^15.6.1",
     "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
@@ -22,9 +24,9 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "redux-devtools-extension": "^2.13.2",
-    "node-sass": "^4.9.0",
+    "babel-core": "^6.26.3",
     "babel-plugin-root-import": "^6.0.0",
-    "babel-core": "^6.26.3"
+    "node-sass": "^4.9.0",
+    "redux-devtools-extension": "^2.13.2"
   }
 }

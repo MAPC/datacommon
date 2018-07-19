@@ -5,13 +5,13 @@ import { Route } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 
 import { history, store } from './store';
-import AppContainer from './containers/AppContainer';
+import App from './containers/App';
 
 
 const Index = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Route path="/" component={AppContainer} />
+      <Route path="/" component={App} />
     </ConnectedRouter>
   </Provider>
 );
