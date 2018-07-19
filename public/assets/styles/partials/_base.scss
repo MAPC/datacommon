@@ -46,3 +46,9 @@ main {
   padding: 2rem 0;
   background: $color_bg-medium;
 }
+
+.page-section {
+  //padding: 40px 0;
+
+  &.grey { background: $color_bg-medium; }
+}

@@ -5,5 +5,8 @@
 
   text-align: left;
 
-  &.tight { padding: 0 7.07rem; }
+  &.tight {
+    padding-left: 7.07rem;
+    padding-right: 7.07rem;
+  }
 }

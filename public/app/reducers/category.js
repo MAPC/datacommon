@@ -4,51 +4,51 @@ import types from '../actions/types';
 const defaultState = {
   cache: [
     {
-      name: 'Education',
+      title: 'Education',
       icon: 'book-with-apple.svg',
     },
     {
-      name: 'Demographics',
+      title: 'Demographics',
       icon: 'book-with-apple.svg',
     },
     {
-      name: 'Public Health',
+      title: 'Public Health',
       icon: 'book-with-apple.svg',
     },
     {
-      name: 'Education',
+      title: 'Education',
       icon: 'book-with-apple.svg',
     },
     {
-      name: 'Education',
+      title: 'Education',
       icon: 'book-with-apple.svg',
     },
     {
-      name: 'Education',
+      title: 'Education',
       icon: 'book-with-apple.svg',
     },
     {
-      name: 'Education',
+      title: 'Education',
       icon: 'book-with-apple.svg',
     },
     {
-      name: 'Education',
+      title: 'Education',
       icon: 'book-with-apple.svg',
     },
     {
-      name: 'Education',
+      title: 'Education',
       icon: 'book-with-apple.svg',
     },
     {
-      name: 'Education',
+      title: 'Education',
       icon: 'book-with-apple.svg',
     },
     {
-      name: 'Education',
+      title: 'Education',
       icon: 'book-with-apple.svg',
     },
     {
-      name: 'Education',
+      title: 'Education',
       icon: 'book-with-apple.svg',
     },
   ],

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import SearchBar from '../components/SearchBar';
 import { fetchAll } from '../actions/dataset';
+import SearchBar from '../components/SearchBar';
 
 
 const mapStateToProps = ({ dataset }, props) => {

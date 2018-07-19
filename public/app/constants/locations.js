@@ -5,7 +5,7 @@ const locations {
   },
 
   production: {
-    HOST: 'http://localhost:1234',
+    HOST: 'https://datacommon.mapc.org',
     BROWSER: 'https://datacommon.carto.mapc.org/api/v2/sql?q=',
   },
 };

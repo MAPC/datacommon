@@ -6,8 +6,14 @@
     padding: 92px 0;
   }
 
-  .SearchBar {
-    max-width: 800px;
+  .SearchBar { max-width: 800px; }
+
+  h2 {
+    margin: 0;
+    padding: 40px 0;
   }
 
+  .CategoryGrid { margin: 0 auto 80px; }
+
+  .page-section:last-of-type { margin-bottom: -50px; }
 }

@@ -8,7 +8,7 @@ class CategoryGrid extends React.Component {
 
   renderCategories() {
     return this.props.categories.map((category, i) => (
-      <li key={i}>
+      <li key={i} className="lift">
         <Link to={`/browser/${category.endpoint}`}>
           <div className="category-image">
             <img src={icons[category.icon]} alt={`Icon for ${category.title}`} />

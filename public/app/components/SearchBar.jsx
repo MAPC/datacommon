@@ -3,6 +3,11 @@ import React from 'react';
 
 class SearchBar extends React.Component {
 
+  componentWillMount() {
+    this.props.fetchDatasets();
+  }
+
+
   renderResults() {
     const results = this.props.results.map(result => (
       <li>
