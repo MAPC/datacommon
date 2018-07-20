@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import CategoryGrid from '../components/CategoryGrid';
 
 
-const mapStateToProps = ({ category }, props) => ({
-  categories: category.cache
+const mapStateToProps = ({ dataset }, props) => ({
+  categories: dataset.categories
 });
 
 const mapDispatchToProps = (dispatch, props) => ({});

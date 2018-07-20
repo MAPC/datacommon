@@ -1,6 +1,7 @@
 {
   "plugins": [
     "root-import", 
+    "transform-object-rest-spread",
     "wildcard",
     [
       "transform-runtime", {
