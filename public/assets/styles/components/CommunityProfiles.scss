@@ -1,0 +1,38 @@
+.component.CommunityProfiles {
+  .page-header {
+    a {
+      position: absolute;
+      top: 2em;
+      left: 2em;
+    }
+  }
+
+  header {
+    text-align: left;
+    background-color: transparent;
+    padding: 0 8em;
+    margin-bottom: 1.5em;
+    h1 {
+      margin: 0;
+    }
+  }
+  section.about {
+    display: flex;
+    padding: 0 8em;
+    .outline {
+      width: 200px;
+      margin-right: 1em;
+    }
+    .description {
+      flex: 1;
+    }
+  }
+  .data {
+    @extend ._partial-bg;
+    .box {
+      border: 2px solid black;
+      height: 1000px;
+    }
+  }
+
+}

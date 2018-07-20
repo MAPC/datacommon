@@ -9,6 +9,6 @@ export function fetchAll() {
 
 export function update() {
   return {
-    type: types.MUNICIPAL.UPDATE,
+    type: types.MUNICIPALITY.UPDATE,
   };
 }
