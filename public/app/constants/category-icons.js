@@ -7,5 +7,6 @@
 import bookWithApple from '~/assets/images/book-with-apple.svg';
 
 export default {
-  'book-with-apple.svg': bookWithApple,
+  'Education': bookWithApple,
+  'default': bookWithApple,
 };
