@@ -4,7 +4,7 @@ export default {
     UPDATE: 'dataset.update',
   },
 
-  MUNICIPAL: {
+  MUNICIPALITY: {
     UPDATE: 'municipal.update',
   },
 

@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 
 import MuniSelect from '~/app/components/MuniSelect';
-import { fetchAll } from '../actions/municipal';
+import { fetchAll } from '../actions/municipality';
 
 
-const mapStateToProps = ({ muniSelect }, props) => ({
-  options: muniSelect.cache,
+const mapStateToProps = ({ municipality }, props) => ({
+  options: municipality.cache,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
