@@ -10,7 +10,7 @@ class SearchBar extends React.Component {
 
   renderResults() {
     const results = this.props.results.map(result => (
-      <li>
+      <li key={result.title}>
         <a href={`/browser/${result.id}`}>{result.title}</a>
       </li>
     ));
@@ -20,12 +20,16 @@ class SearchBar extends React.Component {
 
 
   render() {
-    const { results } = this.props;
+    const { results, query } = this.props;
 
     return (
       <div className="component SearchBar">
-        <input placeholder={`Search ${results.length} datasets ...`} />
-        {results.length ? this.renderResults() : null}
+        <input
+          value={query}
+          placeholder={`Search ${results.length} datasets ...`}
+          onChange={({ target }) => this.props.search(target.value)}
+        />
+        {(results.length && query.length) ? this.renderResults() : null}
       </div>
     );
   }

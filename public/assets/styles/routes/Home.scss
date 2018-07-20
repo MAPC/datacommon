@@ -1,12 +1,15 @@
 .route.Home {
 
   .page-header {
-    text-align: center;
-
     padding: 92px 0;
+
+    text-align: center;
   }
 
-  .SearchBar { max-width: 800px; }
+  .SearchBar {
+    max-width: 800px;
+    margin: 0 auto;
+  }
 
   h2 {
     margin: 0;
