@@ -14,7 +14,7 @@ class CategoryGrid extends React.Component {
             <img src={icons[category] || icons['default']} alt={`Icon for ${category}`} />
           </div>
 
-          {category}
+          <h4>{category}</h4>
         </Link>
       </li>
     ));
