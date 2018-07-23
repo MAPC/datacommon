@@ -12,7 +12,7 @@ export default function dataset(state = defaultState, action) {
   switch(action.type) {
     case types.DATASET.UPDATE:
       const cache = action.datasets;
-      const categories = [...cache.reduce((a,b) => a.add(b.menu1), new Set())];
+      const categories = [...cache.reduce((a,b) => a.add(b.menu1), new Set())].sort();
 
       newState = { cache, categories };
       break;
