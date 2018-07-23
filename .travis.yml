@@ -14,5 +14,8 @@ cache:
   directories:
     - "node_modules"
 
+before_script:
+  - yarn install
+
 script:
   - cd public && yarn test
