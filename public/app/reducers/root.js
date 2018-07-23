@@ -4,14 +4,14 @@ import { routerReducer as router } from 'react-router-redux';
 import dataset from './dataset';
 import category from './category';
 import searchBar from './searchBar';
-import muniSelect from './muniSelect';
+import municipality from './municipality';
 
 const rootReducer = combineReducers({
   router,
   dataset,
   category,
   searchBar,
-  muniSelect,
+  municipality,
 });
 
 export default rootReducer;
