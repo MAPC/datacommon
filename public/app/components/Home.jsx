@@ -3,6 +3,7 @@ import React from 'react';
 import SearchBar from '../containers/SearchBar';
 import MuniSelect from '../containers/MuniSelect';
 import CategoryGrid from '../containers/CategoryGrid';
+import Particles from './partials/Particles';
 
 import massPoly from '~/assets/images/mass.svg';
 
@@ -14,6 +15,8 @@ class Home extends React.Component {
       <section className="route Home">
 
         <div className="page-header">
+          <Particles />
+
           <div className="container tight">
             <SearchBar />
           </div>

@@ -1,9 +1,11 @@
 .route.Home {
 
   .page-header {
-    padding: 92px 0;
+    padding: 120px 0;
 
     text-align: center;
+
+    background: linear-gradient(to bottom, #{$color_bg-medium}, #{darken($color_bg-medium, 6)});
   }
 
   .SearchBar {

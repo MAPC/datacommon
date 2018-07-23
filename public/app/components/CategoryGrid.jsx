@@ -9,13 +9,13 @@ class CategoryGrid extends React.Component {
   renderCategories() {
     return this.props.categories.map(category => (
       <li key={category} className="lift">
-        <Link to={`/browser/${category}`}>
+        <a href={`/browser/${category}`}>
           <div className="category-image">
             <img src={icons[category] || icons['default']} alt={`Icon for ${category}`} />
           </div>
 
           <h4>{category}</h4>
-        </Link>
+        </a>
       </li>
     ));
   }

@@ -11,7 +11,7 @@ class SearchBar extends React.Component {
   renderResults() {
     const results = this.props.results.map(result => (
       <li key={result.title}>
-        <a href={`/browser/${result.id}`}>{result.title}</a>
+        <a href={`/browser/datasets/${result.id}`}>{result.title}</a>
       </li>
     ));
 
