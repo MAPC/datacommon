@@ -7,7 +7,8 @@
   "author": "Eric Youngberg <eyoungberg@mapc.org>",
   "license": "MIT",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "staging": "parcel build index.html && rsync -r dist/* datacommon@prep.mapc.org:/var/www/datacommon/current/public/"
   },
   "dependencies": {
     "history": "^4.7.2",
