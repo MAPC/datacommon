@@ -1,6 +1,6 @@
 {
   "plugins": [
-    "root-import", 
+    "root-import",
     "transform-object-rest-spread",
     "wildcard",
     [
@@ -9,5 +9,6 @@
         "regenerator": true
       }
     ]
-  ]
+  ],
+  "presets": ["env"]
 }
