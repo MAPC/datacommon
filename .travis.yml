@@ -12,10 +12,10 @@ before_install:
 cache:
   yarn: true
   directories:
-    - "node_modules"
+    - "public/node_modules"
 
 before_script:
-  - yarn install
+  - cd public && yarn install
 
 script:
   - cd public && yarn test
