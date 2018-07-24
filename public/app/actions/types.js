@@ -8,8 +8,8 @@ export default {
     UPDATE: 'municipal.update',
   },
 
-  SEARCH_BAR: {
-    SEARCH: 'search_bar.search',
+  SEARCH: {
+    STORE_RESULTS: 'search.store_results',
   },
 
 };

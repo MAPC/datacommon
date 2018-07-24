@@ -1,17 +1,30 @@
 import React from 'react';
 
+import wordSearch from '~/app/utils/wordSearch';
+
 
 class SearchBar extends React.Component {
 
-  componentWillMount() {
-    this.props.fetchDatasets();
+  constructor(props) {
+    super(props);
+
+    this.search = this.search.bind(this);
+  }
+
+
+  search(query) {
+    const results = query.length
+      ? wordSearch(this.props.items, query, this.props.searchColumn)
+      : this.props.items;
+
+    this.props.onSearch(results, query);
   }
 
 
   renderResults() {
-    const results = this.props.results.map(result => (
-      <li key={result.title}>
-        <a href={`/browser/datasets/${result.id}`}>{result.title}</a>
+    const results = this.props.results.map((result,i) => (
+      <li key={i} onClick={() => this.props.action(result)}>
+        <span className="a-tag">{result[this.props.searchColumn]}</span>
       </li>
     ));
 
@@ -26,8 +39,8 @@ class SearchBar extends React.Component {
       <div className="component SearchBar">
         <input
           value={query}
-          placeholder={`Search ${results.length} datasets ...`}
-          onChange={({ target }) => this.props.search(target.value)}
+          placeholder={this.props.placeholder}
+          onChange={({ target }) => this.search(target.value)}
         />
         {(results.length && query.length) ? this.renderResults() : null}
       </div>

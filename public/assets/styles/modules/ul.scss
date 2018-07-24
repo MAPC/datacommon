@@ -9,7 +9,7 @@ ul {
     overflow-x: hidden;
 
     li {
-      font-size: $font_size-small; 
+      font-size: $font_size-small;
 
       background: $color_bg-light;
 
@@ -18,7 +18,7 @@ ul {
       &:last-of-type a { border-bottom: none; }
     }
 
-    a {
+    a, span.a-tag {
       display: block;
 
       width: 100%;
@@ -28,13 +28,14 @@ ul {
       border: solid transparent;
       border-width: 1px 0;
       transition: border .12s;
-    
-      &:hover { 
+      cursor: pointer;
+
+      &:hover {
         color: $color_font-dark;
 
         border-color: $color_font-medium;
         transition: border .12s;
-      } 
+      }
     }
   }
 

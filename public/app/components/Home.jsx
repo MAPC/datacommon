@@ -1,13 +1,30 @@
 import React from 'react';
 
+import SearchBar from './SearchBar';
 import Particles from './partials/Particles';
-import SearchBar from '../containers/SearchBar';
 import MuniSelect from '../containers/MuniSelect';
 import CategoryGrid from '../containers/CategoryGrid';
 import CommunitySelector from '../containers/CommunitySelector';
 
 
 class Home extends React.Component {
+
+  constructor() {
+    super(...arguments);
+
+    this.toDataset = this.toDataset.bind(this);
+  }
+
+
+  componentWillMount() {
+    this.props.fetchDatasets();
+  }
+
+
+  toDataset(dataset) {
+    window.location.pathname = `/browser/datasets/${dataset.id}`;
+  }
+
 
   render() {
     return (
@@ -17,7 +34,15 @@ class Home extends React.Component {
           <Particles />
 
           <div className="container tight">
-            <SearchBar />
+            <SearchBar
+              action={selected => this.toDataset(selected)}
+              query={this.props.datasetsQuery}
+              items={this.props.datasets}
+              results={this.props.datasetsResults}
+              onSearch={(results, query) => this.props.storeDatasetSearchResults(results, query)}
+              placeholder={`Search ${this.props.datasets.length} datasets ...`}
+              searchColumn={'title'}
+            />
           </div>
         </div>
 
@@ -38,3 +63,4 @@ class Home extends React.Component {
 }
 
 export default Home;
+

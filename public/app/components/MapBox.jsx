@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import colors from '~/app/constants/colors';
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 
 
@@ -22,6 +24,19 @@ class MapBox extends React.Component {
 
     this.map.on('load', () => {
       this.map.resize();
+      this.props.features.forEach(feature => {
+        this.map.addLayer({
+          id: 'ma',
+          type: 'line',
+          source: {
+            type: 'geojson',
+            data: feature,
+          },
+          paint: {
+            'line-color': ['get', 'color'],
+          },
+        });
+      });
     });
   }
 
