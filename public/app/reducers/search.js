@@ -1,26 +1,26 @@
 import types from '../actions/types';
 
-const defaultSearchResult = {
+const defaultModel = {
   query: '',
   results: [],
 };
 
 const defaultState = {
-  dataset: defaultSearchResult,
-  municipality: defaultSearchResult,
+  dataset: defaultModel,
+  municipality: defaultModel,
 };
 
 export default function search(state = defaultState, action) {
   let newState = {};
 
   switch(action.type) {
-    case types.SEARCH.STORE_RESULTS:
-      newState = {
-        [action.store]: {
-          results: action.results,
-          query: action.query,
-        }
+    case types.SEARCH.SET_RESULTS:
+      const newModel = {
+        results: action.results,
+        query: action.query,
       };
+
+      newState = { [action.model]: { ...state[action.model], ...newModel }};
       break;
   }
 

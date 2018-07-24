@@ -9,7 +9,7 @@ export default {
   },
 
   SEARCH: {
-    STORE_RESULTS: 'search.store_results',
+    SET_RESULTS: 'search.set_results',
   },
 
 };

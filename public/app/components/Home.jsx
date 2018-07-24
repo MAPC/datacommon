@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SearchBar from './SearchBar';
 import Particles from './partials/Particles';
+import SearchBar from '../containers/SearchBar';
 import MuniSelect from '../containers/MuniSelect';
 import CategoryGrid from '../containers/CategoryGrid';
 import CommunitySelector from '../containers/CommunitySelector';
@@ -35,13 +35,10 @@ class Home extends React.Component {
 
           <div className="container tight">
             <SearchBar
-              action={selected => this.toDataset(selected)}
-              query={this.props.datasetsQuery}
-              items={this.props.datasets}
-              results={this.props.datasetsResults}
-              onSearch={(results, query) => this.props.storeDatasetSearchResults(results, query)}
-              placeholder={`Search ${this.props.datasets.length} datasets ...`}
+              model={'dataset'}
               searchColumn={'title'}
+              action={selected => this.toDataset(selected)}
+              placeholder={`Search ${this.props.datasets.length} datasets ...`}
             />
           </div>
         </div>

@@ -1,9 +1,9 @@
 import types from './types';
 
-export function storeSearchResults(store, results, query) {
+export function setResults(model, results, query) {
   return {
-    type: types.SEARCH.STORE_RESULTS,
-    store,
+    type: types.SEARCH.SET_RESULTS,
+    model,
     query,
     results,
   };

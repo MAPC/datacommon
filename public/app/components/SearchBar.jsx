@@ -17,7 +17,7 @@ class SearchBar extends React.Component {
       ? wordSearch(this.props.items, query, this.props.searchColumn)
       : this.props.items;
 
-    this.props.onSearch(results, query);
+    this.props.setResults(results, query);
   }
 
 
