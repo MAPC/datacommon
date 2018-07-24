@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "history": "^4.7.2",
-    "mapbox-gl": "^0.47.0",
     "prop-types": "^15.6.1",
     "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
     "react-dom": "^16.4.0",

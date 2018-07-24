@@ -1,8 +1,5 @@
 import React from 'react';
 
-import mapboxgl from 'mapbox-gl';
-
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 
 class CommunitySelector extends React.Component {
@@ -10,11 +7,12 @@ class CommunitySelector extends React.Component {
   componentDidMount() {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/mapbox/light-v9',
-      centroid: [-71.0589, 42.3601],
-      zoom: 12,
-      inZoom: 12,
-      maxZoom: 15,
+      style: 'mapbox://styles/ihill/cjjyl8uj509sj2smehs79fzyq',
+      center: [-72, 42.36],
+      maxBounds: [[-75.6, 41], [-69.5, 43.1]],
+      zoom: 7,
+      minZoom: 7,
+      maxZoom: 11,
     });
 
     this.map.on('load', () => {
