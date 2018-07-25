@@ -22,6 +22,7 @@ class SearchBar extends React.Component {
     this.props.setResults(results, query);
   }
 
+
   executeAction(result) {
     this.props.action(result);
     this.props.clear();

@@ -4,11 +4,10 @@ import SearchBar from '~/app/components/SearchBar';
 import { setResults, clear } from '~/app/actions/search';
 
 
-const mapStateToProps = (state, props) => { console.log(state); return ({
+const mapStateToProps = (state, props) => ({
     items: state[props.model].searchable,
     ...state.search[props.model],
-    history: state.history,
-})};
+});
 
 const mapDispatchToProps = (dispatch, props) => ({
   setResults: (results, query) => dispatch(setResults(props.model, results, query)),

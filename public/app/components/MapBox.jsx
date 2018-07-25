@@ -45,10 +45,8 @@ class MapBox extends React.Component {
   componentDidUpdate() {
     const source = this.map.getSource('ma');
 
-    console.log('checking');
     if (source) {
-      console.log('Received');
-      source.setData(this.props.features[0]);
+      source.setData(this.props.features);
     }
   }
 

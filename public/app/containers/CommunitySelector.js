@@ -7,7 +7,7 @@ import colors from '~/app/constants/colors';
 
 
 const mapStateToProps = ({ municipality, search }, props) => {
-  const munisPoly = municipality.geojson;
+  const munisPoly = { ...municipality.geojson };
   const searchResults = search.municipality.results;
 
   munisPoly.features.forEach(feature => {
