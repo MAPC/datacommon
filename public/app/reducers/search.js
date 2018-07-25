@@ -3,6 +3,7 @@ import types from '../actions/types';
 const defaultModel = {
   query: '',
   results: [],
+  hovering: null,
 };
 
 const defaultState = {
@@ -21,6 +22,10 @@ export default function search(state = defaultState, action) {
       };
 
       newState = { [action.model]: { ...state[action.model], ...newModel }};
+      break;
+
+    case types.SEARCH.SET_HOVERING:
+      newState = { [action.model]: { ...state[action.model], ...{ hovering: action.value }}};
       break;
 
     case types.SEARCH.CLEAR_MODEL:

@@ -31,7 +31,12 @@ class SearchBar extends React.Component {
 
   renderResults() {
     const results = this.props.results.map((result,i) => (
-      <li key={i} onClick={() => this.executeAction(result)}>
+      <li
+        key={i}
+        onClick={() => this.executeAction(result)}
+        onMouseEnter={() => this.props.setHovering(result)}
+        onMouseLeave={() => this.props.setHovering(null)}
+      >
         <span className="a-tag">{capitalize(result[this.props.searchColumn] || result)}</span>
       </li>
     ));
@@ -56,5 +61,9 @@ class SearchBar extends React.Component {
   }
 
 }
+
+SearchBar.propTypes = {
+
+};
 
 export default SearchBar;

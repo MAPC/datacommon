@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import SearchBar from '~/app/components/SearchBar';
-import { setResults, clear } from '~/app/actions/search';
+import { setResults, setHovering, clear } from '~/app/actions/search';
 
 
 const mapStateToProps = (state, props) => ({
@@ -11,6 +11,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
   setResults: (results, query) => dispatch(setResults(props.model, results, query)),
+  setHovering: (value) => dispatch(setHovering(props.model, value)),
   clear: () => dispatch(clear(props.model)),
 });
 

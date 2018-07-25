@@ -6,11 +6,12 @@ export default {
 
   MUNICIPALITY: {
     UPDATE: 'municipality.update',
-    OUTLINE_GEOJSON: 'municipality.outline_geojson',
+    FILL_POLY: 'municipality.fill_poly',
   },
 
   SEARCH: {
     SET_RESULTS: 'search.set_results',
+    SET_HOVERING: 'search.set_hovering',
     CLEAR_MODEL: 'search.clear_model',
   },
 

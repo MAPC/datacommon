@@ -8,6 +8,30 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thO
 
 class MapBox extends React.Component {
 
+  constructor() {
+    super(...arguments) ;
+
+    this.addLayer = this.addLayer.bind(this);
+  }
+
+
+  addLayer(layer = null) {
+    if (layer && !this.map.getSource(`ma-${layer.type}`)) {
+      this.map.addLayer({
+        id: `ma-${layer.type}`,
+        type: layer.type,
+        source: {
+          type: 'geojson',
+          data: layer.geojson,
+        },
+        paint: {
+          [`${layer.type}-color`]: colors.BRAND.PRIMARY,
+        },
+      });
+    }
+  }
+
+
   componentDidMount() {
     this.map = new mapboxgl.Map({
       ...{
@@ -24,30 +48,29 @@ class MapBox extends React.Component {
 
     this.map.on('load', () => {
       this.map.resize();
-      this.map.addLayer({
-        id: 'ma',
-        type: 'line',
-        source: {
-          type: 'geojson',
-          data: this.props.features,
-        },
-        paint: {
-          'line-color': ['get', 'lineColor'],
-        },
-      });
+      this.props.layers.forEach(this.addLayer);
     });
   }
+
 
   componentWillUnmount() {
     this.map.remove();
   }
 
-  componentDidUpdate() {
-    const source = this.map.getSource('ma');
 
-    if (source) {
-      source.setData(this.props.features);
-    }
+  componentDidUpdate() {
+    this.props.layers.forEach(layer => {
+      if (layer) {
+        var source = this.map.getSource(`ma-${layer.type}`);
+
+        if (source) {
+          source.setData(layer.geojson);
+        }
+        else {
+          this.addLayer(layer);
+        }
+      }
+    });
   }
 
   render() {
@@ -70,3 +93,4 @@ MapBox.propTypes = {
 };
 
 export default MapBox;
+

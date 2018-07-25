@@ -9,6 +9,14 @@ export function setResults(model, results, query) {
   };
 };
 
+export function setHovering(model, value) {
+  return {
+    type: types.SEARCH.SET_HOVERING,
+    model,
+    value,
+  };
+}
+
 export function clear(model) {
   return {
     type: types.SEARCH.CLEAR_MODEL,

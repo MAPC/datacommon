@@ -1,6 +1,7 @@
 import types from '../actions/types';
 
-import municipalities from '../../assets/data/ma-munis.json';
+import colors from '~/app/constants/colors';
+import municipalities from '~/assets/data/ma-munis.json';
 
 const defaultState = {
   cache: municipalities.features.reduce((cache, feature) =>
@@ -10,10 +11,25 @@ const defaultState = {
 };
 
 export default function municipality(state = defaultState, action) {
+  let newState = {};
 
   switch(action.type) {
-    default:
-      return state;
+    case types.MUNICIPALITY.FILL_POLY:
+      const newGeoJSON = { ...state.geojson };
+
+      newGeoJSON.features.some(feature => {
+        if (feature.properties.town.toLowerCase() === action.muni) {
+          return true && (feature.properties.fillColor = colors.BRAND.PRIMARY);
+        }
+      });
+
+      newState = { ...state, ...{ geojson: newGeoJSON }};
+      break;
+
+    case types.MUNICIPALITY.EMPTY_POLY:
+      newState = { ...state, ...{ geojson: { ...defaultState.geojson }}};
+      break;
   }
 
+  return { ...defaultState, ...state, ...newState };
 };
