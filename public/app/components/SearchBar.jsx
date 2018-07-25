@@ -1,6 +1,8 @@
 import React from 'react';
 
+
 import wordSearch from '~/app/utils/wordSearch';
+import capitalize from '~/app/utils/capitalize';
 
 
 class SearchBar extends React.Component {
@@ -20,11 +22,16 @@ class SearchBar extends React.Component {
     this.props.setResults(results, query);
   }
 
+  executeAction(result) {
+    this.props.action(result);
+    this.props.clear();
+  }
+
 
   renderResults() {
     const results = this.props.results.map((result,i) => (
-      <li key={i} onClick={() => this.props.action(result)}>
-        <span className="a-tag">{result[this.props.searchColumn]}</span>
+      <li key={i} onClick={() => this.executeAction(result)}>
+        <span className="a-tag">{capitalize(result[this.props.searchColumn] || result)}</span>
       </li>
     ));
 

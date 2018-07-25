@@ -8,3 +8,10 @@ export function setResults(model, results, query) {
     results,
   };
 };
+
+export function clear(model) {
+  return {
+    type: types.SEARCH.CLEAR_MODEL,
+    model
+  };
+}

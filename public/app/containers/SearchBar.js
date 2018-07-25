@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
 
 import SearchBar from '~/app/components/SearchBar';
-import { setResults } from '~/app/actions/search';
+import { setResults, clear } from '~/app/actions/search';
 
 
-const mapStateToProps = (state, props) => ({
-    items: state[props.model].cache,
+const mapStateToProps = (state, props) => { console.log(state); return ({
+    items: state[props.model].searchable,
     ...state.search[props.model],
-});
+    history: state.history,
+})};
 
 const mapDispatchToProps = (dispatch, props) => ({
-  setResults: (results, query) => dispatch(setResults(props.model, results, query))
+  setResults: (results, query) => dispatch(setResults(props.model, results, query)),
+  clear: () => dispatch(clear(props.model)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

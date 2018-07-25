@@ -16,11 +16,15 @@ export default function search(state = defaultState, action) {
   switch(action.type) {
     case types.SEARCH.SET_RESULTS:
       const newModel = {
-        results: action.results,
+        results: action.results.sort(),
         query: action.query,
       };
 
       newState = { [action.model]: { ...state[action.model], ...newModel }};
+      break;
+
+    case types.SEARCH.CLEAR_MODEL:
+      newState = { [action.model]: { ...state[action.model], ...defaultModel }};
       break;
   }
 

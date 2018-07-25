@@ -24,7 +24,7 @@ class Particles extends React.Component {
     var b_canvas,
       contxt,
       size = 4,
-      dotCount = 250,
+      dotCount = 200,
       lineWidth = 2,
       neigborDistance = 45,
       dotColor = colors.BRAND.PRIMARY,

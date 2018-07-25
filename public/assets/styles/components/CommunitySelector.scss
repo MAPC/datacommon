@@ -7,4 +7,12 @@
 
   .mapboxgl-canvas-container { height: 100%; }
 
+  .search-box {
+    position: absolute;
+    top: 10%;
+    left: 5%;
+  }
+  .SearchBar {
+    width: 20%;
+  }
 }

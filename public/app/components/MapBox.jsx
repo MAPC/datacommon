@@ -24,24 +24,32 @@ class MapBox extends React.Component {
 
     this.map.on('load', () => {
       this.map.resize();
-      this.props.features.forEach(feature => {
-        this.map.addLayer({
-          id: 'ma',
-          type: 'line',
-          source: {
-            type: 'geojson',
-            data: feature,
-          },
-          paint: {
-            'line-color': ['get', 'color'],
-          },
-        });
+      this.map.addLayer({
+        id: 'ma',
+        type: 'line',
+        source: {
+          type: 'geojson',
+          data: this.props.features,
+        },
+        paint: {
+          'line-color': ['get', 'lineColor'],
+        },
       });
     });
   }
 
   componentWillUnmount() {
     this.map.remove();
+  }
+
+  componentDidUpdate() {
+    const source = this.map.getSource('ma');
+
+    console.log('checking');
+    if (source) {
+      console.log('Received');
+      source.setData(this.props.features[0]);
+    }
   }
 
   render() {

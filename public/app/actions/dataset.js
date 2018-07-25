@@ -15,7 +15,7 @@ export function fetchAll() {
   };
 }
 
-export function update(datasets) {
+export function update(datasets = []) {
   return {
     type: types.DATASET.UPDATE,
     datasets
