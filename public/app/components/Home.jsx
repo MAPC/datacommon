@@ -29,7 +29,6 @@ class Home extends React.Component {
   render() {
     return (
       <section className="route Home">
-
         <div className="page-header">
           <Particles />
 
@@ -52,7 +51,6 @@ class Home extends React.Component {
         <div className="page-section">
           <CommunitySelector />
         </div>
-
       </section>
     );
   }

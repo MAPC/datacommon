@@ -46,10 +46,10 @@ class SearchBar extends React.Component {
 
 
   render() {
-    const { results, query } = this.props;
+    const { results, query, className } = this.props;
 
     return (
-      <div className="component SearchBar">
+      <div className={`component SearchBar ${className}`}>
         <input
           value={query}
           placeholder={this.props.placeholder}
@@ -77,6 +77,7 @@ SearchBar.propTypes = {
   placeholder: PropTypes.string.isRequired,
 
   searchColumn: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default SearchBar;

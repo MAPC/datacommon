@@ -12,6 +12,10 @@ class MapBox extends React.Component {
     super(...arguments) ;
 
     this.addLayer = this.addLayer.bind(this);
+
+    this.state = {
+      finishedLoading: false,
+    }
   }
 
 
@@ -52,17 +56,17 @@ class MapBox extends React.Component {
       if (this.props.layers) {
         this.props.layers.forEach(this.addLayer);
       }
+
+      this.setState({ finishedLoading: true });
     });
   }
 
 
-  componentWillUnmount() {
-    this.map.remove();
-  }
-
-
   componentDidUpdate() {
-    if (this.props.layers) {
+    if (
+      this.state.finishedLoading
+      && this.props.layers
+    ) {
       this.props.layers.forEach(layer => {
         if (layer) {
           var source = this.map.getSource(`ma-${layer.type}`);
@@ -78,9 +82,15 @@ class MapBox extends React.Component {
     }
   }
 
+
+  componentWillUnmount() {
+    this.map.remove();
+  }
+
+
   render() {
     return (
-      <section className="component CommunitySelector">
+      <section className="component MapBox">
         <div className="map-layer" ref={el => this.mapContainer = el} />
       </section>
     );

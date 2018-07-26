@@ -3,16 +3,24 @@
   height: 780px;
   width: 100%;
 
-  .map-layer { height: 100%; width: 100%; }
-
-  .mapboxgl-canvas-container { height: 100%; }
-
   .search-box {
     position: absolute;
     top: 10%;
     left: 5%;
+    z-index: 10;
+
+    width: 25%;
   }
-  .SearchBar {
-    width: 20%;
+
+  h2 {
+    padding: 0 !important;
   }
+
+  p {
+    margin: 20px auto;
+
+    font-size: $font_size-medium;
+    line-height: $font_size-large - $font_mod-small;
+  }
+
 }

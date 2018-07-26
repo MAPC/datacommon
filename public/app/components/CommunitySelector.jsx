@@ -11,10 +11,14 @@ class CommunitySelector extends React.Component {
     return (
       <section className="component CommunitySelector">
         <div className="search-box">
+          <h2>Community Profiles</h2>
+          <p>Search any community in Massachusetts to view their profile:</p>
+
           <SearchBar
             model={'municipality'}
             action={muni => this.props.toProfile(muni)}
             placeholder={'Search for a community ...'}
+            className={"small"}
           />
         </div>
 

@@ -36,4 +36,24 @@
     border-top: none;
   }
 
+  &.small {
+    min-width: 200px;
+
+    font-size: $font_size-small;
+
+    input {
+      padding: .5em 1.1em;
+
+      font-size: $font_size-small;
+    }
+
+    ul {
+      top: 45px;
+
+      max-height: 35vh;
+    }
+
+    &:after { height: 3px; }
+  }
+
 }
