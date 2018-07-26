@@ -1,18 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import MapBox from './MapBox';
-import munis from '~/assets/data/ma-munis';
-import colors from '~/app/constants/colors';
 import SearchBar from '~/app/containers/SearchBar';
 
 
 class CommunitySelector extends React.Component {
-
-  constructor() {
-    super(...arguments);
-
-    munis.features.forEach(feature => feature.properties.color = colors.BRAND.PRIMARY);
-  }
 
   render() {
     return (
@@ -33,5 +26,17 @@ class CommunitySelector extends React.Component {
   }
 
 }
+
+
+const layerShape = {
+  type: PropTypes.string.isRequired,
+  geojson: PropTypes.object.isRequired,
+};
+
+CommunitySelector.propTypes = {
+  toProfile: PropTypes.func.isRequired,
+  muniLines: PropTypes.shape(layerShape).isRequired,
+  muniFill: PropTypes.shape(layerShape).isRequired,
+};
 
 export default CommunitySelector;

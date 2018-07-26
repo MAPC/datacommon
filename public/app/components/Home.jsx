@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Particles from './partials/Particles';
 import SearchBar from '../containers/SearchBar';
-import MuniSelect from '../containers/MuniSelect';
 import CategoryGrid from '../containers/CategoryGrid';
 import CommunitySelector from '../containers/CommunitySelector';
 
@@ -58,6 +58,12 @@ class Home extends React.Component {
   }
 
 }
+
+
+Home.propTypes = {
+  datasets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchDatasets: PropTypes.func.isRequired,
+};
 
 export default Home;
 

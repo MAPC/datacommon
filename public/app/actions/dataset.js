@@ -4,7 +4,6 @@ import types from './types';
 export function fetchAll() {
   return async (dispatch, getState) => {
     let datasets = getState().dataset.cache;
-    console.log(datasets);
 
     if (datasets.length === 0 ) {
       datasets = await (

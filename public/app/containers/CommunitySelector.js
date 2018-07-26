@@ -11,11 +11,17 @@ const mapStateToProps = ({ municipality, search }, props) => {
   const munisPoly = { ...municipality.geojson };
   let { results, hovering } = search.municipality;
 
+  let lineFeatures = (
+    results.length
+    ? { ...munisPoly, ...{ features: munisPoly.features.filter(feature => {
+        return !results.length || results.indexOf(feature.properties.town.toLowerCase()) > -1;
+      })}}
+    : munisPoly
+  );
+
   const muniLines = {
     type: 'line',
-    geojson: { ...munisPoly, ...{ features: munisPoly.features.filter(feature => {
-      return !results.length || results.indexOf(feature.properties.town.toLowerCase()) > -1;
-    })}},
+    geojson: lineFeatures,
   };
 
   const muniFill = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import icons from '../constants/category-icons';
 
@@ -29,5 +29,10 @@ class CategoryGrid extends React.Component {
   }
 
 }
+
+
+CategoryGrid.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default CategoryGrid;

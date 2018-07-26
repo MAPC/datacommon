@@ -48,7 +48,10 @@ class MapBox extends React.Component {
 
     this.map.on('load', () => {
       this.map.resize();
-      this.props.layers.forEach(this.addLayer);
+
+      if (this.props.layers) {
+        this.props.layers.forEach(this.addLayer);
+      }
     });
   }
 
@@ -59,18 +62,20 @@ class MapBox extends React.Component {
 
 
   componentDidUpdate() {
-    this.props.layers.forEach(layer => {
-      if (layer) {
-        var source = this.map.getSource(`ma-${layer.type}`);
+    if (this.props.layers) {
+      this.props.layers.forEach(layer => {
+        if (layer) {
+          var source = this.map.getSource(`ma-${layer.type}`);
 
-        if (source) {
-          source.setData(layer.geojson);
+          if (source) {
+            source.setData(layer.geojson);
+          }
+          else {
+            this.addLayer(layer);
+          }
         }
-        else {
-          this.addLayer(layer);
-        }
-      }
-    });
+      });
+    }
   }
 
   render() {
@@ -90,6 +95,10 @@ MapBox.propTypes = {
   zoom: PropTypes.number,
   minZoom: PropTypes.number,
   maxZoom: PropTypes.number,
+  layers: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.string.required,
+    geojson: PropTypes.object.required,
+  })),
 };
 
 export default MapBox;

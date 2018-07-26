@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 
 import wordSearch from '~/app/utils/wordSearch';
 import capitalize from '~/app/utils/capitalize';
@@ -62,8 +62,21 @@ class SearchBar extends React.Component {
 
 }
 
-SearchBar.propTypes = {
 
+const itemType = PropTypes.oneOfType([
+  PropTypes.string,
+  PropTypes.object,
+]);
+
+SearchBar.propTypes = {
+  clear: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(itemType).isRequired,
+  action: PropTypes.func.isRequired,
+  results: PropTypes.arrayOf(itemType).isRequired,
+  setResults: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
+
+  searchColumn: PropTypes.string,
 };
 
 export default SearchBar;
