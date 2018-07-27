@@ -21,10 +21,10 @@
   }
 
   @include media(x-small) {
+    padding: 12px;
+
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 25px;
-    grid-row-gap: 25px;
   }
 
   li {
@@ -72,7 +72,11 @@
       background: $color_bg-light;
 
       @include media(medium) { padding: 20px; }
-      @include media(x-small) { font-size: $font_size-base--rem - $font_mod-small; }
+      @include media(x-small) {
+        padding: 25px;
+
+        font-size: $font_size-base--rem - $font_mod-small;
+      }
 
       h4 {
         flex: 1 1 20%;
