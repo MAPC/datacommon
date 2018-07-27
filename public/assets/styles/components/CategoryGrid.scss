@@ -1,11 +1,31 @@
 .component.CategoryGrid {
-  $_gap: 40px;
 
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr 1fr;
-  grid-column-gap: $_gap;
-  grid-row-gap: $_gap;
+  grid-column-gap: 40px;
+  grid-row-gap: 40px;
+
+  @include media(medium) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
+  }
+
+  @include media(small) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+  }
+
+  @include media(x-small) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
+  }
 
   li {
     border: 1px solid $color_brand-secondary;
@@ -51,6 +71,9 @@
 
       background: $color_bg-light;
 
+      @include media(medium) { padding: 20px; }
+      @include media(x-small) { font-size: $font_size-base--rem - $font_mod-small; }
+
       h4 {
         flex: 1 1 20%;
 
@@ -67,6 +90,13 @@
       height: 100%;
       min-height: 74px;
       margin: 0 auto 25px;
+
+      @include media(medium) {
+        flex: 1 0 45%;
+
+        min-height: 60px;
+        margin: 0 auto 20px;
+      }
 
       img {
         @extend ._vertical-center;
