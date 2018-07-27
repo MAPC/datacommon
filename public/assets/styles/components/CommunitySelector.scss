@@ -3,6 +3,16 @@
   height: 780px;
   width: 100%;
 
+  text-align: center;
+
+  @include media(small) {
+    height: auto;
+    padding: 60px 0 110px;
+    background: $color_bg-medium;
+
+    .MapBox { display: none; }
+  }
+
   .search-box {
     position: absolute;
     top: 10%;
@@ -10,6 +20,22 @@
     z-index: 10;
 
     width: 25%;
+    margin: 0 auto;
+
+    text-align: left;
+
+    @include media(small) {
+      position: relative;
+      top: initial;
+      left: initial;
+
+      width: 85%;
+
+      .SearchBar {
+        width: 100%;
+        ul { max-height: 25vh; }
+      }
+    }
   }
 
   h2 {
@@ -22,5 +48,6 @@
     font-size: $font_size-medium;
     line-height: $font_size-large - $font_mod-small;
   }
+
 
 }
