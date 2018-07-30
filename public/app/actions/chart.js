@@ -8,11 +8,10 @@ export function fetchChartData(table, municipality, columns = '*') {
     let data = [];
 
     if (!chart.cache[table] || !chart.cache[table][municipality]) {
-      data = await (
-        await fetch(`${locations.BROWSER_API}SELECT ${columns} FROM ${table} WHERE municipal ilike '${municipality}' LIMIT 1`)
-      ).json();
+      const response = await fetch(`${locations.BROWSER_API}SELECT ${columns} FROM ${table} WHERE municipal ilike '${municipality}' LIMIT 1`)
+      const payload = await response.json();
 
-      data = data.rows[0];
+      data = payload.rows[0];
     }
 
     return dispatch(update(table, municipality, data));
