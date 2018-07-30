@@ -9,16 +9,15 @@ const capitalize = (string) => {
 }
 
 const mapStateToProps = (state, props) => {
-  const key = props.match.params.muni;
-  const muni = key ? state.municipality.cache[key.toLowerCase()] : null;
-  if (muni) {
-    return {
-      name: capitalize(muni.properties.town),
-      municipalFeature: muni,
-    };
-  }
+  const muniSlug = props.match.params.muni;
+  const muni = muniSlug
+      ? state.municipality.cache[muniSlug.toLowerCase()]
+      : state.municipality.cache['boston'];
   return {
-    name: 'An Unknown Municipality',
+    name: capitalize(muni.properties.town),
+    municipalFeature: muni,
+    muniSlug,
+    tabSlug: props.match.params.tab,
   };
 };
 

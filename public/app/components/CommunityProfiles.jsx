@@ -2,8 +2,34 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import MunicipalityPolygon from './MunicipalityPolygon';
 import PieChart from '~/app/containers/visualizations/PieChart';
+import Tab from './Tab';
 import charts from '~/app/constants/charts';
 
+const tabs = [{
+  slug: 'demographics',
+  label: 'Demographics',
+}, {
+  slug: 'economy',
+  label: 'Economy',
+}, {
+  slug: 'education',
+  label: 'Education',
+}, {
+  slug: 'governance',
+  label: 'Governance',
+}, {
+  slug: 'environment',
+  label: 'Environment',
+}, {
+  slug: 'housing',
+  label: 'Housing',
+}, {
+  slug: 'public-health',
+  label: 'Public Health',
+}, {
+  slug: 'transportation',
+  label: 'Transportation',
+}];
 
 class CommunityProfiles extends React.Component {
 
@@ -21,7 +47,7 @@ class CommunityProfiles extends React.Component {
           <Link to={'/'} >{'< Back'}</Link>
           <div className="container">
             <header>
-              <h1>{'Waltham'}</h1>
+              <h1>{this.props.name}</h1>
             </header>
             <section className="about">
               <div className="outline">
@@ -36,14 +62,39 @@ class CommunityProfiles extends React.Component {
           </div>
         </div>
 
-        <section className="data">
-          <div className="box container">
-            <PieChart
-              chart={charts[this.props.match.params.tab][0]}
-              muni={this.props.match.params.muni}
-            />
+        <div className="data">
+          <div className="container">
+            <ol className="tabs">
+              {tabs.map((tab) => (
+                <li key={tab.slug} className={this.props.tabSlug == tab.slug ? 'active' : ''}>
+                  <Link to={`/profile/${this.props.muniSlug}/${tab.slug}`}>{tab.label}</Link>
+                </li>
+              ))}
+            </ol>
+            <div className="box">
+              <Tab active={this.props.tabSlug == 'demographics'}>
+                <PieChart
+                  chart={charts[this.props.match.params.tab][0]}
+                  muni={this.props.match.params.muni}
+                />
+              </Tab>
+              <Tab active={this.props.tabSlug == 'economy'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'education'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'governance'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'environment'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'housing'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'public-health'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'transportation'}>
+              </Tab>
+            </div>
           </div>
-        </section>
+        </div>
 
       </article>
     );

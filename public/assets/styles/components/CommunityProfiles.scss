@@ -1,5 +1,6 @@
 .component.CommunityProfiles {
   .page-header {
+    padding-bottom: 0;
     a {
       position: absolute;
       top: 2em;
@@ -20,8 +21,9 @@
     display: flex;
     padding: 0 8em;
     .outline {
-      width: 200px;
-      margin-right: 1em;
+      width: 150px;
+      height: 150px;
+      margin-right: 3em;
     }
     .description {
       flex: 1;
@@ -29,9 +31,43 @@
   }
   .data {
     @extend ._partial-bg;
+    ol {
+      padding: 0 8em 0 calc(11em + 150px);
+      display: flex;
+      margin: 0;
+      z-index: 1;
+      bottom: -1px;
+      li {
+        list-style-type: none;
+        background-color: $color_bg-light;
+        border-left: 1px solid $color_font-medium;
+        border-top: 1px solid $color_font-medium;
+        border-bottom: 1px solid $color_font-medium;
+        a {
+          display: block;
+          white-space:nowrap;
+          color: $color_font-dark;
+          font-size: 0.8em;
+          padding: 4px 8px;
+          font-weight: normal;
+          border-bottom: 1px solid $color_font-medium;
+          margin-bottom: -1px;
+          &:hover {
+            color: $color_font-medium;
+          }
+        }
+        &.active a {
+          border-bottom: 1px solid $color_bg-light;
+        }
+        &:last-child {
+          border-right: 1px solid $color_font-medium;
+        }
+      }
+    }
     .box {
-      border: 2px solid black;
-      height: 1000px;
+      border: 1px solid $color_font-medium;
+      background-color: $color_bg-light;
+      min-height: 300px;
     }
   }
 

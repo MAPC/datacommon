@@ -18,7 +18,12 @@ header {
     font-weight: 500;
     font-size: $font_size-large;
 
-    a:hover { color: $color_font-dark--brand; }
+    a {
+      color: $color_font-dark;
+      &:hover {
+        color: $color_font-dark--brand;
+      }
+    }
 
     img {
       top: 5px;
