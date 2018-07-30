@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
 import { fetchChartData } from '~/app/actions/chart';
 import CommunityProfiles from '~/app/components/CommunityProfiles';
@@ -23,6 +24,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => ({
   fetchChartData: (table, columns) => dispatch(fetchChartData(table, props.match.params.muni, columns)),
+  push: (path) => dispatch(push(path)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommunityProfiles);

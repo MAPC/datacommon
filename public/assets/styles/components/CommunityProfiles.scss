@@ -3,11 +3,13 @@
     padding-bottom: 0;
     a {
       position: absolute;
-      top: 2em;
-      left: 2em;
+    }
+    .back-link {
+      @include media(medium-small) {
+        display: none;
+      }
     }
   }
-
   header {
     text-align: left;
     background-color: transparent;
@@ -16,33 +18,58 @@
     h1 {
       margin: 0;
     }
+    @include media(medium-small) {
+      padding: 0;
+    }
   }
   section.about {
     display: flex;
-    padding: 0 8em;
+    padding: 0 8em 1em 8em;
     .outline {
-      width: 150px;
-      height: 150px;
       margin-right: 3em;
+      svg {
+        width: 150px;
+        height: 150px;
+      }
+      @include media(medium-small) {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        margin: 0;
+      }
     }
     .description {
       flex: 1;
     }
+    @include media(medium-small) {
+      padding: 0 0 1em 0;
+    }
   }
   .data {
     @extend ._partial-bg;
-    ol {
-      padding: 0 8em 0 calc(11em + 150px);
+    @include media(medium-small) {
+      &:after {
+        display: none;
+      }
+    }
+    ul.tabs {
+      margin: 0 8em 0 calc(11em + 150px);
+      padding: 0;
       display: flex;
-      margin: 0;
       z-index: 1;
-      bottom: -1px;
+      flex-wrap: wrap-reverse;
+      @include media(medium) {
+        margin: 0 8em 0 8em;
+      }
+      @include media(medium-small) {
+        display: none;
+      }
+      border-left: 1px solid $color_font-medium;
       li {
         list-style-type: none;
         background-color: $color_bg-light;
-        border-left: 1px solid $color_font-medium;
         border-top: 1px solid $color_font-medium;
-        border-bottom: 1px solid $color_font-medium;
+        border-right: 1px solid $color_font-medium;
         a {
           display: block;
           white-space:nowrap;
@@ -64,10 +91,20 @@
         }
       }
     }
+    .dropdown-wrapper {
+      padding: 1em 0;
+      display: none;
+      @include media(medium-small) {
+        display: block;
+      }
+    }
     .box {
       border: 1px solid $color_font-medium;
       background-color: $color_bg-light;
       min-height: 300px;
+      @include media(medium-small) {
+        border: none;
+      }
     }
   }
 

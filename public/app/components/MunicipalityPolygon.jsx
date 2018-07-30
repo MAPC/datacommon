@@ -6,6 +6,7 @@ class MunicipalityPolygon extends React.Component {
     const measurementPadding = 18;
     const sidePadding = 2;
     const boundingBox = this.svg.getBoundingClientRect();
+    if (boundingBox.width == 0) { return; }
     const projection = d3.geoMercator()
       .fitExtent([[
           sidePadding,

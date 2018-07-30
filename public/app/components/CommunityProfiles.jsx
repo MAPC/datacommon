@@ -3,33 +3,10 @@ import { Link } from 'react-router-dom';
 import MunicipalityPolygon from './MunicipalityPolygon';
 import PieChart from '~/app/containers/visualizations/PieChart';
 import Tab from './Tab';
+import Dropdown from './field/Dropdown';
 import charts from '~/app/constants/charts';
 
-const tabs = [{
-  slug: 'demographics',
-  label: 'Demographics',
-}, {
-  slug: 'economy',
-  label: 'Economy',
-}, {
-  slug: 'education',
-  label: 'Education',
-}, {
-  slug: 'governance',
-  label: 'Governance',
-}, {
-  slug: 'environment',
-  label: 'Environment',
-}, {
-  slug: 'housing',
-  label: 'Housing',
-}, {
-  slug: 'public-health',
-  label: 'Public Health',
-}, {
-  slug: 'transportation',
-  label: 'Transportation',
-}];
+import tabs from './../constants/tabs';
 
 class CommunityProfiles extends React.Component {
 
@@ -44,7 +21,9 @@ class CommunityProfiles extends React.Component {
       <article className="component CommunityProfiles">
 
         <div className="page-header">
-          <Link to={'/'} >{'< Back'}</Link>
+          <div className="container back-link">
+            <Link to={'/'} >{'< Back'}</Link>
+          </div>
           <div className="container">
             <header>
               <h1>{this.props.name}</h1>
@@ -64,13 +43,20 @@ class CommunityProfiles extends React.Component {
 
         <div className="data">
           <div className="container">
-            <ol className="tabs">
+            <ul className="tabs">
               {tabs.map((tab) => (
-                <li key={tab.slug} className={this.props.tabSlug == tab.slug ? 'active' : ''}>
-                  <Link to={`/profile/${this.props.muniSlug}/${tab.slug}`}>{tab.label}</Link>
+                <li key={tab.value} className={this.props.tabSlug == tab.value ? 'active' : ''}>
+                  <Link to={`/profile/${this.props.muniSlug}/${tab.value}`}>{tab.label}</Link>
                 </li>
               ))}
-            </ol>
+            </ul>
+            <div className="dropdown-wrapper">
+              <Dropdown
+                value={this.props.tabSlug}
+                options={tabs}
+                onChange={(e) => this.props.push(`/profile/${this.props.muniSlug}/${e.target.value}`)}
+              />
+            </div>
             <div className="box">
               <Tab active={this.props.tabSlug == 'demographics'}>
                 <PieChart
