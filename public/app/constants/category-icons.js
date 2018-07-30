@@ -25,7 +25,7 @@ export default {
   'Land Use': region,
   'Economy': risingLine,
   'Town Data': region,
-  'Environment and Energy': lightbulb,
+  'Clean Energy': lightbulb,
   'Housing': house,
   'default': bookWithApple,
 };

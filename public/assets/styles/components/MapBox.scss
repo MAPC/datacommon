@@ -9,5 +9,6 @@
   }
 
   .mapboxgl-canvas-container { height: 100%; }
+  canvas { position: relative !important; }
 
 }

@@ -22,6 +22,8 @@ class Home extends React.Component {
 
 
   toDataset(dataset) {
+    // We need to direct away from the page without using React Router's push()
+    // function since the databrowser is currently an Ember app.
     window.location.pathname = `/browser/datasets/${dataset.id}`;
   }
 
@@ -34,7 +36,7 @@ class Home extends React.Component {
 
           <div className="container tight">
             <SearchBar
-              model={'dataset'}
+              contextKey={'dataset'}
               searchColumn={'title'}
               action={selected => this.toDataset(selected)}
               placeholder={`Search ${this.props.datasets.length} datasets ...`}

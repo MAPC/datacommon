@@ -30,9 +30,11 @@ class SearchBar extends React.Component {
 
 
   renderResults() {
+    console.log(this.props.results);
+
     const results = this.props.results.map((result,i) => (
       <li
-        key={i}
+        key={result[this.props.searchColumn] ? `${result.id}-${result[this.props.searchColumn]}` : result}
         onClick={() => this.executeAction(result)}
         onMouseEnter={() => this.props.setHovering(result)}
         onMouseLeave={() => this.props.setHovering(null)}

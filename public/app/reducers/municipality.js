@@ -15,11 +15,11 @@ export default function municipality(state = defaultState, action) {
 
   switch(action.type) {
     case types.MUNICIPALITY.FILL_POLY:
-      const newGeoJSON = { ...state.geojson };
+      const newGeoJSON = JSON.parse(JSON.stringify(state.geojson));
 
       newGeoJSON.features.some(feature => {
         if (feature.properties.town.toLowerCase() === action.muni) {
-          return true && (feature.properties.fillColor = colors.BRAND.PRIMARY);
+          return (feature.properties.fillColor = colors.BRAND.PRIMARY) || true;
         }
       });
 

@@ -9,8 +9,6 @@ class Particles extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.id = `particles-${document.querySelectorAll('.particles').length + 1}`;
-
     this.state = {
       width: window.innerWidth,
       height: window.innerHeight / 5,
@@ -30,7 +28,7 @@ class Particles extends React.Component {
       dotColor = colors.BRAND.PRIMARY,
       lineColor = `rgba(${hexToRgb(colors.BRAND.SECONDARY)}, .3)`,
       w = window.innerWidth,
-      h = document.getElementById(component.id).parentNode.offsetHeight,
+      h = this.canvas.parentNode.offsetHeight,
       dotArray = [];
 
     if (this.state.width !== w || this.state.height !== h) {
@@ -44,7 +42,7 @@ class Particles extends React.Component {
     start();
 
     function start() {
-      b_canvas = document.getElementById(component.id);
+      b_canvas = component.canvas;
       contxt = b_canvas.getContext("2d");
       contxt.lineWidth = lineWidth;
       contxt.strokeStyle = dotColor;
@@ -191,13 +189,13 @@ class Particles extends React.Component {
 
 
   render() {
-    const { id, state } = this;
+    const { width, height } = this.state;
 
     return (
       <canvas
-        id={id}
-        width={state.width}
-        height={state.height}
+        ref={el => this.canvas = el}
+        width={width}
+        height={height}
         className="component Particles"
       >
       </canvas>

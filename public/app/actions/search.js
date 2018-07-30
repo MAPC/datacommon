@@ -1,25 +1,25 @@
 import types from './types';
 
-export function setResults(model, results, query) {
+export function setResults(contextKey, results, query) {
   return {
     type: types.SEARCH.SET_RESULTS,
-    model,
+    contextKey,
     query,
     results,
   };
 };
 
-export function setHovering(model, value) {
+export function setHovering(contextKey, value) {
   return {
     type: types.SEARCH.SET_HOVERING,
-    model,
+    contextKey,
     value,
   };
 }
 
-export function clear(model) {
+export function clear(contextKey) {
   return {
-    type: types.SEARCH.CLEAR_MODEL,
-    model
+    type: types.SEARCH.CLEAR_CONTEXT,
+    contextKey
   };
 }

@@ -15,7 +15,7 @@ class CommunitySelector extends React.Component {
           <p>Search any community in Massachusetts to view their profile:</p>
 
           <SearchBar
-            model={'municipality'}
+            contextKey={'municipality'}
             action={muni => this.props.toProfile(muni)}
             placeholder={'Search for a community ...'}
             className={"small"}

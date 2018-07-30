@@ -35,7 +35,7 @@ const mapStateToProps = ({ municipality, search }, props) => {
     let filledMuniIndex = null;
     munisPoly.features.some((feature, i) => {
       if (feature.properties.town === hovering.toUpperCase()) {
-        return true && (filledMuniIndex = i);
+        return !!(filledMuniIndex = i) || true;
       }
     });
 

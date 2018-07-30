@@ -38,15 +38,13 @@ class MapBox extends React.Component {
 
   componentDidMount() {
     this.map = new mapboxgl.Map({
-      ...{
-        container: this.mapContainer,
-        style: 'mapbox://styles/ihill/cjjyl8uj509sj2smehs79fzyq',
-        center: [-72, 42.36],
-        maxBounds: [[-75.6, 41], [-69.5, 43.1]],
-        zoom: 7,
-        minZoom: 7,
-        maxZoom: 11,
-      },
+      container: this.mapContainer,
+      style: 'mapbox://styles/ihill/cjjyl8uj509sj2smehs79fzyq',
+      center: [-72, 42.36],
+      maxBounds: [[-75.6, 41], [-69.5, 43.1]],
+      zoom: 7,
+      minZoom: 7,
+      maxZoom: 11,
       ...this.props,
     });
 

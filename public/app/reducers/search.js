@@ -1,14 +1,14 @@
 import types from '../actions/types';
 
-const defaultModel = {
+const defaultContext = {
   query: '',
   results: [],
   hovering: null,
 };
 
 const defaultState = {
-  dataset: defaultModel,
-  municipality: defaultModel,
+  dataset: defaultContext,
+  municipality: defaultContext,
 };
 
 export default function search(state = defaultState, action) {
@@ -16,20 +16,20 @@ export default function search(state = defaultState, action) {
 
   switch(action.type) {
     case types.SEARCH.SET_RESULTS:
-      const newModel = {
+      const newContext = {
         results: action.results.sort(),
         query: action.query,
       };
 
-      newState = { [action.model]: { ...state[action.model], ...newModel }};
+      newState = { [action.contextKey]: { ...state[action.contextKey], ...newContext }};
       break;
 
     case types.SEARCH.SET_HOVERING:
-      newState = { [action.model]: { ...state[action.model], ...{ hovering: action.value }}};
+      newState = { [action.contextKey]: { ...state[action.contextKey], ...{ hovering: action.value }}};
       break;
 
-    case types.SEARCH.CLEAR_MODEL:
-      newState = { [action.model]: { ...state[action.model], ...defaultModel }};
+    case types.SEARCH.CLEAR_CONTEXT:
+      newState = { [action.contextKey]: { ...state[action.contextKey], ...defaultContext }};
       break;
   }
 

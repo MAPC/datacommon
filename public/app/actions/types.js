@@ -12,7 +12,7 @@ export default {
   SEARCH: {
     SET_RESULTS: 'search.set_results',
     SET_HOVERING: 'search.set_hovering',
-    CLEAR_MODEL: 'search.clear_model',
+    CLEAR_CONTEXT: 'search.clear_context',
   },
 
 };
