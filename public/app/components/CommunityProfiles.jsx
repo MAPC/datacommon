@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import MunicipalityPolygon from './MunicipalityPolygon';
+import BarChart from '~/app/containers/visualizations/BarChart';
 
 
 class CommunityProfiles extends React.Component {
@@ -30,6 +31,8 @@ class CommunityProfiles extends React.Component {
 
         <section className="data">
           <div className="box container">
+            <BarChart
+            />
           </div>
         </section>
 

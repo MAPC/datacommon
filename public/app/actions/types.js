@@ -8,4 +8,9 @@ export default {
     UPDATE: 'municipal.update',
   },
 
+  CHART: {
+    FETCH: 'chart.fetch',
+    UPDATE: 'chart.update',
+  },
+
 };
