@@ -13,8 +13,13 @@
 ```
 
 ## Testing
-All tests are written in RSpec.
+All server-side tests are written in RSpec.
 1. `bundle exec rake`
+
+All client-side tests are written using Jest.
+1. `cd public`
+2. `yarn install`
+3. `yarn test`
 
 ## Usage
 
