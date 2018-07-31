@@ -45,9 +45,9 @@ class LineChart extends React.Component {
       .domain([yMin, yMax])
       .range([height - margin.bottom - margin.top, 0]);
 
-    const line = d3.line()
-      .x((d) => xScale(d[0]))
-      .y((d) => yScale(d[1]))
+    const lineGenerator = d3.line()
+      .x(d => xScale(d[0]))
+      .y(d => yScale(d[1]))
       .curve(d3.curveMonotoneX);
 
     const svg = d3.select(this.svg)
@@ -64,11 +64,29 @@ class LineChart extends React.Component {
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
       .call(d3.axisLeft(yScale));
 
-    svg.append("path")
-      .datum(this.props.data[0].values)
-      .attr("class", "line")
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
-      .attr("d", line);
+    this.props.data.forEach((line, i) => {
+      svg.append("path")
+        .datum(line.values)
+        .attr("class", "line")
+        .attr('stroke', line.color)
+        .attr('stroke-width', 3)
+        .attr('fill', 'none')
+        .attr('transform', `translate(${margin.left}, ${margin.top})`)
+        .attr("d", lineGenerator);
+
+      svg.selectAll(`.dots-for-line-${i}`)
+        .data(line.values)
+        .enter().append("circle")
+        .attr("class", `dot dots-for-line-${i}`)
+        .attr("cx", d => xScale(d[0]))
+        .attr("cy", d => yScale(d[1]))
+        .attr('fill', line.color)
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 2)
+        .attr('transform', `translate(${margin.left}, ${margin.top})`)
+        .attr("r", 5)
+    });
+
   }
 
 
