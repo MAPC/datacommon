@@ -3,6 +3,7 @@ require 'rack'
 require 'rack/cors'
 require_relative 'app/geospatial_metadata'
 require_relative 'app/tabular_metadata'
+require_relative 'app/shapefile'
 
 use Rack::Cors do
   known_origins = [
@@ -23,4 +24,8 @@ end
 
 map '/tabular' do
   run TabularMetadata::API.new
+end
+
+map '/shapefile' do
+  run Shapefile::API.new
 end
