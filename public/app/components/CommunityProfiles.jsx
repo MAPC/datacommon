@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import MunicipalityPolygon from './MunicipalityPolygon';
-import PieChart from '~/app/containers/visualizations/PieChart';
+import StackedAreaChart from '~/app/containers/visualizations/StackedAreaChart';
 import charts from '~/app/constants/charts';
 
 
@@ -9,7 +9,7 @@ class CommunityProfiles extends React.Component {
 
   componentWillMount() {
     charts[this.props.match.params.tab].forEach(chart => {
-      this.props.fetchChartData(chart.table, Object.keys(chart.columns).join(','))
+      this.props.fetchChartData(chart.table, Object.keys(chart.columns).join(','), chart.yearCol);
     });
   }
 
@@ -38,7 +38,7 @@ class CommunityProfiles extends React.Component {
 
         <section className="data">
           <div className="box container">
-            <PieChart
+            <StackedAreaChart
               chart={charts[this.props.match.params.tab][0]}
               muni={this.props.match.params.muni}
             />

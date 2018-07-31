@@ -23,7 +23,7 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  fetchChartData: (table, columns) => dispatch(fetchChartData(table, props.match.params.muni, columns)),
+  fetchChartData: (table, columns, yearCol) => dispatch(fetchChartData(table, props.match.params.muni, columns, yearCol)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommunityProfiles);
