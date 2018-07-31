@@ -5,11 +5,11 @@
   } @else if $size == 'small' {
     @media (max-width: 670px) { @content; }
   } @else if $size == 'medium-small' {
-    @media (max-width: 960px) { @content; }
+    @media (max-width: 770px) { @content; }
   } @else if $size == 'medium' {
-    @media (max-width: 1180px) { @content; }
+    @media (max-width: 960px) { @content; }
   } @else if $size == 'large' {
-    @media (max-width: 1280px) { @content; }
+    @media (max-width: 1200px) { @content; }
   } @else if $size == 'x-large' {
     @media (max-width: 1600px) { @content; }
   } @else {

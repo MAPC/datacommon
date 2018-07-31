@@ -75,7 +75,7 @@
       border: 1px solid $color_font-medium;
       border-radius: $elem_button-radius;
       cursor: pointer;
-      transition: color .14s, border-color .14s, opacity .14s;
+      transition: color .14s, border-color .14s, border-width .14s, font-weight .14s;
 
       &:not(:last-of-type) { margin-right: 4px; }
 
@@ -86,9 +86,11 @@
 
       &.selected {
         color: $color_brand-secondary;
+        font-weight: 700;
 
+        border-width: 2px;
         border-color: $color_brand-secondary;
-        transition: color .14s, border-color .14s;
+        transition: color .14s, border-color .14s, border-width .14s, font-weight .14s;
       }
     }
   }

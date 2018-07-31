@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import icons from '../constants/category-icons';
 
@@ -7,15 +7,15 @@ import icons from '../constants/category-icons';
 class CategoryGrid extends React.Component {
 
   renderCategories() {
-    return this.props.categories.map((category, i) => (
-      <li key={i} className="lift">
-        <Link to={`/browser/${category.endpoint}`}>
+    return this.props.categories.map(category => (
+      <li key={category} className="lift">
+        <a href={`/browser/${category}`}>
           <div className="category-image">
-            <img src={icons[category.icon]} alt={`Icon for ${category.title}`} />
+            <img src={icons[category] || icons['default']} alt={`Icon for ${category}`} />
           </div>
 
-          {category.title}
-        </Link>
+          <div className="category-title">{category}</div>
+        </a>
       </li>
     ));
   }
@@ -29,5 +29,10 @@ class CategoryGrid extends React.Component {
   }
 
 }
+
+
+CategoryGrid.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default CategoryGrid;

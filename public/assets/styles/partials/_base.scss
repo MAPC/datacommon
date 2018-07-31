@@ -21,6 +21,8 @@ main {
   padding-bottom: 50px;
 }
 
+h2 { font-family: $font_family-primary; }
+
 .divider-column {
   position: relative;
 
@@ -48,7 +50,5 @@ main {
 }
 
 .page-section {
-  //padding: 40px 0;
-
   &.grey { background: $color_bg-medium; }
 }

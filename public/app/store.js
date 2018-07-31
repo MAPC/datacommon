@@ -8,14 +8,15 @@ import rootReducer from '~/app/reducers/root';
 
 
 export const history = createHistory();
-export const store = ((initialState, _history) => (
+
+export const store = ((initialState, history) => (
   createStore(
     rootReducer,
     initialState,
     composeWithDevTools(
       applyMiddleware(
         middleware,
-        routerMiddleware(_history)
+        routerMiddleware(history)
       )
     )
   )

@@ -1,12 +1,21 @@
 .route.Home {
 
   .page-header {
+    padding: 120px 0;
+
     text-align: center;
 
-    padding: 92px 0;
+    background: linear-gradient(to bottom, #{$color_bg-medium}, #{darken($color_bg-medium, 6)});
+
+    @include media(small) { padding: 80px 0; }
   }
 
-  .SearchBar { max-width: 800px; }
+  .SearchBar {
+    max-width: 800px;
+    margin: 0 auto;
+
+    @include media(small) { width: 90%; }
+  }
 
   h2 {
     margin: 0;

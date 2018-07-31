@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Faq from './Faq';
-import Home from './Home';
+import Home from '../containers/Home';
 import Header from './partials/Header';
 import Footer from './partials/Footer';
 import CommunityProfiles from '../containers/CommunityProfiles';
