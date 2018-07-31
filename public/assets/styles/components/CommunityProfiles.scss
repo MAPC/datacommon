@@ -1,4 +1,5 @@
 .component.CommunityProfiles {
+
   .page-header {
     padding-bottom: 0;
     a {
@@ -7,6 +8,13 @@
     .back-link {
       @include media(medium-small) {
         display: none;
+      }
+      a {
+        color: $color_brand-primary;
+        font-weight: 700;
+        &:hover {
+          color: $color_font-dark--brand;
+        }
       }
     }
   }
@@ -74,7 +82,7 @@
           display: block;
           white-space:nowrap;
           color: $color_font-dark;
-          font-size: 0.8em;
+          font-size: $font_size-xsmall;
           padding: 4px 8px;
           font-weight: normal;
           border-bottom: 1px solid $color_font-medium;

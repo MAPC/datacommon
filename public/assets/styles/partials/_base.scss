@@ -23,14 +23,6 @@ main {
 
 h2 { font-family: $font_family-primary; }
 
-a {
-  color: $color_brand-primary;
-  font-weight: 700;
-  &:hover {
-    color: $color_font-dark--brand;
-  }
-}
-
 .divider-column {
   position: relative;
 
