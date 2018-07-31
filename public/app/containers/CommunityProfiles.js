@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 
+import { fetchChartData } from '~/app/actions/chart';
 import CommunityProfiles from '~/app/components/CommunityProfiles';
 
 const capitalize = (string) => {
@@ -20,6 +21,9 @@ const mapStateToProps = (state, props) => {
     name: 'An Unknown Municipality',
   };
 };
-const mapDispatchToProps = (dispatch, props) => ({});
+
+const mapDispatchToProps = (dispatch, props) => ({
+  fetchChartData: (table, columns) => dispatch(fetchChartData(table, props.match.params.muni, columns)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommunityProfiles);

@@ -15,4 +15,9 @@ export default {
     CLEAR_CONTEXT: 'search.clear_context',
   },
 
+  CHART: {
+    FETCH: 'chart.fetch',
+    UPDATE: 'chart.update',
+  },
+
 };
