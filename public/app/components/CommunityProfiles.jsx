@@ -7,7 +7,7 @@ import charts from '~/app/constants/charts';
 
 class CommunityProfiles extends React.Component {
 
-  componentDidMount() {
+  componentWillMount() {
     charts[this.props.match.params.tab].forEach(chart => {
       this.props.fetchChartData(chart.table, Object.keys(chart.columns).join(','))
     });
