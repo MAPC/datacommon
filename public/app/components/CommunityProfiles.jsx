@@ -11,9 +11,13 @@ import tabs from './../constants/tabs';
 class CommunityProfiles extends React.Component {
 
   componentWillMount() {
-    charts[this.props.match.params.tab].forEach(chart => {
-      this.props.fetchChartData(chart.table, Object.keys(chart.columns).join(','))
-    });
+    const chartList = charts[this.props.tabSlug];
+    if (chartList && chartList.length) {
+      chartList.forEach(chart => {
+        this.props.fetchChartData(chart.table, Object.keys(chart.columns).join(','))
+      });
+    }
+
   }
 
   render() {
@@ -60,8 +64,8 @@ class CommunityProfiles extends React.Component {
             <div className="box">
               <Tab active={this.props.tabSlug == 'demographics'}>
                 <PieChart
-                  chart={charts[this.props.match.params.tab][0]}
-                  muni={this.props.match.params.muni}
+                  chart={charts['demographics'][0]}
+                  muni={this.props.muniSlug}
                 />
               </Tab>
               <Tab active={this.props.tabSlug == 'economy'}>
