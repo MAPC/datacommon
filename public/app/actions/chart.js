@@ -2,19 +2,28 @@ import types from './types';
 import locations from '~/app/constants/locations';
 
 
-export function fetchChartData(table, municipality, columns = '*', yearCol = null) {
+export function fetchChartData(chartInfo, municipality) {
   return async (dispatch, getState) => {
     const { chart } = getState();
+    const { table, yearCol, where } = chartInfo;
+    const columns = Object.keys(chartInfo.columns).join(',');
 
     if (!chart.cache[table] || !chart.cache[table][municipality]) {
-      let year = null;
+      let query = `${locations.BROWSER_API}SELECT ${columns} FROM ${table}`;
+      query = `${query} WHERE municipal ilike '${municipality}'`;
+
       if (yearCol) {
         const yearResponse = await fetch(`${locations.BROWSER_API}SELECT ${yearCol} from ${table} ORDER BY ${yearCol} DESC LIMIT 1`);
-        year = (await yearResponse.json()).rows[0][yearCol];
-        console.log(year);
+        const year = (await yearResponse.json()).rows[0][yearCol];
+
+        query = `${query} AND ${yearCol} = ${year}`;
       }
 
-      const response = await fetch(`${locations.BROWSER_API}SELECT ${columns} FROM ${table} WHERE municipal ilike '${municipality}' ${year ? (`AND ${yearCol} = ${year}`) : ''}`);
+      if (where) {
+        query = `${query} AND ${where}`;
+      }
+
+      const response = await fetch(query);
       const payload = await response.json();
 
       return dispatch(update(table, municipality, payload.rows));

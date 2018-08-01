@@ -3,6 +3,7 @@ export default {
     {
       type: 'stacked-area',
       table: 'tabular.econ_es202_naics_2d_m',
+      where: "naicstitle != 'Total, All Industries'",
       columns: {
         'naicstitle': 'NAICS Title',
         'avgemp': 'Avg. Employment',

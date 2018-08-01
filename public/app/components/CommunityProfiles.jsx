@@ -9,7 +9,7 @@ class CommunityProfiles extends React.Component {
 
   componentWillMount() {
     charts[this.props.match.params.tab].forEach(chart => {
-      this.props.fetchChartData(chart.table, Object.keys(chart.columns).join(','), chart.yearCol);
+      this.props.fetchChartData(chart);
     });
   }
 
