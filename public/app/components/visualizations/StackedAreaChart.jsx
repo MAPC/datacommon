@@ -72,6 +72,16 @@ class StackedAreaChart extends React.Component {
       .append('g')
       .attr('class', 'axis axis-y')
       .call(d3.axisLeft(y).ticks(10));
+
+    const li = this.legend
+      .selectAll('li')
+      .data(keys)
+      .enter()
+      .append('li')
+      .text(d => d);
+
+    li.append('span')
+      .style('background', d => this.color(d));
   }
 
 
@@ -92,7 +102,7 @@ class StackedAreaChart extends React.Component {
     const { width, height, margin } = this.state;
 
     return (
-      <div className="component StackedAreaChart">
+      <div className="component chart StackedAreaChart">
         <svg id={`${this.props.table}-stacked-area`} width={width + margin.left} height={height + margin.bottom}></svg>
         <div id={`${this.props.table}-stacked-area-legend`} className="legend"></div>
       </div>
