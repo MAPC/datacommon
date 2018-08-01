@@ -33,6 +33,7 @@ class LineChart extends React.Component {
   }
 
   renderChart() {
+    // Measure and scale
     const { width, height } = this.state;
     const { xMin, xMax, yMin, yMax } = this.getBounds();
     const margin = { top: 50, right: 50, bottom: 50, left: 50 };
@@ -47,12 +48,13 @@ class LineChart extends React.Component {
 
     const lineGenerator = d3.line()
       .x(d => xScale(d[0]))
-      .y(d => yScale(d[1]))
-      .curve(d3.curveMonotoneX);
+      .y(d => yScale(d[1]));
 
+    // Draw chart
     const svg = d3.select(this.svg)
-      .attr('width', width)
-      .attr('height', height);
+      .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", "0 0 500 500");
+    svg.selectAll('*').remove(); // Clear chart before drawing lines
 
     svg.append('g')
       .attr('class', 'xAxis')
