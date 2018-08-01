@@ -1,0 +1,13 @@
+.component.LineChart {
+  display: flex;
+  .svg-wrapper {
+    flex: 1;
+  }
+  .legend {
+    width: 100px;
+    .color-patch {
+      width: 1em;
+      height: 1em;
+    }
+  }
+}
