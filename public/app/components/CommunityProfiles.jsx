@@ -4,6 +4,7 @@ import MunicipalityPolygon from './MunicipalityPolygon';
 import PieChart from '~/app/containers/visualizations/PieChart';
 import Tab from './Tab';
 import Dropdown from './field/Dropdown';
+import LineChart from '~/app/containers/visualizations/LineChart';
 import charts from '~/app/constants/charts';
 
 import tabs from './../constants/tabs';
@@ -67,6 +68,7 @@ class CommunityProfiles extends React.Component {
                   chart={charts['demographics'][0]}
                   muni={this.props.muniSlug}
                 />
+                <LineChart />
               </Tab>
               <Tab active={this.props.tabSlug == 'economy'}>
               </Tab>
