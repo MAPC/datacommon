@@ -1,0 +1,6 @@
+.component.Tab {
+  display: none;
+  &.active {
+    display: block;
+  }
+}

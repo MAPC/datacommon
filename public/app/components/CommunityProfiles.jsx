@@ -2,15 +2,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import MunicipalityPolygon from './MunicipalityPolygon';
 import PieChart from '~/app/containers/visualizations/PieChart';
+import Tab from './Tab';
+import Dropdown from './field/Dropdown';
 import charts from '~/app/constants/charts';
 
+import tabs from './../constants/tabs';
 
 class CommunityProfiles extends React.Component {
 
   componentWillMount() {
-    charts[this.props.match.params.tab].forEach(chart => {
-      this.props.fetchChartData(chart.table, Object.keys(chart.columns).join(','))
-    });
+    const chartList = charts[this.props.tabSlug];
+    if (chartList && chartList.length) {
+      chartList.forEach(chart => {
+        this.props.fetchChartData(chart.table, Object.keys(chart.columns).join(','))
+      });
+    }
+
   }
 
   render() {
@@ -18,10 +25,12 @@ class CommunityProfiles extends React.Component {
       <article className="component CommunityProfiles">
 
         <div className="page-header">
-          <Link to={'/'} >{'< Back'}</Link>
+          <div className="container back-link">
+            <Link to={'/'} >{'< Back'}</Link>
+          </div>
           <div className="container">
             <header>
-              <h1>{'Waltham'}</h1>
+              <h1>{this.props.name}</h1>
             </header>
             <section className="about">
               <div className="outline">
@@ -36,14 +45,46 @@ class CommunityProfiles extends React.Component {
           </div>
         </div>
 
-        <section className="data">
-          <div className="box container">
-            <PieChart
-              chart={charts[this.props.match.params.tab][0]}
-              muni={this.props.match.params.muni}
-            />
+        <div className="data">
+          <div className="container">
+            <ul className="tabs">
+              {tabs.map((tab) => (
+                <li key={tab.value} className={this.props.tabSlug == tab.value ? 'active' : ''}>
+                  <Link to={`/profile/${this.props.muniSlug}/${tab.value}`}>{tab.label}</Link>
+                </li>
+              ))}
+            </ul>
+            <div className="dropdown-wrapper">
+              <Dropdown
+                value={this.props.tabSlug}
+                options={tabs}
+                onChange={(e) => this.props.push(`/profile/${this.props.muniSlug}/${e.target.value}`)}
+              />
+            </div>
+            <div className="box">
+              <Tab active={this.props.tabSlug == 'demographics'}>
+                <PieChart
+                  chart={charts['demographics'][0]}
+                  muni={this.props.muniSlug}
+                />
+              </Tab>
+              <Tab active={this.props.tabSlug == 'economy'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'education'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'governance'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'environment'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'housing'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'public-health'}>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'transportation'}>
+              </Tab>
+            </div>
           </div>
-        </section>
+        </div>
 
       </article>
     );
