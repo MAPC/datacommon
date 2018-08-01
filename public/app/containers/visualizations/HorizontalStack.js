@@ -19,7 +19,6 @@ const mapStateToProps = (state, { muni, chart }) => {
     yAxis: {
       label: 'Year'
     },
-    categories: ['Less than High School', 'High School, or Equivalent', 'Some College', 'Bachelors or Highers'],
     data: [{
       x: 10.3,
       y: '2005-2009',

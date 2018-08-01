@@ -15,6 +15,7 @@ class HorizontalStack extends React.Component {
       height: 500,
     };
 
+    this.stack = d3.stack();
     this.color = d3.scaleOrdinal(props.colors);
   }
 
@@ -22,22 +23,12 @@ class HorizontalStack extends React.Component {
     const { width, height } = this.state;
     const margin = { top: 50, right: 50, bottom: 50, left: 50 };
 
-    const dataValues = this.props.data.reduce((values, d) => values.concat(d.values), [])
-
-    console.log(dataValues)
-
-    let xMax = this.props.data.reduce((max, bar) => {
-      let sum = bar.values.reduce((acc, value) => acc + value, 0);
-      return Math.max(sum, max)
-    }, 0);
-
-    const xScale = d3.scaleLinear()
-      .domain(xMax)
-      .range([0, width - margin.right - margin.left]);
-
-    const yScale = d3.scaleBand()
-      .domain(this.props.data.map(d => d.year))
-      .range([0, height - margin.bottom - margin.top])
+    const x = d3.scaleLinear()
+      .domain(d3.extent(this.props.data, d => d.x))
+      .range([0,width - margin.right - margin.left]);
+    const y = d3.scaleBand()
+      .domain(d3.extent(this.props.data, d => d.y))
+      .range([height - margin.bottom - margin.top, 0])
       .paddingInner(0.1)
       .align(0.1);
 
@@ -45,79 +36,81 @@ class HorizontalStack extends React.Component {
       .attr('width', width)
       .attr('height', height);
 
-    const keys = this.props.categories;
+    const keys = [...(new Set(this.props.data.map(d => d.z)))];
+
+    y.domain(d3.extent(this.props.data, d => d.x));
+    this.color.domain(keys);
+    this.stack.keys(keys);
+
+    let data = this.props.data.reduce((acc, row) => {
+        acc[row.y] = { ...(acc[row.y] || {}), ...{[row.z]: row.x} };
+        return acc;
+      }, {});
+
+    data = Object.keys(data).map(yVal => ({ y: yVal, ...data[yVal] }));
+
+    const stackedData = this.stack(data);
+    x.domain(d3.extent(stackedData.reduce((a,b) => a.concat(b.map(t => t[1])), [0.01]), d => d));
+
+    console.log(stackedData);
 
     svg.append('g')
       .selectAll('g')
-      .data(d3.stack().keys(keys)(this.props.data))
+      .data(stackedData)
       .enter().append('g')
       .attr('class', 'bars')
-      .attr('fill', d => this.color(d.value))
+      .attr('fill', d => this.color(d.key))
       .selectAll('rect')
-      .data(d => this.props.data)
+      .data(d => stackedData)
       .enter().append('rect')
-        .attr('y', d => yScale(this.props.data.year))
-        .attr('x', d => xScale(dataValues[0]))
-        .attr('width', d => xScale(dataValues[1]) - xScale(dataValues[0]))
-        .attr('height', yScale.bandwidth());
+        .attr('y', d => y(this.props.data.year))
+        .attr('x', d => x(stackedData[0]))
+        .attr('width', d => x(stackedData[1]) - x(stackedData[0]))
+        .attr('height', y.bandwidth());
 
-      svg.append("g")
-          .attr("class", "axis")
-          .attr("transform", "translate(0,0)")
-          .call(d3.axisLeft(yScale));
+    svg.append('g')
+      .attr('class', 'axis axis-x')
+      .attr('transform', `translate(0, ${height})`)
+      .call(d3.axisBottom(x).ticks(10));
 
-      svg.append("g")
-          .attr("class", "axis")
-    	  .attr("transform", "translate(0,"+height+")")
-          .call(d3.axisBottom(xScale).ticks(null, "s"))
-        .append("text")
-          .attr("y", 2)
-          .attr("x", xScale(xScale.ticks().pop()) + 0.5)
-          .attr("dy", "0.32em")
-          .attr("fill", "#000")
-          .attr("font-weight", "bold")
-          .attr("text-anchor", "start")
-          .text("Population")
-    	  .attr("transform", "translate("+ (-width) +",-10)");
+    svg.append('g')
+      .attr('class', 'axis axis-y')
+      .call(d3.axisLeft(y).tickFormat(this.props.yAxisFormat));
+
+
+      // svg.append("g")
+      //     .attr("class", "axis")
+    	//   .attr("transform", "translate(0,"+height+")")
+      //     .call(d3.axisBottom(x).ticks(null, "s"))
+      //   .append("text")
+      //     .attr("y", 2)
+      //     .attr("x", x(x.ticks().pop()) + 0.5)
+      //     .attr("dy", "0.32em")
+      //     .attr("fill", "#000")
+      //     .attr("font-weight", "bold")
+      //     .attr("text-anchor", "start")
+      //     .text("Population")
+    	//   .attr("transform", "translate("+ (-width) +",-10)");
 
       const legend = svg.append("g")
         .attr('class', 'legend')
         .selectAll("g")
-        .data(keys.slice().reverse())
+        .data(keys.slice())
         .enter().append("g")
         //.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
     	 .attr("transform", function(d, i) { return "translate(-50," + (300 + i * 20) + ")"; });
 
       legend.append("rect")
-          .attr("x", width - 19)
-          .attr("width", 19)
-          .attr("height", 19)
+          .attr("x", width - 50)
+          .attr("width", 15)
+          .attr("height", 15)
           .attr("fill", this.color);
 
       legend.append("text")
-          .attr("x", width - 24)
+          .attr("x", width - 35)
           .attr("y", 9.5)
-          .attr("dy", "0.32em")
+          .attr("dy", "0.24em")
           .text(function(d) { return d; });
-
-    // const line = d3.line()
-    //   .x((d) => xScale(d[0]))
-    //   .y((d) => yScale(d[1]))
-    //   .curve(d3.curveMonotoneX);
-    //
-    // svg.append('g')
-    //   .attr('class', 'xAxis')
-    //   .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
-    //   .call(d3.axisBottom(xScale));
-    // svg.append('g')
-    //   .attr('class', 'yAxis')
-    //   .attr('transform', `translate(${margin.left}, ${margin.top})`)
-    //   .call(d3.axisLeft(yScale));
-    // svg.append("path")
-    //   .datum(this.props.data[0].values)
-    //   .attr("class", "line")
-    //   .attr('transform', `translate(${margin.left}, ${margin.top})`)
-    //   .attr("d", line);
   }
 
 
@@ -155,10 +148,10 @@ HorizontalStack.propTypes = {
   yAxis: PropTypes.shape({
     label: PropTypes.string.isRequired,
   }).isRequired,
-  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
-    year: PropTypes.string.isRequired,
-    values: PropTypes.arrayOf(PropTypes.number).isRequired,
+    x: PropTypes.number.isRequired,
+    y: PropTypes.string.isRequired,
+    z: PropTypes.string.isRequired,
   })).isRequired,
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
