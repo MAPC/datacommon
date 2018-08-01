@@ -11,6 +11,7 @@ export function fetchChartData(table, municipality, columns = '*', yearCol = nul
       if (yearCol) {
         const yearResponse = await fetch(`${locations.BROWSER_API}SELECT ${yearCol} from ${table} ORDER BY ${yearCol} DESC LIMIT 1`);
         year = (await yearResponse.json()).rows[0][yearCol];
+        console.log(year);
       }
 
       const response = await fetch(`${locations.BROWSER_API}SELECT ${columns} FROM ${table} WHERE municipal ilike '${municipality}' ${year ? (`AND ${yearCol} = ${year}`) : ''}`);

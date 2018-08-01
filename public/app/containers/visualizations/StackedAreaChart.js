@@ -4,7 +4,21 @@ import StackedAreaChart from '~/app/components/visualizations/StackedAreaChart';
 
 
 const mapStateToProps = (state, { muni, chart }) => {
-  return {};
+  const { table, columns } = chart;
+  let data = [];
+
+  if (state.chart.cache[table] && state.chart.cache[table][muni]) {
+    const chartData = state.chart.cache[table][muni];
+    data = chartData.map(row => ({ x: row.cal_year, y: row.avgemp, z: row.naicstitle }));
+
+    console.log('Data ', data);
+  }
+
+  return {
+    data,
+    table: table.split('.').join('_'),
+    colors: ['#ff0000', '#00ff00', '#0000ff'],
+  };
 };
 
 const mapDispatchToProps = (dispatch, props) => ({});

@@ -14,7 +14,7 @@ const mapStateToProps = (state, { muni, chart }) => {
 
   return {
     data,
-    table,
+    table: table.split('.').join('_'),
     colors: ['#ff0000', '#00ff00', '#0000ff'],
   };
 };
