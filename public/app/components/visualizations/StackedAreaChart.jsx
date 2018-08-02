@@ -13,6 +13,11 @@ class StackedAreaChart extends React.Component {
     this.stack = d3.stack();
     this.color = d3.scaleOrdinal(props.colors);
 
+    const container = {
+      width: 500,
+      height: 500,
+    };
+
     const margin = {
       top: 20,
       left: 50,
@@ -21,9 +26,10 @@ class StackedAreaChart extends React.Component {
     };
 
     this.size = {
-      height: (500 - margin.top) - margin.bottom,
-      width: (500 - margin.left) - margin.right,
+      height: (container.width - margin.top) - margin.bottom,
+      width: (container.height - margin.left) - margin.right,
       margin,
+      container,
     };
   }
 
@@ -90,9 +96,11 @@ class StackedAreaChart extends React.Component {
 
 
   componentDidMount() {
+    const { width, height } = this.size.container;
+
     this.chart = d3.select(this.svg)
       .attr('preserveAspectRatio', 'xMinYMin meet')
-      .attr('viewBox', '0 0 500 500');
+      .attr('viewBox', `0 0 ${width} ${height}`);
 
     this.gChart = this.chart.append('g');
     this.legend = d3.select(this.legendContainer).append('ul');
