@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import MunicipalityPolygon from './MunicipalityPolygon';
 import PieChart from '~/app/containers/visualizations/PieChart';
+import HorizontalStack from '~/app/containers/visualizations/HorizontalStack';
 import Tab from './Tab';
 import Dropdown from './field/Dropdown';
 import LineChart from '~/app/containers/visualizations/LineChart';
