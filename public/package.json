@@ -16,6 +16,7 @@
   "dependencies": {
     "d3": "npm:d3",
     "history": "^4.7.2",
+    "path-to-regexp": "^2.2.1",
     "prop-types": "^15.6.1",
     "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
     "react-dom": "^16.4.0",

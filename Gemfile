@@ -11,6 +11,7 @@ gem 'rake'
 gem 'pg'
 gem 'dotenv'
 gem 'activesupport'
+gem 'rubyzip'
 
 group :development do
   gem "capistrano", "~> 3.10", require: false

@@ -6,6 +6,7 @@ import Dropdown from './field/Dropdown';
 import MunicipalityPolygon from './MunicipalityPolygon';
 import PieChart from '~/app/containers/visualizations/PieChart';
 import StackedAreaChart from '~/app/containers/visualizations/StackedAreaChart';
+import LineChart from '~/app/containers/visualizations/LineChart';
 
 import tabs from './../constants/tabs';
 import charts from '~/app/constants/charts';
@@ -76,6 +77,7 @@ class CommunityProfiles extends React.Component {
             </div>
             <div className="box">
               <Tab active={this.props.tabSlug == 'demographics'}>
+                <LineChart />
               </Tab>
               <Tab active={this.props.tabSlug == 'economy'}>
                 <StackedAreaChart
