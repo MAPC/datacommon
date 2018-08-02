@@ -10,22 +10,26 @@ class StackedAreaChart extends React.Component {
 
     this.renderChart = this.renderChart.bind(this);
 
-    this.state = {
-      width: 530,
-      height: 500,
-      margin: {
-        left: 50,
-        bottom: 20,
-      },
-    };
-
     this.stack = d3.stack();
     this.color = d3.scaleOrdinal(props.colors);
+
+    const margin = {
+      top: 20,
+      left: 50,
+      right: 20,
+      bottom: 30,
+    };
+
+    this.size = {
+      height: (500 - margin.top) - margin.bottom,
+      width: (500 - margin.left) - margin.right,
+      margin,
+    };
   }
 
 
   renderChart() {
-    const { width, height, margin } = this.state;
+    const { width, height, margin } = this.size;
     const x = d3.scaleLinear().domain(d3.extent(this.props.data, d => d.x)).range([0,width-margin.left]);
     const y = d3.scaleLinear().range([height,0]);
 
@@ -39,7 +43,7 @@ class StackedAreaChart extends React.Component {
     this.color.domain(keys);
     this.stack.keys(keys);
 
-    this.gChart.attr('transform', `translate(${margin.left},0)`);
+    this.gChart.attr('transform', `translate(${margin.left},${margin.top})`);
 
     let data = this.props.data.reduce((acc, row) => {
         acc[row.x] = { ...(acc[row.x] || {}), ...{[row.z]: row.y} };
@@ -86,9 +90,13 @@ class StackedAreaChart extends React.Component {
 
 
   componentDidMount() {
-    this.chart = d3.select(`#${this.props.table}-stacked-area`);
+    this.chart = d3.select(this.svg)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', '0 0 500 500');
+
     this.gChart = this.chart.append('g');
-    this.legend = d3.select(`#${this.props.table}-stacked-area-legend`).append('ul');
+    this.legend = d3.select(this.legendContainer).append('ul');
+
     this.renderChart();
   }
 
@@ -99,12 +107,10 @@ class StackedAreaChart extends React.Component {
 
 
   render() {
-    const { width, height, margin } = this.state;
-
     return (
       <div className="component chart StackedAreaChart">
-        <svg id={`${this.props.table}-stacked-area`} width={width + margin.left} height={height + margin.bottom}></svg>
-        <div id={`${this.props.table}-stacked-area-legend`} className="legend"></div>
+        <svg ref={el => this.svg = el}></svg>
+        <div ref={el => this.legendContainer = el} className="legend"></div>
       </div>
     );
   }
@@ -112,15 +118,14 @@ class StackedAreaChart extends React.Component {
 }
 
 StackedAreaChart.propTypes = {
-  table: PropTypes.string.isRequired,
-  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
     z: PropTypes.string.isRequired,
   })).isRequired,
   xAxisFormat: PropTypes.func,
-  yAxisFormat: PropTypes.func
+  yAxisFormat: PropTypes.func,
+  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 StackedAreaChart.defaultProps = {

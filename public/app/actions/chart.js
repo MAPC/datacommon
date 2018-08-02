@@ -14,9 +14,14 @@ export function fetchChartData(chartInfo, municipality) {
 
       if (yearCol) {
         const yearResponse = await fetch(`${locations.BROWSER_API}SELECT ${yearCol} from ${table} ORDER BY ${yearCol} DESC LIMIT 1`);
-        const year = (await yearResponse.json()).rows[0][yearCol];
 
-        query = `${query} AND ${yearCol} = '${year}'`;
+        try {
+          const year = (await yearResponse.json()).rows[0][yearCol];
+          query = `${query} AND ${yearCol} = '${year}'`;
+        }
+        catch(e) {
+          console.error(e);
+        }
       }
 
       if (where) {
