@@ -1,20 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MunicipalityPolygon from './MunicipalityPolygon';
-import StackedAreaChart from '~/app/containers/visualizations/StackedAreaChart';
-import PieChart from '~/app/containers/visualizations/PieChart';
+
 import Tab from './Tab';
 import Dropdown from './field/Dropdown';
-import charts from '~/app/constants/charts';
+import MunicipalityPolygon from './MunicipalityPolygon';
+import PieChart from '~/app/containers/visualizations/PieChart';
+import StackedAreaChart from '~/app/containers/visualizations/StackedAreaChart';
 
 import tabs from './../constants/tabs';
+import charts from '~/app/constants/charts';
+
 
 class CommunityProfiles extends React.Component {
 
-  componentWillMount() {
-    charts[this.props.match.params.tab].forEach(chart => {
+  constructor() {
+    super(...arguments);
+
+    this.loadData = this.loadData.bind(this);
+  }
+
+  loadData() {
+    (charts[this.props.match.params.tab] || []).forEach(chart => {
       this.props.fetchChartData(chart);
     });
+  }
+
+  componentWillMount() {
+    this.loadData();
+  }
+
+  componentDidUpdate() {
+    this.loadData();
   }
 
   render() {
@@ -60,12 +76,12 @@ class CommunityProfiles extends React.Component {
             </div>
             <div className="box">
               <Tab active={this.props.tabSlug == 'demographics'}>
-                <PieChart
-                  chart={charts['demographics'][0]}
-                  muni={this.props.muniSlug}
-                />
               </Tab>
               <Tab active={this.props.tabSlug == 'economy'}>
+                <StackedAreaChart
+                  chart={charts['economy'][0]}
+                  muni={this.props.match.params.muni}
+                />
               </Tab>
               <Tab active={this.props.tabSlug == 'education'}>
               </Tab>
@@ -78,6 +94,10 @@ class CommunityProfiles extends React.Component {
               <Tab active={this.props.tabSlug == 'public-health'}>
               </Tab>
               <Tab active={this.props.tabSlug == 'transportation'}>
+                <PieChart
+                  chart={charts['transportation'][0]}
+                  muni={this.props.match.params.muni}
+                />
               </Tab>
             </div>
           </div>

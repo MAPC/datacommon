@@ -7,8 +7,10 @@ const mapStateToProps = (state, { muni, chart }) => {
   const { table, columns } = chart;
   let data = [];
 
+  console.log(state.chart.cache)
+
   if (state.chart.cache[table] && state.chart.cache[table][muni]) {
-    const chartData = state.chart.cache[table][muni];
+    const chartData = state.chart.cache[table][muni][0];
     data = Object.keys(chartData).map(key => ({ value: chartData[key], label: columns[key] }));
   }
 

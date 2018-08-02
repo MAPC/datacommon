@@ -16,7 +16,7 @@ export function fetchChartData(chartInfo, municipality) {
         const yearResponse = await fetch(`${locations.BROWSER_API}SELECT ${yearCol} from ${table} ORDER BY ${yearCol} DESC LIMIT 1`);
         const year = (await yearResponse.json()).rows[0][yearCol];
 
-        query = `${query} AND ${yearCol} = ${year}`;
+        query = `${query} AND ${yearCol} = '${year}'`;
       }
 
       if (where) {
