@@ -11,6 +11,11 @@
 0,30 * * * * cd /var/www/datacommon/current && /home/datacommon/.rvm/gems/ruby-2.5.0/bin/bundle exec /var/www/datacommon/current/app/sync_tabular_data_with_carto.rb
 15,45 * * * * cd /var/www/datacommon/current && /home/datacommon/.rvm/gems/ruby-2.5.0/bin/bundle exec /var/www/datacommon/current/app/sync_geospatial_data_with_carto.rb
 ```
+7. For the shapefile endpoint make sure your server has ogr2ogr. If it is an Ubuntu server you can follow the instructions to [install GDAL on Ubuntu](http://www.sarasafavi.com/installing-gdalogr-on-ubuntu.html):
+```
+sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update
+sudo apt-get install gdal-bin
+```
 
 ## Testing
 All server-side tests are written in RSpec.
