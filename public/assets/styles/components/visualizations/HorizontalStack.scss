@@ -1,0 +1,14 @@
+.component.StackedAreaChart {
+  display: flex;
+
+  .svg-wrapper {
+    flex: 1;
+  }
+
+  .legend {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+}

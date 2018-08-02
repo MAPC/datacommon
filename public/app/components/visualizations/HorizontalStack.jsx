@@ -13,6 +13,12 @@ class HorizontalStack extends React.Component {
     this.state = {
       width: 500,
       height: 500,
+      margin: {
+        top: 50,
+        right: 50,
+        bottom: 20,
+        left: 50
+      }
     };
 
     this.stack = d3.stack();
@@ -20,25 +26,21 @@ class HorizontalStack extends React.Component {
   }
 
   renderChart() {
-    const { width, height } = this.state;
-    const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+    const { width, height, margin } = this.state;
 
     const x = d3.scaleLinear()
       .domain(d3.extent(this.props.data, d => d.x))
-      .range([0,width - margin.right - margin.left]);
+      .range([margin.left ,width - margin.right - margin.left]);
     const y = d3.scaleBand()
       .domain(d3.extent(this.props.data, d => d.y))
-      .range([height - margin.bottom - margin.top, 0])
-      .paddingInner(0.1)
-      .align(0.1);
+      .range([height, 0])
+      .paddingInner(0.1);
 
-    const svg = d3.select(this.svg)
-      .attr('width', width)
-      .attr('height', height);
+    this.gChart.attr('transform', `translate(${margin.left},${margin.top})`);
 
     const keys = [...(new Set(this.props.data.map(d => d.z)))];
 
-    y.domain(d3.extent(this.props.data, d => d.x));
+    y.domain(d3.extent(this.props.data, d => d.y));
     this.color.domain(keys);
     this.stack.keys(keys);
 
@@ -52,69 +54,68 @@ class HorizontalStack extends React.Component {
     const stackedData = this.stack(data);
     x.domain(d3.extent(stackedData.reduce((a,b) => a.concat(b.map(t => t[1])), [0.01]), d => d));
 
-    console.log(stackedData);
 
-    svg.append('g')
-      .selectAll('g')
+    const layer = this.gChart
+      .selectAll('layer')
       .data(stackedData)
       .enter().append('g')
-      .attr('class', 'bars')
-      .attr('fill', d => this.color(d.key))
-      .selectAll('rect')
-      .data(d => stackedData)
-      .enter().append('rect')
-        .attr('y', d => y(this.props.data.year))
-        .attr('x', d => x(stackedData[0]))
-        .attr('width', d => x(stackedData[1]) - x(stackedData[0]))
-        .attr('height', y.bandwidth());
+      .attr('class', 'layer')
+      .attr('fill', d => this.color(d.key));
 
-    svg.append('g')
+    layer.selectAll("rect")
+  	  .data(d => d)
+  		.enter().append("rect")
+  		  .attr("y", d => y(d.data.y))
+  		  .attr("x", d => x(d[0]))
+        .attr("width", d => x(d[1]) - x(d[0]))
+        .attr("height", y.bandwidth());
+
+    this.gChart.append('g')
       .attr('class', 'axis axis-x')
       .attr('transform', `translate(0, ${height})`)
       .call(d3.axisBottom(x).ticks(10));
 
-    svg.append('g')
+    this.gChart.append('g')
       .attr('class', 'axis axis-y')
+      .attr('transform', `translate(${margin.left}, 0)`)
       .call(d3.axisLeft(y).tickFormat(this.props.yAxisFormat));
 
+    this.gChart.append('text')
+      .attr('class', 'axis label')
+      .attr('x', height / -2)
+      .attr('y', 2)
+      .attr('transform', 'rotate(-90)')
+      .attr("dy", "20")
+      .attr('font-size', '12px')
+      .style('text-anchor', 'middle')
+      .text(this.props.yAxis.label);
 
-      // svg.append("g")
-      //     .attr("class", "axis")
-    	//   .attr("transform", "translate(0,"+height+")")
-      //     .call(d3.axisBottom(x).ticks(null, "s"))
-      //   .append("text")
-      //     .attr("y", 2)
-      //     .attr("x", x(x.ticks().pop()) + 0.5)
-      //     .attr("dy", "0.32em")
-      //     .attr("fill", "#000")
-      //     .attr("font-weight", "bold")
-      //     .attr("text-anchor", "start")
-      //     .text("Population")
-    	//   .attr("transform", "translate("+ (-width) +",-10)");
+    this.gChart.append('text')
+      .attr('class', 'axis label')
+      .attr('x', width / 2)
+      .attr('y', height + 15)
+      .attr("dy", "20")
+      .attr('font-size', '12px')
+      .style('text-anchor', 'middle')
+      .text(this.props.xAxis.label);
 
-      const legend = svg.append("g")
-        .attr('class', 'legend')
-        .selectAll("g")
-        .data(keys.slice())
-        .enter().append("g")
-        //.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-    	 .attr("transform", function(d, i) { return "translate(-50," + (300 + i * 20) + ")"; });
 
-      legend.append("rect")
-          .attr("x", width - 50)
-          .attr("width", 15)
-          .attr("height", 15)
-          .attr("fill", this.color);
+      const li = this.legend
+        .selectAll('li')
+        .data(keys)
+        .enter()
+        .append('li')
+        .text(d => d);
 
-      legend.append("text")
-          .attr("x", width - 35)
-          .attr("y", 9.5)
-          .attr("dy", "0.24em")
-          .text(function(d) { return d; });
+      li.append('span')
+        .style('background', d => this.color(d));
   }
 
 
   componentDidMount() {
+    this.chart = d3.select(`#${this.props.table}-stacked-area`);
+    this.gChart = this.chart.append('g');
+    this.legend = d3.select(`#${this.props.table}-stacked-area-legend`).append('ul');
     this.renderChart();
   }
 
@@ -125,16 +126,14 @@ class HorizontalStack extends React.Component {
 
 
   render() {
+    const { width, height, margin } = this.state;
+
     return (
       <div className="component chart HorizontalStack">
-         <svg ref={el => this.svg = el}></svg>
-         <div className="legend">
-          <ul>
-              <li>
-                {this.props.categories}
-              </li>
-          </ul>
+        <div className="svg-wrapper">
+          <svg id={`${this.props.table}-stacked-area`} width={width + margin.left} height={height + margin.bottom}></svg>
         </div>
+        <div id={`${this.props.table}-stacked-area-legend`} className="legend"></div>
       </div>
     );
   }
@@ -142,6 +141,7 @@ class HorizontalStack extends React.Component {
 }
 
 HorizontalStack.propTypes = {
+  table: PropTypes.string.isRequired,
   xAxis: PropTypes.shape({
     label: PropTypes.string.isRequired,
   }).isRequired,

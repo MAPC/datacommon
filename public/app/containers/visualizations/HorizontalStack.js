@@ -13,6 +13,7 @@ const mapStateToProps = (state, { muni, chart }) => {
   // }
 
   return {
+    table: 'enrollment_by_year',
     xAxis: {
       label: 'Share',
     },
