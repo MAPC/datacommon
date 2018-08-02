@@ -14,13 +14,10 @@ export function fetchChartData(chartInfo, municipality) {
 
       if (yearCol) {
         const yearResponse = await fetch(`${locations.BROWSER_API}SELECT ${yearCol} from ${table} ORDER BY ${yearCol} DESC LIMIT 1`);
+        const payload = await yearResponse.json() || {};
 
-        try {
-          const year = (await yearResponse.json()).rows[0][yearCol];
-          query = `${query} AND ${yearCol} = '${year}'`;
-        }
-        catch(e) {
-          console.error(e);
+        if (payload.rows && payload.rows[0] && payload.rows[0][yearCol]) {
+          query = `${query} AND ${yearCol} = '${payload.rows[0][yearCol]}'`;
         }
       }
 
@@ -29,9 +26,9 @@ export function fetchChartData(chartInfo, municipality) {
       }
 
       const response = await fetch(query);
-      const payload = await response.json();
+      const payload = await response.json() || {};
 
-      return dispatch(update(table, municipality, payload.rows));
+      return dispatch(update(table, municipality, payload.rows || []));
     }
   };
 };
