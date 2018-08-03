@@ -87,6 +87,7 @@ class CommunityProfiles extends React.Component {
                 />
               </Tab>
               <Tab active={this.props.tabSlug == 'education'}>
+                <HorizontalStackedBarChart />
               </Tab>
               <Tab active={this.props.tabSlug == 'governance'}>
               </Tab>
