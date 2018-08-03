@@ -5,7 +5,6 @@ import HorizontalStackedBarChart from '~/app/components/visualizations/Horizonta
 
 const mapStateToProps = (state, { muni, chart }) => {
   return {
-    table: 'enrollment_by_year',
     xAxis: {
       label: 'Share',
     },
