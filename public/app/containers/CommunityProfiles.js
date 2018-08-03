@@ -23,7 +23,7 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  fetchChartData: (table, columns) => dispatch(fetchChartData(table, props.match.params.muni, columns)),
+  fetchChartData: (chart) => dispatch(fetchChartData(chart, props.match.params.muni)),
   push: (path) => dispatch(push(path)),
 });
 

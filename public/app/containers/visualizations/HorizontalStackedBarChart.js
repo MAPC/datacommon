@@ -1,17 +1,9 @@
 import { connect } from 'react-redux';
 
-import HorizontalStack from '~/app/components/visualizations/HorizontalStack';
+import HorizontalStackedBarChart from '~/app/components/visualizations/HorizontalStackedBarChart';
 
 
 const mapStateToProps = (state, { muni, chart }) => {
-  //const { table, columns } = chart;
-  // let data = [];
-  //
-  // if (state.chart.cache[table] && state.chart.cache[table][muni]) {
-  //   const chartData = state.chart.cache[table][muni];
-  //   data = Object.keys(chartData).map(key => ({ value: chartData[key], label: columns[key] }));
-  // }
-
   return {
     table: 'enrollment_by_year',
     xAxis: {
@@ -67,4 +59,4 @@ const mapStateToProps = (state, { muni, chart }) => {
 
 const mapDispatchToProps = (dispatch, props) => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(HorizontalStack);
+export default connect(mapStateToProps, mapDispatchToProps)(HorizontalStackedBarChart);

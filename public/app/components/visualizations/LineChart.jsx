@@ -8,11 +8,6 @@ class LineChart extends React.Component {
 
     this.getBounds = this.getBounds.bind(this);
     this.renderChart = this.renderChart.bind(this);
-
-    this.state = {
-      width: 500,
-      height: 500,
-    };
   }
 
   getBounds() {
@@ -34,8 +29,9 @@ class LineChart extends React.Component {
 
   renderChart() {
     // Measure and scale
-    const { width, height } = this.state;
     const { xMin, xMax, yMin, yMax } = this.getBounds();
+    const width = 500;
+    const height = 500;
     const margin = { top: 50, right: 50, bottom: 50, left: 50 };
 
     const xScale = d3.scaleLinear()
@@ -89,6 +85,21 @@ class LineChart extends React.Component {
         .attr("r", 5)
     });
 
+    svg.append('text')
+      .attr('x', height / -2)
+      .attr('y', 2)
+      .attr('transform', 'rotate(-90)')
+      .attr("dy", "20")
+      .style('text-anchor', 'middle')
+      .text(this.props.yAxis.label);
+
+    svg.append('text')
+      .attr('x', width / 2)
+      .attr('y', height - 22)
+      .attr("dy", "20")
+      .style('text-anchor', 'middle')
+      .text(this.props.yAxis.label);
+
   }
 
 
@@ -105,11 +116,14 @@ class LineChart extends React.Component {
   render() {
     return (
       <div className="component chart LineChart">
-        <svg ref={el => this.svg = el}></svg>
+        <div className="svg-wrapper">
+          <svg ref={el => this.svg = el}></svg>
+        </div>
         <div className="legend">
           <ul>
             {this.props.data.map(d => (
-              <li>
+              <li key={d.label}>
+                <span class="color-patch" style={{backgroundColor: d.color}}></span>
                 {d.label}
               </li>
             ))}

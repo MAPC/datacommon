@@ -1,25 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import MunicipalityPolygon from './MunicipalityPolygon';
-import PieChart from '~/app/containers/visualizations/PieChart';
-import HorizontalStack from '~/app/containers/visualizations/HorizontalStack';
+
 import Tab from './Tab';
 import Dropdown from './field/Dropdown';
+import MunicipalityPolygon from './MunicipalityPolygon';
+import PieChart from '~/app/containers/visualizations/PieChart';
 import LineChart from '~/app/containers/visualizations/LineChart';
-import charts from '~/app/constants/charts';
+import StackedAreaChart from '~/app/containers/visualizations/StackedAreaChart';
+import HorizontalStackedBarChart from '~/app/containers/visualizations/HorizontalStackedBarChart';
 
 import tabs from './../constants/tabs';
+import charts from '~/app/constants/charts';
+
 
 class CommunityProfiles extends React.Component {
 
-  componentWillMount() {
-    const chartList = charts[this.props.tabSlug];
-    if (chartList && chartList.length) {
-      chartList.forEach(chart => {
-        this.props.fetchChartData(chart.table, Object.keys(chart.columns).join(','))
-      });
-    }
+  constructor() {
+    super(...arguments);
 
+    this.loadData = this.loadData.bind(this);
+  }
+
+  loadData() {
+    (charts[this.props.match.params.tab] || []).forEach(chart => {
+      this.props.fetchChartData(chart);
+    });
+  }
+
+  componentWillMount() {
+    this.loadData();
+  }
+
+  componentDidUpdate() {
+    this.loadData();
   }
 
   render() {
@@ -65,13 +78,13 @@ class CommunityProfiles extends React.Component {
             </div>
             <div className="box">
               <Tab active={this.props.tabSlug == 'demographics'}>
-                <PieChart
-                  chart={charts['demographics'][0]}
-                  muni={this.props.muniSlug}
-                />
                 <LineChart />
               </Tab>
               <Tab active={this.props.tabSlug == 'economy'}>
+                <StackedAreaChart
+                  chart={charts['economy'][0]}
+                  muni={this.props.match.params.muni}
+                />
               </Tab>
               <Tab active={this.props.tabSlug == 'education'}>
               </Tab>
@@ -84,6 +97,10 @@ class CommunityProfiles extends React.Component {
               <Tab active={this.props.tabSlug == 'public-health'}>
               </Tab>
               <Tab active={this.props.tabSlug == 'transportation'}>
+                <PieChart
+                  chart={charts['transportation'][0]}
+                  muni={this.props.match.params.muni}
+                />
               </Tab>
             </div>
           </div>

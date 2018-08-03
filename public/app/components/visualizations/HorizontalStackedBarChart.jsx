@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 
 
-class HorizontalStack extends React.Component {
+class HorizontalStackedBarChart extends React.Component {
 
   constructor(props) {
     super(props);
@@ -129,7 +129,7 @@ class HorizontalStack extends React.Component {
     const { width, height, margin } = this.state;
 
     return (
-      <div className="component chart HorizontalStack">
+      <div className="component chart HorizontalStackedBarChart">
         <div className="svg-wrapper">
           <svg id={`${this.props.table}-stacked-area`} width={width + margin.left} height={height + margin.bottom}></svg>
         </div>
@@ -140,7 +140,7 @@ class HorizontalStack extends React.Component {
 
 }
 
-HorizontalStack.propTypes = {
+HorizontalStackedBarChart.propTypes = {
   table: PropTypes.string.isRequired,
   xAxis: PropTypes.shape({
     label: PropTypes.string.isRequired,
@@ -156,4 +156,4 @@ HorizontalStack.propTypes = {
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default HorizontalStack;
+export default HorizontalStackedBarChart;
