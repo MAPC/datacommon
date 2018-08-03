@@ -10,13 +10,13 @@ class PieChart extends React.Component {
 
     this.renderChart = this.renderChart.bind(this);
 
-    this.state = {
+    this.size = {
       width: 500,
       height: 500,
     };
 
     this.pie = d3.pie()
-                .sort(null)
+                .sort((a,b) => a.value > b.value)
                 .value(d => d.value);
 
     this.color = d3.scaleOrdinal(props.colors);
@@ -24,7 +24,7 @@ class PieChart extends React.Component {
 
 
   renderChart() {
-    const { width, height } = this.state;
+    const { width, height } = this.size;
     const radius = Math.min(height, width) / 2;
 
     const path = d3.arc()
@@ -60,9 +60,14 @@ class PieChart extends React.Component {
 
 
   componentDidMount() {
-    this.chart = d3.select(`#${this.props.table}-pie`);
+    const { width, height } = this.size;
+
+    this.chart = d3.select(this.svg)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', `0 0 ${width} ${height}`);
+
     this.gChart = this.chart.append('g');
-    this.legend = d3.select(`#${this.props.table}-pie-legend`).append('ul');
+    this.legend = d3.select(this.legendContainer).append('ul');
     this.renderChart();
   }
 
@@ -75,8 +80,8 @@ class PieChart extends React.Component {
   render() {
     return (
       <div className="component chart PieChart">
-        <svg id={`${this.props.table}-pie`}></svg>
-        <div id={`${this.props.table}-pie-legend`} className="legend"></div>
+        <svg ref={el => this.svg = el}></svg>
+        <div ref={el => this.legendContainer = el} className="legend"></div>
       </div>
     );
   }

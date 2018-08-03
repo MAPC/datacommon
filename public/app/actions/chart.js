@@ -2,20 +2,34 @@ import types from './types';
 import locations from '~/app/constants/locations';
 
 
-export function fetchChartData(table, municipality, columns = '*') {
+export function fetchChartData(chartInfo, municipality) {
   return async (dispatch, getState) => {
     const { chart } = getState();
-    let data = [];
+    const { table, yearCol, where } = chartInfo;
+    const columns = Object.keys(chartInfo.columns).join(',');
 
     if (!chart.cache[table] || !chart.cache[table][municipality]) {
-      const response = await fetch(`${locations.BROWSER_API}SELECT ${columns} FROM ${table} WHERE municipal ilike '${municipality}' LIMIT 1`)
-      const payload = await response.json();
-      if (payload && payload.length) {
-        data = payload.rows[0];
-      }
-    }
+      let query = `${locations.BROWSER_API}SELECT ${columns} FROM ${table}`;
+      query = `${query} WHERE municipal ilike '${municipality}'`;
 
-    return dispatch(update(table, municipality, data));
+      if (yearCol) {
+        const yearResponse = await fetch(`${locations.BROWSER_API}SELECT ${yearCol} from ${table} ORDER BY ${yearCol} DESC LIMIT 1`);
+        const payload = await yearResponse.json() || {};
+
+        if (payload.rows && payload.rows[0] && payload.rows[0][yearCol]) {
+          query = `${query} AND ${yearCol} = '${payload.rows[0][yearCol]}'`;
+        }
+      }
+
+      if (where) {
+        query = `${query} AND ${where}`;
+      }
+
+      const response = await fetch(query);
+      const payload = await response.json() || {};
+
+      return dispatch(update(table, municipality, payload.rows || []));
+    }
   };
 };
 
