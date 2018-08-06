@@ -39,6 +39,7 @@
     }
 
     em { font-weight: 700; }
+    &:not(:first-of-type) { margin-left: 30px; } to &:not(:last-of-type) { margin-right: 30px; }
   }
 
   .year-filter {
