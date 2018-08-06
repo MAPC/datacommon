@@ -36,8 +36,8 @@ class HorizontalStackedBarChart extends React.Component {
   renderChart() {
     const { width, height, margin, container } = this.size;
 
-    const x = d3.scaleLinear().range([0, width]);
-    const y = d3.scaleBand()
+    const xScale = d3.scaleLinear().range([0, width]);
+    const yScale = d3.scaleBand()
       .domain(d3.extent(this.props.data, d => d.y))
       .range([height, 0])
       .paddingInner(0.2);
@@ -57,7 +57,7 @@ class HorizontalStackedBarChart extends React.Component {
     data = Object.keys(data).map(yVal => ({ y: yVal, ...data[yVal] }));
 
     const stackedData = this.stack(data);
-    x.domain(d3.extent(stackedData.reduce((a,b) => a.concat(b.map(t => t[1])), [0]), d => d));
+    xScale.domain(d3.extent(stackedData.reduce((a,b) => a.concat(b.map(t => t[1])), [0]), d => d));
 
     const layer = this.gChart
       .selectAll('.layer')
@@ -71,19 +71,19 @@ class HorizontalStackedBarChart extends React.Component {
   	  .data(d => d)
       .enter()
       .append("rect")
-      .attr("y", d => y(d.data.y))
-      .attr("x", d => x(d[0]))
-      .attr("width", d => x(d[1]) - x(d[0]))
-      .attr("height", y.bandwidth());
+      .attr("y", d => yScale(d.data.y))
+      .attr("x", d => xScale(d[0]))
+      .attr("width", d => xScale(d[1]) - xScale(d[0]))
+      .attr("height", yScale.bandwidth());
 
     this.gChart.append('g')
       .attr('class', 'axis axis-x')
       .attr('transform', `translate(0, ${height})`)
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(xScale));
 
     this.gChart.append('g')
       .attr('class', 'axis axis-y')
-      .call(d3.axisLeft(y).tickFormat(this.props.yAxisFormat));
+      .call(d3.axisLeft(yScale).tickFormat(this.props.yAxisFormat));
 
     this.chart.append('text')
       .attr('class', 'axis label')
