@@ -16,6 +16,11 @@
       font-weight: 700;
       fill: $color_bg-dark;
     }
+    text.missing-data {
+      font-size: $font_size-small;
+      fill: $color_font-medium;
+      max-width: 50%;
+    }
   }
 
   .legend {
@@ -26,7 +31,6 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      // justify-content: center;
       li {
         display: flex;
         $_size: $font_size-xsmall;

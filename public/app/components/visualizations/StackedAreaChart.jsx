@@ -115,6 +115,24 @@ class StackedAreaChart extends React.Component {
       .style('text-anchor', 'middle')
       .text(this.props.xAxis.label);
 
+    if (!this.props.data.length) {
+      const placeholder = this.gChart.append('g')
+      placeholder.append('text')
+        .attr('class', 'missing-data')
+        .attr('x', width / 2)
+        .attr('y', height / 2 - 12)
+        .attr("dy", "12")
+        .style('text-anchor', 'middle')
+        .text('Oops! We can\'t find this data right now.');
+      placeholder.append('text')
+        .attr('class', 'missing-data')
+        .attr('x', width / 2)
+        .attr('y', height / 2 + 12)
+        .attr("dy", "12")
+        .style('text-anchor', 'middle')
+        .text('Please try again later.');
+    }
+
     const li = this.legend
       .selectAll('li')
       .data(keys)
