@@ -11,6 +11,8 @@ export default {
       },
     }
   ],
+  'education': [
+  ],
   'transportation': [
     {
       type: 'pie',
