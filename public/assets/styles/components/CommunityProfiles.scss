@@ -24,7 +24,8 @@
     background-color: transparent;
     padding: 0 8em;
     margin-bottom: 1.5em;
-    h1 {
+    h2 {
+      font-size: $font_size-large;
       margin: 0;
     }
     @include media(medium-small) {
@@ -113,6 +114,27 @@
       min-height: 300px;
       @include media(medium-small) {
         border: none;
+      }
+      .chart-wrapper {
+        h3 {
+          margin: 0;
+          font-size: $font_size-small;
+          font-weight: 700;
+        }
+        .caveat, .metadata {
+          color: $color_font-medium;
+          font-size: $font_size-xsmall;
+        }
+        .metadata {
+          font-style: italic;
+          display: flex;
+          justify-content: space-between;
+          a {
+            color: $color_font-medium;
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
       }
     }
   }

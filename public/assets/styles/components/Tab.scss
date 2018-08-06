@@ -3,4 +3,14 @@
   &.active {
     display: block;
   }
+  .tab-row {
+    display: flex;
+    padding: 2em 8em;
+    & > .chart-wrapper {
+      flex: 1;
+      &:first-child {
+        margin-right: 6em;
+      }
+    }
+  }
 }

@@ -1,37 +1,52 @@
 .chart {
-  width: 100%;
-  height: 100%;
 
+  font-size: $font_size-xsmall;
+  margin-bottom: 1em;
   svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  .legend {
-    padding: 15px;
-
-    background: $color_bg-light;
-    border: 1px solid $color_brand-primary;
-
-    ul { margin: 0; }
-
-    li {
-      @extend ._clear;
-      $_size: $font_size-xsmall;
-
-      font-size: $_size;
-
-      span {
-        float: left;
-        top: $_size / 2;
-        display: block;
-
-        height: $_size;
-        width: $_size;
-        margin-right: $_size;
+    .axis {
+      text {
+        font-size: $font_size-xsmall;
+        fill: $color_bg-dark;
       }
+      path {
+        stroke: $color_bg-dark;
+      }
+    }
+    text.axis-label {
+      font-weight: 700;
+      fill: $color_bg-dark;
     }
   }
 
+  .legend {
+    background: $color_bg-light;
 
+    ul {
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      // justify-content: center;
+      li {
+        display: flex;
+        $_size: $font_size-xsmall;
+
+        font-size: $_size;
+        margin-bottom: 0.3em;
+        &:not(:last-child) {
+          margin-right: 1.5em;
+        }
+
+        span.color-patch {
+          border-radius: 50%;
+          top: $_size / 2;
+          display: block;
+
+          height: $_size;
+          width: $_size;
+          margin-right: $_size / 2;
+        }
+      }
+    }
+  }
 }
