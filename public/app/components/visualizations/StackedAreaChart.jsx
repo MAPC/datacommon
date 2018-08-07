@@ -26,8 +26,8 @@ class StackedAreaChart extends React.Component {
     };
 
     this.size = {
-      height: (container.width - margin.top) - margin.bottom,
-      width: (container.height - margin.left) - margin.right,
+      height: (container.height - margin.top) - margin.bottom,
+      width: (container.width - margin.left) - margin.right,
       margin,
       container,
     };

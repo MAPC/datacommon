@@ -5,8 +5,9 @@ import Tab from './Tab';
 import Dropdown from './field/Dropdown';
 import MunicipalityPolygon from './MunicipalityPolygon';
 import PieChart from '~/app/containers/visualizations/PieChart';
-import StackedAreaChart from '~/app/containers/visualizations/StackedAreaChart';
 import LineChart from '~/app/containers/visualizations/LineChart';
+import StackedAreaChart from '~/app/containers/visualizations/StackedAreaChart';
+import HorizontalStackedBarChart from '~/app/containers/visualizations/HorizontalStackedBarChart';
 
 import tabs from './../constants/tabs';
 import charts from '~/app/constants/charts';
@@ -86,6 +87,7 @@ class CommunityProfiles extends React.Component {
                 />
               </Tab>
               <Tab active={this.props.tabSlug == 'education'}>
+                <HorizontalStackedBarChart />
               </Tab>
               <Tab active={this.props.tabSlug == 'governance'}>
               </Tab>
