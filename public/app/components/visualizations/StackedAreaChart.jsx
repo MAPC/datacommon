@@ -133,16 +133,30 @@ class StackedAreaChart extends React.Component {
         .text('Please try again later.');
     }
 
-    const li = this.legend
-      .selectAll('li')
-      .data(keys)
-      .enter()
-      .append('li')
-    li.append('span')
-      .attr('class', 'color-patch')
-      .style('background', d => this.color(d));
-    li.append('span')
-      .text(d => d);
+    const sortedKeys = keys.sort();
+    this.legend.selectAll('*').remove();
+    const addLegendColumn = (keysInColumn) => {
+      const li = this.legend.append('ul')
+        .selectAll('li')
+        .data(keysInColumn)
+        .enter()
+        .append('li');
+      li.append('span')
+        .attr('class', 'color-patch')
+        .style('background', d => this.color(d));
+      li.append('span')
+        .attr('class', 'label')
+        .text(d => d);
+    };
+    if (keys.length > 6) {
+      this.legend.attr('class', 'legend two-column');
+      addLegendColumn(sortedKeys.slice(0, Math.round(sortedKeys.length / 2)));
+      addLegendColumn(sortedKeys.slice(Math.round(sortedKeys.length / 2)));
+    } else {
+      addLegendColumn(sortedKeys);
+    }
+
+
   }
 
 
@@ -153,7 +167,7 @@ class StackedAreaChart extends React.Component {
       .attr('preserveAspectRatio', 'xMinYMin meet')
       .attr('viewBox', `0 0 ${width} ${height}`);
 
-    this.legend = d3.select(this.legendContainer).append('ul');
+    this.legend = d3.select(this.legendContainer);
 
     this.renderChart();
   }

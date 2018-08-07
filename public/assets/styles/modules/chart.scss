@@ -25,7 +25,18 @@
 
   .legend {
     background: $color_bg-light;
-
+    &.two-column {
+      display: flex;
+      ul {
+        width: 50%;
+        display: block;
+        li {
+          width: calc(100% - 1em);
+          margin-right: 1em;
+          margin: 0;
+        }
+      }
+    }
     ul {
       margin: 0;
       display: flex;
@@ -34,7 +45,6 @@
       li {
         display: flex;
         $_size: $font_size-xsmall;
-
         font-size: $_size;
         margin-bottom: 0.3em;
         &:not(:last-child) {
@@ -49,6 +59,9 @@
           height: $_size;
           width: $_size;
           margin-right: $_size / 2;
+        }
+        span.label {
+          // width: 50%;
         }
       }
     }
