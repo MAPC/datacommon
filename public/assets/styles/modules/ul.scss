@@ -30,7 +30,7 @@ ul {
       transition: border .12s;
       cursor: pointer;
 
-      &:hover {
+      &.active, &:hover {
         color: $color_font-dark;
 
         border-color: $color_font-medium;
