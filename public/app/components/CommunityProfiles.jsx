@@ -7,6 +7,7 @@ import MunicipalityPolygon from './MunicipalityPolygon';
 import PieChart from '~/app/containers/visualizations/PieChart';
 import LineChart from '~/app/containers/visualizations/LineChart';
 import StackedAreaChart from '~/app/containers/visualizations/StackedAreaChart';
+import PercentStackedBarChart from '~/app/containers/visualizations/PercentStackedBarChart';
 import HorizontalStackedBarChart from '~/app/containers/visualizations/HorizontalStackedBarChart';
 
 import tabs from './../constants/tabs';
