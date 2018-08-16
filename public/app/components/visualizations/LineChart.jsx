@@ -1,6 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import colors from '~/app/constants/colors';
+import { maxToMargin } from '~/app/utils/charts';
+
+const defaultColors = Array.from(colors.CHART.values());
+
+const container = {
+  width: 500,
+  height: 500,
+};
+
+const defaultMargin = {
+  top: 20,
+  left: 40,
+  right: 20,
+  bottom: 50,
+};
+
 class LineChart extends React.Component {
 
   constructor(props) {
@@ -8,6 +25,7 @@ class LineChart extends React.Component {
 
     this.getBounds = this.getBounds.bind(this);
     this.renderChart = this.renderChart.bind(this);
+
   }
 
   getBounds() {
@@ -30,80 +48,104 @@ class LineChart extends React.Component {
   renderChart() {
     // Measure and scale
     const { xMin, xMax, yMin, yMax } = this.getBounds();
-    const width = 500;
-    const height = 500;
-    const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+    const bonusLeftMargin = maxToMargin(yMax);
+    const margin = Object.assign({}, defaultMargin, {
+      left: defaultMargin.left + bonusLeftMargin,
+    });
+    const width = (container.height - margin.left) - margin.right;
+    const height = (container.width - margin.top) - margin.bottom;
 
     const xScale = d3.scaleLinear()
       .domain([xMin, xMax])
-      .range([0, width - margin.right - margin.left]);
-
+      .range([0, width]);
+    const xAxis = d3.axisBottom(xScale).tickSize(0).tickPadding(10);
     const yScale = d3.scaleLinear()
       .domain([yMin, yMax])
-      .range([height - margin.bottom - margin.top, 0]);
-
+      .range([height, 0]);
+    const yAxis = d3.axisLeft(yScale).tickSize(0).tickPadding(10);
     const lineGenerator = d3.line()
       .x(d => xScale(d[0]))
       .y(d => yScale(d[1]));
 
     // Draw chart
-    const svg = d3.select(this.svg)
-      .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", "0 0 500 500");
-    svg.selectAll('*').remove(); // Clear chart before drawing lines
+    this.chart.selectAll('*').remove(); // Clear chart before drawing lines
 
-    svg.append('g')
-      .attr('class', 'xAxis')
-      .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
-      .call(d3.axisBottom(xScale));
+    this.gChart = this.chart.append('g');
+    this.gChart.attr('transform', `translate(${margin.left},${margin.top})`);
 
-    svg.append('g')
-      .attr('class', 'yAxis')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
-      .call(d3.axisLeft(yScale));
+    this.gChart.append('g')
+      .attr('class', 'axis axis-x')
+      .attr('transform', `translate(0, ${height})`)
+      .call(xAxis);
+
+    this.gChart.append('g')
+      .attr('class', 'axis axis-y')
+      .call(yAxis);
 
     this.props.data.forEach((line, i) => {
-      svg.append("path")
+      const lineColor = line.color || (i < defaultColors.length
+          ? defaultColors[i]
+          : colors.CHART_DEFAULT);
+
+      this.gChart.append("path")
         .datum(line.values)
         .attr("class", "line")
-        .attr('stroke', line.color)
-        .attr('stroke-width', 3)
+        .attr('stroke', lineColor)
+        .attr('stroke-width', 1.5)
         .attr('fill', 'none')
-        .attr('transform', `translate(${margin.left}, ${margin.top})`)
         .attr("d", lineGenerator);
 
-      svg.selectAll(`.dots-for-line-${i}`)
+      this.gChart.selectAll(`.dots-for-line-${i}`)
         .data(line.values)
         .enter().append("circle")
         .attr("class", `dot dots-for-line-${i}`)
         .attr("cx", d => xScale(d[0]))
         .attr("cy", d => yScale(d[1]))
-        .attr('fill', line.color)
-        .attr('stroke', '#fff')
-        .attr('stroke-width', 2)
-        .attr('transform', `translate(${margin.left}, ${margin.top})`)
-        .attr("r", 5)
+        .attr('fill', lineColor)
+        .attr("r", 3)
     });
 
-    svg.append('text')
-      .attr('x', height / -2)
+    this.chart.append('text')
+      .attr('class', 'axis-label')
+      .attr('x', (height / -2) - margin.top)
       .attr('y', 2)
       .attr('transform', 'rotate(-90)')
-      .attr("dy", "20")
+      .attr("dy", "12")
       .style('text-anchor', 'middle')
       .text(this.props.yAxis.label);
 
-    svg.append('text')
-      .attr('x', width / 2)
-      .attr('y', height - 22)
-      .attr("dy", "20")
+    this.chart.append('text')
+      .attr('class', 'axis-label')
+      .attr('x', width / 2 + margin.left)
+      .attr('y', height + margin.top + margin.bottom - 22)
+      .attr("dy", "12")
       .style('text-anchor', 'middle')
-      .text(this.props.yAxis.label);
+      .text(this.props.xAxis.label);
+
+    const li = this.legend
+      .selectAll('li')
+      .data(this.props.data)
+      .enter()
+      .append('li');
+    li.append('span')
+      .attr('class', 'color-patch')
+      .style('background', (d, i) => (d.color || (i < defaultColors.length
+          ? defaultColors[i]
+          : colors.CHART_DEFAULT)))
+    li.append('span')
+      .text(d => d.label);
 
   }
 
 
   componentDidMount() {
+    const { width, height } = container;
+
+    this.chart = d3.select(this.svg)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', `0 0 ${width} ${height}`);
+
+    this.legend = d3.select(this.legendContainer).append('ul');
     this.renderChart();
   }
 
@@ -116,19 +158,8 @@ class LineChart extends React.Component {
   render() {
     return (
       <div className="component chart LineChart">
-        <div className="svg-wrapper">
-          <svg ref={el => this.svg = el}></svg>
-        </div>
-        <div className="legend">
-          <ul>
-            {this.props.data.map(d => (
-              <li key={d.label}>
-                <span class="color-patch" style={{backgroundColor: d.color}}></span>
-                {d.label}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <svg ref={el => this.svg = el}></svg>
+        <div ref={el => this.legendContainer = el} className="legend"></div>
       </div>
     );
   }
@@ -148,7 +179,7 @@ LineChart.propTypes = {
   }).isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
-    color: PropTypes.string.isRequired,
+    color: PropTypes.string,
     values: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   })).isRequired,
 };

@@ -14,8 +14,13 @@ const mapStateToProps = (state, { muni, chart }) => {
 
   return {
     data,
-    xAxisFormat: String,
-    colors: ['#ff0000', '#00ff00', '#0000ff'],
+    xAxis: {
+      label: 'Time',
+      format: String,
+    },
+    yAxis: {
+      label: 'Population',
+    },
   };
 };
 

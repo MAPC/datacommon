@@ -30,8 +30,6 @@ class SearchBar extends React.Component {
 
 
   renderResults() {
-    console.log(this.props.results);
-
     const results = this.props.results.map((result,i) => (
       <li
         key={result[this.props.searchColumn] ? `${result.id}-${result[this.props.searchColumn]}` : result}

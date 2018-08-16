@@ -14,11 +14,9 @@ const mapStateToProps = (state, props) => {
     },
     data: [{
       label: 'New',
-      color: '#ff0000',
       values: [[1, 2], [2, 4], [3,5], [4, 4], [5, 6]],
     }, {
       label: 'New',
-      color: '#00ff00',
       values: [[1, 1], [2, 6], [3, 8], [4, 1], [5, 2]],
     }],
   };
