@@ -122,8 +122,8 @@ class LineChart extends React.Component {
         <div className="legend">
           <ul>
             {this.props.data.map(d => (
-              <li key={d.label}>
-                <span class="color-patch" style={{backgroundColor: d.color}}></span>
+              <li key={`${d.label}-${d.color}`}>
+                <span className="color-patch" style={{backgroundColor: d.color}}></span>
                 {d.label}
               </li>
             ))}

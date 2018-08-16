@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import * as fmt from '~/app/utils/fmt';
 import wordSearch from '~/app/utils/wordSearch';
-import capitalize from '~/app/utils/capitalize';
 
 
 class SearchBar extends React.Component {
@@ -30,8 +30,6 @@ class SearchBar extends React.Component {
 
 
   renderResults() {
-    console.log(this.props.results);
-
     const results = this.props.results.map((result,i) => (
       <li
         key={result[this.props.searchColumn] ? `${result.id}-${result[this.props.searchColumn]}` : result}
@@ -39,7 +37,7 @@ class SearchBar extends React.Component {
         onMouseEnter={() => this.props.setHovering(result)}
         onMouseLeave={() => this.props.setHovering(null)}
       >
-        <span className="a-tag">{capitalize(result[this.props.searchColumn] || result)}</span>
+        <span className="a-tag">{fmt.Capitalize(result[this.props.searchColumn] || result)}</span>
       </li>
     ));
 

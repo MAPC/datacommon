@@ -36,15 +36,16 @@ class HorizontalStackedBarChart extends React.Component {
   renderChart() {
     const { width, height, margin, container } = this.size;
 
+    const keys = [...(new Set(this.props.data.map(d => d.z)))];
+    const yDomain = [...(new Set(this.props.data.map(d => d.y)))];
+
     const xScale = d3.scaleLinear().range([0, width]);
     const yScale = d3.scaleBand()
-      .domain(d3.extent(this.props.data, d => d.y))
+      .domain(yDomain)
       .range([height, 0])
       .paddingInner(0.2);
 
     this.gChart.attr('transform', `translate(${margin.left},${margin.top})`);
-
-    const keys = [...(new Set(this.props.data.map(d => d.z)))];
 
     this.color.domain(keys);
     this.stack.keys(keys);
@@ -55,9 +56,12 @@ class HorizontalStackedBarChart extends React.Component {
       }, {});
 
     data = Object.keys(data).map(yVal => ({ y: yVal, ...data[yVal] }));
-
     const stackedData = this.stack(data);
-    xScale.domain(d3.extent(stackedData.reduce((a,b) => a.concat(b.map(t => t[1])), [0]), d => d));
+
+    const xDomain = d3.extent(stackedData.reduce((a,b) => a.concat(b.map(t => t[1])), [0]), d => d);
+    xDomain[0] = this.props.xAxis.min || xDomain[0];
+    xDomain[1] = this.props.xAxis.max || xDomain[1];
+    xScale.domain(xDomain);
 
     const layer = this.gChart
       .selectAll('.layer')
@@ -79,11 +83,11 @@ class HorizontalStackedBarChart extends React.Component {
     this.gChart.append('g')
       .attr('class', 'axis axis-x')
       .attr('transform', `translate(0, ${height})`)
-      .call(d3.axisBottom(xScale));
+      .call(d3.axisBottom(xScale).tickFormat(this.props.xAxis.format));
 
     this.gChart.append('g')
       .attr('class', 'axis axis-y')
-      .call(d3.axisLeft(yScale).tickFormat(this.props.yAxisFormat));
+      .call(d3.axisLeft(yScale).tickFormat(this.props.yAxis.format));
 
     this.chart.append('text')
       .attr('class', 'axis label')
@@ -148,19 +152,31 @@ class HorizontalStackedBarChart extends React.Component {
 
 }
 
+const AxisShape = {
+  label: PropTypes.string.isRequired,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  format: PropTypes.func,
+};
+
 HorizontalStackedBarChart.propTypes = {
-  xAxis: PropTypes.shape({
-    label: PropTypes.string.isRequired,
-  }).isRequired,
-  yAxis: PropTypes.shape({
-    label: PropTypes.string.isRequired,
-  }).isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
     x: PropTypes.number.isRequired,
     y: PropTypes.string.isRequired,
     z: PropTypes.string.isRequired,
   })).isRequired,
+  xAxis: PropTypes.shape(AxisShape).isRequired,
+  yAxis: PropTypes.shape(AxisShape).isRequired,
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+HorizontalStackedBarChart.defaultProps = {
+  xAxis: {
+    format: d => d,
+  },
+  yAxis: {
+    format: d => d,
+  }
 };
 
 export default HorizontalStackedBarChart;
