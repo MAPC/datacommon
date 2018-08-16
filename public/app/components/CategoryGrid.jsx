@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import icons from '../constants/category-icons';
+import icons from '~/app/constants/categories';
 
 
 class CategoryGrid extends React.Component {
