@@ -14,7 +14,7 @@ export default function dataset(state = defaultState, action) {
     case types.DATASET.UPDATE:
       const cache = action.datasets;
       const categories = [...action.datasets.reduce((a,b) => a.add(b.menu1), new Set())].sort();
-      const searchable = action.datasets.map(row => ({ id: row.cartodb_id, title: row.menu3 }));
+      const searchable = action.datasets.map(row => ({ id: row.seq_id, title: row.menu3 }));
 
       newState = { cache, categories, searchable };
       break;

@@ -1,57 +1,57 @@
 import { connect } from 'react-redux';
 
+import * as fmt from '~/app/utils/fmt';
 import PercentStackedBarChart from '~/app/components/visualizations/PercentStackedBarChart';
 
 
+const races = {
+  'aa': 'African American',
+  'as': 'Asian',
+  'lat': 'Latino',
+  'mlt': 'Multi',
+  'na': 'Native American',
+  'nhw': 'Non-hispanic White',
+  'oth': 'Other',
+  'pi': 'Pacific Islander',
+};
+
+const educationLevels = {
+  'lh': 'Less than highschool',
+  'hs': 'Highschool',
+  'sc': 'Some college or associate degree',
+  'bd': 'Bachelor degree or higher',
+};
+
 const mapStateToProps = (state, { muni, chart }) => {
+  const { table, columns } = chart;
+  let data = [];
+
+  if (state.chart.cache[table] && state.chart.cache[table][muni]) {
+    const chartData = state.chart.cache[table][muni][0];
+
+    Object.keys(races).forEach(race => {
+      Object.keys(educationLevels).forEach(education => {
+        data.push({
+          x: chartData[race + education],
+          y: races[race],
+          z: educationLevels[education],
+        });
+      });
+    });
+  }
+
   return {
+    data,
     xAxis: {
       label: 'Share',
+      min: 0,
+      max: 100,
+      format: fmt.Percent
     },
     yAxis: {
-      label: 'Year'
+      label: 'Year',
+      format: String,
     },
-    data: [{
-      x: 10.3,
-      y: '2005-2009',
-      z: 'Less than High School',
-    },
-    {
-      x: 20.8,
-      y: '2005-2009',
-      z: 'High School, or Equivalent',
-    },
-    {
-      x: 15.4,
-      y: '2005-2009',
-      z: 'Some College',
-    },
-    {
-      x: 53.1,
-      y: '2005-2009',
-      z: 'Bachelors or Highers',
-    },
-    {
-      x: 8.4,
-      y: '2012-2016',
-      z: 'Less than High School',
-    },
-    {
-      x: 15.6,
-      y: '2012-2016',
-      z: 'High School, or Equivalent',
-    },
-    {
-      x: 20.4,
-      y: '2012-2016',
-      z: 'Some College',
-    },
-    {
-      x: 55.6,
-      y: '2012-2016',
-      z: 'Bachelors or Highers',
-    },
-    ],
     colors: ['#1F4F43', '#2A9979', '#79BF60', '#283b5d'],
   };
 };
