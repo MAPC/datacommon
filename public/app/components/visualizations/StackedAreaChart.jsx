@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 
 import colors from '~/app/constants/colors';
-import { maxToMargin } from '~/app/utils/charts';
+import { maxToMargin, drawLegend } from '~/app/utils/charts';
 
 const defaultColors = Array.from(colors.CHART.values());
 
@@ -52,7 +52,7 @@ class StackedAreaChart extends React.Component {
     this.color.domain(keys);
     this.stack.keys(keys);
 
-    this.chart.selectAll('*').remove(); // Clear chart before drawing lines
+    this.chart.selectAll('*').remove(); // Clear chart before drawing
 
     this.gChart = this.chart.append('g');
     this.gChart.attr('transform', `translate(${margin.left},${margin.top})`);
@@ -133,30 +133,9 @@ class StackedAreaChart extends React.Component {
         .text('Please try again later.');
     }
 
-    const sortedKeys = keys.sort();
+
     this.legend.selectAll('*').remove();
-    const addLegendColumn = (keysInColumn) => {
-      const li = this.legend.append('ul')
-        .selectAll('li')
-        .data(keysInColumn)
-        .enter()
-        .append('li');
-      li.append('span')
-        .attr('class', 'color-patch')
-        .style('background', d => this.color(d));
-      li.append('span')
-        .attr('class', 'label')
-        .text(d => d);
-    };
-    if (keys.length > 6) {
-      this.legend.attr('class', 'legend two-column');
-      addLegendColumn(sortedKeys.slice(0, Math.round(sortedKeys.length / 2)));
-      addLegendColumn(sortedKeys.slice(Math.round(sortedKeys.length / 2)));
-    } else {
-      addLegendColumn(sortedKeys);
-    }
-
-
+    drawLegend(this.legend, this.color, keys);
   }
 
 
@@ -168,7 +147,6 @@ class StackedAreaChart extends React.Component {
       .attr('viewBox', `0 0 ${width} ${height}`);
 
     this.legend = d3.select(this.legendContainer);
-
     this.renderChart();
   }
 

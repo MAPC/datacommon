@@ -12,5 +12,18 @@
         margin-right: 6em;
       }
     }
+    @include media(large) {
+      display: block;
+      padding: 2em 12em;
+      & > .chart-wrapper {
+        &:first-child {
+          margin-right: 0em;
+          margin-bottom: 2em;
+        }
+      }
+    }
+    @include media(medium-small) {
+      padding: 2em 0em;
+    }
   }
 }

@@ -2,6 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 
+import colors from '~/app/constants/colors';
+import { maxToMargin, drawLegend, maxTextToMargin } from '~/app/utils/charts';
+
+const defaultColors = Array.from(colors.CHART.values());
+
+const container = {
+  width: 500,
+  height: 500,
+};
+
+const defaultMargin = {
+  top: 20,
+  left: 40,
+  right: 20,
+  bottom: 50,
+};
 
 class HorizontalStackedBarChart extends React.Component {
 
@@ -11,7 +27,7 @@ class HorizontalStackedBarChart extends React.Component {
     this.renderChart = this.renderChart.bind(this);
 
     this.stack = d3.stack();
-    this.color = d3.scaleOrdinal(props.colors);
+    this.color = d3.scaleOrdinal(props.colors || defaultColors);
 
     const container = {
       width: 500,
@@ -34,30 +50,51 @@ class HorizontalStackedBarChart extends React.Component {
   }
 
   renderChart() {
-    const { width, height, margin, container } = this.size;
+    // Measure data and calculate size and margins
+    const bonusLeftMargin = maxTextToMargin(this.props.data.reduce((acc, d) => Math.max(acc, d.y.length), 0), 12);
+    const margin = Object.assign({}, defaultMargin, {
+      left: defaultMargin.left + bonusLeftMargin,
+    });
+    const width = (container.width - margin.left) - margin.right;
+    const height = (container.height - margin.top) - margin.bottom;
 
-    const xScale = d3.scaleLinear().range([0, width]);
-    const yScale = d3.scaleBand()
-      .domain(d3.extent(this.props.data, d => d.y))
-      .range([height, 0])
-      .paddingInner(0.2);
-
-    this.gChart.attr('transform', `translate(${margin.left},${margin.top})`);
-
+    // Prepare data and adjust scales
     const keys = [...(new Set(this.props.data.map(d => d.z)))];
 
     this.color.domain(keys);
     this.stack.keys(keys);
 
-    let data = this.props.data.reduce((acc, row) => {
-        acc[row.y] = { ...(acc[row.y] || {}), ...{[row.z]: row.x} };
-        return acc;
-      }, {});
+    const data = this.props.data.reduce((acc, row) => {
+      acc[row.y] = { ...(acc[row.y] || {}), ...{[row.z]: row.x} };
+      return acc;
+    }, {});
+    const groups = Object.keys(data);
 
-    data = Object.keys(data).map(yVal => ({ y: yVal, ...data[yVal] }));
+    const stackedData = this.stack(groups.map(yVal => ({ y: yVal, ...data[yVal] })));
 
-    const stackedData = this.stack(data);
-    xScale.domain(d3.extent(stackedData.reduce((a,b) => a.concat(b.map(t => t[1])), [0]), d => d));
+    // Setup scales and axes
+    const xScale = d3.scaleLinear()
+      .range([0, width])
+      .domain(d3.extent(stackedData.reduce((a,b) => a.concat(b.map(t => t[1])), [0]), d => d));
+    const yScale = d3.scaleBand()
+      .domain(groups)
+      .range([height, 0])
+      .paddingInner(0.2);
+
+    const xAxis = d3.axisBottom(xScale)
+      .tickSize(0)
+      .tickPadding(10)
+      .tickFormat(this.props.xAxisFormat);
+
+    const yAxis = d3.axisLeft(yScale)
+      .tickSize(0)
+      .tickPadding(10)
+      .ticks(10)
+      .tickFormat(this.props.yAxisFormat);
+
+    this.chart.selectAll('*').remove(); // Clear chart before drawing
+    this.gChart = this.chart.append('g');
+    this.gChart.attr('transform', `translate(${margin.left},${margin.top})`);
 
     const layer = this.gChart
       .selectAll('.layer')
@@ -79,11 +116,11 @@ class HorizontalStackedBarChart extends React.Component {
     this.gChart.append('g')
       .attr('class', 'axis axis-x')
       .attr('transform', `translate(0, ${height})`)
-      .call(d3.axisBottom(xScale));
+      .call(xAxis);
 
     this.gChart.append('g')
       .attr('class', 'axis axis-y')
-      .call(d3.axisLeft(yScale).tickFormat(this.props.yAxisFormat));
+      .call(yAxis);
 
     this.chart.append('text')
       .attr('class', 'axis label')
@@ -104,27 +141,19 @@ class HorizontalStackedBarChart extends React.Component {
       .style('text-anchor', 'middle')
       .text(this.props.xAxis.label);
 
-    const li = this.legend
-      .selectAll('li')
-      .data(keys)
-      .enter()
-      .append('li')
-      .text(d => d);
-
-    li.append('span')
-      .style('background', d => this.color(d));
+    this.legend.selectAll('*').remove();
+    drawLegend(this.legend, this.color, keys);
   }
 
 
   componentDidMount() {
-    const { width, height } = this.size.container;
+    const { width, height } = container;
 
     this.chart = d3.select(this.svg)
       .attr('preserveAspectRatio', 'xMinYMin meet')
       .attr('viewBox', `0 0 ${width} ${height}`);
 
-    this.gChart = this.chart.append('g');
-    this.legend = d3.select(this.legendContainer).append('ul');
+    this.legend = d3.select(this.legendContainer);
 
     this.renderChart();
   }
@@ -138,9 +167,7 @@ class HorizontalStackedBarChart extends React.Component {
   render() {
     return (
       <div className="component chart HorizontalStackedBarChart">
-        <div className="svg-wrapper">
-          <svg ref={el => this.svg = el}></svg>
-        </div>
+        <svg ref={el => this.svg = el}></svg>
         <div ref={el => this.legendContainer = el} className="legend"></div>
       </div>
     );
@@ -160,7 +187,7 @@ HorizontalStackedBarChart.propTypes = {
     y: PropTypes.string.isRequired,
     z: PropTypes.string.isRequired,
   })).isRequired,
-  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  colors: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default HorizontalStackedBarChart;

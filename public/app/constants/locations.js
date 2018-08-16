@@ -1,7 +1,7 @@
 const locations = {
   development: {
-    HOST: 'http://localhost:1234',
-    BROWSER_API: 'http://prql.mapc.org?token=16a2637ee33572e46f5609a578b035dc&query=',
+    HOST: 'https://localhost:1234',
+    BROWSER_API: 'https://prql.mapc.org?token=16a2637ee33572e46f5609a578b035dc&query=',
   },
 
   production: {

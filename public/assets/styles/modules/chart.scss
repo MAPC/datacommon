@@ -21,6 +21,15 @@
       fill: $color_font-medium;
       max-width: 50%;
     }
+    text {
+      fill: $color_bg-dark;
+      font-size: 10px;
+    }
+    polyline {
+      stroke: $color_bg-dark;
+      stroke-width: 1px;
+      fill: none;
+    }
   }
 
   .legend {

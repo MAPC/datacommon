@@ -27,10 +27,32 @@ const mapStateToProps = (state, { muni, chart }) => {
       z: 'Some College',
     },
     {
-      x: 53.1,
+      x: 3.1,
       y: '2005-2009',
       z: 'Bachelors or Highers',
     },
+
+    {
+      x: 8.4,
+      y: '2012-2015',
+      z: 'Less than High School',
+    },
+    {
+      x: 15.6,
+      y: '2012-2015',
+      z: 'High School, or Equivalent',
+    },
+    {
+      x: 20.4,
+      y: '2012-2015',
+      z: 'Some College',
+    },
+    {
+      x: 55.6,
+      y: '2012-2015',
+      z: 'Bachelors or Highers',
+    },
+
     {
       x: 8.4,
       y: '2012-2016',
@@ -52,7 +74,7 @@ const mapStateToProps = (state, { muni, chart }) => {
       z: 'Bachelors or Highers',
     },
     ],
-    colors: ['#1F4F43', '#2A9979', '#79BF60', '#283b5d'],
+    // colors: ['#1F4F43', '#2A9979', '#79BF60', '#283b5d'],
   };
 };
 

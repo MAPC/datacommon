@@ -7,7 +7,7 @@
     }
     .back-link {
       z-index: 10;
-      @include media(medium-small) {
+      @include media(medium) {
         display: none;
       }
       a {
@@ -28,7 +28,7 @@
       font-size: $font_size-large;
       margin: 0;
     }
-    @include media(medium-small) {
+    @include media(medium) {
       padding: 0;
     }
   }
@@ -51,13 +51,13 @@
     .description {
       flex: 1;
     }
-    @include media(medium-small) {
+    @include media(medium) {
       padding: 0 0 1em 0;
     }
   }
   .data {
     @extend ._partial-bg;
-    @include media(medium-small) {
+    @include media(medium) {
       &:after {
         display: none;
       }
@@ -68,10 +68,10 @@
       display: flex;
       z-index: 1;
       flex-wrap: wrap-reverse;
-      @include media(medium) {
+      @include media(large) {
         margin: 0 8em 0 8em;
       }
-      @include media(medium-small) {
+      @include media(medium) {
         display: none;
       }
       border-left: 1px solid $color_font-medium;
@@ -104,15 +104,15 @@
     .dropdown-wrapper {
       padding: 1em 0;
       display: none;
-      @include media(medium-small) {
+      @include media(medium) {
         display: block;
       }
     }
     .box {
-      border: 1px solid $color_font-medium;
+      border-top: 1px solid $color_font-medium;
       background-color: $color_bg-light;
       min-height: 300px;
-      @include media(medium-small) {
+      @include media(medium) {
         border: none;
       }
       .chart-wrapper {
