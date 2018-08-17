@@ -9,8 +9,12 @@ import LineChart from '~/app/containers/visualizations/LineChart';
 import StackedAreaChart from '~/app/containers/visualizations/StackedAreaChart';
 import HorizontalStackedBarChart from '~/app/containers/visualizations/HorizontalStackedBarChart';
 
+// Charts for tabs
+import DemoRaceEthnicityStackedBar from '~/app/containers/visualizations/DemoRaceEthnicityStackedBar';
+
 import tabs from './../constants/tabs';
 import charts from '~/app/constants/charts';
+import locations from '~/app/constants/locations';
 
 
 class CommunityProfiles extends React.Component {
@@ -82,20 +86,20 @@ class CommunityProfiles extends React.Component {
               <Tab active={this.props.tabSlug == 'demographics'}>
                 <div className="tab-row">
                   <div className="chart-wrapper">
-                    <h3>Population by Age</h3>
-                    <LineChart />
-                    <div className="caveat">
-                      Caveat: There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form
-                    </div>
+                    <h3>Race and Ethnicity</h3>
+                    <DemoRaceEthnicityStackedBar
+                      chart={charts['demographics'][0]}
+                      muni={this.props.match.params.muni}
+                    />
                     <div className="metadata">
                       <span className="source">
-                        Source: <b>ACS</b>
+                        Source: <b>{charts['demographics'][0]['source']}</b>
                       </span>
                       <span className="timeframe">
-                        Years: <b>5yr Avg 2008-12</b>
+                        Years: <b>{charts['demographics'][0]['timeframe']}</b>
                       </span>
                       <span className="link">
-                        Full Datasets: <b><a>Link to DataBrowser</a></b>
+                        Full Datasets: <b><a href={`${locations.HOST}/browser/datasets/${charts['demographics'][0]['datasetId']}`}>Link to DataBrowser</a></b>
                       </span>
                     </div>
                   </div>
