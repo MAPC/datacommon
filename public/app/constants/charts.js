@@ -1,4 +1,28 @@
 export default {
+  'demographics' : [
+    {
+      type: 'stacked-bar',
+      table: 'tabular.b03002_race_ethnicity_acs_m',
+      xAxis: { label: 'Population' },
+      yAxis: { label: 'Year' },
+      yearCol: 'acs_year',
+      columns: {
+        'acs_year': 'Year',
+        'totpop': 'Total Population',
+        'nhwhi': 'White',
+        'nhaa': 'Black or African American',
+        'nhna': 'American Indian',
+        'nhas': 'Asian',
+        'nhpi': 'Native Hawaiian and Other Pacific Islander',
+        'nhoth': 'Some Other Race alone',
+        'nhmlt': 'Two or More Races',
+        'lat': 'Hispanic or Latino',
+      },
+      source: 'ACS',
+      timeframe: '5 yr avg 2012-16',
+      datasetId: 6,
+    }
+  ],
   'economy': [
     {
       type: 'stacked-area',

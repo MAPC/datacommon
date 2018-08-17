@@ -84,13 +84,13 @@ class HorizontalStackedBarChart extends React.Component {
     const xAxis = d3.axisBottom(xScale)
       .tickSize(0)
       .tickPadding(10)
-      .tickFormat(this.props.xAxisFormat);
+      .tickFormat(this.props.xAxis.format);
 
     const yAxis = d3.axisLeft(yScale)
       .tickSize(0)
       .tickPadding(10)
       .ticks(10)
-      .tickFormat(this.props.yAxisFormat);
+      .tickFormat(this.props.yAxis.format);
 
     this.chart.selectAll('*').remove(); // Clear chart before drawing
     this.gChart = this.chart.append('g');
@@ -178,9 +178,11 @@ class HorizontalStackedBarChart extends React.Component {
 HorizontalStackedBarChart.propTypes = {
   xAxis: PropTypes.shape({
     label: PropTypes.string.isRequired,
+    format: PropTypes.func,
   }).isRequired,
   yAxis: PropTypes.shape({
     label: PropTypes.string.isRequired,
+    format: PropTypes.func,
   }).isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
     x: PropTypes.number.isRequired,

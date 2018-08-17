@@ -6,7 +6,7 @@ const locations = {
 
   production: {
     HOST: 'https://datacommon.mapc.org',
-    BROWSER_API: 'https://datacommon.carto.mapc.org/api/v2/sql?q=',
+    BROWSER_API: 'https://prql.mapc.org?token=16a2637ee33572e46f5609a578b035dc&query=',
   },
 };
 
