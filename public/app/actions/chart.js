@@ -5,31 +5,34 @@ import locations from '~/app/constants/locations';
 export function fetchChartData(chartInfo, municipality) {
   return async (dispatch, getState) => {
     const { chart } = getState();
-    const { table, yearCol, where } = chartInfo;
-    const columns = Object.keys(chartInfo.columns).join(',');
+    Object.keys(chartInfo.tables).forEach(async (tableName) => {
+      const { table, yearCol, where } = chartInfo.tables[tableName];
 
-    if (!chart.cache[table] || !chart.cache[table][municipality]) {
-      let query = `${locations.BROWSER_API}SELECT ${columns} FROM ${table}`;
-      query = `${query} WHERE municipal ilike '${municipality}'`;
+      const columns = chartInfo.tables[tableName].columns.join(',');
 
-      if (yearCol) {
-        const yearResponse = await fetch(`${locations.BROWSER_API}SELECT ${yearCol} from ${table} ORDER BY ${yearCol} DESC LIMIT 1`);
-        const payload = await yearResponse.json() || {};
+      if (!chart.cache[tableName] || !chart.cache[tableName][municipality]) {
+        let query = `${locations.BROWSER_API}SELECT ${columns} FROM ${tableName}`;
+        query = `${query} WHERE municipal ilike '${municipality}'`;
 
-        if (payload.rows && payload.rows[0] && payload.rows[0][yearCol]) {
-          query = `${query} AND ${yearCol} = '${payload.rows[0][yearCol]}'`;
+        if (yearCol) {
+          const yearResponse = await fetch(`${locations.BROWSER_API}SELECT ${yearCol} from ${tableName} ORDER BY ${yearCol} DESC LIMIT 1`);
+          const payload = await yearResponse.json() || {};
+
+          if (payload.rows && payload.rows[0] && payload.rows[0][yearCol]) {
+            query = `${query} AND ${yearCol} = '${payload.rows[0][yearCol]}'`;
+          }
         }
+
+        if (where) {
+          query = `${query} AND ${where}`;
+        }
+
+        const response = await fetch(query);
+        const payload = await response.json() || {};
+
+        return dispatch(update(tableName, municipality, payload.rows || []));
       }
-
-      if (where) {
-        query = `${query} AND ${where}`;
-      }
-
-      const response = await fetch(query);
-      const payload = await response.json() || {};
-
-      return dispatch(update(table, municipality, payload.rows || []));
-    }
+    });
   };
 };
 

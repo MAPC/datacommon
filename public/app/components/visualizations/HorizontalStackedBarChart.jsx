@@ -27,7 +27,7 @@ class HorizontalStackedBarChart extends React.Component {
     this.renderChart = this.renderChart.bind(this);
 
     this.stack = d3.stack();
-    this.color = d3.scaleOrdinal(props.colors || defaultColors);
+
 
     const container = {
       width: 500,
@@ -60,7 +60,9 @@ class HorizontalStackedBarChart extends React.Component {
 
     // Prepare data and adjust scales
     const keys = [...(new Set(this.props.data.map(d => d.z)))];
-
+    const colors = this.props.data.reduce((acc, d) =>
+        (d.color ? acc.concat([d.color]) : acc), []);
+    this.color = d3.scaleOrdinal(colors.length ? colors : defaultColors);
     this.color.domain(keys);
     this.stack.keys(keys);
 
@@ -188,8 +190,8 @@ HorizontalStackedBarChart.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.string.isRequired,
     z: PropTypes.string.isRequired,
+    color: PropTypes.string,
   })).isRequired,
-  colors: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default HorizontalStackedBarChart;
