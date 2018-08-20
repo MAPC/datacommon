@@ -9,6 +9,7 @@ const mapStateToProps = (state, props) => {
   if (tables.every((table) => state.chart.cache[table] && state.chart.cache[table][muni])) {
     const muniTables = tables.reduce((acc, table) => Object.assign(acc, {[table]: state.chart.cache[table][muni]}), {});
     return {
+      ...props,
       xAxis: chart.xAxis,
       yAxis: chart.yAxis,
       data: chart.transformer(muniTables, chart),

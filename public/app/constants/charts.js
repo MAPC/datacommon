@@ -133,7 +133,7 @@ export default {
     'resident_employment': {
       type: 'stacked-bar',
       title: 'Employment of Residents',
-      xAxis: { label: 'Year'},
+      xAxis: { label: 'Year', format: d => String(d) },
       yAxis: { label: 'Population', format: d => `${d/1000}k` },
       tables: {
         'tabular.b23025_employment_acs_m': {
@@ -160,6 +160,78 @@ export default {
           y: row[chart.tables['tabular.b23025_employment_acs_m'].yearCol],
           z: chart.labels[key],
         }))), []);
+      },
+    },
+    'emp_by_sector': {
+      type: 'stacked-area',
+      title: 'Employment by Industry',
+      xAxis: { label: 'Year', format: d => d },
+      yAxis: { label: 'Employment by Industry', format: d => `${d/1000}k`},
+      tables: {
+        'tabular.econ_es202_naics_2d_m': {
+          yearCol: 'cal_year',
+          columns: [
+            'cal_year',
+            'naicstitle',
+            'naicscode',
+            'avgemp',
+          ],
+        }
+      },
+      labels: {
+        '11+21': 'Agriculture, Forestry, Fishing, Hunting, and Mining',
+        '22': 'Construction',
+        '31-33': 'Manufacturing',
+        '42+44-45': 'Wholesale and Retail Trade',
+        '22+48-49': 'Transportation, warehousing, and utilities',
+        '51': 'Information',
+        '52+53': 'Finance, Insurance, Real Estate, and Rental and Leasing',
+        '54+55+56': 'Professional, technical, management, administrative, and waste management services',
+        '61+62': 'Education, health, and social services',
+        '71+72': 'Arts, entertainment, recreation, accommodation, and food services',
+        '81': 'Other services (other than public administration)',
+        '92': 'Public administration',
+      },
+      source: 'MAPC',
+      timeframe: '2001-2016',
+      datasetId: 319,
+      transformer: (tables, chart) => {
+        const indData = tables['tabular.econ_es202_naics_2d_m'];
+        if (indData.length < 1) { return []; }
+        const mapping = {};
+        indData.forEach((row) => {
+          if (!mapping[row['cal_year']]) {
+            mapping[row['cal_year']] = {}
+          }
+          mapping[row['cal_year']][row['naicscode']] = row['avgemp'] || 0;
+        });
+
+        const combineCategories = (year) => {
+          const getOrZero = (obj, key) => (obj[key] || 0);
+          return {
+            '11+21': getOrZero(year, '11') + getOrZero(year, '21'),
+            '22': getOrZero(year, '22'),
+            '31-33': getOrZero(year, '31-33'),
+            '42+44-45': getOrZero(year, '42') + getOrZero(year, '44-45'),
+            '22+48-49': getOrZero(year, '22') + getOrZero(year, '48-49'),
+            '51': getOrZero(year, '51'),
+            '52+53': getOrZero(year, '52') + getOrZero(year, '53'),
+            '54+55+56': getOrZero(year, '54') + getOrZero(year, '55') + getOrZero(year, '56'),
+            '61+62': getOrZero(year, '61') + getOrZero(year, '62'),
+            '71+72': getOrZero(year, '71') + getOrZero(year, '72'),
+            '81': getOrZero(year, '81'),
+            '92': getOrZero(year, '92'),
+          };
+        };
+        const data = Object.keys(mapping).reduce((acc, year) => {
+          const yearData = combineCategories(mapping[year]);
+          return acc.concat(Object.keys(yearData).map((key) => ({
+            x: parseInt(year),
+            y: yearData[key],
+            z: chart.labels[key],
+          })));
+        }, []);
+        return data;
       },
     },
   },
