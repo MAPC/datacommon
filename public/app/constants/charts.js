@@ -6,11 +6,12 @@ export default {
     'race_ethnicity': {
       type: 'stacked-bar',
       title: 'Race and Ethnicity',
-      xAxis: { label: 'Population', format: d => `${d/1000}k` },
-      yAxis: { label: 'Year' },
+      xAxis: { label: 'Year', },
+      yAxis: { label: 'Population', format: d => `${d/1000}k` },
       tables: {
         'tabular.b03002_race_ethnicity_acs_m': {
           yearCol: 'acs_year',
+          latestYearOnly: true,
           columns: [
             'acs_year',
             'nhwhi',
@@ -67,11 +68,12 @@ export default {
     'pop_by_age': {
       type: 'stacked-bar',
       title: 'Population by Age',
-      xAxis: { label: 'Population', format: d => `${d/1000}k` },
-      yAxis: { label: 'Year' },
+      xAxis: { label: 'Year',  },
+      yAxis: { label: 'Population', format: d => `${d/1000}k` },
       tables: {
         'tabular.census2010_p12_pop_by_age_m': {
           yearCol: 'years',
+          latestYearOnly: true,
           columns: [
             'years',
             'totpop',
@@ -128,16 +130,38 @@ export default {
     },
   },
   'economy': {
-    'industry_types': {
-      type: 'stacked-area',
-      table: 'tabular.econ_es202_naics_2d_m',
-      where: "naicstitle != 'Total, All Industries'",
-      columns: {
-        'naicstitle': 'NAICS Title',
-        'avgemp': 'Avg. Employment',
-        'cal_year': 'Year'
+    'resident_employment': {
+      type: 'stacked-bar',
+      title: 'Employment of Residents',
+      xAxis: { label: 'Year'},
+      yAxis: { label: 'Population', format: d => `${d/1000}k` },
+      tables: {
+        'tabular.b23025_employment_acs_m': {
+          yearCol: 'acs_year',
+          columns: [
+            'acs_year',
+            'emp',
+            'unemp',
+          ],
+        }
       },
-    }
+      labels: {
+        emp: 'Employed',
+        unemp: 'Unemployed',
+      },
+      source: 'ACS',
+      timeframe: '2007-2011; 2012-2016',
+      datasetId: 129,
+      transformer: (tables, chart) => {
+        const empData = tables['tabular.b23025_employment_acs_m'];
+        if (empData.length < 1) { return []; }
+        return empData.reduce((acc, row) => acc.concat(Object.keys(chart.labels).map((key) => ({
+          x: row[key],
+          y: row[chart.tables['tabular.b23025_employment_acs_m'].yearCol],
+          z: chart.labels[key],
+        }))), []);
+      },
+    },
   },
   'education': {
   },

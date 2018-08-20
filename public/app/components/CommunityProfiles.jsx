@@ -7,11 +7,11 @@ import MunicipalityPolygon from './MunicipalityPolygon';
 import PieChart from '~/app/containers/visualizations/PieChart';
 import LineChart from '~/app/containers/visualizations/LineChart';
 import StackedAreaChart from '~/app/containers/visualizations/StackedAreaChart';
-import HorizontalStackedBarChart from '~/app/containers/visualizations/HorizontalStackedBarChart';
+import StackedBarChart from '~/app/containers/visualizations/StackedBarChart';
+import ChartDetails from '~/app/components/visualizations/ChartDetails';
 
 import tabs from './../constants/tabs';
 import charts from '~/app/constants/charts';
-import locations from '~/app/constants/locations';
 
 
 class CommunityProfiles extends React.Component {
@@ -83,42 +83,34 @@ class CommunityProfiles extends React.Component {
             <div className="container">
               <Tab active={this.props.tabSlug == 'demographics'}>
                 <div className="tab-row">
-                  <div className="chart-wrapper">
-                    <h3>{charts['demographics']['race_ethnicity']['title']}</h3>
-                    <HorizontalStackedBarChart
+                  <ChartDetails chart={charts['demographics']['race_ethnicity']}>
+                    <StackedBarChart
                       chart={charts['demographics']['race_ethnicity']}
                       muni={this.props.match.params.muni}
                     />
-                    <div className="metadata">
-                      <span className="source">
-                        Source: <b>{charts['demographics']['race_ethnicity']['source']}</b>
-                      </span>
-                      <span className="timeframe">
-                        Years: <b>{charts['demographics']['race_ethnicity']['timeframe']}</b>
-                      </span>
-                      <span className="link">
-                        Full Datasets: <b><a href={`${locations.HOST}/browser/datasets/${charts['demographics']['race_ethnicity']['datasetId']}`}>Link to DataBrowser</a></b>
-                      </span>
-                    </div>
-                  </div>
-                    <div className="chart-wrapper">
-                    <h3>{charts['demographics']['pop_by_age']['title']}</h3>
-                    <HorizontalStackedBarChart
+                  </ChartDetails>
+                  <ChartDetails chart={charts['demographics']['pop_by_age']}>
+                    <StackedBarChart
                       chart={charts['demographics']['pop_by_age']}
                       muni={this.props.match.params.muni}
                     />
-                    <div className="metadata">
-                      <span className="source">
-                        Source: <b>{charts['demographics']['pop_by_age']['source']}</b>
-                      </span>
-                      <span className="timeframe">
-                        Years: <b>{charts['demographics']['pop_by_age']['timeframe']}</b>
-                      </span>
-                      <span className="link">
-                        Full Datasets: <b><a href={`${locations.HOST}/browser/datasets/${charts['demographics']['pop_by_age']['datasetId']}`}>Link to DataBrowser</a></b>
-                      </span>
-                    </div>
-                  </div>
+                  </ChartDetails>
+                </div>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'economy'}>
+                <div className="tab-row">
+                  <ChartDetails chart={charts['economy']['resident_employment']}>
+                    <StackedBarChart
+                      chart={charts['economy']['resident_employment']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
+                  <ChartDetails chart={charts['demographics']['pop_by_age']}>
+                    <StackedBarChart
+                      chart={charts['demographics']['pop_by_age']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
                 </div>
               </Tab>
 
