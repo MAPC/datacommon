@@ -113,6 +113,17 @@ class CommunityProfiles extends React.Component {
                   </ChartDetails>
                 </div>
               </Tab>
+              <Tab active={this.props.tabSlug == 'education'}>
+                <div className="tab-row">
+                  <ChartDetails chart={charts['education']['school_enrollment']}>
+                    <StackedBarChart
+                      chart={charts['education']['school_enrollment']}
+                      muni={this.props.match.params.muni}
+                      horizontal={true}
+                    />
+                  </ChartDetails>
+                </div>
+              </Tab>
 
             </div>
           </div>

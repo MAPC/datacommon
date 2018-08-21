@@ -26,12 +26,23 @@ const addLegendColumn = (legend, color, keysInColumn) => {
 };
 
 export function drawLegend(legend, color, keys) {
-  const sortedKeys = keys.sort();
   if (keys.length > 6) {
     legend.attr('class', 'legend two-column');
-    addLegendColumn(legend, color, sortedKeys.slice(0, Math.round(sortedKeys.length / 2)));
-    addLegendColumn(legend, color, sortedKeys.slice(Math.round(sortedKeys.length / 2)));
+    addLegendColumn(legend, color, keys.slice(0, Math.round(keys.length / 2)));
+    addLegendColumn(legend, color, keys.slice(Math.round(keys.length / 2)));
   } else {
-    addLegendColumn(legend, color, sortedKeys);
+    addLegendColumn(legend, color, keys);
   }
+}
+
+export function sortKeys(values) {
+  const sortedDups = values
+    .map(d => ({ z: d.z, order: d.order }))
+    .sort((a, b) => {
+      const aVal = a.order == undefined ? a.label : a.order;
+      const bVal = b.order == undefined ? b.label : b.order;
+      return (aVal > bVal) ? 1 : ((aVal < bVal) ? -1 : 0);
+    })
+    .map(d => d.z);
+  return [...(new Set(sortedDups))];
 }
