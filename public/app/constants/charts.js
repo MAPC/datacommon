@@ -310,6 +310,93 @@ export default {
         return data;
       },
     },
+    'edu_attainment_by_race': {
+      type: 'stacked-bar',
+      title: 'Educational Attainment by Race',
+      xAxis: { label: 'Year'},
+      yAxis: { label: 'Attainment', format: d => `${d * 100}%`},
+      tables: {
+        'tabular.c15002_educational_attainment_by_race_acs_m': {
+          yearCol: 'acs_year',
+          columns: [
+            'acs_year',
+            'nhwlh',
+            'nhwhs',
+            'nhwsc',
+            'nhwbd',
+            'aalh',
+            'aahs',
+            'aasc',
+            'aabd',
+            'nalh',
+            'nahs',
+            'nasc',
+            'nabd',
+            'aslh',
+            'ashs',
+            'assc',
+            'asbd',
+            'pilh',
+            'pihs',
+            'pisc',
+            'pibd',
+            'othlh',
+            'othhs',
+            'othsc',
+            'othbd',
+            'mltlh',
+            'mlths',
+            'mltsc',
+            'mltbd',
+            'latlh',
+            'laths',
+            'latsc',
+            'latbd',
+          ],
+        }
+      },
+      labels: {
+        'lh': 'Less than high school diploma',
+        'hs': 'High school diploma',
+        'sc': 'Some college or associate degree',
+        'bd': 'Bachelor degree or higher',
+        'nhw': 'Non-hispanic White',
+        'aa': 'Black and African American',
+        'api': 'Asian and Pacific Islander',
+        'oth': 'Other',
+        'lat': 'Hispanic or Latino',
+      },
+      source: 'ACS',
+      timeframe: '2012-2016',
+      datasetId: 202,
+      transformer: (tables, chart) => {
+        const eduData = tables['tabular.c15002_educational_attainment_by_race_acs_m'];
+        if (eduData.length < 1) { return []; }
+        const row = Object.assign({}, eduData[0]);
+        const raceKeys = ['nhw', 'aa', 'na', 'as', 'pi', 'oth', 'mlt', 'lat'];
+        const combinedRaceKeys = ['nhw', 'aa', 'api', 'oth', 'lat'];
+        const eduKeys = ['lh', 'hs', 'sc', 'bd'];
+        const totals = eduKeys.reduce((obj, edu) => Object.assign(obj, {
+          [edu]: raceKeys.reduce((sum, k) => sum + row[`${k}${edu}`], 0)
+        }), {});
+        const consolidatedRow = eduKeys.reduce((obj, edu) => {
+          return Object.assign(obj, {
+            [`nhw${edu}`]: (row[`nhw${edu}`]) / totals[edu],
+            [`aa${edu}`]: (row[`aa${edu}`]) / totals[edu],
+            [`lat${edu}`]: (row[`lat${edu}`]) / totals[edu],
+            [`api${edu}`]: (row[`as${edu}`] + row[`pi${edu}`]) / totals[edu],
+            [`oth${edu}`]: (row[`oth${edu}`] + row[`mlt${edu}`] + row[`na${edu}`]) / totals[edu],
+          });
+        }, {});
+        return combinedRaceKeys.reduce((raceAcc, race) =>
+          raceAcc.concat(eduKeys.reduce((eduAcc, edu) => eduAcc.concat([{
+            x: consolidatedRow[`${race}${edu}`],
+            y: chart.labels[edu],
+            z: chart.labels[race],
+          }]), []))
+        , []);
+      },
+    },
   },
   'transportation': {
     'commute_means': {

@@ -92,17 +92,13 @@ class StackedBarChart extends React.Component {
       .ticks(10)
       .tickSize(0)
       .tickPadding(10)
-      .tickFormat(this.props.horizontal
-        ? this.props.xAxis.format
-        : this.props.yAxis.format);
+      .tickFormat(this.props.yAxis.format);
 
     const catAxis = (this.props.horizontal ? d3.axisLeft(catScale) : d3.axisBottom(catScale))
       .tickSize(0)
       .tickPadding(10)
       .ticks(10)
-      .tickFormat(this.props.horizontal
-        ? this.props.yAxis.format
-        : this.props.xAxis.format);
+      .tickFormat(this.props.xAxis.format);
 
     const [xAxis, yAxis] = this.props.horizontal ? [valAxis, catAxis] : [catAxis, valAxis];
 
