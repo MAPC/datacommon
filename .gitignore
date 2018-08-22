@@ -1,4 +1,3 @@
 log/
 .env
 **/node_modules
-*.sublime-project
