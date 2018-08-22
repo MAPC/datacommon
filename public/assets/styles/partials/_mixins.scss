@@ -1,19 +1,19 @@
 // Media query
 @mixin media($size) {
   @if $size == 'x-small' {
-    @media (max-width: 480px) { @content; }
+    @media only screen and (max-width: 480px) { @content; }
   } @else if $size == 'small' {
-    @media (max-width: 670px) { @content; }
+    @media only screen and (max-width: 670px) { @content; }
   } @else if $size == 'medium-small' {
-    @media (max-width: 770px) { @content; }
+    @media only screen and (max-width: 770px) { @content; }
   } @else if $size == 'medium' {
-    @media (max-width: 960px) { @content; }
+    @media only screen and (max-width: 960px) { @content; }
   } @else if $size == 'large' {
-    @media (max-width: 1200px) { @content; }
+    @media only screen and (max-width: 1200px) { @content; }
   } @else if $size == 'x-large' {
-    @media (max-width: 1600px) { @content; }
+    @media only screen and (max-width: 1600px) { @content; }
   } @else {
-    @media (max-width: $size) { @content; }
+    @media only screen and (max-width: $size) { @content; }
   }
 }
 

@@ -59,8 +59,7 @@
           margin-right: 1.5em;
         }
 
-        span.color-patch {
-          border-radius: 50%;
+        svg.color-patch {
           top: $_size / 2;
           display: block;
           flex: 0 0 0.75rem;
@@ -70,6 +69,30 @@
         }
         span.label {
           // width: 50%;
+        }
+      }
+    }
+  }
+  @media print {
+    display: flex;
+    .svg-wrapper {
+      flex: 1;
+      max-width: 66%;
+    }
+    .legend {
+      flex: 1;
+      max-width: 33%;
+      ul { display: block; }
+      &.two-column {
+        display: block;
+        ul {
+          width: 100%;
+          display: block;
+          li {
+            width: 100%;
+            margin-right: 0em;
+            margin: 0;
+          }
         }
       }
     }

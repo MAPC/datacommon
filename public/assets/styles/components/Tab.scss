@@ -1,5 +1,8 @@
 .component.Tab {
   display: none;
+  @media print {
+    display: block;
+  }
   &.active {
     display: block;
   }
@@ -10,6 +13,9 @@
       flex: 1;
       &:first-child {
         margin-right: 6em;
+        @media print {
+          margin-right: 3em;
+        }
       }
     }
     @include media(large) {
@@ -24,6 +30,17 @@
     }
     @include media(medium-small) {
       padding: 2em 0em;
+    }
+    @media print {
+      display: block;
+      padding: 2em 6em;
+      & > .chart-wrapper {
+        page-break-inside: avoid;
+        &:first-child {
+          margin-right: 0em;
+          margin-bottom: 2em;
+        }
+      }
     }
   }
 }

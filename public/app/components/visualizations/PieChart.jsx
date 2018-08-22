@@ -183,7 +183,9 @@ class PieChart extends React.Component {
   render() {
     return (
       <div className="component chart PieChart">
-        <svg ref={el => this.svg = el}></svg>
+        <div className="svg-wrapper">
+          <svg ref={el => this.svg = el}></svg>
+        </div>
       </div>
     );
   }

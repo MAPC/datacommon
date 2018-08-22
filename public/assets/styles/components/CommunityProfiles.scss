@@ -7,7 +7,10 @@
     }
     .back-link {
       z-index: 10;
-      @include media(medium) {
+      @include media(medium){
+        display: none;
+      }
+      @media print {
         display: none;
       }
       a {
@@ -31,10 +34,22 @@
     @include media(medium) {
       padding: 0;
     }
+    @media print {
+      padding: 0;
+    }
   }
+  header.print-header {
+    display: none;
+    @media print {
+      display: block;
+      border-bottom: 1px solid $color_font-medium;
+    }
+  }
+
   section.about {
     display: flex;
     padding: 0 8em 1em 8em;
+
     .outline {
       margin-right: 3em;
       svg {
@@ -47,6 +62,12 @@
         overflow: hidden;
         margin: 0;
       }
+      @media print {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        margin: 0;
+      }
     }
     .description {
       flex: 1;
@@ -54,11 +75,19 @@
     @include media(medium) {
       padding: 0 0 1em 0;
     }
+    @media print {
+      padding: 0 0 1em 0;
+    }
   }
   .data {
     @extend ._partial-bg;
     @include media(medium) {
       &:after {
+        display: none;
+      }
+    }
+    .tab-selection {
+      @media print {
         display: none;
       }
     }
@@ -115,7 +144,14 @@
       @include media(medium) {
         border: none;
       }
+      @media print {
+        border: none;
+      }
       .chart-wrapper {
+        @media print {
+          page-break-inside: avoid;
+        }
+
         h3 {
           margin: 0;
           font-size: $font_size-small;

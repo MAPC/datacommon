@@ -195,7 +195,9 @@ class StackedBarChart extends React.Component {
   render() {
     return (
       <div className="component chart StackedBarChart">
-        <svg ref={el => this.svg = el}></svg>
+        <div className="svg-wrapper">
+          <svg ref={el => this.svg = el}></svg>
+        </div>
         <div ref={el => this.legendContainer = el} className="legend"></div>
       </div>
     );
@@ -213,8 +215,8 @@ StackedBarChart.propTypes = {
     format: PropTypes.func,
   }).isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.string.isRequired,
+    x: PropTypes.string.isRequired,
+    y: PropTypes.number.isRequired,
     z: PropTypes.string.isRequired,
     color: PropTypes.string,
     order: PropTypes.number,

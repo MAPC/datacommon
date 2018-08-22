@@ -11,7 +11,14 @@ header {
   nav {
     flex: 1 0;
 
-    div, ul { display: inline-block; }
+    div, ul {
+      display: inline-block;
+    }
+    ul {
+      @media print {
+        display: none;
+      }
+    }
   }
 
   .header-brand {
@@ -33,8 +40,8 @@ header {
       margin-right: 10px;
     }
   }
-
   ul {
+
     margin-left: 2em;
 
     font-size: $font_size-small;
@@ -68,6 +75,9 @@ header {
     }
   }
 
-  .login-button { flex: 0 1; }
+  .login-button {
+    display: none;
+    flex: 0 1;
+  }
 
 }

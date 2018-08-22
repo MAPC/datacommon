@@ -171,7 +171,9 @@ class LineChart extends React.Component {
   render() {
     return (
       <div className="component chart LineChart">
-        <svg ref={el => this.svg = el}></svg>
+        <div className="svg-wrapper">
+          <svg ref={el => this.svg = el}></svg>
+        </div>
         <div ref={el => this.legendContainer = el} className="legend"></div>
       </div>
     );
