@@ -81,10 +81,12 @@ class StackedAreaChart extends React.Component {
       .attr('d', area);
 
     const xAxis = d3.axisBottom(x)
+      .ticks(this.props.xAxis.ticks)
       .tickSize(0)
       .tickPadding(10)
       .tickFormat(this.props.xAxis.format);
     const yAxis = d3.axisLeft(y)
+      .ticks(this.props.yAxis.ticks)
       .tickSize(0)
       .tickPadding(10)
       .ticks(10)

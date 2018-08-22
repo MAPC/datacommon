@@ -51,9 +51,17 @@ class StackedBarChart extends React.Component {
 
   renderChart() {
     // Measure data and calculate size and margins
-    const bonusLeftMargin = this.props.horizontal
-        ? maxTextToMargin(this.props.data.reduce((acc, d) => Math.max(acc, d.y.length), 0), 12)
-        : maxToMargin(Math.max(0, ...this.props.data.map(d => d.x)));
+    const maxLeftLabel = this.props.horizontal
+        ? this.props.data.reduce((acc, d) =>
+          Math.max(acc, this.props.xAxis.format
+            ? this.props.xAxis.format(d.x).length
+            : String(d.x).length), 0)
+        : this.props.data.reduce((acc, d) =>
+          Math.max(acc, this.props.yAxis.format
+            ? this.props.yAxis.format(d.y).length
+            : String(d.y).length), 0);
+    const bonusLeftMargin = maxTextToMargin(maxLeftLabel, 12);
+
     const margin = Object.assign({}, defaultMargin, {
       left: defaultMargin.left + bonusLeftMargin,
     });
@@ -72,7 +80,7 @@ class StackedBarChart extends React.Component {
     this.stack.keys(keys);
 
     const data = this.props.data.reduce((acc, row) => {
-      acc[row.y] = { ...(acc[row.y] || {}), ...{[row.z]: row.x} };
+      acc[row.x] = { ...(acc[row.x] || {}), ...{[row.z]: row.y} };
       return acc;
     }, {});
     const groups = Object.keys(data).sort();

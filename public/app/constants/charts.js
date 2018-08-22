@@ -8,7 +8,7 @@ export default {
       type: 'stacked-bar',
       title: 'Race and Ethnicity',
       xAxis: { label: 'Year', },
-      yAxis: { label: 'Population', format: d => `${d/1000}k` },
+      yAxis: { label: 'Population', format: d => `${(d/1000).toFixed(0)}k` },
       tables: {
         'tabular.b03002_race_ethnicity_acs_m': {
           yearCol: 'acs_year',
@@ -57,8 +57,8 @@ export default {
         };
         return Object.keys(groupings).reduce((set, key) =>
           (tableDef.yearCol == key ? set : set.concat([{
-            x: groupings[key],
-            y: row[tableDef.yearCol],
+            x: row[tableDef.yearCol],
+            y: groupings[key],
             z: chart.labels[key],
             color: chart.colors[key],
           }]))
@@ -70,7 +70,7 @@ export default {
       type: 'stacked-bar',
       title: 'Population by Age',
       xAxis: { label: 'Year',  },
-      yAxis: { label: 'Population', format: d => `${d/1000}k` },
+      yAxis: { label: 'Population', format: d => `${(d/1000).toFixed(0)}k` },
       tables: {
         'tabular.census2010_p12_pop_by_age_m': {
           yearCol: 'years',
@@ -123,8 +123,8 @@ export default {
           pop75o: row['pop75_79'] + row['pop80_84'] + row['pop85o'],
         };
         return Object.keys(data).map(k => ({
-          x: data[k],
-          y: row[chart.tables['tabular.census2010_p12_pop_by_age_m'].yearCol],
+          x: row[chart.tables['tabular.census2010_p12_pop_by_age_m'].yearCol],
+          y: data[k],
           z: chart.labels[k],
         }));
       },
@@ -135,7 +135,7 @@ export default {
       type: 'stacked-bar',
       title: 'Employment of Residents',
       xAxis: { label: 'Year', format: d => String(d) },
-      yAxis: { label: 'Population', format: d => `${d/1000}k` },
+      yAxis: { label: 'Population', format: d => `${(d/1000).toFixed(0)}k` },
       tables: {
         'tabular.b23025_employment_acs_m': {
           yearCol: 'acs_year',
@@ -161,8 +161,8 @@ export default {
         const empData = tables['tabular.b23025_employment_acs_m'];
         if (empData.length < 1) { return []; }
         return empData.reduce((acc, row) => acc.concat(Object.keys(chart.labels).map((key) => ({
-          x: row[key],
-          y: row[chart.tables['tabular.b23025_employment_acs_m'].yearCol],
+          x: row[chart.tables['tabular.b23025_employment_acs_m'].yearCol],
+          y: row[key],
           z: chart.labels[key],
         }))), []);
       },
@@ -171,7 +171,7 @@ export default {
       type: 'stacked-area',
       title: 'Employment by Industry',
       xAxis: { label: 'Year', format: d => d },
-      yAxis: { label: 'Employment by Industry', format: d => `${d/1000}k`},
+      yAxis: { label: 'Employment by Industry', format: d => `${(d/1000).toFixed(0)}k`},
       tables: {
         'tabular.econ_es202_naics_2d_m': {
           yearCol: 'cal_year',
@@ -300,8 +300,8 @@ export default {
         const data = rows.reduce((acc, district) =>
           acc.concat(Object.keys(district).reduce((group, key) => (
             key == 'district' || key == 'districtid' || key == 'schoolyear' ? group : group.concat([{
-              x: district[key],
-              y: `${district['schoolyear']} ${district['district']}`,
+              x: `${district['schoolyear']} ${district['district']}`,
+              y: district[key],
               z: chart.labels[key].label,
               order: chart.labels[key].order,
             }])
@@ -390,8 +390,8 @@ export default {
         }, {});
         return combinedRaceKeys.reduce((raceAcc, race) =>
           raceAcc.concat(eduKeys.reduce((eduAcc, edu) => eduAcc.concat([{
-            x: consolidatedRow[`${race}${edu}`],
-            y: chart.labels[edu],
+            x: chart.labels[edu],
+            y: consolidatedRow[`${race}${edu}`],
             z: chart.labels[race],
           }]), []))
         , []);
@@ -449,8 +449,8 @@ export default {
     'water_usage_per_cap': {
       type: 'line',
       title: 'Water Usage per Capita',
-      xAxis: { label: 'Year', format: y => y.toFixed(0), ticks: 7 },
-      yAxis: { label: 'Resident Gallons per Capita Day' },
+      xAxis: { label: 'Year', format: x => x.toFixed(0), ticks: 7 },
+      yAxis: { label: 'Resident Gallons per Capita Day', format: y => y.toFixed(1) },
       tables: {
         'tabular.env_dep_reviewed_water_demand_m': {
           columns: [
@@ -490,7 +490,7 @@ export default {
     'energy_usage_gas': {
       type: 'stacked-area',
       title: 'Thermal Energy Usage (Gas, oil, etc.)',
-      xAxis: { label: 'Year', format: y => String(y), ticks: 3 },
+      xAxis: { label: 'Year', format: x => (x % 1 == 0 ? x.toFixed(0) : ''), ticks: 3 },
       yAxis: { label: 'Energy Costs ($)' },
       tables: {
         'tabular.energy_masssave_elec_gas_ci_consumption_m': {
@@ -536,7 +536,7 @@ export default {
     'energy_usage_electricity': {
       type: 'stacked-area',
       title: 'Electrical Energy Usage',
-      xAxis: { label: 'Year', format: y => String(y), ticks: 3 },
+      xAxis: { label: 'Year', format: x => (x % 1 == 0 ? x.toFixed(0) : '') },
       yAxis: { label: 'Energy Costs ($)' },
       tables: {
         'tabular.energy_masssave_elec_gas_ci_consumption_m': {
@@ -580,6 +580,111 @@ export default {
     },
   },
   'housing': {
+    'cost_burden': {
+      type: 'stacked-bar',
+      title: 'Housing Cost Burden',
+      xAxis: { label: 'Cost Burden Categories'},
+      yAxis: { label: 'Owner-Renter Ratio', format: y => `${(y*100).toFixed(0)}%` },
+      tables: {
+        'tabular.b25091_b25070_costburden_acs_m': {
+          yearCol: 'acs_year',
+          years: ['2012-16'],
+          columns: [
+            'acs_year',
+            'occv2',
+            'cb',
+            'o_notcb',
+            'r_notcb',
+            'ocb3050',
+            'rcb3050',
+            'cb_3050',
+            'o_cb50',
+            'r_cb50',
+            'cb_50',
+          ],
+        }
+      },
+      labels: {
+        'not_cb': 'Not Cost Burdened',
+        'p3050': 'Paying 30-50% of Income',
+        'p50+': 'Paying 50%+ of Income',
+        'owner': 'Owner Occupied',
+        'renter': 'Render Occupied',
+      },
+      source: 'ACS',
+      timeframe: '2012-2016 ACS 5-year',
+      datasetId: null,
+      transformer: (tables, chart) => {
+        const costData = tables['tabular.b25091_b25070_costburden_acs_m'];
+        if (costData.length < 1) { return []; }
+        const row = costData[0];
+        return [{
+          x: chart.labels['not_cb'],
+          y: row['o_notcb'] / (row['occv2'] - row['cb']),
+          z: chart.labels['owner'],
+        }, {
+          x: chart.labels['not_cb'],
+          y: row['r_notcb'] / (row['occv2'] - row['cb']),
+          z: chart.labels['renter'],
+        }, {
+          x: chart.labels['p3050'],
+          y: row['ocb3050'] / row['cb_3050'],
+          z: chart.labels['owner'],
+        }, {
+          x: chart.labels['p3050'],
+          y: row['rcb3050'] / row['cb_3050'],
+          z: chart.labels['renter'],
+        }, {
+          x: chart.labels['p50+'],
+          y: row['o_cb50'] / row['cb_50'],
+          z: chart.labels['owner'],
+        }, {
+          x: chart.labels['p50+'],
+          y: row['r_cb50'] / row['cb_50'],
+          z: chart.labels['renter'],
+        }];
+      },
+    },
+    'units_permitted': {
+      type: 'stacked-area',
+      title: 'Housing Units Permitted',
+      xAxis: { label: 'Year', format: x => x.toFixed(0) },
+      yAxis: { label: 'Units Permitted'},
+      tables: {
+        'tabular.hous_building_permits_m': {
+          yearCol: 'cal_year',
+          where: 'months_rep = 12',
+          columns: [
+            'cal_year',
+            'months_rep',
+            'sf_units',
+            'mf_units',
+          ],
+        }
+      },
+      labels: {
+        'sf_units': 'Single Family Units',
+        'mf_units': 'Multi Family Units',
+      },
+      source: 'Census Building Permit Survey',
+      caveat: 'Ignoring years for which the municipality did not report all 12 months.',
+      timeframe: '2012-2017',
+      datasetId: null,
+      transformer: (tables, chart) => {
+        const permitData = tables['tabular.hous_building_permits_m'];
+        const tableDef = chart.tables['tabular.hous_building_permits_m'];
+        if (permitData.length < 1) { return []; }
+        return permitData.reduce((acc, year) => acc.concat([{
+          x: parseInt(year[tableDef.yearCol]),
+          y: year['mf_units'],
+          z: chart.labels['mf_units'],
+        }, {
+          x: parseInt(year[tableDef.yearCol]),
+          y: year['sf_units'],
+          z: chart.labels['sf_units'],
+        }]), []);
+      },
+    },
   },
   'public-health': {
     'premature_mortality_rate': {
@@ -645,8 +750,8 @@ export default {
         ];
         return raceKeys.reduce((acc, key) =>
           acc.concat(premoData.map((yearData) => ({
-            x: yearData[key] || 0,
-            y: yearData['years'],
+            x: yearData['years'],
+            y: yearData[key] || 0,
             z: chart.labels[key],
             color: chart.colors[key],
           })))
@@ -719,8 +824,8 @@ export default {
         ];
         return raceKeys.reduce((acc, key) =>
           acc.concat([{
-            x: row[key],
-            y: 'Hypertension',
+            x: 'Hypertension',
+            y: row[key],
             z: chart.labels[key],
             color: chart.colors[key],
           }])

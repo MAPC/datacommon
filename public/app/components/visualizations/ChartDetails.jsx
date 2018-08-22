@@ -8,6 +8,11 @@ class ChartDetails extends React.Component {
       <div className="chart-wrapper">
         <h3>{this.props.chart['title'] || 'Chart Title'}</h3>
         {this.props.children}
+        {this.props.chart['caveat'] ? (
+          <div className="caveat">
+            Caveat: {this.props.chart['caveat']}
+          </div>
+        ) : null}
         <div className="metadata">
           <span className="source">
             Source: <b>{this.props.chart['source'] || 'Unknown'}</b>

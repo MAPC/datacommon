@@ -165,6 +165,18 @@ class CommunityProfiles extends React.Component {
               </Tab>
               <Tab active={this.props.tabSlug == 'housing'}>
                 <div className="tab-row">
+                  <ChartDetails chart={charts['housing']['cost_burden']}>
+                    <StackedBarChart
+                      chart={charts['housing']['cost_burden']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
+                  <ChartDetails chart={charts['housing']['units_permitted']}>
+                    <StackedAreaChart
+                      chart={charts['housing']['units_permitted']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
                 </div>
               </Tab>
               <Tab active={this.props.tabSlug == 'public-health'}>
