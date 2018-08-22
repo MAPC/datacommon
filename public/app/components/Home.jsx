@@ -51,6 +51,7 @@ class Home extends React.Component {
         </div>
 
         <div className="page-section">
+          <a name="community-profiles"></a>
           <CommunitySelector />
         </div>
       </section>

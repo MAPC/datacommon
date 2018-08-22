@@ -10,18 +10,24 @@ header {
 
   nav {
     flex: 1 0;
-
-    div, ul {
-      display: inline-block;
-    }
-    ul {
-      @media print {
-        display: none;
+    overflow-x: scroll;
+    .scroll-wrapper {
+      width: max-content;
+      div, ul {
+        display: inline-block;
+      }
+      ul {
+        @media print {
+          display: none;
+        }
       }
     }
+
+
   }
 
   .header-brand {
+    margin-left: 1rem;
     font-weight: 500;
     font-size: $font_size-large;
 
@@ -50,6 +56,9 @@ header {
       display: inline-block;
 
       margin: auto 2em;
+      @include media(small) {
+        margin: auto 1em;
+      }
     }
 
     a {
