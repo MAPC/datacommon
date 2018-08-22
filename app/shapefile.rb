@@ -55,7 +55,7 @@ module Shapefile
       arguments = []
       arguments << %Q(-f 'ESRI Shapefile' public/#{file_name}.shp)
       arguments << %Q(PG:'host=#{@settings['database']['host']} port=#{@settings['database']['port']} user=#{@settings['database']['username']} dbname=#{@settings['database']['geospatial']['database']} password=#{@settings['database']['password']}')
-      arguments << %Q(-sql 'SELECT *,sde.ST_AsText(shape) FROM #{@settings['database']['geospatial']['schema']['data']}.#{table_name}' -skipfailures)
+      arguments << %Q(-sql 'SELECT *,sde.ST_AsText(shape) FROM #{table_name}' -skipfailures)
 
       `ogr2ogr #{arguments.join(" ")}`
 
