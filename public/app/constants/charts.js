@@ -760,9 +760,9 @@ export default {
     },
     'hospitalizations': {
       type: 'stacked-bar',
-      title: 'Diabetes/Hypertension Hospitalizations by Race',
+      title: 'Hypertension Hospitalizations by Race',
       xAxis: { label: 'Cause', format: d => d },
-      yAxis: { label: 'Hospitalizations', format: d => d },
+      yAxis: { label: 'Hospitalizations', format: d => String(d) },
       tables: {
         // TODO: Heart failure data not loaded at this time.
         // 'tabular.health_hospitalizations_heart_failure_m': {
