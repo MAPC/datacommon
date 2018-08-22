@@ -24,8 +24,7 @@ class CommunityProfiles extends React.Component {
 
   loadData() {
     if (charts[this.props.match.params.tab]) {
-      Object.values(charts[this.props.match.params.tab])
-          .forEach(chart => this.props.fetchChartData(chart));
+      Object.values(charts).forEach((tab) => Object.values(tab).forEach(chart => this.props.fetchChartData(chart)));
     }
   }
 
@@ -63,7 +62,7 @@ class CommunityProfiles extends React.Component {
         </div>
 
         <div className="data">
-          <div className="container">
+          <div className="container tab-selection">
             <ul className="tabs">
               {tabs.map((tab) => (
                 <li key={tab.value} className={this.props.tabSlug == tab.value ? 'active' : ''}>
@@ -82,6 +81,9 @@ class CommunityProfiles extends React.Component {
           <div className="box">
             <div className="container">
               <Tab active={this.props.tabSlug == 'demographics'}>
+                <header className="print-header">
+                  <h3>Demographics</h3>
+                </header>
                 <div className="tab-row">
                   <ChartDetails chart={charts['demographics']['race_ethnicity']}>
                     <StackedBarChart
@@ -98,6 +100,9 @@ class CommunityProfiles extends React.Component {
                 </div>
               </Tab>
               <Tab active={this.props.tabSlug == 'economy'}>
+                <header className="print-header">
+                  <h3>Economy</h3>
+                </header>
                 <div className="tab-row">
                   <ChartDetails chart={charts['economy']['resident_employment']}>
                     <StackedBarChart
@@ -114,6 +119,9 @@ class CommunityProfiles extends React.Component {
                 </div>
               </Tab>
               <Tab active={this.props.tabSlug == 'education'}>
+                <header className="print-header">
+                  <h3>Education</h3>
+                </header>
                 <div className="tab-row">
                   <ChartDetails chart={charts['education']['school_enrollment']}>
                     <StackedBarChart
@@ -132,6 +140,9 @@ class CommunityProfiles extends React.Component {
                 </div>
               </Tab>
               <Tab active={this.props.tabSlug == 'governance'}>
+                <header className="print-header">
+                  <h3>Governance</h3>
+                </header>
                 <div className="tab-row">
                   <ChartDetails chart={charts['governance']['tax_levy']}>
                     <PieChart
@@ -142,6 +153,9 @@ class CommunityProfiles extends React.Component {
                 </div>
               </Tab>
               <Tab active={this.props.tabSlug == 'environment'}>
+                <header className="print-header">
+                  <h3>Environment</h3>
+                </header>
                 <div className="tab-row">
                   <ChartDetails chart={charts['environment']['water_usage_per_cap']}>
                     <LineChart
@@ -164,6 +178,9 @@ class CommunityProfiles extends React.Component {
                 </div>
               </Tab>
               <Tab active={this.props.tabSlug == 'housing'}>
+                <header className="print-header">
+                  <h3>Housing</h3>
+                </header>
                 <div className="tab-row">
                   <ChartDetails chart={charts['housing']['cost_burden']}>
                     <StackedBarChart
@@ -180,6 +197,9 @@ class CommunityProfiles extends React.Component {
                 </div>
               </Tab>
               <Tab active={this.props.tabSlug == 'public-health'}>
+                <header className="print-header">
+                  <h3>Public Health</h3>
+                </header>
                 <div className="tab-row">
                   <ChartDetails chart={charts['public-health']['premature_mortality_rate']}>
                     <StackedBarChart
@@ -196,6 +216,9 @@ class CommunityProfiles extends React.Component {
                 </div>
               </Tab>
               <Tab active={this.props.tabSlug == 'transportation'}>
+                <header className="print-header">
+                  <h3>Transportation</h3>
+                </header>
                 <div className="tab-row">
                   <ChartDetails chart={charts['transportation']['daily_vmt']}>
                     <StackedAreaChart

@@ -17,9 +17,18 @@ const addLegendColumn = (legend, color, keysInColumn) => {
     .data(keysInColumn)
     .enter()
     .append('li');
-  li.append('span')
+  li.append('svg')
+    .attr('height', '1em')
+    .attr('width', '1em')
     .attr('class', 'color-patch')
-    .style('background', d => color(d));
+    .append('circle')
+    .attr('cx', '0.5em')
+    .attr('cy', '0.5em')
+    .attr('r', '0.5em')
+    .attr('height', '1em')
+    .attr('width', '1em')
+    .attr('fill', d => color(d));
+    // .style('background', d => color(d));
   li.append('span')
     .attr('class', 'label')
     .text(d => d);

@@ -164,7 +164,9 @@ class StackedAreaChart extends React.Component {
   render() {
     return (
       <div className="component chart StackedAreaChart">
-        <svg ref={el => this.svg = el}></svg>
+        <div className="svg-wrapper">
+          <svg ref={el => this.svg = el}></svg>
+        </div>
         <div ref={el => this.legendContainer = el} className="legend"></div>
       </div>
     );
