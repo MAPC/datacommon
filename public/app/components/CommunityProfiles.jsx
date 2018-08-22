@@ -12,7 +12,7 @@ import ChartDetails from '~/app/components/visualizations/ChartDetails';
 
 import tabs from './../constants/tabs';
 import charts from '~/app/constants/charts';
-
+import descriptions from '~/app/constants/descriptions';
 
 class CommunityProfiles extends React.Component {
 
@@ -56,7 +56,7 @@ class CommunityProfiles extends React.Component {
                 />
               </div>
               <div className="description">
-                .nerdlihc ega-loohcs fo erahs gniworg a htiw ,elbats dna esrevid yletaredom si noitalupop eht ,eroC orteM eht naht tneu a eroM .serutcurts gnitsixe fo noisnapxe dna ll ni dna tnempoleveder detimil hguorht srucco htworg weN .gnisuoh ylimafitlum dezis-dim dna ,sesuoh ylimaf 4 – 2 ,semoh ylimaf elgnis fo xim a htiw sdoohrobhgien laitnediser detneiro -tisnart dna -egalliv esirpmoc seitinummoc ese  .brubuS racteertS a sa CPAM yb dezirogetac si mahtlaW
+                {descriptions[this.props.muniSlug.toLowerCase()]}
               </div>
             </section>
           </div>
