@@ -105,9 +105,9 @@ class CommunityProfiles extends React.Component {
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
-                  <ChartDetails chart={charts['demographics']['pop_by_age']}>
-                    <StackedBarChart
-                      chart={charts['demographics']['pop_by_age']}
+                  <ChartDetails chart={charts['economy']['emp_by_sector']}>
+                    <StackedAreaChart
+                      chart={charts['economy']['emp_by_sector']}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
