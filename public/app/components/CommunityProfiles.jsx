@@ -172,7 +172,7 @@ class CommunityProfiles extends React.Component {
                     />
                   </ChartDetails>
                   <ChartDetails chart={charts['housing']['units_permitted']}>
-                    <StackedAreaChart
+                    <StackedBarChart
                       chart={charts['housing']['units_permitted']}
                       muni={this.props.match.params.muni}
                     />

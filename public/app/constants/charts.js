@@ -648,7 +648,7 @@ export default {
     'units_permitted': {
       type: 'stacked-area',
       title: 'Housing Units Permitted',
-      xAxis: { label: 'Year', format: x => x.toFixed(0) },
+      xAxis: { label: 'Year' },
       yAxis: { label: 'Units Permitted'},
       tables: {
         'tabular.hous_building_permits_m': {
@@ -675,11 +675,11 @@ export default {
         const tableDef = chart.tables['tabular.hous_building_permits_m'];
         if (permitData.length < 1) { return []; }
         return permitData.reduce((acc, year) => acc.concat([{
-          x: parseInt(year[tableDef.yearCol]),
+          x: String(year[tableDef.yearCol]),
           y: year['mf_units'],
           z: chart.labels['mf_units'],
         }, {
-          x: parseInt(year[tableDef.yearCol]),
+          x: String(year[tableDef.yearCol]),
           y: year['sf_units'],
           z: chart.labels['sf_units'],
         }]), []);

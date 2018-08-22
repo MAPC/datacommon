@@ -140,7 +140,7 @@ class StackedBarChart extends React.Component {
       .attr('class', 'axis axis-x')
       .attr('transform', `translate(0, ${height})`)
       .call(xAxis);
-    if (this.props.horizontal) {
+    if (this.props.horizontal || groups.length > 4) {
       xAxisG.selectAll("text")
       .attr('transform', `translate(7, 0) rotate(45)`)
       .style('text-anchor', 'start');
@@ -213,8 +213,8 @@ StackedBarChart.propTypes = {
     format: PropTypes.func,
   }).isRequired,
   data: PropTypes.arrayOf(PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.string.isRequired,
+    x: PropTypes.string.isRequired,
+    y: PropTypes.number.isRequired,
     z: PropTypes.string.isRequired,
     color: PropTypes.string,
     order: PropTypes.number,
