@@ -140,7 +140,7 @@ class StackedBarChart extends React.Component {
       .attr('class', 'axis axis-x')
       .attr('transform', `translate(0, ${height})`)
       .call(xAxis);
-    if (this.props.horizontal) {
+    if (this.props.horizontal || groups.length > 4) {
       xAxisG.selectAll("text")
       .attr('transform', `translate(7, 0) rotate(45)`)
       .style('text-anchor', 'start');

@@ -648,12 +648,12 @@ export default {
     'units_permitted': {
       type: 'stacked-area',
       title: 'Housing Units Permitted',
-      xAxis: { label: 'Year', format: x => x.toFixed(0) },
+      xAxis: { label: 'Year' },
       yAxis: { label: 'Units Permitted'},
       tables: {
         'tabular.hous_building_permits_m': {
           yearCol: 'cal_year',
-          where: 'months_rep = 12',
+          where: 'months_rep = 12 AND cal_year >= 2001 AND cal_year <= 2017',
           columns: [
             'cal_year',
             'months_rep',
@@ -668,18 +668,29 @@ export default {
       },
       source: 'Census Building Permit Survey',
       caveat: 'Ignoring years for which the municipality did not report all 12 months.',
-      timeframe: '2012-2017',
+      timeframe: '2001-2017',
       datasetId: null,
       transformer: (tables, chart) => {
+        const [ offset, numYears ] = [ 2001, 17 ];
         const permitData = tables['tabular.hous_building_permits_m'];
         const tableDef = chart.tables['tabular.hous_building_permits_m'];
         if (permitData.length < 1) { return []; }
-        return permitData.reduce((acc, year) => acc.concat([{
-          x: parseInt(year[tableDef.yearCol]),
+        let rowIndex = 0;
+        const allData = new Array(numYears);
+        for (let yearIndex = 0; yearIndex < numYears; yearIndex += 1) {
+          if (permitData[rowIndex] && permitData[rowIndex][tableDef.yearCol] == (offset + yearIndex)) {
+            allData[yearIndex] = permitData[rowIndex];
+            rowIndex += 1;
+          } else {
+            allData[yearIndex] = { [tableDef.yearCol]: (offset + yearIndex), 'mf_units': 0, 'sf_units': 0 };
+          }
+        }
+        return allData.reduce((acc, year) => acc.concat([{
+          x: String(year[tableDef.yearCol]),
           y: year['mf_units'],
           z: chart.labels['mf_units'],
         }, {
-          x: parseInt(year[tableDef.yearCol]),
+          x: String(year[tableDef.yearCol]),
           y: year['sf_units'],
           z: chart.labels['sf_units'],
         }]), []);
