@@ -11,6 +11,7 @@ import HorizontalStackedBarChart from '~/app/containers/visualizations/Horizonta
 
 import tabs from './../constants/tabs';
 import charts from '~/app/constants/charts';
+import locations from '~/app/constants/locations';
 
 
 class CommunityProfiles extends React.Component {
@@ -22,9 +23,10 @@ class CommunityProfiles extends React.Component {
   }
 
   loadData() {
-    (charts[this.props.match.params.tab] || []).forEach(chart => {
-      this.props.fetchChartData(chart);
-    });
+    if (charts[this.props.match.params.tab]) {
+      Object.values(charts[this.props.match.params.tab])
+          .forEach(chart => this.props.fetchChartData(chart));
+    }
   }
 
   componentWillMount() {
@@ -82,170 +84,44 @@ class CommunityProfiles extends React.Component {
               <Tab active={this.props.tabSlug == 'demographics'}>
                 <div className="tab-row">
                   <div className="chart-wrapper">
-                    <h3>Population by Age</h3>
-                    <LineChart />
-                    <div className="caveat">
-                      Caveat: There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form
-                    </div>
-                    <div className="metadata">
-                      <span className="source">
-                        Source: <b>ACS</b>
-                      </span>
-                      <span className="timeframe">
-                        Years: <b>5yr Avg 2008-12</b>
-                      </span>
-                      <span className="link">
-                        Full Datasets: <b><a>Link to DataBrowser</a></b>
-                      </span>
-                    </div>
-                  </div>
-                  <div className="chart-wrapper">
-                    <h3>Population by Age</h3>
-                    <StackedAreaChart
-                      chart={charts['economy'][0]}
+                    <h3>{charts['demographics']['race_ethnicity']['title']}</h3>
+                    <HorizontalStackedBarChart
+                      chart={charts['demographics']['race_ethnicity']}
                       muni={this.props.match.params.muni}
                     />
                     <div className="metadata">
                       <span className="source">
-                        Source: <b>ACS</b>
+                        Source: <b>{charts['demographics']['race_ethnicity']['source']}</b>
                       </span>
                       <span className="timeframe">
-                        Years: <b>5yr Avg 2008-12</b>
+                        Years: <b>{charts['demographics']['race_ethnicity']['timeframe']}</b>
                       </span>
                       <span className="link">
-                        Full Datasets: <b><a>Link to DataBrowser</a></b>
+                        Full Datasets: <b><a href={`${locations.HOST}/browser/datasets/${charts['demographics']['race_ethnicity']['datasetId']}`}>Link to DataBrowser</a></b>
+                      </span>
+                    </div>
+                  </div>
+                    <div className="chart-wrapper">
+                    <h3>{charts['demographics']['pop_by_age']['title']}</h3>
+                    <HorizontalStackedBarChart
+                      chart={charts['demographics']['pop_by_age']}
+                      muni={this.props.match.params.muni}
+                    />
+                    <div className="metadata">
+                      <span className="source">
+                        Source: <b>{charts['demographics']['pop_by_age']['source']}</b>
+                      </span>
+                      <span className="timeframe">
+                        Years: <b>{charts['demographics']['pop_by_age']['timeframe']}</b>
+                      </span>
+                      <span className="link">
+                        Full Datasets: <b><a href={`${locations.HOST}/browser/datasets/${charts['demographics']['pop_by_age']['datasetId']}`}>Link to DataBrowser</a></b>
                       </span>
                     </div>
                   </div>
                 </div>
               </Tab>
-              <Tab active={this.props.tabSlug == 'economy'}>
-                <div className="tab-row">
-                  <div className="chart-wrapper">
-                    <h3>Population by Age</h3>
-                    <LineChart />
-                    <div className="caveat">
-                      Caveat: There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form
-                    </div>
-                    <div className="metadata">
-                      <span className="source">
-                        Source: <b>ACS</b>
-                      </span>
-                      <span className="timeframe">
-                        Years: <b>5yr Avg 2008-12</b>
-                      </span>
-                      <span className="link">
-                        Full Datasets: <b><a>Link to DataBrowser</a></b>
-                      </span>
-                    </div>
-                  </div>
-                  <div className="chart-wrapper">
-                    <h3>Population by Age</h3>
-                    <StackedAreaChart
-                      chart={charts['economy'][0]}
-                      muni={this.props.match.params.muni}
-                    />
-                    <div className="metadata">
-                      <span className="source">
-                        Source: <b>ACS</b>
-                      </span>
-                      <span className="timeframe">
-                        Years: <b>5yr Avg 2008-12</b>
-                      </span>
-                      <span className="link">
-                        Full Datasets: <b><a>Link to DataBrowser</a></b>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Tab>
-              <Tab active={this.props.tabSlug == 'education'}>
-                <div className="tab-row">
-                  <div className="chart-wrapper">
-                    <h3>Population by Age</h3>
-                    <LineChart />
-                    <div className="caveat">
-                      Caveat: There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form
-                    </div>
-                    <div className="metadata">
-                      <span className="source">
-                        Source: <b>ACS</b>
-                      </span>
-                      <span className="timeframe">
-                        Years: <b>5yr Avg 2008-12</b>
-                      </span>
-                      <span className="link">
-                        Full Datasets: <b><a>Link to DataBrowser</a></b>
-                      </span>
-                    </div>
-                  </div>
-                  <div className="chart-wrapper">
-                    <h3>Population by Age</h3>
-                    <HorizontalStackedBarChart />
-                    <div className="metadata">
-                      <span className="source">
-                        Source: <b>ACS</b>
-                      </span>
-                      <span className="timeframe">
-                        Years: <b>5yr Avg 2008-12</b>
-                      </span>
-                      <span className="link">
-                        Full Datasets: <b><a>Link to DataBrowser</a></b>
-                      </span>
-                    </div>
-                  </div>
-                </div>
 
-              </Tab>
-              <Tab active={this.props.tabSlug == 'governance'}>
-              </Tab>
-              <Tab active={this.props.tabSlug == 'environment'}>
-              </Tab>
-              <Tab active={this.props.tabSlug == 'housing'}>
-              </Tab>
-              <Tab active={this.props.tabSlug == 'public-health'}>
-              </Tab>
-              <Tab active={this.props.tabSlug == 'transportation'}>
-                <div className="tab-row">
-                  <div className="chart-wrapper">
-                    <h3>Population by Age</h3>
-                    <LineChart />
-                    <div className="caveat">
-                      Caveat: There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form
-                    </div>
-                    <div className="metadata">
-                      <span className="source">
-                        Source: <b>ACS</b>
-                      </span>
-                      <span className="timeframe">
-                        Years: <b>5yr Avg 2008-12</b>
-                      </span>
-                      <span className="link">
-                        Full Datasets: <b><a>Link to DataBrowser</a></b>
-                      </span>
-                    </div>
-                  </div>
-                  <div className="chart-wrapper">
-                    <h3>Population by Age</h3>
-                    <PieChart
-                      chart={charts['transportation'][0]}
-                      muni={this.props.match.params.muni}
-                    />
-                    <div className="metadata">
-                      <span className="source">
-                        Source: <b>ACS</b>
-                      </span>
-                      <span className="timeframe">
-                        Years: <b>5yr Avg 2008-12</b>
-                      </span>
-                      <span className="link">
-                        Full Datasets: <b><a>Link to DataBrowser</a></b>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-              </Tab>
             </div>
           </div>
         </div>
@@ -253,7 +129,6 @@ class CommunityProfiles extends React.Component {
       </article>
     );
   }
-
 }
 
 export default CommunityProfiles;
