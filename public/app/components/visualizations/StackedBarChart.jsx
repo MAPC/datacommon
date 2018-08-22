@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 
 import colors from '~/app/constants/colors';
-import { maxToMargin, drawLegend, maxTextToMargin } from '~/app/utils/charts';
+import { maxToMargin, drawLegend, maxTextToMargin, sortKeys } from '~/app/utils/charts';
 
 const defaultColors = Array.from(colors.CHART.values());
 
@@ -61,7 +61,7 @@ class StackedBarChart extends React.Component {
     const height = (container.height - margin.top) - margin.bottom;
 
     // Prepare data and adjust scales
-    const keys = [...(new Set(this.props.data.map(d => d.z)))];
+    const keys = sortKeys(this.props.data);
     const colors = this.props.data.reduce((acc, d) =>
         (d.color ? acc.concat([d.color]) : acc), []);
     this.color = d3.scaleOrdinal(colors.length ? colors : defaultColors);
@@ -72,7 +72,7 @@ class StackedBarChart extends React.Component {
       acc[row.y] = { ...(acc[row.y] || {}), ...{[row.z]: row.x} };
       return acc;
     }, {});
-    const groups = Object.keys(data);
+    const groups = Object.keys(data).sort();
 
     const stackedData = this.stack(groups.map(yVal => ({ y: yVal, ...data[yVal] })));
 
@@ -83,12 +83,13 @@ class StackedBarChart extends React.Component {
 
     const catScale = d3.scaleBand()
       .domain(groups)
-      .range(this.props.horizontal ? [height, 0] : [0, width])
+      .range(this.props.horizontal ? [0, height] : [0, width])
       .paddingInner(0.2);
 
     // const [xScale, yScale] = this.props.horizontal ? [valScale, catScale] : [catScale, valScale];
 
     const valAxis = (this.props.horizontal ? d3.axisBottom(valScale) : d3.axisLeft(valScale))
+      .ticks(10)
       .tickSize(0)
       .tickPadding(10)
       .tickFormat(this.props.horizontal
@@ -128,10 +129,15 @@ class StackedBarChart extends React.Component {
           : (valScale(d[0]) - valScale(d[1]))))
       .attr((this.props.horizontal ? 'height' : 'width'), catScale.bandwidth());
 
-    this.gChart.append('g')
+    const xAxisG = this.gChart.append('g')
       .attr('class', 'axis axis-x')
       .attr('transform', `translate(0, ${height})`)
       .call(xAxis);
+    if (this.props.horizontal) {
+      xAxisG.selectAll("text")
+      .attr('transform', `translate(7, 0) rotate(45)`)
+      .style('text-anchor', 'start');
+    }
 
     this.gChart.append('g')
       .attr('class', 'axis axis-y')
@@ -150,7 +156,7 @@ class StackedBarChart extends React.Component {
     this.chart.append('text')
       .attr('class', 'axis label')
       .attr('x', (container.width / 2) + 15)
-      .attr('y', height + (margin.top * 2))
+      .attr('y', height + (margin.top + margin.bottom) - 20)
       .attr("dy", "20")
       .attr('font-size', '12px')
       .style('text-anchor', 'middle')
@@ -204,6 +210,7 @@ StackedBarChart.propTypes = {
     y: PropTypes.string.isRequired,
     z: PropTypes.string.isRequired,
     color: PropTypes.string,
+    order: PropTypes.number,
   })).isRequired,
   horizontal: PropTypes.bool,
 };

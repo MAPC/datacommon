@@ -1,4 +1,5 @@
 import colors from '~/app/constants/colors';
+import locations from '~/app/constants/locations';
 
 export default {
   'demographics' : {
@@ -26,23 +27,17 @@ export default {
         },
       },
       labels: {
-        'nhwhi': 'White',
-        'nhaa': 'Black or African American',
-        'nhna': 'American Indian',
-        'nhas': 'Asian',
-        'nhpi': 'Native Hawaiian and Other Pacific Islander',
-        'nhoth': 'Some Other Race alone',
-        'nhmlt': 'Two or More Races',
+        'nhwhi': 'Non-hispanic White',
+        'nhaa': 'Non-hispanic Black or African American',
+        'nhapi': 'Non-hispanic Asian and Pacific Islander',
+        'nhother': 'Non-hispanic Other',
         'lat': 'Hispanic or Latino',
       },
       colors: {
         'nhwhi': colors.CHART.get('LIGHT_YELLOW'),
         'nhaa': colors.CHART.get('DARK_RED'),
-        'nhna': colors.CHART.get('TEAL_BLUE'),
-        'nhas': colors.CHART.get('DARK_GREEN'),
-        'nhpi': colors.CHART.get('TEAL_GREEN'),
-        'nhoth': colors.CHART.get('BLUE'),
-        'nhmlt': colors.CHART.get('CYAN'),
+        'nhapi': colors.CHART.get('TEAL_GREEN'),
+        'nhother': colors.CHART.get('BLUE'),
         'lat': colors.CHART.get('PINK'),
       },
       source: 'ACS',
@@ -52,15 +47,21 @@ export default {
         const raceEthnicityData = tables['tabular.b03002_race_ethnicity_acs_m'];
         const tableDef = chart.tables['tabular.b03002_race_ethnicity_acs_m'];
         if (raceEthnicityData.length < 1) { return []; }
-        return raceEthnicityData.reduce((acc, row) =>
-          acc.concat(Object.keys(row).reduce((set, key) =>
-            (tableDef.yearCol == key ? set : set.concat([{
-              x: row[key],
-              y: row[tableDef.yearCol],
-              z: chart.labels[key],
-              color: chart.colors[key],
-            }]))
-          , []))
+        const row = raceEthnicityData[0];
+        const groupings = {
+          'nhwhi': row['nhwhi'],
+          'nhaa': row['nhaa'],
+          'nhapi': row['nhas'] + row['nhpi'],
+          'nhother': row['nhoth'] + row['nhmlt'] + row['nhna'],
+          'lat': row['lat'],
+        };
+        return Object.keys(groupings).reduce((set, key) =>
+          (tableDef.yearCol == key ? set : set.concat([{
+            x: groupings[key],
+            y: row[tableDef.yearCol],
+            z: chart.labels[key],
+            color: chart.colors[key],
+          }]))
         , []);
       },
     },
@@ -138,6 +139,10 @@ export default {
       tables: {
         'tabular.b23025_employment_acs_m': {
           yearCol: 'acs_year',
+          years: [
+            '2007-11',
+            '2012-16',
+          ],
           columns: [
             'acs_year',
             'emp',
@@ -236,6 +241,75 @@ export default {
     },
   },
   'education': {
+    'school_enrollment': {
+      type: 'stacked-bar',
+      title: 'School Enrollment',
+      xAxis: { label: 'Year', format: d => d },
+      yAxis: { label: 'Enrollment', format: d => d },
+      tables: {
+        'tabular.educ_enrollment_by_year_districts': {
+          specialFetch: async (municipality, dispatchUpdate) => {
+            const spatial_api = `${locations.BROWSER_API}?token=${locations.GISDATA_TOKEN}&query=`;
+            const tabular_api = `${locations.BROWSER_API}?token=${locations.DS_TOKEN}&query=`;
+            const gis_query = `${spatial_api}`
+              + `SELECT districtid, district, madisttype, town_reg, municipal `
+              + `FROM mapc.school_districts_poly `
+              + `JOIN mapc.ma_municipalities `
+              + `ON ST_Intersects(mapc.school_districts_poly.shape, mapc.ma_municipalities.shape) `
+              + `WHERE `
+              + `municipal ilike '${municipality}' `
+              + `AND madisttype in ('Local School', 'Regional Academic') `
+              + `AND (ST_Area(ST_Intersection(mapc.school_districts_poly.shape, mapc.ma_municipalities.shape)) / ST_Area(mapc.ma_municipalities.shape)) > 0.5`;
+            const gis_response = await fetch(gis_query);
+            const gis_payload = await gis_response.json() || {};
+            if (!gis_payload.rows || gis_payload.rows.length < 1) { return dispatchUpdate([]); }
+            const districtIds = gis_payload.rows.map((district) => `'${district['districtid']}'`);
+            const query = `${tabular_api}`
+              + `SELECT district, districtid, schoolyear, grade_k, grade_1,`
+              + `grade_2, grade_3, grade_4, grade_5, grade_6, grade_7, grade_8,`
+              + `grade_9, grade_10, grade_11, grade_12 `
+              + `FROM tabular.educ_enrollment_by_year_districts `
+              + `WHERE districtid IN (${districtIds.join(',')})`;
+            const response = await fetch(query);
+            const payload = await response.json() || {};
+            return dispatchUpdate(payload.rows);
+          },
+        },
+      },
+      labels: {
+        'grade_k': { label: 'Kindergarden', order: 0 },
+        'grade_1': { label: '1st Grade', order: 1 },
+        'grade_2': { label: '2nd Grade', order: 2 },
+        'grade_3': { label: '3rd Grade', order: 3 },
+        'grade_4': { label: '4th Grade', order: 4 },
+        'grade_5': { label: '5th Grade', order: 5 },
+        'grade_6': { label: '6th Grade', order: 6 },
+        'grade_7': { label: '7th Grade', order: 7 },
+        'grade_8': { label: '8th Grade', order: 8 },
+        'grade_9': { label: '9th Grade', order: 9 },
+        'grade_10': { label: '10th Grade', order: 10 },
+        'grade_11': { label: '11th Grade', order: 11 },
+        'grade_12': { label: '12th Grade', order: 12 },
+      },
+      source: 'MA Department of Elementary and Secondary Education',
+      timeframe: '2007-2018',
+      datasetId: 320,
+      transformer: (tables, chart) => {
+        const rows = tables['tabular.educ_enrollment_by_year_districts'];
+        if (rows.length < 1) { return []; }
+        const data = rows.reduce((acc, district) =>
+          acc.concat(Object.keys(district).reduce((group, key) => (
+            key == 'district' || key == 'districtid' || key == 'schoolyear' ? group : group.concat([{
+              x: district[key],
+              y: `${district['schoolyear']} ${district['district']}`,
+              z: chart.labels[key].label,
+              order: chart.labels[key].order,
+            }])
+          ), []))
+        , []);
+        return data;
+      },
+    },
   },
   'transportation': {
     'commute_means': {
