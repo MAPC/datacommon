@@ -122,6 +122,13 @@ class CommunityProfiles extends React.Component {
                       horizontal={true}
                     />
                   </ChartDetails>
+                  <ChartDetails chart={charts['education']['edu_attainment_by_race']}>
+                    <StackedBarChart
+                      chart={charts['education']['edu_attainment_by_race']}
+                      muni={this.props.match.params.muni}
+                      horizontal={true}
+                    />
+                  </ChartDetails>
                 </div>
               </Tab>
 
