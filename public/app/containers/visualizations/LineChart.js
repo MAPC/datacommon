@@ -4,21 +4,26 @@ import LineChart from '~/app/components/visualizations/LineChart';
 
 
 const mapStateToProps = (state, props) => {
-
+  const { muni, chart } = props;
+  const tables = Object.keys(chart.tables);
+  if (tables.every((table) => state.chart.cache[table] && state.chart.cache[table][muni])) {
+    const muniTables = tables.reduce((acc, table) => Object.assign(acc, {[table]: state.chart.cache[table][muni]}), {});
+    return {
+      ...props,
+      xAxis: chart.xAxis,
+      yAxis: chart.yAxis,
+      data: chart.transformer(muniTables, chart),
+    };
+  }
   return {
+    ...props,
     xAxis: {
-      label: 'Time',
+      label: '',
     },
     yAxis: {
-      label: 'Stuff',
+      label: '',
     },
-    data: [{
-      label: 'New',
-      values: [[1, 2], [2, 4], [3,5], [4, 4], [5, 6]],
-    }, {
-      label: 'New',
-      values: [[1, 1], [2, 6], [3, 8], [4, 1], [5, 2]],
-    }],
+    data: [],
   };
 };
 

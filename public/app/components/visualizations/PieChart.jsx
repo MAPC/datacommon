@@ -27,21 +27,31 @@ class PieLabelBin {
     this.keyToBinMap = {};
   }
 
+  // Convert from bin coordinate system to graph coordinate system
+  linearToCoords(y) {
+    return y - (this.columnHeight / 2);
+  }
+
+  // Convert from graph coordinate system to bin coordinate system
+  coordsToLinear(y) {
+    return y + (this.columnHeight / 2);
+  }
+
   getAvailableTop(top, key) {
-    let bin = Math.floor((top + (this.columnHeight / 2)) / this.fontHeight);
+    let bin = Math.floor(this.coordsToLinear(top) / this.fontHeight);
     if (bin >= this.slots.length) {
-      return this.slots.length * this.fontHeight;
+      return this.linearToCoords(this.slots.length * this.fontHeight);
     }
     while (bin < this.slots.length && this.slots[bin]) {
       bin += 1;
     }
-    this.keyToBinMap[key] = (bin + 1) * this.fontHeight - (this.columnHeight / 2);
+    this.keyToBinMap[key] = this.linearToCoords((bin + 1) * this.fontHeight);
     this.slots[bin] = true;
     return this.keyToBinMap[key];
   }
 
   getTopByKey(key) {
-    return this.keyToBinMap[key] || this.slots.length * this.fontHeight;
+    return this.keyToBinMap[key] || this.linearToCoords(this.slots.length * this.fontHeight);
   }
 }
 
@@ -117,9 +127,8 @@ class PieChart extends React.Component {
       .data(pieData, d => d.data.label);
 
     const midAngle = (d) => d.startAngle + (d.endAngle - d.startAngle) / 2;
-
-    const rightLabelBin = new PieLabelBin(width, 18);
-    const leftLabelBin = new PieLabelBin(width, 18);
+    const rightLabelBin = new PieLabelBin(height, 18);
+    const leftLabelBin = new PieLabelBin(height, 18);
 
     text.enter()
       .append('text')
@@ -182,7 +191,6 @@ class PieChart extends React.Component {
 }
 
 PieChart.propTypes = {
-  table: PropTypes.string.isRequired,
   colors: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.number.isRequired,

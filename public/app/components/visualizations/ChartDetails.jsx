@@ -8,6 +8,11 @@ class ChartDetails extends React.Component {
       <div className="chart-wrapper">
         <h3>{this.props.chart['title'] || 'Chart Title'}</h3>
         {this.props.children}
+        {this.props.chart['caveat'] ? (
+          <div className="caveat">
+            Caveat: {this.props.chart['caveat']}
+          </div>
+        ) : null}
         <div className="metadata">
           <span className="source">
             Source: <b>{this.props.chart['source'] || 'Unknown'}</b>
@@ -15,9 +20,11 @@ class ChartDetails extends React.Component {
           <span className="timeframe">
             Years: <b>{this.props.chart['timeframe'] || 'Unknown'}</b>
           </span>
-          <span className="link">
-            Full Datasets: <b><a href={`${locations.HOST}/browser/datasets/${this.props.chart['datasetId']}`}>Link to DataBrowser</a></b>
-          </span>
+          {this.props.chart['datasetId'] ? (
+            <span className="link">
+              Full Datasets: <b><a href={`${locations.HOST}/browser/datasets/${this.props.chart['datasetId']}`}>Link to DataBrowser</a></b>
+            </span>
+          ) : null}
         </div>
       </div>
     );
