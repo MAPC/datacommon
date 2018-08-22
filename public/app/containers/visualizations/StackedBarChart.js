@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import HorizontalStackedBarChart from '~/app/components/visualizations/HorizontalStackedBarChart';
+import StackedBarChart from '~/app/components/visualizations/StackedBarChart';
 
 
 const mapStateToProps = (state, props) => {
@@ -28,4 +28,4 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(HorizontalStackedBarChart);
+export default connect(mapStateToProps, mapDispatchToProps)(StackedBarChart);

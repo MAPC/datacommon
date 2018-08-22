@@ -6,7 +6,7 @@ export function fetchChartData(chartInfo, municipality) {
   return async (dispatch, getState) => {
     const { chart } = getState();
     Object.keys(chartInfo.tables).forEach(async (tableName) => {
-      const { table, yearCol, where } = chartInfo.tables[tableName];
+      const { table, yearCol, latestYearOnly, where } = chartInfo.tables[tableName];
 
       const columns = chartInfo.tables[tableName].columns.join(',');
 
@@ -14,7 +14,7 @@ export function fetchChartData(chartInfo, municipality) {
         let query = `${locations.BROWSER_API}SELECT ${columns} FROM ${tableName}`;
         query = `${query} WHERE municipal ilike '${municipality}'`;
 
-        if (yearCol) {
+        if (yearCol && latestYearOnly) {
           const yearResponse = await fetch(`${locations.BROWSER_API}SELECT ${yearCol} from ${tableName} ORDER BY ${yearCol} DESC LIMIT 1`);
           const payload = await yearResponse.json() || {};
 

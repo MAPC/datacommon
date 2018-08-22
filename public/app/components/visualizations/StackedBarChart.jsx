@@ -19,7 +19,7 @@ const defaultMargin = {
   bottom: 50,
 };
 
-class HorizontalStackedBarChart extends React.Component {
+class StackedBarChart extends React.Component {
 
   constructor(props) {
     super(props);
@@ -51,7 +51,9 @@ class HorizontalStackedBarChart extends React.Component {
 
   renderChart() {
     // Measure data and calculate size and margins
-    const bonusLeftMargin = maxTextToMargin(this.props.data.reduce((acc, d) => Math.max(acc, d.y.length), 0), 12);
+    const bonusLeftMargin = this.props.horizontal
+        ? maxTextToMargin(this.props.data.reduce((acc, d) => Math.max(acc, d.y.length), 0), 12)
+        : maxToMargin(Math.max(0, ...this.props.data.map(d => d.x)));
     const margin = Object.assign({}, defaultMargin, {
       left: defaultMargin.left + bonusLeftMargin,
     });
@@ -75,24 +77,33 @@ class HorizontalStackedBarChart extends React.Component {
     const stackedData = this.stack(groups.map(yVal => ({ y: yVal, ...data[yVal] })));
 
     // Setup scales and axes
-    const xScale = d3.scaleLinear()
-      .range([0, width])
+    const valScale = d3.scaleLinear()
+      .range(this.props.horizontal ? [0, width] : [height, 0])
       .domain(d3.extent(stackedData.reduce((a,b) => a.concat(b.map(t => t[1])), [0]), d => d));
-    const yScale = d3.scaleBand()
+
+    const catScale = d3.scaleBand()
       .domain(groups)
-      .range([height, 0])
+      .range(this.props.horizontal ? [height, 0] : [0, width])
       .paddingInner(0.2);
 
-    const xAxis = d3.axisBottom(xScale)
+    // const [xScale, yScale] = this.props.horizontal ? [valScale, catScale] : [catScale, valScale];
+
+    const valAxis = (this.props.horizontal ? d3.axisBottom(valScale) : d3.axisLeft(valScale))
       .tickSize(0)
       .tickPadding(10)
-      .tickFormat(this.props.xAxis.format);
+      .tickFormat(this.props.horizontal
+        ? this.props.xAxis.format
+        : this.props.yAxis.format);
 
-    const yAxis = d3.axisLeft(yScale)
+    const catAxis = (this.props.horizontal ? d3.axisLeft(catScale) : d3.axisBottom(catScale))
       .tickSize(0)
       .tickPadding(10)
       .ticks(10)
-      .tickFormat(this.props.yAxis.format);
+      .tickFormat(this.props.horizontal
+        ? this.props.yAxis.format
+        : this.props.xAxis.format);
+
+    const [xAxis, yAxis] = this.props.horizontal ? [valAxis, catAxis] : [catAxis, valAxis];
 
     this.chart.selectAll('*').remove(); // Clear chart before drawing
     this.gChart = this.chart.append('g');
@@ -110,10 +121,12 @@ class HorizontalStackedBarChart extends React.Component {
   	  .data(d => d)
       .enter()
       .append("rect")
-      .attr("y", d => yScale(d.data.y))
-      .attr("x", d => xScale(d[0]))
-      .attr("width", d => xScale(d[1]) - xScale(d[0]))
-      .attr("height", yScale.bandwidth());
+      .attr((this.props.horizontal ? 'y' : 'x'), d => catScale(d.data.y))
+      .attr((this.props.horizontal ? 'x' : 'y'), d => (this.props.horizontal ? valScale(d[0]) : valScale(d[1])))
+      .attr((this.props.horizontal ? 'width' : 'height'), d => (this.props.horizontal
+          ? (valScale(d[1]) - valScale(d[0]))
+          : (valScale(d[0]) - valScale(d[1]))))
+      .attr((this.props.horizontal ? 'height' : 'width'), catScale.bandwidth());
 
     this.gChart.append('g')
       .attr('class', 'axis axis-x')
@@ -132,7 +145,7 @@ class HorizontalStackedBarChart extends React.Component {
       .attr("dy", "20")
       .attr('font-size', '12px')
       .style('text-anchor', 'middle')
-      .text(this.props.yAxis.label);
+      .text(this.props.horizontal ? this.props.xAxis.label : this.props.yAxis.label);
 
     this.chart.append('text')
       .attr('class', 'axis label')
@@ -141,7 +154,7 @@ class HorizontalStackedBarChart extends React.Component {
       .attr("dy", "20")
       .attr('font-size', '12px')
       .style('text-anchor', 'middle')
-      .text(this.props.xAxis.label);
+      .text(this.props.horizontal ? this.props.yAxis.label : this.props.xAxis.label);
 
     this.legend.selectAll('*').remove();
     drawLegend(this.legend, this.color, keys);
@@ -168,7 +181,7 @@ class HorizontalStackedBarChart extends React.Component {
 
   render() {
     return (
-      <div className="component chart HorizontalStackedBarChart">
+      <div className="component chart StackedBarChart">
         <svg ref={el => this.svg = el}></svg>
         <div ref={el => this.legendContainer = el} className="legend"></div>
       </div>
@@ -177,7 +190,7 @@ class HorizontalStackedBarChart extends React.Component {
 
 }
 
-HorizontalStackedBarChart.propTypes = {
+StackedBarChart.propTypes = {
   xAxis: PropTypes.shape({
     label: PropTypes.string.isRequired,
     format: PropTypes.func,
@@ -192,6 +205,7 @@ HorizontalStackedBarChart.propTypes = {
     z: PropTypes.string.isRequired,
     color: PropTypes.string,
   })).isRequired,
+  horizontal: PropTypes.bool,
 };
 
-export default HorizontalStackedBarChart;
+export default StackedBarChart;
