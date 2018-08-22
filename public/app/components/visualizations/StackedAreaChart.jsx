@@ -61,10 +61,12 @@ class StackedAreaChart extends React.Component {
         acc[row.x] = { ...(acc[row.x] || {}), ...{[row.z]: row.y} };
         return acc;
       }, {});
-    data = Object.keys(data).map(xVal => ({ x: xVal, ...data[xVal] }));
+    data = Object.keys(data).sort().map(xVal => ({ x: xVal, ...data[xVal] }));
 
     const stackedData = this.stack(data);
-    y.domain(d3.extent(stackedData.reduce((a,b) => a.concat(b.map(t => t[1])), []), d => d));
+    y.domain(d3.extent(stackedData.reduce((acc, section) =>
+      acc.concat(section.reduce((secAcc, point) =>
+        secAcc.concat([point[0], point[1]]), [])), [])));
 
     const layer = this.gChart
       .selectAll('.layer')

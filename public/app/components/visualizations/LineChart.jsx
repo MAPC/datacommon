@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import colors from '~/app/constants/colors';
-import { maxToMargin } from '~/app/utils/charts';
+import { maxToMargin, maxTextToMargin } from '~/app/utils/charts';
 
 const defaultColors = Array.from(colors.CHART.values());
 
@@ -31,10 +31,10 @@ class LineChart extends React.Component {
   getBounds() {
     const bounds = this.props.data.reduce((lBounds, line) =>
       line.values.reduce((pBounds, point) => ({
-        xMin: Math.min(pBounds.xMin, point[0]),
-        xMax: Math.max(pBounds.xMax, point[0]),
-        yMin: Math.min(pBounds.yMin, point[1]),
-        yMax: Math.max(pBounds.yMax, point[1]),
+        xMin: (pBounds.xMin ? Math.min(pBounds.xMin, point[0]) : point[0]),
+        xMax: (pBounds.xMax ? Math.max(pBounds.xMax, point[0]) : point[0]),
+        yMin: (pBounds.yMin ? Math.min(pBounds.yMin, point[1]) : point[1]),
+        yMax: (pBounds.yMax ? Math.max(pBounds.yMax, point[1]) : point[1]),
       }), lBounds
     ), { xMin: null, xMax: null, yMin: null, yMax: null });
     return {
@@ -48,7 +48,12 @@ class LineChart extends React.Component {
   renderChart() {
     // Measure and scale
     const { xMin, xMax, yMin, yMax } = this.getBounds();
-    const bonusLeftMargin = maxToMargin(yMax);
+    const yFormattedMax = this.props.data.reduce((max, line) =>
+      Math.max(max, line.values.reduce((lineMax, point) =>
+        Math.max(lineMax, this.props.yAxis.format
+          ? this.props.yAxis.format(point[1]).length
+          : String(point[1]).length), 0)), 0);
+    const bonusLeftMargin = maxTextToMargin(yFormattedMax, 12);
     const margin = Object.assign({}, defaultMargin, {
       left: defaultMargin.left + bonusLeftMargin,
     });
@@ -58,11 +63,19 @@ class LineChart extends React.Component {
     const xScale = d3.scaleLinear()
       .domain([xMin, xMax])
       .range([0, width]);
-    const xAxis = d3.axisBottom(xScale).tickSize(0).tickPadding(10);
+    const xAxis = d3.axisBottom(xScale)
+      .ticks(this.props.xAxis.ticks)
+      .tickSize(0)
+      .tickPadding(10)
+      .tickFormat(this.props.xAxis.format);
     const yScale = d3.scaleLinear()
       .domain([yMin, yMax])
       .range([height, 0]);
-    const yAxis = d3.axisLeft(yScale).tickSize(0).tickPadding(10);
+    const yAxis = d3.axisLeft(yScale)
+      .ticks(this.props.yAxis.ticks)
+      .tickSize(0)
+      .tickPadding(10)
+      .tickFormat(this.props.yAxis.format);
     const lineGenerator = d3.line()
       .x(d => xScale(d[0]))
       .y(d => yScale(d[1]));

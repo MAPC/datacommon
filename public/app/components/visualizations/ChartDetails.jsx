@@ -15,9 +15,11 @@ class ChartDetails extends React.Component {
           <span className="timeframe">
             Years: <b>{this.props.chart['timeframe'] || 'Unknown'}</b>
           </span>
-          <span className="link">
-            Full Datasets: <b><a href={`${locations.HOST}/browser/datasets/${this.props.chart['datasetId']}`}>Link to DataBrowser</a></b>
-          </span>
+          {this.props.chart['datasetId'] ? (
+            <span className="link">
+              Full Datasets: <b><a href={`${locations.HOST}/browser/datasets/${this.props.chart['datasetId']}`}>Link to DataBrowser</a></b>
+            </span>
+          ) : null}
         </div>
       </div>
     );

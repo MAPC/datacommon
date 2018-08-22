@@ -62,10 +62,13 @@ class StackedBarChart extends React.Component {
 
     // Prepare data and adjust scales
     const keys = sortKeys(this.props.data);
-    const colors = this.props.data.reduce((acc, d) =>
-        (d.color ? acc.concat([d.color]) : acc), []);
-    this.color = d3.scaleOrdinal(colors.length ? colors : defaultColors);
-    this.color.domain(keys);
+    const colors = this.props.data.reduce((obj, d) =>
+        (d.color ? Object.assign(obj, {[d.z]: d.color}) : obj), {});
+    this.color = d3
+      .scaleOrdinal(Object.keys(colors).length
+        ? keys.map((key) => colors[key])
+        : defaultColors)
+      .domain(keys);
     this.stack.keys(keys);
 
     const data = this.props.data.reduce((acc, row) => {

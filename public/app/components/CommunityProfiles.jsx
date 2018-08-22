@@ -131,7 +131,74 @@ class CommunityProfiles extends React.Component {
                   </ChartDetails>
                 </div>
               </Tab>
-
+              <Tab active={this.props.tabSlug == 'governance'}>
+                <div className="tab-row">
+                  <ChartDetails chart={charts['governance']['tax_levy']}>
+                    <PieChart
+                      chart={charts['governance']['tax_levy']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
+                </div>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'environment'}>
+                <div className="tab-row">
+                  <ChartDetails chart={charts['environment']['water_usage_per_cap']}>
+                    <LineChart
+                      chart={charts['environment']['water_usage_per_cap']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
+                  <ChartDetails chart={charts['environment']['energy_usage_gas']}>
+                    <StackedAreaChart
+                      chart={charts['environment']['energy_usage_gas']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
+                  <ChartDetails chart={charts['environment']['energy_usage_electricity']}>
+                    <StackedAreaChart
+                      chart={charts['environment']['energy_usage_electricity']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
+                </div>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'housing'}>
+                <div className="tab-row">
+                </div>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'public-health'}>
+                <div className="tab-row">
+                  <ChartDetails chart={charts['public-health']['premature_mortality_rate']}>
+                    <StackedBarChart
+                      chart={charts['public-health']['premature_mortality_rate']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
+                  <ChartDetails chart={charts['public-health']['hospitalizations']}>
+                    <StackedBarChart
+                      chart={charts['public-health']['hospitalizations']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
+                </div>
+              </Tab>
+              <Tab active={this.props.tabSlug == 'transportation'}>
+                <div className="tab-row">
+                  <ChartDetails chart={charts['transportation']['daily_vmt']}>
+                    <StackedAreaChart
+                      chart={charts['transportation']['daily_vmt']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
+                  <ChartDetails chart={charts['transportation']['commute_to_work']}>
+                    <PieChart
+                      chart={charts['transportation']['commute_to_work']}
+                      muni={this.props.match.params.muni}
+                    />
+                  </ChartDetails>
+                </div>
+              </Tab>
             </div>
           </div>
         </div>

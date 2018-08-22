@@ -398,20 +398,419 @@ export default {
       },
     },
   },
-  'transportation': {
-    'commute_means': {
+  'governance': {
+    'tax_levy': {
       type: 'pie',
-      table: 'tabular.b08301_means_transportation_to_work_by_residence_acs_m',
-      yearCol: 'acs_year',
-      columns: {
-        'ctvsngl_p': 'Drive (Alone)',
-        'carpool_p': 'Drive (Carpool)',
-        'pub_p': 'Public Transit',
-        'taxi_p': 'Taxi',
-        'mcycle_p': 'Motorcycle',
-        'bicycle_p': 'Bicycle',
-        'walk_p': 'Walk',
-        'other_p': 'Other',
+      title: 'Tax Levy Share',
+      xAxis: { label: 'Year' },
+      yAxis: { label: 'Attainment' },
+      tables: {
+        'tabular.econ_municipal_taxes_revenue_m': {
+          yearCol: 'fy',
+          latestYearOnly: true,
+          columns: [
+            'fy',
+            'res_taxes',
+            'os_taxes',
+            'comm_taxes',
+            'ind_taxes',
+            'p_prop_tax',
+            'tot_rev',
+          ],
+        }
+      },
+      labels: {
+        'res_taxes': 'Residential',
+        'os_taxes': 'Open Space',
+        'comm_taxes': 'Commercial',
+        'ind_taxes': 'Industrial',
+        'p_prop_tax': 'Personal Property',
+        'other': 'Non-Property',
+      },
+      source: 'MA Dept. of Revenue',
+      timeframe: '2016',
+      datasetId: null,
+      transformer: (tables, chart) => {
+        const taxData = tables['tabular.econ_municipal_taxes_revenue_m'];
+        if (taxData.length < 1) { return []; }
+        const row = taxData[0];
+        const directRev = ['res_taxes', 'os_taxes', 'comm_taxes', 'ind_taxes', 'p_prop_tax'];
+        const withImplied = Object.assign(row, {
+          'other': row['tot_rev'] - directRev.reduce((sum, k) => sum + row[k], 0),
+        });
+        return Object.keys(chart.labels).map((key) => ({
+          value: withImplied[key],
+          label: chart.labels[key],
+        }));
+      },
+    },
+  },
+  'environment': {
+    'water_usage_per_cap': {
+      type: 'line',
+      title: 'Water Usage per Capita',
+      xAxis: { label: 'Year', format: y => y.toFixed(0), ticks: 7 },
+      yAxis: { label: 'Resident Gallons per Capita Day' },
+      tables: {
+        'tabular.env_dep_reviewed_water_demand_m': {
+          columns: [
+            'rgpcd2009',
+            'rgpcd2010',
+            'rgpcd2011',
+            'rgpcd2012',
+            'rgpcd2013',
+            'rgpcd2014',
+            'rgpcd2015',
+          ],
+        }
+      },
+      labels: {
+      },
+      source: 'MassDEP',
+      timeframe: '2009-15',
+      datasetId: 260,
+      transformer: (tables, chart) => {
+        const waterData = tables['tabular.env_dep_reviewed_water_demand_m'];
+        if (waterData.length < 1) { return []; }
+        const row = waterData[0];
+        return [{
+          label: 'Water Usage per Capita',
+          values: [
+            [2009, row['rgpcd2009']],
+            [2010, row['rgpcd2010']],
+            [2011, row['rgpcd2011']],
+            [2012, row['rgpcd2012']],
+            [2013, row['rgpcd2013']],
+            [2014, row['rgpcd2014']],
+            [2015, row['rgpcd2015']],
+          ],
+        }];
+      },
+    },
+    'energy_usage_gas': {
+      type: 'stacked-area',
+      title: 'Thermal Energy Usage (Gas, oil, etc.)',
+      xAxis: { label: 'Year', format: y => String(y), ticks: 3 },
+      yAxis: { label: 'Energy Costs ($)' },
+      tables: {
+        'tabular.energy_masssave_elec_gas_ci_consumption_m': {
+          yearCol: 'cal_year',
+          columns: [
+            'cal_year',
+            'sector',
+            'mwh_use',
+            'therm_use',
+          ],
+        },
+        'tabular.energy_masssave_elec_gas_res_li_consumption_m': {
+          yearCol: 'cal_year',
+          columns: [
+            'cal_year',
+            'sector',
+            'mwh_use',
+            'therm_use',
+          ],
+        },
+      },
+      labels: {
+        'therm_use': 'Annual Therm Usage',
+      },
+      source: 'MAPC',
+      timeframe: '2001-2016',
+      datasetId: 319,
+      transformer: (tables, chart) => {
+        const commData = tables['tabular.energy_masssave_elec_gas_ci_consumption_m'];
+        const resData = tables['tabular.energy_masssave_elec_gas_res_li_consumption_m'];
+        const rows = commData.concat(resData);
+        if (rows.length < 1) { return []; }
+        const data = rows.reduce((acc, row) => {
+          return acc.concat([{
+            x: row['cal_year'],
+            y: row['therm_use'],
+            z: `${row['sector']} ${chart.labels['therm_use']}`,
+          }]);
+        }, []);
+        return data;
+      },
+    },
+    'energy_usage_electricity': {
+      type: 'stacked-area',
+      title: 'Electrical Energy Usage',
+      xAxis: { label: 'Year', format: y => String(y), ticks: 3 },
+      yAxis: { label: 'Energy Costs ($)' },
+      tables: {
+        'tabular.energy_masssave_elec_gas_ci_consumption_m': {
+          yearCol: 'cal_year',
+          columns: [
+            'cal_year',
+            'sector',
+            'mwh_use',
+            'therm_use',
+          ],
+        },
+        'tabular.energy_masssave_elec_gas_res_li_consumption_m': {
+          yearCol: 'cal_year',
+          columns: [
+            'cal_year',
+            'sector',
+            'mwh_use',
+            'therm_use',
+          ],
+        },
+      },
+      labels: {
+        'mwh_use': 'Annual MWh Usage',
+      },
+      source: 'MAPC',
+      timeframe: '2001-2016',
+      datasetId: 319,
+      transformer: (tables, chart) => {
+        const commData = tables['tabular.energy_masssave_elec_gas_ci_consumption_m'];
+        const resData = tables['tabular.energy_masssave_elec_gas_res_li_consumption_m'];
+        const rows = commData.concat(resData);
+        if (rows.length < 1) { return []; }
+        return rows.reduce((acc, row) => {
+          return acc.concat([{
+            x: row['cal_year'],
+            y: row['mwh_use'],
+            z: `${row['sector']} ${chart.labels['mwh_use']}`,
+          }]);
+        }, []);
+      },
+    },
+  },
+  'housing': {
+  },
+  'public-health': {
+    'premature_mortality_rate': {
+      type: 'stacked-bar',
+      title: 'Premature Mortality Rate by Race',
+      xAxis: { label: '5 Year Average'},
+      yAxis: { label: 'Rate per 100,000' },
+      tables: {
+        'tabular.health_premature_mortality_race_m': {
+          yearCol: 'years',
+          columns: [
+            'years',
+            'whi_art',
+            'whi_artlci',
+            'whi_artuci',
+            'aa_art',
+            'aa_artlci',
+            'aa_artuci',
+            'api_art',
+            'api_artlci',
+            'api_artuci',
+            'na_art',
+            'na_artlci',
+            'na_artuci',
+            'oth_art',
+            'oth_artlci',
+            'oth_artuci',
+            'lat_art',
+            'lat_artlci',
+            'lat_artuci',
+          ],
+        }
+      },
+      labels: {
+        'whi_art': 'White',
+        'aa_art': 'Black and African American',
+        'api_art': 'Asian and Pacific Islander',
+        'na_art': 'Native American',
+        'oth_art': 'Other',
+        'lat_art': 'Hispanic and Latino',
+      },
+      colors: {
+        'whi_art': colors.CHART.get('LIGHT_YELLOW'),
+        'aa_art': colors.CHART.get('DARK_RED'),
+        'api_art': colors.CHART.get('TEAL_GREEN'),
+        'na_art': colors.CHART.get('CYAN'),
+        'oth_art': colors.CHART.get('BLUE'),
+        'lat_art': colors.CHART.get('PINK'),
+      },
+      source: 'MA Dept. of Public Health',
+      timeframe: '2003-2007, 2008-2012 5-year averages',
+      datasetId: null,
+      transformer: (tables, chart) => {
+        const premoData = tables['tabular.health_premature_mortality_race_m'];
+        if (premoData.length < 1) { return []; }
+        const raceKeys = [
+          'whi_art',
+          'aa_art',
+          'api_art',
+          'na_art',
+          'oth_art',
+          'lat_art',
+        ];
+        return raceKeys.reduce((acc, key) =>
+          acc.concat(premoData.map((yearData) => ({
+            x: yearData[key] || 0,
+            y: yearData['years'],
+            z: chart.labels[key],
+            color: chart.colors[key],
+          })))
+        , []);
+      },
+    },
+    'hospitalizations': {
+      type: 'stacked-bar',
+      title: 'Diabetes/Hypertension Hospitalizations by Race',
+      xAxis: { label: 'Cause', format: d => d },
+      yAxis: { label: 'Hospitalizations', format: d => d },
+      tables: {
+        // TODO: Heart failure data not loaded at this time.
+        // 'tabular.health_hospitalizations_heart_failure_m': {
+        //   yearCol: 'cal_years',
+        //   columns: [
+        //     'cal_years',
+        //     'whi_num',
+        //     'aa_num',
+        //     'api_num',
+        //     'na_num',
+        //     'oth_num',
+        //     'lat_num',
+        //   ],
+        // },
+        'tabular.health_hospitalizations_hypertension_m': {
+          yearCol: 'cal_years',
+          years: ['2008-2012'],
+          columns: [
+            'cal_years',
+            'whi_num',
+            'aa_num',
+            'api_num',
+            'na_num',
+            'oth_num',
+            'lat_num',
+          ],
+        },
+      },
+      labels: {
+        'whi_num': 'White',
+        'aa_num': 'Black and African American',
+        'api_num': 'Asian and Pacific Islander',
+        'na_num': 'Native American',
+        'oth_num': 'Other',
+        'lat_num': 'Hispanic and Latino',
+      },
+      colors: {
+        'whi_num': colors.CHART.get('LIGHT_YELLOW'),
+        'aa_num': colors.CHART.get('DARK_RED'),
+        'api_num': colors.CHART.get('TEAL_GREEN'),
+        'na_num': colors.CHART.get('CYAN'),
+        'oth_num': colors.CHART.get('BLUE'),
+        'lat_num': colors.CHART.get('PINK'),
+      },
+      source: 'MA Dept. of Public Health',
+      timeframe: '2008-2012 5-year averages',
+      datasetId: null,
+      transformer: (tables, chart) => {
+        const hyperData = tables['tabular.health_hospitalizations_hypertension_m'];
+        if (hyperData.length < 1) { return []; }
+        const row = hyperData[0];
+        const raceKeys = [
+          'whi_num',
+          'aa_num',
+          'api_num',
+          'na_num',
+          'oth_num',
+          'lat_num',
+        ];
+        return raceKeys.reduce((acc, key) =>
+          acc.concat([{
+            x: row[key],
+            y: 'Hypertension',
+            z: chart.labels[key],
+            color: chart.colors[key],
+          }])
+        , []);
+        return [];
+      },
+    },
+  },
+  'transportation': {
+    'daily_vmt': {
+      type: 'stacked-area',
+      title: 'Daily Vehicle Miles Traveled per Household',
+      xAxis: { label: 'Year', format: y => String(y), ticks: 3 },
+      yAxis: { label: 'Daily household vehicle miles traveled' },
+      tables: {
+        'tabular.trans_mavc_public_summary_m': {
+          columns: [
+            'quarter',
+            'hh_est',
+            'pass_vmt',
+            'comm_vmt',
+          ],
+        },
+      },
+      labels: {
+        'pass_vmt_hh': 'Passenger vehicles',
+        'comm_vmt_hh': 'Commercial vehicles',
+      },
+      source: 'MAPC',
+      timeframe: '2001-2016',
+      datasetId: 319,
+      transformer: (tables, chart) => {
+        const vmtData = tables['tabular.trans_mavc_public_summary_m'];
+        if (vmtData.length < 1) { return []; }
+        const quarterToYear = (quarter) => {
+          const [ year, fourth ] = quarter.split('_q');
+          return parseInt(year) + (parseInt(fourth) / 4);
+        };
+        return vmtData.reduce((acc, row) => acc.concat([{
+          x: quarterToYear(row['quarter']),
+          y: row['pass_vmt'] / row['hh_est'],
+          z: chart.labels['pass_vmt_hh'],
+        }, {
+          x: quarterToYear(row['quarter']),
+          y: row['comm_vmt'] / row['hh_est'],
+          z: chart.labels['comm_vmt_hh'],
+        }]), []);
+      },
+    },
+    'commute_to_work': {
+      type: 'pie',
+      title: 'Commute to Work',
+      tables: {
+        'tabular.b08301_means_transportation_to_work_by_residence_acs_m': {
+          yearCol: 'acs_year',
+          latestYearOnly: true,
+          columns: [
+            'acs_year',
+            'ctvsngl',
+            'carpool',
+            'pub',
+            'taxi',
+            'mcycle',
+            'bicycle',
+            'walk',
+            'other',
+          ],
+        }
+      },
+      labels: {
+        'ctvsngl': 'Drive alone to work',
+        'carpool': 'Carpool',
+        'pub': 'Public transportation',
+        'taxi': 'Taxi',
+        'mcycle': 'Motorcycle',
+        'bicycle': 'Bicycle',
+        'walk': 'Walk',
+        'other': 'Other',
+      },
+      source: 'ACS',
+      timeframe: '2012-2016',
+      datasetId: null,
+      transformer: (tables, chart) => {
+        const commData = tables['tabular.b08301_means_transportation_to_work_by_residence_acs_m'];
+        if (commData.length < 1) { return []; }
+        const row = commData[0];
+        return Object.keys(chart.labels).map((key) => ({
+          value: row[key],
+          label: chart.labels[key],
+        }));
       },
     },
   },
