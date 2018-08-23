@@ -163,8 +163,10 @@
         }
         .metadata {
           font-style: italic;
-          display: flex;
-          justify-content: space-between;
+          .source-timeframe {
+            display: flex;
+            justify-content: space-between;
+          }
           a {
             color: $color_font-medium;
             cursor: pointer;

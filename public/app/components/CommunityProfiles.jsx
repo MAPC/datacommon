@@ -13,6 +13,7 @@ import ChartDetails from '~/app/components/visualizations/ChartDetails';
 import tabs from './../constants/tabs';
 import charts from '~/app/constants/charts';
 import descriptions from '~/app/constants/descriptions';
+import capitalize from '~/app/utils/capitalize';
 
 class CommunityProfiles extends React.Component {
 
@@ -46,7 +47,7 @@ class CommunityProfiles extends React.Component {
           </div>
           <div className="container">
             <header>
-              <h2>{this.props.name}</h2>
+              <h2>{capitalize(this.props.name)}</h2>
             </header>
             <section className="about">
               <div className="outline">
@@ -55,7 +56,7 @@ class CommunityProfiles extends React.Component {
                 />
               </div>
               <div className="description">
-                {descriptions[this.props.muniSlug.toLowerCase()]}
+                {descriptions[this.props.muniSlug.toLowerCase()] || 'No description available.'}
               </div>
             </section>
           </div>

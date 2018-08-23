@@ -14,16 +14,21 @@ class ChartDetails extends React.Component {
           </div>
         ) : null}
         <div className="metadata">
-          <span className="source">
-            Source: <b>{this.props.chart['source'] || 'Unknown'}</b>
-          </span>
-          <span className="timeframe">
-            Years: <b>{this.props.chart['timeframe'] || 'Unknown'}</b>
-          </span>
-          {this.props.chart['datasetId'] ? (
-            <span className="link">
-              Full Datasets: <b><a href={`${locations.HOST}/browser/datasets/${this.props.chart['datasetId']}`}>Link to DataBrowser</a></b>
-            </span>
+          <div className="source-timeframe">
+            <div className="source">
+              Source: <b>{this.props.chart['source'] || 'Unknown'}</b>
+            </div>
+            <div className="timeframe">
+              Years: <b>{this.props.chart['timeframe'] || 'Unknown'}</b>
+            </div>
+          </div>
+          {this.props.chart['datasetLinks'] ? (
+            <div className="link">
+              <span>Link to: </span>
+              {Object.keys(this.props.chart['datasetLinks']).map((label) => (
+                <b><a href={`${locations.HOST}/browser/datasets/${this.props.chart['datasetLinks'][label]}`}>{label}</a></b>
+              ))}
+            </div>
           ) : null}
         </div>
       </div>

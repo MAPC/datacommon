@@ -38,10 +38,18 @@ class LineChart extends React.Component {
       }), lBounds
     ), { xMin: null, xMax: null, yMin: null, yMax: null });
     return {
-      xMin: this.props.xAxis.min || bounds.xMin,
-      xMax: this.props.xAxis.max || bounds.xMax,
-      yMin: this.props.yAxis.min || bounds.yMin,
-      yMax: this.props.yAxis.max || bounds.yMax,
+      xMin: (this.props.xAxis.min != null || this.props.xAxis.min != undefined
+          ? this.props.xAxis.min
+          : bounds.xMin),
+      xMax: (this.props.xAxis.max != null || this.props.xAxis.max != undefined
+          ? this.props.xAxis.max
+          : bounds.xMax),
+      yMin: (this.props.yAxis.min != null || this.props.yAxis.min != undefined
+          ? this.props.yAxis.min
+          : bounds.yMin),
+      yMax: (this.props.yAxis.max != null || this.props.yAxis.max != undefined
+          ? this.props.yAxis.max
+          : bounds.yMax),
     };
   }
 

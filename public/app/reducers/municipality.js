@@ -5,7 +5,7 @@ import municipalities from '~/assets/data/ma-munis.json';
 
 const defaultState = {
   cache: municipalities.features.reduce((cache, feature) =>
-      Object.assign({}, cache, { [feature.properties.town.toLowerCase()]: feature }), {}),
+      Object.assign({}, cache, { [feature.properties.town.toLowerCase().replace(' ', '-')]: feature }), {}),
   searchable: municipalities.features.reduce((a,b) => a.concat(b.properties.town.toLowerCase()), []),
   geojson: municipalities,
 };

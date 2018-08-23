@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 
 import colors from '~/app/constants/colors';
-import { maxToMargin, drawLegend, maxTextToMargin, sortKeys } from '~/app/utils/charts';
+import { maxToMargin, drawLegend, maxTextToMargin, sortKeys, splitPhrase } from '~/app/utils/charts';
 
 const defaultColors = Array.from(colors.CHART.values());
+
+const LEFT_LABEL_MAX = 20;
 
 const container = {
   width: 500,
@@ -60,7 +62,11 @@ class StackedBarChart extends React.Component {
           Math.max(acc, this.props.yAxis.format
             ? this.props.yAxis.format(d.y).length
             : String(d.y).length), 0);
-    const bonusLeftMargin = maxTextToMargin(maxLeftLabel, 12);
+    const clippedMaxLeftLabel = ((this.props.horizontal
+      && maxLeftLabel > LEFT_LABEL_MAX)
+        ? LEFT_LABEL_MAX
+        : maxLeftLabel)
+    const bonusLeftMargin = maxTextToMargin(clippedMaxLeftLabel, 12);
 
     const margin = Object.assign({}, defaultMargin, {
       left: defaultMargin.left + bonusLeftMargin,
@@ -142,13 +148,25 @@ class StackedBarChart extends React.Component {
       .call(xAxis);
     if (this.props.horizontal || groups.length > 4) {
       xAxisG.selectAll("text")
-      .attr('transform', `translate(7, 0) rotate(45)`)
-      .style('text-anchor', 'start');
+        .attr('transform', `translate(7, 0) rotate(45)`)
+        .style('text-anchor', 'start');
     }
 
-    this.gChart.append('g')
+    const yAxisG = this.gChart.append('g')
       .attr('class', 'axis axis-y')
       .call(yAxis);
+    if (this.props.horizontal && clippedMaxLeftLabel == LEFT_LABEL_MAX) {
+      yAxisG.selectAll("text")
+        .each(function (x) {
+          const text = d3.select(this);
+          const rows = splitPhrase(text.text(), LEFT_LABEL_MAX);
+          text.text(null);
+          rows.forEach((row, i) => {
+            const tspan = text.append('tspan');
+            tspan.text(row).attr("x", -10).attr("y", (i - (rows.length / 2)) * 15).attr("dy", "1em");
+          });
+        });
+    }
 
     this.chart.append('text')
       .attr('class', 'axis label')

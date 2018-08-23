@@ -16,7 +16,7 @@ class CommunitySelector extends React.Component {
 
           <SearchBar
             contextKey={'municipality'}
-            action={muni => this.props.toProfile(muni)}
+            action={muni => this.props.toProfile(muni.replace(' ', '-'))}
             placeholder={'Search for a community ...'}
             className={"small"}
           />

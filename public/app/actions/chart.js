@@ -10,12 +10,12 @@ export function fetchChartData(chartInfo, municipality) {
           dispatch(update(tableName, municipality, rows));
       if (!chart.cache[tableName] || !chart.cache[tableName][municipality]) {
         if (specialFetch) {
-          return await specialFetch(municipality, dispatchUpdate);
+          return await specialFetch(municipality.replace('-', ' '), dispatchUpdate);
         }
         const api = `${locations.BROWSER_API}?token=${locations.DS_TOKEN}&query=`;
         const columns = chartInfo.tables[tableName].columns.join(',');
         let query = `${api}SELECT ${columns} FROM ${tableName}`;
-        query = `${query} WHERE municipal ilike '${municipality}'`;
+        query = `${query} WHERE municipal ilike '${municipality.replace('-', ' ')}'`;
 
         if (yearCol && latestYearOnly && !years) {
           const yearResponse = await fetch(`${api}SELECT ${yearCol} from ${tableName} ORDER BY ${yearCol} DESC LIMIT 1`);
