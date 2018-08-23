@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel index.html",
-    "staging": "parcel build index.html && rsync -r dist/* datacommon@prep.mapc.org:/var/www/datacommon/current/public/",
+    "staging": "NODE_ENV=staging parcel build index.html && rsync -r dist/* datacommon@prep.mapc.org:/var/www/datacommon/current/public/",
     "test": "jest",
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage"

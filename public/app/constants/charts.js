@@ -7,7 +7,7 @@ export default {
     'race_ethnicity': {
       type: 'stacked-bar',
       title: 'Race and Ethnicity',
-      xAxis: { label: 'Year', },
+      xAxis: { label: '2012-2016 5-Year Estimates', },
       yAxis: { label: 'Population', format: d => `${(d/1000).toFixed(0)}k` },
       tables: {
         'tabular.b03002_race_ethnicity_acs_m': {
@@ -41,8 +41,8 @@ export default {
         'lat': colors.CHART.get('PINK'),
       },
       source: 'ACS',
-      timeframe: '5 yr avg 2012-16',
-      datasetId: 6,
+      timeframe: '2012-2016 5-Year Estimates',
+      datasetLinks: { 'Race and Ethnicity Estimates (Municipal)': 6 },
       transformer: (tables, chart) => {
         const raceEthnicityData = tables['tabular.b03002_race_ethnicity_acs_m'];
         const tableDef = chart.tables['tabular.b03002_race_ethnicity_acs_m'];
@@ -108,7 +108,7 @@ export default {
       },
       source: '2010 Census',
       timeframe: '2010',
-      datasetId: 220,
+      datasetLinks: { 'Population by Age (Municipal)': 220 },
       transformer: (tables, chart) => {
         const popData = tables['tabular.census2010_p12_pop_by_age_m'];
         if (popData.length < 1) { return []; }
@@ -134,7 +134,7 @@ export default {
     'resident_employment': {
       type: 'stacked-bar',
       title: 'Employment of Residents',
-      xAxis: { label: 'Year', format: d => String(d) },
+      xAxis: { label: '5-Year Estimates', format: d => String(d) },
       yAxis: { label: 'Population', format: d => `${(d/1000).toFixed(0)}k` },
       tables: {
         'tabular.b23025_employment_acs_m': {
@@ -154,9 +154,9 @@ export default {
         emp: 'Employed',
         unemp: 'Unemployed',
       },
-      source: 'ACS',
-      timeframe: '2007-2011; 2012-2016',
-      datasetId: 129,
+      source: 'Executive Office of Labor and Workforce Development (EOLWD)',
+      timeframe: '2007-2011 and 2012-2016 5-Year Estimates',
+      datasetLinks: { 'Labor Force (Municipal)': 129 },
       transformer: (tables, chart) => {
         const empData = tables['tabular.b23025_employment_acs_m'];
         if (empData.length < 1) { return []; }
@@ -199,7 +199,7 @@ export default {
       },
       source: 'MAPC',
       timeframe: '2001-2016',
-      datasetId: 319,
+      datasetLinks: { 'Occupational Employment and Wages by Industry (NAICS) (MA)': 319 },
       transformer: (tables, chart) => {
         const indData = tables['tabular.econ_es202_naics_2d_m'];
         if (indData.length < 1) { return []; }
@@ -293,7 +293,7 @@ export default {
       },
       source: 'MA Department of Elementary and Secondary Education',
       timeframe: '2007-2018',
-      datasetId: 320,
+      datasetLinks: { 'Enrollment by School Year (School Districts)': 320 },
       transformer: (tables, chart) => {
         const rows = tables['tabular.educ_enrollment_by_year_districts'];
         if (rows.length < 1) { return []; }
@@ -313,7 +313,7 @@ export default {
     'edu_attainment_by_race': {
       type: 'stacked-bar',
       title: 'Educational Attainment by Race',
-      xAxis: { label: 'Year'},
+      xAxis: { label: '2012-2016 5-Year Estimates'},
       yAxis: { label: 'Attainment', format: d => `${d * 100}%`},
       tables: {
         'tabular.c15002_educational_attainment_by_race_acs_m': {
@@ -367,8 +367,8 @@ export default {
         'lat': 'Hispanic or Latino',
       },
       source: 'ACS',
-      timeframe: '2012-2016',
-      datasetId: 202,
+      timeframe: '2012-2016 5-Year Estimates',
+      datasetLinks: { 'Educational Attainment by Race (Municipal)': 202 },
       transformer: (tables, chart) => {
         const eduData = tables['tabular.c15002_educational_attainment_by_race_acs_m'];
         if (eduData.length < 1) { return []; }
@@ -429,7 +429,7 @@ export default {
       },
       source: 'MA Dept. of Revenue',
       timeframe: '2016',
-      datasetId: null,
+      datasetLinks: { 'Municipal General Fund Revenue and Taxes (Municipal)': 383 },
       transformer: (tables, chart) => {
         const taxData = tables['tabular.econ_municipal_taxes_revenue_m'];
         if (taxData.length < 1) { return []; }
@@ -450,7 +450,7 @@ export default {
       type: 'line',
       title: 'Water Usage per Capita',
       xAxis: { label: 'Year', format: x => x.toFixed(0), ticks: 7 },
-      yAxis: { label: 'Resident Gallons per Capita Day', format: y => y.toFixed(1) },
+      yAxis: { label: 'Resident Gallons per Capita Day', format: y => y.toFixed(1), min: 0 },
       tables: {
         'tabular.env_dep_reviewed_water_demand_m': {
           columns: [
@@ -468,7 +468,7 @@ export default {
       },
       source: 'MassDEP',
       timeframe: '2009-15',
-      datasetId: 260,
+      datasetLinks: { 'Annual Average Residential Water Use (Municipal)': 260 },
       transformer: (tables, chart) => {
         const waterData = tables['tabular.env_dep_reviewed_water_demand_m'];
         if (waterData.length < 1) { return []; }
@@ -515,9 +515,12 @@ export default {
       labels: {
         'therm_use': 'Annual Therm Usage',
       },
-      source: 'MAPC',
-      timeframe: '2001-2016',
-      datasetId: 319,
+      source: 'MassSave',
+      timeframe: '2013-2015',
+      datasetLinks: {
+        'MassSave Comm & Industrial Incentives and Savings (Municipal)': 251,
+        'MassSave Res & Low Income Incentives and Savings (Municipal)': 252,
+      },
       transformer: (tables, chart) => {
         const commData = tables['tabular.energy_masssave_elec_gas_ci_consumption_m'];
         const resData = tables['tabular.energy_masssave_elec_gas_res_li_consumption_m'];
@@ -561,20 +564,23 @@ export default {
       labels: {
         'mwh_use': 'Annual MWh Usage',
       },
-      source: 'MAPC',
-      timeframe: '2001-2016',
-      datasetId: 319,
+      source: 'MassSave',
+      timeframe: '2013-2015',
+      datasetLinks: {
+        'MassSave Comm & Industrial Incentives and Savings (Municipal)': 251,
+        'MassSave Res & Low Income Incentives and Savings (Municipal)': 252,
+      },
       transformer: (tables, chart) => {
         const commData = tables['tabular.energy_masssave_elec_gas_ci_consumption_m'];
         const resData = tables['tabular.energy_masssave_elec_gas_res_li_consumption_m'];
         const rows = commData.concat(resData);
         if (rows.length < 1) { return []; }
         return rows.reduce((acc, row) => {
-          return acc.concat([{
+          return (row['mwh_use'] ? acc.concat([{
             x: row['cal_year'],
             y: row['mwh_use'],
             z: `${row['sector']} ${chart.labels['mwh_use']}`,
-          }]);
+          }]) : acc);
         }, []);
       },
     },
@@ -609,11 +615,11 @@ export default {
         'p3050': 'Paying 30-50% of Income',
         'p50+': 'Paying 50%+ of Income',
         'owner': 'Owner Occupied',
-        'renter': 'Render Occupied',
+        'renter': 'Renter Occupied',
       },
       source: 'ACS',
-      timeframe: '2012-2016 ACS 5-year',
-      datasetId: null,
+      timeframe: '2012-2016 5-Year Estimates',
+      datasetLinks: { 'Cost Burdened Households (Municipal)': 185 },
       transformer: (tables, chart) => {
         const costData = tables['tabular.b25091_b25070_costburden_acs_m'];
         if (costData.length < 1) { return []; }
@@ -669,7 +675,7 @@ export default {
       source: 'Census Building Permit Survey',
       caveat: '*Ignoring years for which the municipality did not report all 12 months.',
       timeframe: '2001-2017',
-      datasetId: null,
+      datasetLinks: { 'Building Permits by Type and Year (Municipal)': 384 },
       transformer: (tables, chart) => {
         const [ offset, numYears ] = [ 2001, 17 ];
         const permitData = tables['tabular.hous_building_permits_m'];
@@ -702,7 +708,7 @@ export default {
       type: 'stacked-bar',
       title: 'Premature Mortality Rate by Race',
       xAxis: { label: '5 Year Average'},
-      yAxis: { label: 'Rate per 100,000' },
+      yAxis: { label: 'Age Adjusted Rate per 100,000' },
       tables: {
         'tabular.health_premature_mortality_race_m': {
           yearCol: 'years',
@@ -747,7 +753,7 @@ export default {
       },
       source: 'MA Dept. of Public Health',
       timeframe: '2003-2007, 2008-2012 5-year averages',
-      datasetId: null,
+      datasetLinks: { 'Premature Mortality (Municipal)': 386 },
       transformer: (tables, chart) => {
         const premoData = tables['tabular.health_premature_mortality_race_m'];
         if (premoData.length < 1) { return []; }
@@ -773,7 +779,7 @@ export default {
       type: 'stacked-bar',
       title: 'Hypertension Hospitalizations by Race',
       xAxis: { label: 'Cause', format: d => d },
-      yAxis: { label: 'Hospitalizations', format: d => String(d) },
+      yAxis: { label: 'Age Adjusted Rate per 100,000', format: d => String(d) },
       tables: {
         // TODO: Heart failure data not loaded at this time.
         // 'tabular.health_hospitalizations_heart_failure_m': {
@@ -793,45 +799,45 @@ export default {
           years: ['2008-2012'],
           columns: [
             'cal_years',
-            'whi_num',
-            'aa_num',
-            'api_num',
-            'na_num',
-            'oth_num',
-            'lat_num',
+            'whi_arte',
+            'aa_arte',
+            'api_arte',
+            'na_arte',
+            'oth_arte',
+            'lat_arte',
           ],
         },
       },
       labels: {
-        'whi_num': 'White',
-        'aa_num': 'Black and African American',
-        'api_num': 'Asian and Pacific Islander',
-        'na_num': 'Native American',
-        'oth_num': 'Other',
-        'lat_num': 'Hispanic and Latino',
+        'whi_arte': 'White',
+        'aa_arte': 'Black and African American',
+        'api_arte': 'Asian and Pacific Islander',
+        'na_arte': 'Native American',
+        'oth_arte': 'Other',
+        'lat_arte': 'Hispanic and Latino',
       },
       colors: {
-        'whi_num': colors.CHART.get('LIGHT_YELLOW'),
-        'aa_num': colors.CHART.get('DARK_RED'),
-        'api_num': colors.CHART.get('TEAL_GREEN'),
-        'na_num': colors.CHART.get('CYAN'),
-        'oth_num': colors.CHART.get('BLUE'),
-        'lat_num': colors.CHART.get('PINK'),
+        'whi_arte': colors.CHART.get('LIGHT_YELLOW'),
+        'aa_arte': colors.CHART.get('DARK_RED'),
+        'api_arte': colors.CHART.get('TEAL_GREEN'),
+        'na_arte': colors.CHART.get('CYAN'),
+        'oth_arte': colors.CHART.get('BLUE'),
+        'lat_arte': colors.CHART.get('PINK'),
       },
       source: 'MA Dept. of Public Health',
       timeframe: '2008-2012 5-year averages',
-      datasetId: null,
+      datasetLinks: { 'Hypertension Ralted Hospitalizations (Municipal)': 385 },
       transformer: (tables, chart) => {
         const hyperData = tables['tabular.health_hospitalizations_hypertension_m'];
         if (hyperData.length < 1) { return []; }
         const row = hyperData[0];
         const raceKeys = [
-          'whi_num',
-          'aa_num',
-          'api_num',
-          'na_num',
-          'oth_num',
-          'lat_num',
+          'whi_arte',
+          'aa_arte',
+          'api_arte',
+          'na_arte',
+          'oth_arte',
+          'lat_arte',
         ];
         return raceKeys.reduce((acc, key) =>
           acc.concat([{
@@ -865,9 +871,9 @@ export default {
         'pass_vmt_hh': 'Passenger vehicles',
         'comm_vmt_hh': 'Commercial vehicles',
       },
-      source: 'MAPC',
-      timeframe: '2001-2016',
-      datasetId: 319,
+      source: 'MAPC and MA RMV',
+      timeframe: '2009-2015',
+      datasetLinks: { 'Massachusetts Vehicle Municipal Summary Statistics (Municipal)': 330 },
       transformer: (tables, chart) => {
         const vmtData = tables['tabular.trans_mavc_public_summary_m'];
         if (vmtData.length < 1) { return []; }
@@ -917,8 +923,8 @@ export default {
         'other': 'Other',
       },
       source: 'ACS',
-      timeframe: '2012-2016',
-      datasetId: null,
+      timeframe: '2012-2016 5-Year Estimates',
+      datasetLinks: { 'Transportation to Work from Residence (Municpal)': 38 },
       transformer: (tables, chart) => {
         const commData = tables['tabular.b08301_means_transportation_to_work_by_residence_acs_m'];
         if (commData.length < 1) { return []; }

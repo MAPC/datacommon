@@ -11,6 +11,30 @@ export function maxTextToMargin(maxLength, fontSize) {
   return maxLength * fontSize * 0.56;
 }
 
+export function splitPhrase(phrase, charPerLine) {
+  if (!phrase) { return []; }
+
+  const words = phrase.split(' ');
+  const rows = [];
+  let count = 0;
+  let rowBuffer = [];
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+    if (count + word.length < charPerLine) {
+      count += word.length;
+      rowBuffer.push(word);
+    } else {
+      count = 0;
+      rows.push(rowBuffer.join(' '));
+      rowBuffer = [word];
+    }
+  }
+  if (rowBuffer.length) {
+    rows.push(rowBuffer.join(' '));
+  }
+  return rows;
+}
+
 const addLegendColumn = (legend, color, keysInColumn) => {
   const li = legend.append('ul')
     .selectAll('li')
