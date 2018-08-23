@@ -667,7 +667,7 @@ export default {
         'mf_units': 'Multi Family Units',
       },
       source: 'Census Building Permit Survey',
-      caveat: 'Ignoring years for which the municipality did not report all 12 months.',
+      caveat: '*Ignoring years for which the municipality did not report all 12 months.',
       timeframe: '2001-2017',
       datasetId: null,
       transformer: (tables, chart) => {
@@ -682,7 +682,7 @@ export default {
             allData[yearIndex] = permitData[rowIndex];
             rowIndex += 1;
           } else {
-            allData[yearIndex] = { [tableDef.yearCol]: (offset + yearIndex), 'mf_units': 0, 'sf_units': 0 };
+            allData[yearIndex] = { [tableDef.yearCol]: `${(offset + yearIndex)}*`, 'mf_units': 0, 'sf_units': 0 };
           }
         }
         return allData.reduce((acc, year) => acc.concat([{
