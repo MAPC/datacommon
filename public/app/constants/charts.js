@@ -197,7 +197,7 @@ export default {
         '81': 'Other services (other than public administration)',
         '92': 'Public administration',
       },
-      source: 'MAPC',
+      source: 'Executive Office of Labor and Workforce Development (EOLWD)',
       timeframe: '2001-2016',
       datasetLinks: { 'Occupational Employment and Wages by Industry (NAICS) (MA)': 319 },
       transformer: (tables, chart) => {
@@ -826,7 +826,7 @@ export default {
       },
       source: 'MA Dept. of Public Health',
       timeframe: '2008-2012 5-year averages',
-      datasetLinks: { 'Hypertension Ralted Hospitalizations (Municipal)': 385 },
+      datasetLinks: { 'Hypertension Related Hospitalizations (Municipal)': 385 },
       transformer: (tables, chart) => {
         const hyperData = tables['tabular.health_hospitalizations_hypertension_m'];
         if (hyperData.length < 1) { return []; }
