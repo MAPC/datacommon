@@ -42,38 +42,38 @@ module TownMetadata
     end
 
     def response(request)
-        connect_to_town_database
-        prefix = 'towndata.mapc.'
-        metadata = {}
+      connect_to_town_database
+      prefix = 'towndata.mapc.'
+      metadata = {}
 
-        if request.params['tables']
-          tables = request.params['tables'].split(',')
-          tables.map!{|x| "#{prefix}#{x}"}
-        else
-          tables = nil
+      if request.params['tables']
+        tables = request.params['tables'].split(',')
+        tables.map!{|x| "#{prefix}#{x}"}
+      else
+        tables = nil
+      end
+
+      if request.params['columns']
+        columns = request.params['columns'].split(',')
+
+        unless columns.include?('name')
+          columns << 'name'
         end
 
-        if request.params['columns']
-          columns = request.params['columns'].split(',')
+        columns = columns.join(',')
+      else
+        columns = 'name,definition,documentation'
+      end
 
-          unless columns.include?('name')
-            columns << 'name'
-          end
+      metadata_for(tables, columns).each do |table|
+        table_name = table['name'].sub(prefix, '').downcase
 
-          columns = columns.join(',')
-        else
-          columns = 'name,definition,documentation'
-        end
+        metadata[table_name] = {}
+        metadata[table_name]['documentation'] = Hash.from_xml(table['documentation']) unless table['documentation'].blank?
+        metadata[table_name]['definition'] = Hash.from_xml(table['definition']) unless table['definition'].blank?
+      end
 
-        metadata_for(tables, columns).each do |table|
-          table_name = table['name'].sub(prefix, '').downcase
-
-          metadata[table_name] = {}
-          metadata[table_name]['documentation'] = Hash.from_xml(table['documentation']) unless table['documentation'].blank?
-          metadata[table_name]['definition'] = Hash.from_xml(table['definition']) unless table['definition'].blank?
-        end
-
-        [200, {'Content-Type' => 'application/json'}, [metadata.to_json]]
+      [200, {'Content-Type' => 'application/json'}, [metadata.to_json]]
     end
 
     def call(env)
