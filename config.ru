@@ -4,6 +4,7 @@ require 'rack/cors'
 require_relative 'app/geospatial_metadata'
 require_relative 'app/tabular_metadata'
 require_relative 'app/shapefile'
+require_relative 'app/town_metadata'
 
 use Rack::Cors do
   known_origins = [
@@ -18,12 +19,16 @@ use Rack::Cors do
   end
 end
 
-map '/geospatial' do
+map '/gisdata' do
   run GeospatialMetadata::API.new
 end
 
-map '/tabular' do
+map '/ds' do
   run TabularMetadata::API.new
+end
+
+map '/towndata' do
+  run TownMetadata::API.new
 end
 
 map '/shapefile' do
