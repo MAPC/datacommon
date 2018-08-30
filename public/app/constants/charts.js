@@ -1,6 +1,22 @@
 import colors from '~/app/constants/colors';
 import locations from '~/app/constants/locations';
 
+const notNothing = (d) => (typeof(d) != 'undefined' && d != null);
+
+const format = {
+  string: {
+    default: (d) => (notNothing(d) ? String(d) : ''),
+  },
+  number: {
+    thousands: (d) => (notNothing(d) ? `${(d/1000).toFixed(0)}k` : ''),
+    percentage: (d) => (notNothing(d) ? `${d * 100}%` : ''),
+    integer: (d) => (notNothing(d) ? d.toFixed(0) : ''),
+    nearestTenth: (d) => (notNothing(d) ? d.toFixed(1) : ''),
+    ignoreFloat: (d) => ((notNothing(d) && d % 1 == 0) ? d.toFixed(0) : ''),
+    integerPercentage: (d) => (notNothing(d) ? `${(d*100).toFixed(0)}%` : ''),
+  },
+};
+
 export default {
   'demographics' : {
 
@@ -8,7 +24,7 @@ export default {
       type: 'stacked-bar',
       title: 'Race and Ethnicity',
       xAxis: { label: '2012-2016 5-Year Estimates', },
-      yAxis: { label: 'Population', format: d => `${(d/1000).toFixed(0)}k` },
+      yAxis: { label: 'Population', format: format.number.thousands },
       tables: {
         'tabular.b03002_race_ethnicity_acs_m': {
           yearCol: 'acs_year',
@@ -70,7 +86,7 @@ export default {
       type: 'stacked-bar',
       title: 'Population by Age',
       xAxis: { label: 'Year',  },
-      yAxis: { label: 'Population', format: d => `${(d/1000).toFixed(0)}k` },
+      yAxis: { label: 'Population', format: format.number.thousands },
       tables: {
         'tabular.census2010_p12_pop_by_age_m': {
           yearCol: 'years',
@@ -134,8 +150,8 @@ export default {
     'resident_employment': {
       type: 'stacked-bar',
       title: 'Employment of Residents',
-      xAxis: { label: '5-Year Estimates', format: d => String(d) },
-      yAxis: { label: 'Population', format: d => `${(d/1000).toFixed(0)}k` },
+      xAxis: { label: '5-Year Estimates', format: format.string.default },
+      yAxis: { label: 'Population', format: format.number.thousands },
       tables: {
         'tabular.b23025_employment_acs_m': {
           yearCol: 'acs_year',
@@ -170,8 +186,8 @@ export default {
     'emp_by_sector': {
       type: 'stacked-area',
       title: 'Employment by Industry',
-      xAxis: { label: 'Year', format: d => d },
-      yAxis: { label: 'Employment by Industry', format: d => `${(d/1000).toFixed(0)}k`},
+      xAxis: { label: 'Year', format: format.string.default },
+      yAxis: { label: 'Employment by Industry', format: format.number.thousands},
       tables: {
         'tabular.econ_es202_naics_2d_m': {
           yearCol: 'cal_year',
@@ -244,8 +260,8 @@ export default {
     'school_enrollment': {
       type: 'stacked-bar',
       title: 'School Enrollment',
-      xAxis: { label: 'Year', format: d => d },
-      yAxis: { label: 'Enrollment', format: d => d },
+      xAxis: { label: 'Year', format: format.string.default },
+      yAxis: { label: 'Enrollment', format: format.string.default },
       tables: {
         'tabular.educ_enrollment_by_year_districts': {
           specialFetch: async (municipality, dispatchUpdate) => {
@@ -314,7 +330,7 @@ export default {
       type: 'stacked-bar',
       title: 'Educational Attainment by Race',
       xAxis: { label: '2012-2016 5-Year Estimates'},
-      yAxis: { label: 'Attainment', format: d => `${d * 100}%`},
+      yAxis: { label: 'Attainment', format: format.number.percentage},
       tables: {
         'tabular.c15002_educational_attainment_by_race_acs_m': {
           yearCol: 'acs_year',
@@ -449,8 +465,8 @@ export default {
     'water_usage_per_cap': {
       type: 'line',
       title: 'Water Usage per Capita',
-      xAxis: { label: 'Year', format: x => x.toFixed(0), ticks: 7 },
-      yAxis: { label: 'Resident Gallons per Capita Day', format: y => y.toFixed(1), min: 0 },
+      xAxis: { label: 'Year', format: format.number.integer, ticks: 7 },
+      yAxis: { label: 'Resident Gallons per Capita Day', format: format.number.nearestTenth, min: 0 },
       tables: {
         'tabular.env_dep_reviewed_water_demand_m': {
           columns: [
@@ -473,24 +489,26 @@ export default {
         const waterData = tables['tabular.env_dep_reviewed_water_demand_m'];
         if (waterData.length < 1) { return []; }
         const row = waterData[0];
+        const pairs = [
+          [2009, 'rgpcd2009'],
+          [2010, 'rgpcd2010'],
+          [2011, 'rgpcd2011'],
+          [2012, 'rgpcd2012'],
+          [2013, 'rgpcd2013'],
+          [2014, 'rgpcd2014'],
+          [2015, 'rgpcd2015'],
+        ];
         return [{
           label: 'Water Usage per Capita',
-          values: [
-            [2009, row['rgpcd2009']],
-            [2010, row['rgpcd2010']],
-            [2011, row['rgpcd2011']],
-            [2012, row['rgpcd2012']],
-            [2013, row['rgpcd2013']],
-            [2014, row['rgpcd2014']],
-            [2015, row['rgpcd2015']],
-          ],
+          values: pairs.reduce((acc, [ year, key ]) =>
+              (row[key] ? acc.concat([[year, row[key]]]) : acc), []),
         }];
       },
     },
     'energy_usage_gas': {
       type: 'stacked-area',
       title: 'Thermal Energy Usage (Gas, oil, etc.)',
-      xAxis: { label: 'Year', format: x => (x % 1 == 0 ? x.toFixed(0) : ''), ticks: 3 },
+      xAxis: { label: 'Year', format: format.number.ignoreFloat, ticks: 3 },
       yAxis: { label: 'Energy Costs ($)' },
       tables: {
         'tabular.energy_masssave_elec_gas_ci_consumption_m': {
@@ -539,7 +557,7 @@ export default {
     'energy_usage_electricity': {
       type: 'stacked-area',
       title: 'Electrical Energy Usage',
-      xAxis: { label: 'Year', format: x => (x % 1 == 0 ? x.toFixed(0) : '') },
+      xAxis: { label: 'Year', format: format.number.ignoreFloat },
       yAxis: { label: 'Energy Costs ($)' },
       tables: {
         'tabular.energy_masssave_elec_gas_ci_consumption_m': {
@@ -590,7 +608,7 @@ export default {
       type: 'stacked-bar',
       title: 'Housing Cost Burden',
       xAxis: { label: 'Cost Burden Categories'},
-      yAxis: { label: 'Owner-Renter Ratio', format: y => `${(y*100).toFixed(0)}%` },
+      yAxis: { label: 'Owner-Renter Ratio', format: format.number.integerPercentage },
       tables: {
         'tabular.b25091_b25070_costburden_acs_m': {
           yearCol: 'acs_year',
@@ -778,8 +796,8 @@ export default {
     'hospitalizations': {
       type: 'stacked-bar',
       title: 'Hypertension Hospitalizations by Race',
-      xAxis: { label: 'Cause', format: d => d },
-      yAxis: { label: 'Age Adjusted Rate per 100,000', format: d => String(d) },
+      xAxis: { label: 'Cause', format: format.string.default },
+      yAxis: { label: 'Age Adjusted Rate per 100,000', format: format.string.default },
       tables: {
         // TODO: Heart failure data not loaded at this time.
         // 'tabular.health_hospitalizations_heart_failure_m': {
@@ -855,7 +873,7 @@ export default {
     'daily_vmt': {
       type: 'stacked-area',
       title: 'Daily Vehicle Miles Traveled per Household',
-      xAxis: { label: 'Year', format: y => String(y), ticks: 3 },
+      xAxis: { label: 'Year', format: format.string.default, ticks: 3 },
       yAxis: { label: 'Daily household vehicle miles traveled' },
       tables: {
         'tabular.trans_mavc_public_summary_m': {

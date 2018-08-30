@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import colors from '~/app/constants/colors';
-import { maxToMargin, maxTextToMargin } from '~/app/utils/charts';
+import { maxToMargin, maxTextToMargin, drawLegend } from '~/app/utils/charts';
 
 const defaultColors = Array.from(colors.CHART.values());
 
@@ -67,6 +67,10 @@ class LineChart extends React.Component {
     });
     const width = (container.height - margin.left) - margin.right;
     const height = (container.width - margin.top) - margin.bottom;
+
+    const keys = this.props.data.map((d) => d.label);
+    const colors = this.props.data.reduce((acc, d) => (d.color ? acc.concat([d.color]) : acc), []);
+    this.color = d3.scaleOrdinal(colors || defaultColors).domain(keys);
 
     const xScale = d3.scaleLinear()
       .domain([xMin, xMax])
@@ -143,19 +147,8 @@ class LineChart extends React.Component {
       .style('text-anchor', 'middle')
       .text(this.props.xAxis.label);
 
-    const li = this.legend
-      .selectAll('li')
-      .data(this.props.data)
-      .enter()
-      .append('li');
-    li.append('span')
-      .attr('class', 'color-patch')
-      .style('background', (d, i) => (d.color || (i < defaultColors.length
-          ? defaultColors[i]
-          : colors.CHART_DEFAULT)))
-    li.append('span')
-      .text(d => d.label);
-
+    this.legend.selectAll('*').remove();
+    drawLegend(this.legend, this.color, keys);
   }
 
 
@@ -166,7 +159,7 @@ class LineChart extends React.Component {
       .attr('preserveAspectRatio', 'xMinYMin meet')
       .attr('viewBox', `0 0 ${width} ${height}`);
 
-    this.legend = d3.select(this.legendContainer).append('ul');
+    this.legend = d3.select(this.legendContainer);
     this.renderChart();
   }
 
