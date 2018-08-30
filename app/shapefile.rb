@@ -22,21 +22,6 @@ module Shapefile
   end
 
   class API
-    def connect_to_gis_database
-      template = ERB.new File.new("config/settings.yml").read
-      @settings = YAML.load template.result(binding)
-
-      ActiveRecord::Base.establish_connection(
-        adapter:  'postgresql',
-        host: @settings['database']['host'],
-        port: @settings['database']['port'],
-        database: @settings['database']['geospatial']['database'],
-        username: @settings['database']['username'],
-        password: @settings['database']['password'],
-        schema_search_path: @settings['database']['geospatial']['schema']['metadata']
-      )
-    end
-
     def zip(file_name)
       Zip::File.open("public/#{file_name}.zip", Zip::File::CREATE) do |zipfile|
         zipfile.add("#{file_name}.prj", "public/26986.prj")
@@ -51,7 +36,7 @@ module Shapefile
       template = ERB.new File.new("config/settings.yml").read
       @settings = YAML.load template.result(binding)
 
-      file_name = "export-#{Time.now.to_i}"
+      file_name = "export-#{table_name}-#{Time.now.to_i}"
       arguments = []
       arguments << %Q(-f 'ESRI Shapefile' public/#{file_name}.shp)
       arguments << %Q(PG:'host=#{@settings['database']['host']} port=#{@settings['database']['port']} user=#{@settings['database']['username']} dbname=#{@settings['database']['geospatial']['database']} password=#{@settings['database']['password']}')
@@ -63,9 +48,8 @@ module Shapefile
     end
 
     def response(request)
-      connect_to_gis_database
       file = zip(to_shp(request.params['table']))
-      [200, {'Content-Type' => 'application/zip'}, FileStreamer.new("public/#{file}")]
+      [200, {'Content-Type' => 'application/zip', 'Content-Disposition' => 'attachment'}, FileStreamer.new("public/#{file}")]
     end
 
     def call(env)

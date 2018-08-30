@@ -5,6 +5,7 @@ require_relative 'app/geospatial_metadata'
 require_relative 'app/tabular_metadata'
 require_relative 'app/shapefile'
 require_relative 'app/town_metadata'
+require_relative 'app/csv'
 
 use Rack::Cors do
   known_origins = [
@@ -33,4 +34,8 @@ end
 
 map '/shapefile' do
   run Shapefile::API.new
+end
+
+map '/csv' do
+  run Csv::API.new
 end

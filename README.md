@@ -16,6 +16,7 @@
 sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update
 sudo apt-get install gdal-bin
 ```
+8. The user you run the application under needs a valid `.pgpass` file in their home directory with credentials to access the defined databases in order for the csv endpoint to work.
 
 ## Testing
 All server-side tests are written in RSpec.
