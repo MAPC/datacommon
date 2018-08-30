@@ -21,6 +21,10 @@ module Csv
   end
 
   class API
+    def allowed_database_name(database_name)
+      ['ds', 'gisdata', 'towndata'].include?(database_name) ? database_name : nil
+    end
+
     def to_csv(table_name, database_name)
       template = ERB.new File.new("config/settings.yml").read
       @settings = YAML.load template.result(binding)
@@ -28,7 +32,7 @@ module Csv
       file_name = "export-#{table_name}-#{Time.now.to_i}.csv"
       arguments = []
       arguments << %Q(-c "\\copy (SELECT * FROM #{table_name}) to 'public/#{file_name}' with csv")
-      arguments << %Q(-w -h #{@settings['database']['host']} -p #{@settings['database']['port']} -U #{@settings['database']['username']} -d #{database_name})
+      arguments << %Q(-w -h #{@settings['database']['host']} -p #{@settings['database']['port']} -U #{@settings['database']['username']} -d #{allowed_database_name(database_name)})
       arguments << %Q(> log/psql.log 2>&1)
 
       `psql #{arguments.join(" ")}`
