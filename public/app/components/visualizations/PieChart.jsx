@@ -13,10 +13,10 @@ const container = {
 };
 
 const defaultMargin = {
-  top: 10,
+  top: 80,
   left: 10,
   right: 10,
-  bottom: 10,
+  bottom: 80,
 };
 
 class PieLabelBin {
@@ -80,7 +80,7 @@ class PieChart extends React.Component {
       right: defaultMargin.right + bonusSideMargin,
     });
     const width = (container.width - margin.left) - margin.right;
-    const height = (width - margin.top) - margin.bottom;
+    const height = (container.height - margin.top) - margin.bottom;
     this.chart.attr('viewBox', `0 0 ${container.width} ${height}`);
 
     const radius = Math.min(height, width) / 2;
@@ -101,7 +101,7 @@ class PieChart extends React.Component {
     this.chart.selectAll('*').remove(); // Clear chart before drawing
 
     this.gChart = this.chart.append('g');
-    this.gChart.attr('transform', `translate(${(width / 2) + margin.left},${(height / 2) + margin.top})`);
+    this.gChart.attr('transform', `translate(${(width / 2) + margin.left},${(height / 2)})`);
     const pieData = this.pie(this.props.data.sort((a, b) => a.value - b.value));
 
     // Pie chart

@@ -170,6 +170,8 @@ class CommunityProfiles extends React.Component {
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
+                </div>
+                <div className="tab-row">
                   <ChartDetails chart={charts['environment']['energy_usage_electricity']}>
                     <StackedAreaChart
                       chart={charts['environment']['energy_usage_electricity']}
