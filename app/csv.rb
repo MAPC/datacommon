@@ -31,7 +31,7 @@ module Csv
 
       file_name = "#{table_name}-#{Time.now.to_i}.csv"
       arguments = []
-      arguments << %Q(-c "\\copy (SELECT * FROM #{table_name}) to 'public/#{file_name}' with csv")
+      arguments << %Q(-c "\\copy (SELECT * FROM #{table_name}) to 'public/#{file_name}' with csv header")
       arguments << %Q(-w -h #{@settings['database']['host']} -p #{@settings['database']['port']} -U #{@settings['database']['username']} -d #{allowed_database_name(database_name)})
       arguments << %Q(> log/psql.log 2>&1)
 
