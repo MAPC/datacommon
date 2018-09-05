@@ -49,7 +49,7 @@ module Shapefile
 
     def response(request)
       file = zip(to_shp(request.params['table']))
-      [200, {'Content-Type' => 'application/zip', 'Content-Disposition' => 'attachment'}, FileStreamer.new("public/#{file}")]
+      [200, {'Content-Type' => 'application/zip', 'Content-Disposition' => "attachment; filename=#{request.params['table']}"}, FileStreamer.new("public/#{file}")]
     end
 
     def call(env)
