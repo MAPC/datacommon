@@ -9,6 +9,7 @@
   "scripts": {
     "start": "parcel index.html",
     "staging": "NODE_ENV=staging parcel build index.html && rsync -r dist/* datacommon@prep.mapc.org:/var/www/datacommon/current/public/",
+    "production": "NODE_ENV=production parcel build index.html && rsync -r dist/* datacommon@live.mapc.org:/var/www/datacommon/current/public/",
     "test": "jest",
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage"
