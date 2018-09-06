@@ -23,7 +23,7 @@
       display: block;
       padding: 2em 12em;
       & > .chart-wrapper {
-        max-width: auto;
+        max-width: none;
         &:first-child {
           margin-right: 0em;
           margin-bottom: 2em;
