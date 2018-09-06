@@ -33,10 +33,6 @@ class CommunityProfiles extends React.Component {
     this.loadData();
   }
 
-  componentDidUpdate() {
-    this.loadData();
-  }
-
   render() {
     return (
       <article className="component CommunityProfiles">
