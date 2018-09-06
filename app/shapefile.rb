@@ -32,14 +32,14 @@ module Shapefile
       return "#{file_name}.zip"
     end
 
-    def to_shp(table_name)
+    def to_shp(table_name, database_name)
       template = ERB.new File.new("config/settings.yml").read
       @settings = YAML.load template.result(binding)
 
       file_name = "export-#{table_name}-#{Time.now.to_i}"
       arguments = []
       arguments << %Q(-f 'ESRI Shapefile' public/#{file_name}.shp)
-      arguments << %Q(PG:'host=#{@settings['database']['host']} port=#{@settings['database']['port']} user=#{@settings['database']['username']} dbname=#{@settings['database']['geospatial']['database']} password=#{@settings['database']['password']}')
+      arguments << %Q(PG:'host=#{@settings['database']['host']} port=#{@settings['database']['port']} user=#{@settings['database']['username']} dbname=#{database_name} password=#{@settings['database']['password']}')
       arguments << %Q(-sql 'SELECT *,sde.ST_AsText(shape) FROM #{table_name}' -skipfailures)
 
       `ogr2ogr #{arguments.join(" ")}`
