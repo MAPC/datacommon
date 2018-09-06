@@ -418,7 +418,7 @@ export default {
   'governance': {
     'tax_levy': {
       type: 'pie',
-      title: 'Tax Levy Share',
+      title: 'Share of Tax Revenue by Source',
       xAxis: { label: 'Year' },
       yAxis: { label: 'Attainment' },
       tables: {
