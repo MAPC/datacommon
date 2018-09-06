@@ -131,8 +131,6 @@ class StackedBarChart extends React.Component {
       .attr('class', 'layer')
       .attr('fill', d => this.color(d.key));
 
-    console.log(catScale.bandwidth(), catScale.range(), catScale.domain())
-
     // For charts with less than 3 bars, limit the width to one third of the
     // chart's width
     const [ catMin, catMax ] = catScale.range();

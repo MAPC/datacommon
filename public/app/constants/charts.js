@@ -5,6 +5,7 @@ const notNothing = (d) => (typeof(d) != 'undefined' && d != null);
 
 const format = {
   string: {
+    blank: () => '',
     default: (d) => (notNothing(d) ? String(d) : ''),
   },
   number: {
@@ -50,7 +51,7 @@ export default {
         'lat': 'Hispanic or Latino',
       },
       colors: {
-        'nhwhi': colors.CHART.get('LIGHT_YELLOW'),
+        'nhwhi': colors.CHART.get('YELLOW'),
         'nhaa': colors.CHART.get('DARK_RED'),
         'nhapi': colors.CHART.get('TEAL_GREEN'),
         'nhother': colors.CHART.get('BLUE'),
@@ -725,11 +726,12 @@ export default {
     'premature_mortality_rate': {
       type: 'stacked-bar',
       title: 'Premature Mortality Rate by Race',
-      xAxis: { label: '5 Year Average'},
+      xAxis: { label: 'Race' },
       yAxis: { label: 'Age Adjusted Rate per 100,000' },
       tables: {
         'tabular.health_premature_mortality_race_m': {
           yearCol: 'years',
+          years: ['2008-2012'],
           columns: [
             'years',
             'whi_art',
@@ -753,6 +755,14 @@ export default {
           ],
         }
       },
+      abbreviations: {
+        'whi_art': 'W',
+        'aa_art': 'B & AA',
+        'api_art': 'A & PA',
+        'na_art': 'NA',
+        'oth_art': 'Other',
+        'lat_art': 'H & L',
+      },
       labels: {
         'whi_art': 'White',
         'aa_art': 'Black and African American',
@@ -762,7 +772,7 @@ export default {
         'lat_art': 'Hispanic and Latino',
       },
       colors: {
-        'whi_art': colors.CHART.get('LIGHT_YELLOW'),
+        'whi_art': colors.CHART.get('YELLOW'),
         'aa_art': colors.CHART.get('DARK_RED'),
         'api_art': colors.CHART.get('TEAL_GREEN'),
         'na_art': colors.CHART.get('CYAN'),
@@ -770,11 +780,12 @@ export default {
         'lat_art': colors.CHART.get('PINK'),
       },
       source: 'MA Dept. of Public Health',
-      timeframe: '2003-2007, 2008-2012 5-year averages',
+      timeframe: '2008-2012 5-year averages',
       datasetLinks: { 'Premature Mortality (Municipal)': 386 },
       transformer: (tables, chart) => {
         const premoData = tables['tabular.health_premature_mortality_race_m'];
         if (premoData.length < 1) { return []; }
+        const row = premoData[0];
         const raceKeys = [
           'whi_art',
           'aa_art',
@@ -784,12 +795,12 @@ export default {
           'lat_art',
         ];
         return raceKeys.reduce((acc, key) =>
-          acc.concat(premoData.map((yearData) => ({
-            x: yearData['years'],
-            y: yearData[key] || 0,
+          acc.concat([{
+            x: chart.abbreviations[key],
+            y: row[key] || 0,
             z: chart.labels[key],
             color: chart.colors[key],
-          })))
+          }])
         , []);
       },
     },
@@ -826,6 +837,14 @@ export default {
           ],
         },
       },
+      abbreviations: {
+        'whi_arte': 'W',
+        'aa_arte': 'B & AA',
+        'api_arte': 'A & PA',
+        'na_arte': 'NA',
+        'oth_arte': 'Other',
+        'lat_arte': 'H & L',
+      },
       labels: {
         'whi_arte': 'White',
         'aa_arte': 'Black and African American',
@@ -835,7 +854,7 @@ export default {
         'lat_arte': 'Hispanic and Latino',
       },
       colors: {
-        'whi_arte': colors.CHART.get('LIGHT_YELLOW'),
+        'whi_arte': colors.CHART.get('YELLOW'),
         'aa_arte': colors.CHART.get('DARK_RED'),
         'api_arte': colors.CHART.get('TEAL_GREEN'),
         'na_arte': colors.CHART.get('CYAN'),
@@ -859,7 +878,7 @@ export default {
         ];
         return raceKeys.reduce((acc, key) =>
           acc.concat([{
-            x: 'Hypertension',
+            x: chart.abbreviations[key],
             y: row[key],
             z: chart.labels[key],
             color: chart.colors[key],
