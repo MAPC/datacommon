@@ -131,16 +131,28 @@ class StackedBarChart extends React.Component {
       .attr('class', 'layer')
       .attr('fill', d => this.color(d.key));
 
+    console.log(catScale.bandwidth(), catScale.range(), catScale.domain())
+
+    // For charts with less than 3 bars, limit the width to one third of the
+    // chart's width
+    const [ catMin, catMax ] = catScale.range();
+    const columnWidth = catScale.domain().length < 3
+        ? (((catMax - catMin) / 3) + catMin)
+        : catScale.bandwidth();
+    const realignment = catScale.domain().length < 3
+        ? (catScale.bandwidth() - ((catMax - catMin) / 3)) / 2
+        : 0;
+
     layer.selectAll("rect")
   	  .data(d => d)
       .enter()
       .append("rect")
-      .attr((this.props.horizontal ? 'y' : 'x'), d => catScale(d.data.y))
+      .attr((this.props.horizontal ? 'y' : 'x'), d => catScale(d.data.y) + realignment)
       .attr((this.props.horizontal ? 'x' : 'y'), d => (this.props.horizontal ? valScale(d[0]) : valScale(d[1])))
       .attr((this.props.horizontal ? 'width' : 'height'), d => (this.props.horizontal
           ? (valScale(d[1]) - valScale(d[0]))
           : (valScale(d[0]) - valScale(d[1]))))
-      .attr((this.props.horizontal ? 'height' : 'width'), catScale.bandwidth());
+      .attr((this.props.horizontal ? 'height' : 'width'), columnWidth);
 
     const xAxisG = this.gChart.append('g')
       .attr('class', 'axis axis-x')
