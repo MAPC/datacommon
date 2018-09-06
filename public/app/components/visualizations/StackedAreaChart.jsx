@@ -5,7 +5,8 @@ import * as d3 from 'd3';
 import colors from '~/app/constants/colors';
 import { maxToMargin, drawLegend } from '~/app/utils/charts';
 
-const defaultColors = Array.from(colors.CHART.values());
+const primaryColors = Array.from(colors.CHART.PRIMARY.values());
+const extendedColors = Array.from(colors.CHART.EXTENDED.values());
 
 const container = {
   width: 500,
@@ -27,7 +28,6 @@ class StackedAreaChart extends React.Component {
     this.renderChart = this.renderChart.bind(this);
 
     this.stack = d3.stack();
-    this.color = d3.scaleOrdinal(props.colors || defaultColors);
   }
 
 
@@ -49,7 +49,11 @@ class StackedAreaChart extends React.Component {
 
     const keys = [...(new Set(this.props.data.map(d => d.z)))];
 
-    this.color.domain(keys);
+    this.color = d3.scaleOrdinal(
+        this.props.colors
+        || (keys.length > primaryColors.length ? extendedColors : primaryColors)
+      )
+      .domain(Array.from(keys).reverse());
     this.stack.keys(keys);
 
     this.chart.selectAll('*').remove(); // Clear chart before drawing

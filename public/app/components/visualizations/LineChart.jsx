@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import colors from '~/app/constants/colors';
 import { maxToMargin, maxTextToMargin, drawLegend } from '~/app/utils/charts';
 
-const defaultColors = Array.from(colors.CHART.values());
+const primaryColors = Array.from(colors.CHART.PRIMARY.values());
+const extendedColors = Array.from(colors.CHART.EXTENDED.values());
 
 const container = {
   width: 500,
@@ -70,7 +71,13 @@ class LineChart extends React.Component {
 
     const keys = this.props.data.map((d) => d.label);
     const colors = this.props.data.reduce((acc, d) => (d.color ? acc.concat([d.color]) : acc), []);
-    this.color = d3.scaleOrdinal(colors || defaultColors).domain(keys);
+
+    this.color = d3.scaleOrdinal(
+        colors.length
+            ? colors
+            : (keys.length > primaryColors.length ? extendedColors : primaryColors)
+      )
+      .domain(keys);
 
     const xScale = d3.scaleLinear()
       .domain([xMin, xMax])
@@ -108,14 +115,10 @@ class LineChart extends React.Component {
       .call(yAxis);
 
     this.props.data.forEach((line, i) => {
-      const lineColor = line.color || (i < defaultColors.length
-          ? defaultColors[i]
-          : colors.CHART_DEFAULT);
-
       this.gChart.append("path")
         .datum(line.values)
         .attr("class", "line")
-        .attr('stroke', lineColor)
+        .attr('stroke', this.color(line.label))
         .attr('stroke-width', 1.5)
         .attr('fill', 'none')
         .attr("d", lineGenerator);
@@ -126,7 +129,7 @@ class LineChart extends React.Component {
         .attr("class", `dot dots-for-line-${i}`)
         .attr("cx", d => xScale(d[0]))
         .attr("cy", d => yScale(d[1]))
-        .attr('fill', lineColor)
+        .attr('fill', this.color(line.label))
         .attr("r", 3)
     });
 

@@ -5,7 +5,8 @@ import * as d3 from 'd3';
 import colors from '~/app/constants/colors';
 import { maxTextToMargin, drawLegend } from '~/app/utils/charts';
 
-const defaultColors = Array.from(colors.CHART.values());
+const primaryColors = Array.from(colors.CHART.PRIMARY.values());
+const extendedColors = Array.from(colors.CHART.EXTENDED.values());
 
 const container = {
   width: 500,
@@ -65,8 +66,6 @@ class PieChart extends React.Component {
     this.pie = d3.pie()
                 .sort((a,b) => a.value > b.value)
                 .value(d => d.value);
-
-    this.color = d3.scaleOrdinal(props.colors || defaultColors);
   }
 
 
@@ -99,7 +98,11 @@ class PieChart extends React.Component {
     //   .outerRadius(radius * 0.9)
     //   .innerRadius(radius * 0.7);
 
-    this.color.domain(keys);
+    this.color = d3.scaleOrdinal(
+        this.props.colors
+        || (keys.length > primaryColors.length ? extendedColors : primaryColors)
+      )
+      .domain(keys);
     this.chart.selectAll('*').remove(); // Clear chart before drawing
 
     this.gChart = this.chart.append('g');

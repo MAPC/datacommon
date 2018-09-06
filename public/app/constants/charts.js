@@ -15,6 +15,7 @@ const format = {
     nearestTenth: (d) => (notNothing(d) ? d.toFixed(1) : ''),
     ignoreFloat: (d) => ((notNothing(d) && d % 1 == 0) ? d.toFixed(0) : ''),
     integerPercentage: (d) => (notNothing(d) ? `${(d*100).toFixed(0)}%` : ''),
+    localeString: (d) => (notNothing(d) ? d.toLocaleString() : ''),
   },
 };
 
@@ -24,8 +25,8 @@ export default {
     'race_ethnicity': {
       type: 'stacked-bar',
       title: 'Race and Ethnicity',
-      xAxis: { label: '2012-2016 5-Year Estimates', },
-      yAxis: { label: 'Population', format: format.number.thousands },
+      xAxis: { label: '5-Year Estimates' },
+      yAxis: { label: 'Population', format: format.number.localeString },
       tables: {
         'tabular.b03002_race_ethnicity_acs_m': {
           yearCol: 'acs_year',
@@ -51,13 +52,13 @@ export default {
         'lat': 'Hispanic or Latino',
       },
       colors: {
-        'nhwhi': colors.CHART.get('YELLOW'),
-        'nhaa': colors.CHART.get('DARK_RED'),
-        'nhapi': colors.CHART.get('TEAL_GREEN'),
-        'nhother': colors.CHART.get('BLUE'),
-        'lat': colors.CHART.get('PINK'),
+        'nhwhi': colors.CHART.EXTENDED.get('YELLOW'),
+        'nhaa': colors.CHART.EXTENDED.get('DARK_RED'),
+        'nhapi': colors.CHART.EXTENDED.get('TEAL_GREEN'),
+        'nhother': colors.CHART.EXTENDED.get('BLUE'),
+        'lat': colors.CHART.EXTENDED.get('PINK'),
       },
-      source: 'ACS',
+      source: 'American Community Survey',
       timeframe: '2012-2016 5-Year Estimates',
       datasetLinks: { 'Race and Ethnicity Estimates (Municipal)': 6 },
       transformer: (tables, chart) => {
@@ -87,7 +88,7 @@ export default {
       type: 'stacked-bar',
       title: 'Population by Age',
       xAxis: { label: 'Year',  },
-      yAxis: { label: 'Population', format: format.number.thousands },
+      yAxis: { label: 'Population', format: format.number.localeString },
       tables: {
         'tabular.census2010_p12_pop_by_age_m': {
           yearCol: 'years',
@@ -152,7 +153,7 @@ export default {
       type: 'stacked-bar',
       title: 'Employment of Residents',
       xAxis: { label: '5-Year Estimates', format: format.string.default },
-      yAxis: { label: 'Population', format: format.number.thousands },
+      yAxis: { label: 'Population', format: format.number.localeString },
       tables: {
         'tabular.b23025_employment_acs_m': {
           yearCol: 'acs_year',
@@ -171,7 +172,7 @@ export default {
         emp: 'Employed',
         unemp: 'Unemployed',
       },
-      source: 'ACS',
+      source: 'American Community Survey',
       timeframe: '2007-2011 and 2012-2016 5-Year Estimates',
       datasetLinks: { 'Labor Force (Municipal)': 129 },
       transformer: (tables, chart) => {
@@ -188,7 +189,7 @@ export default {
       type: 'stacked-area',
       title: 'Employment by Industry',
       xAxis: { label: 'Year', format: format.string.default },
-      yAxis: { label: 'Employment by Industry', format: format.number.thousands},
+      yAxis: { label: 'Employment by Industry', format: format.number.localeString },
       tables: {
         'tabular.econ_es202_naics_2d_m': {
           yearCol: 'cal_year',
@@ -383,7 +384,7 @@ export default {
         'oth': 'Other',
         'lat': 'Hispanic or Latino',
       },
-      source: 'ACS',
+      source: 'American Community Survey',
       timeframe: '2012-2016 5-Year Estimates',
       datasetLinks: { 'Educational Attainment by Race (Municipal)': 202 },
       transformer: (tables, chart) => {
@@ -636,7 +637,7 @@ export default {
         'owner': 'Owner Occupied',
         'renter': 'Renter Occupied',
       },
-      source: 'ACS',
+      source: 'American Community Survey',
       timeframe: '2012-2016 5-Year Estimates',
       datasetLinks: { 'Cost Burdened Households (Municipal)': 185 },
       transformer: (tables, chart) => {
@@ -772,12 +773,12 @@ export default {
         'lat_art': 'Hispanic and Latino',
       },
       colors: {
-        'whi_art': colors.CHART.get('YELLOW'),
-        'aa_art': colors.CHART.get('DARK_RED'),
-        'api_art': colors.CHART.get('TEAL_GREEN'),
-        'na_art': colors.CHART.get('CYAN'),
-        'oth_art': colors.CHART.get('BLUE'),
-        'lat_art': colors.CHART.get('PINK'),
+        'whi_art': colors.CHART.EXTENDED.get('YELLOW'),
+        'aa_art': colors.CHART.EXTENDED.get('DARK_RED'),
+        'api_art': colors.CHART.EXTENDED.get('TEAL_GREEN'),
+        'na_art': colors.CHART.EXTENDED.get('CYAN'),
+        'oth_art': colors.CHART.EXTENDED.get('BLUE'),
+        'lat_art': colors.CHART.EXTENDED.get('PINK'),
       },
       source: 'MA Dept. of Public Health',
       timeframe: '2008-2012 5-year averages',
@@ -854,12 +855,12 @@ export default {
         'lat_arte': 'Hispanic and Latino',
       },
       colors: {
-        'whi_arte': colors.CHART.get('YELLOW'),
-        'aa_arte': colors.CHART.get('DARK_RED'),
-        'api_arte': colors.CHART.get('TEAL_GREEN'),
-        'na_arte': colors.CHART.get('CYAN'),
-        'oth_arte': colors.CHART.get('BLUE'),
-        'lat_arte': colors.CHART.get('PINK'),
+        'whi_arte': colors.CHART.EXTENDED.get('YELLOW'),
+        'aa_arte': colors.CHART.EXTENDED.get('DARK_RED'),
+        'api_arte': colors.CHART.EXTENDED.get('TEAL_GREEN'),
+        'na_arte': colors.CHART.EXTENDED.get('CYAN'),
+        'oth_arte': colors.CHART.EXTENDED.get('BLUE'),
+        'lat_arte': colors.CHART.EXTENDED.get('PINK'),
       },
       source: 'MA Dept. of Public Health',
       timeframe: '2008-2012 5-year averages',
@@ -959,7 +960,7 @@ export default {
         'walk': 'Walk',
         'other': 'Other',
       },
-      source: 'ACS',
+      source: 'American Community Survey',
       timeframe: '2012-2016 5-Year Estimates',
       datasetLinks: { 'Transportation to Work from Residence (Municpal)': 38 },
       transformer: (tables, chart) => {

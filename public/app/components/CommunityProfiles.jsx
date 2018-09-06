@@ -136,6 +136,7 @@ class CommunityProfiles extends React.Component {
                       chart={charts['education']['edu_attainment_by_race']}
                       muni={this.props.match.params.muni}
                       horizontal={true}
+                      wrapLeftLabel={true}
                     />
                   </ChartDetails>
                 </div>

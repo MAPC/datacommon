@@ -5,7 +5,8 @@ import * as d3 from 'd3';
 import colors from '~/app/constants/colors';
 import { maxToMargin, drawLegend, maxTextToMargin, sortKeys, splitPhrase } from '~/app/utils/charts';
 
-const defaultColors = Array.from(colors.CHART.values());
+const primaryColors = Array.from(colors.CHART.PRIMARY.values());
+const extendedColors = Array.from(colors.CHART.EXTENDED.values());
 
 const LEFT_LABEL_MAX = 20;
 
@@ -78,11 +79,14 @@ class StackedBarChart extends React.Component {
     const keys = sortKeys(this.props.data);
     const colors = this.props.data.reduce((obj, d) =>
         (d.color ? Object.assign(obj, {[d.z]: d.color}) : obj), {});
-    this.color = d3
-      .scaleOrdinal(Object.keys(colors).length
-        ? keys.map((key) => colors[key])
-        : defaultColors)
+
+    this.color = d3.scaleOrdinal(
+        Object.keys(colors).length
+            ? keys.map((key) => colors[key])
+            : (keys.length > primaryColors.length ? extendedColors : primaryColors)
+      )
       .domain(keys);
+
     this.stack.keys(keys);
 
     const data = this.props.data.reduce((acc, row) => {
@@ -165,7 +169,9 @@ class StackedBarChart extends React.Component {
     const yAxisG = this.gChart.append('g')
       .attr('class', 'axis axis-y')
       .call(yAxis);
-    if (this.props.horizontal && clippedMaxLeftLabel == LEFT_LABEL_MAX) {
+    if (this.props.wrapLeftLabel
+        && this.props.horizontal
+        && clippedMaxLeftLabel == LEFT_LABEL_MAX) {
       yAxisG.selectAll("text")
         .each(function (x) {
           const text = d3.select(this);
@@ -179,7 +185,7 @@ class StackedBarChart extends React.Component {
     }
 
     this.chart.append('text')
-      .attr('class', 'axis label')
+      .attr('class', 'axis-label')
       .attr('x', height / -2)
       .attr('y', 0)
       .attr('transform', 'rotate(-90)')
@@ -189,7 +195,7 @@ class StackedBarChart extends React.Component {
       .text(this.props.horizontal ? this.props.xAxis.label : this.props.yAxis.label);
 
     this.chart.append('text')
-      .attr('class', 'axis label')
+      .attr('class', 'axis-label')
       .attr('x', (container.width / 2) + 15)
       .attr('y', height + (margin.top + margin.bottom) - 20)
       .attr("dy", "20")
