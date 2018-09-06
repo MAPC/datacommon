@@ -5,7 +5,7 @@
     "wildcard",
     [
       "transform-runtime", {
-        "polyfill": false,
+        "polyfill": true,
         "regenerator": true
       }
     ]

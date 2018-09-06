@@ -170,7 +170,7 @@ export default {
         emp: 'Employed',
         unemp: 'Unemployed',
       },
-      source: 'Executive Office of Labor and Workforce Development (EOLWD)',
+      source: 'ACS',
       timeframe: '2007-2011 and 2012-2016 5-Year Estimates',
       datasetLinks: { 'Labor Force (Municipal)': 129 },
       transformer: (tables, chart) => {

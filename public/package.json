@@ -14,8 +14,11 @@
     "test:coverage": "yarn test --coverage"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "d3": "npm:d3",
+    "es6-promise": "^4.2.4",
     "history": "^4.7.2",
+    "isomorphic-fetch": "^2.2.1",
     "path-to-regexp": "^2.2.1",
     "prop-types": "^15.6.1",
     "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",
