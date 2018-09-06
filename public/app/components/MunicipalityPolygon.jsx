@@ -28,7 +28,7 @@ class MunicipalityPolygon extends React.Component {
       .datum(this.props.feature)
       .attr('d', path)
       .style('stroke', '#47B593')
-      .style('stroke-width', '2')
+      .style('stroke-width', '1')
       .style('fill', 'none');
     svg.append("line")
       .attr("x1", leftBottom[0])

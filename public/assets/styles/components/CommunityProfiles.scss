@@ -165,7 +165,9 @@
           font-style: italic;
           .source-timeframe {
             display: flex;
-            justify-content: space-between;
+            & > *:not(:last-child) {
+              margin-right: 1em;
+            }
           }
           a {
             color: $color_font-medium;

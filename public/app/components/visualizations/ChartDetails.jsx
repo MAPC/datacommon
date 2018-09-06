@@ -16,17 +16,17 @@ class ChartDetails extends React.Component {
         <div className="metadata">
           <div className="source-timeframe">
             <div className="source">
-              Source: <b>{this.props.chart['source'] || 'Unknown'}</b>
+              Source: {this.props.chart['source'] || 'Unknown'}
             </div>
             <div className="timeframe">
-              Years: <b>{this.props.chart['timeframe'] || 'Unknown'}</b>
+              Years: {this.props.chart['timeframe'] || 'Unknown'}
             </div>
           </div>
           {this.props.chart['datasetLinks'] ? (
             <div className="link">
               <span>Link to: </span>
               {Object.keys(this.props.chart['datasetLinks']).map((label) => (
-                <b><a href={`${locations.HOST}/browser/datasets/${this.props.chart['datasetLinks'][label]}`}>{label}</a></b>
+                <a href={`${locations.HOST}/browser/datasets/${this.props.chart['datasetLinks'][label]}`}>{label}</a>
               ))}
             </div>
           ) : null}

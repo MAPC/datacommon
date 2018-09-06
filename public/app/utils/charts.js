@@ -35,7 +35,7 @@ export function splitPhrase(phrase, charPerLine) {
   return rows;
 }
 
-const addLegendColumn = (legend, color, keysInColumn) => {
+const addLegendColumn = (legend, color, keysInColumn, formatter) => {
   const li = legend.append('ul')
     .selectAll('li')
     .data(keysInColumn)
@@ -55,16 +55,16 @@ const addLegendColumn = (legend, color, keysInColumn) => {
     // .style('background', d => color(d));
   li.append('span')
     .attr('class', 'label')
-    .text(d => d);
+    .text(d => formatter ? formatter(d) : d);
 };
 
-export function drawLegend(legend, color, keys) {
+export function drawLegend(legend, color, keys, formatter) {
   if (keys.length > 6) {
     legend.attr('class', 'legend two-column');
-    addLegendColumn(legend, color, keys.slice(0, Math.round(keys.length / 2)));
-    addLegendColumn(legend, color, keys.slice(Math.round(keys.length / 2)));
+    addLegendColumn(legend, color, keys.slice(0, Math.round(keys.length / 2)), formatter);
+    addLegendColumn(legend, color, keys.slice(Math.round(keys.length / 2)), formatter);
   } else {
-    addLegendColumn(legend, color, keys);
+    addLegendColumn(legend, color, keys, formatter);
   }
 }
 

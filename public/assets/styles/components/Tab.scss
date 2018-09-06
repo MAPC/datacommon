@@ -11,6 +11,7 @@
     padding: 2em 8em;
     & > .chart-wrapper {
       flex: 1;
+      max-width: calc(50% - 3em);
       &:first-child {
         margin-right: 6em;
         @media print {
@@ -22,6 +23,7 @@
       display: block;
       padding: 2em 12em;
       & > .chart-wrapper {
+        max-width: none;
         &:first-child {
           margin-right: 0em;
           margin-bottom: 2em;

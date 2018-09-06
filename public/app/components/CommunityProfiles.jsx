@@ -33,10 +33,6 @@ class CommunityProfiles extends React.Component {
     this.loadData();
   }
 
-  componentDidUpdate() {
-    this.loadData();
-  }
-
   render() {
     return (
       <article className="component CommunityProfiles">
@@ -136,6 +132,7 @@ class CommunityProfiles extends React.Component {
                       chart={charts['education']['edu_attainment_by_race']}
                       muni={this.props.match.params.muni}
                       horizontal={true}
+                      wrapLeftLabel={true}
                     />
                   </ChartDetails>
                 </div>
@@ -170,6 +167,8 @@ class CommunityProfiles extends React.Component {
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
+                </div>
+                <div className="tab-row">
                   <ChartDetails chart={charts['environment']['energy_usage_electricity']}>
                     <StackedAreaChart
                       chart={charts['environment']['energy_usage_electricity']}
