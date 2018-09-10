@@ -18,6 +18,3 @@ database:
     schema:
       data: <%= ENV['DATABASE_TOWN_SCHEMA_DATA'] %>
       metadata: <%= ENV['DATABASE_TOWN_SCHEMA_METADATA'] %>
-carto:
-  api_key: <%= ENV['CARTO_API_KEY'] %>
-  url: <%= ENV['CARTO_URL'] %>
