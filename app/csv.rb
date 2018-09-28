@@ -44,7 +44,7 @@ module Csv
 
     def response(request)
       file = to_csv(request.params['table'], request.params['database'])
-      [200, {'Content-Type' => 'text/csv', 'Content-Disposition' => 'attachment'}, FileStreamer.new("public/#{file}")]
+      [200, {'Content-Type' => 'text/csv', 'Content-Disposition' => "attachment;filename=\"#{request.params['table']}.csv\""}, FileStreamer.new("public/#{file}")]
     end
 
     def call(env)

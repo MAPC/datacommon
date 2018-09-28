@@ -12,6 +12,7 @@ use Rack::Cors do
     'http://localhost:4200',
     'http://staging.data-browser.mapc.org',
     'http://data-browser.mapc.org',
+    'https://datacommon.mapc.org'
   ]
 
   allow do
