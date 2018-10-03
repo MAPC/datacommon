@@ -10,7 +10,7 @@ header {
 
   nav {
     flex: 1 0;
-    overflow-x: scroll;
+    overflow-x: auto;
     .scroll-wrapper {
       width: max-content;
       div, ul {
