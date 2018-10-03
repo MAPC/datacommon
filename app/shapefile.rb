@@ -40,7 +40,7 @@ module Shapefile
       template = ERB.new File.new("config/settings.yml").read
       @settings = YAML.load template.result(binding)
 
-      file_name = "export-#{table_name}-#{Time.now.to_i}"
+      file_name = "export-#{table_name}"
       arguments = []
       arguments << %Q(-f 'ESRI Shapefile' public/#{file_name}.shp)
       arguments << %Q(PG:'host=#{@settings['database']['host']} port=#{@settings['database']['port']} user=#{@settings['database']['username']} dbname=#{allowed_database_name(database_name)} password=#{@settings['database']['password']}')
@@ -52,7 +52,11 @@ module Shapefile
     end
 
     def response(request)
-      file = zip(to_shp(request.params['table'],request.params['database']))
+      if File.file?(Rack::Directory.new('public').root + "/export-#{request.params['table']}.zip")
+        file = "export-#{request.params['table']}.zip"
+      else
+        file = zip(to_shp(request.params['table'],request.params['database']))
+      end
       [200, {'Content-Type' => 'application/zip', 'Content-Disposition' => "attachment; filename=\"#{request.params['table']}.zip\""}, FileStreamer.new("public/#{file}")]
     end
 
