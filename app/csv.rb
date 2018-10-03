@@ -29,7 +29,7 @@ module Csv
       template = ERB.new File.new("config/settings.yml").read
       @settings = YAML.load template.result(binding)
 
-      file_name = "#{table_name}-#{Time.now.to_i}.csv"
+      file_name = "#{table_name}.csv"
       arguments = []
       arguments << %Q(-c "\\copy (SELECT * FROM #{table_name}) to 'public/#{file_name}' with csv header")
       arguments << %Q(-w -h #{@settings['database']['host']} -p #{@settings['database']['port']} -U #{@settings['database']['username']} -d #{allowed_database_name(database_name)})
@@ -43,7 +43,11 @@ module Csv
     end
 
     def response(request)
-      file = to_csv(request.params['table'], request.params['database'])
+      if File.file?(Rack::Directory.new('public').root + "/#{request.params['table']}.csv")
+        file = "#{request.params['table']}.csv"
+      else
+        file = to_csv(request.params['table'], request.params['database'])
+      end
       [200, {'Content-Type' => 'text/csv', 'Content-Disposition' => "attachment;filename=\"#{request.params['table']}.csv\""}, FileStreamer.new("public/#{file}")]
     end
 
