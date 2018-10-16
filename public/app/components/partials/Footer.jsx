@@ -12,7 +12,9 @@ class Footer extends React.Component {
     return (
       <footer>
         <div className="container">
-          <img className="mapc-logo" src={mapcLogo} alt="MAPC Logo" />
+          <a href="https://mapc.org">
+            <img className="mapc-logo" src={mapcLogo} alt="MAPC Logo" />
+          </a>
 
           <ul className="contact-list">
             <li>
