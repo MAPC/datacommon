@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 require 'active_record'
 require 'faraday'
-require 'pry-byebug'
 require 'yaml'
 
 @settings = YAML.load_file(File.join(__dir__, '..', 'config', 'settings.yml'))
