@@ -5,7 +5,6 @@ require 'yaml'
 require 'nokogiri'
 require 'rack'
 require 'erb'
-require 'pry-byebug'
 
 module TabularMetadata
   class API

@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.10.1"
+lock "~> 3.11"
 
 set :application, "datacommon"
 set :repo_url, "git@github.com:mapc/datacommon.git"
@@ -38,4 +38,4 @@ append :linked_dirs, "log"
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
-set :rvm_ruby_version, '2.5.1'
+set :rvm_ruby_version, '2.5.3'

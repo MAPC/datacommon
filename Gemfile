@@ -1,6 +1,5 @@
-ruby "2.5.1"
+ruby "2.5.3"
 source 'https://rubygems.org'
-gem 'pry-byebug'
 gem 'faraday'
 gem 'nokogiri'
 gem 'rspec'
@@ -14,8 +13,9 @@ gem 'activesupport'
 gem 'rubyzip'
 
 group :development do
-  gem "capistrano", "~> 3.10", require: false
+  gem "capistrano", "~> 3.11", require: false
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
   gem 'capistrano-rvm'
+  gem 'pry-byebug'
 end
