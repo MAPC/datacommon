@@ -13,7 +13,7 @@ gem 'activesupport'
 gem 'rubyzip'
 
 group :development do
-  gem "capistrano", "~> 3.10", require: false
+  gem "capistrano", "~> 3.11", require: false
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
   gem 'capistrano-rvm'
