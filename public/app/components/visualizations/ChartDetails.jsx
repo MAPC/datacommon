@@ -26,7 +26,7 @@ class ChartDetails extends React.Component {
             <div className="link">
               <span>Link to: </span>
               {Object.keys(this.props.chart['datasetLinks']).map((label) => (
-                <a href={`${locations.HOST}/browser/datasets/${this.props.chart['datasetLinks'][label]}`}>{label}</a>
+                <a key={label} href={`${locations.HOST}/browser/datasets/${this.props.chart['datasetLinks'][label]}`}>{label}</a>
               ))}
             </div>
           ) : null}
