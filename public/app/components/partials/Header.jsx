@@ -6,6 +6,8 @@ import logoImg from '~/assets/images/logo.svg';
 class Header extends React.Component {
 
   render() {
+    const highlightCPLink = this.props.location.pathname.startsWith('/profile');
+
     return (
       <header>
         <div className="container">
@@ -20,7 +22,7 @@ class Header extends React.Component {
 
               <ul>
                 <li><a href="/browser">Datasets</a></li>
-                <li><a href="/#community-profiles">Community Profiles</a></li>
+                <li><a className={highlightCPLink ? 'active' : null} href="/#community-profiles">Community Profiles</a></li>
               </ul>
             </div>
             <button className="login-button">Login</button>
