@@ -6,7 +6,7 @@ begin
   desc 'Launch app Docker container'
   task :start do
     system("docker build -t datacommon/app .") 
-    system("docker run -it --rm -v $(PWD):/usr/src/app -p '9292:9292' --name datacommon_app datacommon/app") 
+    system("docker run -it --rm --env-file $(PWD)/.env -v $(PWD):/usr/src/app -p '9292:9292' --name datacommon_app datacommon/app") 
   end
 
   desc 'Remove Docker images'

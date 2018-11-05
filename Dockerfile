@@ -12,6 +12,7 @@ RUN set -ex \
     apk update \
     && apk add --no-cache \
       build-base \
+      postgresql \
       postgresql-dev \
     ; \
     bundle install
