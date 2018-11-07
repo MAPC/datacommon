@@ -32,6 +32,16 @@
         border: 1px solid $color_font-medium;
       }
     }
+
+    .category-item-content {
+      display: flex;
+
+      & > .category-item-column {
+        flex: 1 1 75%;
+
+        &:last-of-type { flex: 0 1 25%; }
+      }
+    }
   }
 
 }
