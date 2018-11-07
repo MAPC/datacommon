@@ -20,6 +20,13 @@
 
         transition: color .12s;
       }
+
+      @include media(large) {
+        position: relative;
+        display: inline-block;
+
+        margin-bottom: 18px;
+      }
     }
   }
 
