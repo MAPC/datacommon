@@ -101,9 +101,24 @@
     }
   }
 
+  .dataset-details-content {
+    display: flex;
+
+    & > .details-content-column {
+      flex: 1 0 75%;
+
+      &:last-of-type {
+        flex: 1 0 23%;
+        top: -30px;
+
+        margin-left: 2%;
+
+        text-align: right;
+      }
+    }
+  }
+
   .download-links {
-    position: absolute;
-    bottom: 11px;
     right: 0;
 
     font-size: $font_size-xsmall;
