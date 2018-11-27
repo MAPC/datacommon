@@ -145,13 +145,15 @@ class StackedBarChart extends React.Component {
         ? (catScale.bandwidth() - ((catMax - catMin) / 3)) / 2
         : 0;
 
+    const replaceNaN = x => String(x) === 'NaN' ? null : x;
+
     layer.selectAll("rect")
   	  .data(d => d)
       .enter()
       .append("rect")
-      .attr((this.props.horizontal ? 'y' : 'x'), d => catScale(d.data.y) + realignment)
-      .attr((this.props.horizontal ? 'x' : 'y'), d => (this.props.horizontal ? valScale(d[0]) : valScale(d[1])))
-      .attr((this.props.horizontal ? 'width' : 'height'), d => (this.props.horizontal
+      .attr((this.props.horizontal ? 'y' : 'x'), d => replaceNaN(catScale(d.data.y) + realignment))
+      .attr((this.props.horizontal ? 'x' : 'y'), d => replaceNaN(this.props.horizontal ? valScale(d[0]) : valScale(d[1])))
+      .attr((this.props.horizontal ? 'width' : 'height'), d => replaceNaN(this.props.horizontal
           ? (valScale(d[1]) - valScale(d[0]))
           : (valScale(d[0]) - valScale(d[1]))))
       .attr((this.props.horizontal ? 'height' : 'width'), columnWidth);

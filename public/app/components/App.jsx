@@ -13,7 +13,7 @@ class App extends React.Component {
   render() {
     return (
       <section className="component App">
-        <Header />
+        <Header location={this.props.location} />
 
         <main>
           <Switch>
