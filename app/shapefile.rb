@@ -6,6 +6,9 @@ require 'nokogiri'
 require 'rack'
 require 'erb'
 require 'zip'
+require 'fileutils'
+
+CACHE_DIR = 'public/cache'
 
 module Shapefile
   class FileStreamer
@@ -26,11 +29,13 @@ module Shapefile
     end
 
     def zip(file_name)
-      Zip::File.open("public/#{file_name}.zip", Zip::File::CREATE) do |zipfile|
+      file_path = File.join(CACHE_DIR, file_name)
+
+      Zip::File.open("#{file_path}.zip", Zip::File::CREATE) do |zipfile|
         zipfile.add("#{file_name}.prj", "public/26986.prj")
-        zipfile.add("#{file_name}.shp", "public/#{file_name}.shp")
-        zipfile.add("#{file_name}.shx", "public/#{file_name}.shx")
-        zipfile.add("#{file_name}.dbf", "public/#{file_name}.dbf")
+        zipfile.add("#{file_name}.shp", "#{file_path}.shp")
+        zipfile.add("#{file_name}.shx", "#{file_path}.shx")
+        zipfile.add("#{file_name}.dbf", "#{file_path}.dbf")
       end
       return "#{file_name}.zip"
     end
@@ -41,7 +46,7 @@ module Shapefile
 
       file_name = "export-#{table_name}"
       arguments = []
-      arguments << %Q(-f 'ESRI Shapefile' public/#{file_name}.shp)
+      arguments << %Q(-f 'ESRI Shapefile' #{File.join(CACHE_DIR, file_name)}.shp)
       arguments << %Q(PG:'host=#{@settings['database']['host']} port=#{@settings['database']['port']} user=#{@settings['database']['username']} dbname=#{allowed_database_name(database_name)} password=#{@settings['database']['password']}')
       arguments << %Q(-sql 'SELECT *,sde.ST_AsText(shape) FROM #{table_name}' -skipfailures)
 
@@ -51,12 +56,14 @@ module Shapefile
     end
 
     def response(request)
-      if File.file?(Rack::Directory.new('public').root + "/export-#{request.params['table']}.zip")
-        file = "export-#{request.params['table']}.zip"
-      else
-        file = zip(to_shp(request.params['table'],request.params['database']))
+      filename = "export-#{request.params['table']}.zip"
+      FileUtils.mkdir_p(CACHE_DIR)
+
+      unless File.file?(File.join(CACHE_DIR, filename))
+        zip(to_shp(request.params['table'],request.params['database']))
       end
-      [200, {'Content-Type' => 'application/zip', 'Content-Disposition' => "attachment; filename=\"#{request.params['table']}.zip\""}, FileStreamer.new("public/#{file}")]
+
+      [200, {'Content-Type' => 'application/zip', 'Content-Disposition' => "attachment; filename=\"#{filename}\""}, FileStreamer.new(File.join(CACHE_DIR, filename))]
     end
 
     def call(env)
