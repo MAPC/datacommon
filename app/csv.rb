@@ -7,6 +7,8 @@ require 'rack'
 require 'erb'
 require 'fileutils'
 
+CACHE_DIR = 'public/cache'
+
 module Csv
   class FileStreamer
     def initialize(path)
@@ -21,8 +23,6 @@ module Csv
   end
 
   class API
-    @@cache_dir = 'public/cache'
-
     def allowed_database_name(database_name)
       ['ds', 'gisdata', 'towndata'].include?(database_name) ? database_name : nil
     end
@@ -49,7 +49,7 @@ module Csv
         arguments << %Q(WHERE #{year_col} IN (#{year_options}) ORDER BY #{year_col} DESC)
       end
 
-      arguments << %Q(\) to '#{File.join(@@cache_dir, file_name)}' with csv header")
+      arguments << %Q(\) to '#{File.join(CACHE_DIR, file_name)}' with csv header")
       arguments << %Q(-w -h #{@settings['database']['host']} -p #{@settings['database']['port']} -U #{@settings['database']['username']} -d #{allowed_database_name(database_name)})
 
       psql_out = `psql #{arguments.join(' ')} 2>&1`
@@ -64,12 +64,12 @@ module Csv
     def response(request)
       filename = generate_filename(request.params['table'], request.params['years'])
 
-      FileUtils.mkdir_p(@@cache_dir)
-      unless File.file?(File.join(@@cache_dir, filename))
+      FileUtils.mkdir_p(CACHE_DIR)
+      unless File.file?(File.join(CACHE_DIR, filename))
         to_csv(request.params['table'], request.params['database'], request.params['years'], request.params['year_col'])
       end
 
-      [200, {'Content-Type' => 'text/csv', 'Content-Disposition' => "attachment;filename=\"#{filename}\""}, FileStreamer.new(File.join(@@cache_dir, filename))]
+      [200, {'Content-Type' => 'text/csv', 'Content-Disposition' => "attachment;filename=\"#{filename}\""}, FileStreamer.new(File.join(CACHE_DIR, filename))]
     end
 
     def call(env)
