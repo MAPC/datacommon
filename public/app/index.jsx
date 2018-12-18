@@ -1,5 +1,10 @@
 require('es6-promise').polyfill();
 require('isomorphic-fetch');
+
+import './polyfills/string-startsWith';
+import './polyfills/array-includes';
+import './polyfills/math-log10';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -8,6 +13,7 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import { history, store } from './store';
 import App from './containers/App';
+
 
 
 const Index = () => (
