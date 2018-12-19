@@ -1,14 +1,14 @@
 {
   "plugins": [
     "root-import",
-    "transform-object-rest-spread",
+    "@babel/proposal-object-rest-spread",
     "wildcard",
     [
-      "transform-runtime", {
-        "polyfill": true,
+      "@babel/transform-runtime", {
+        "corejs": 2,
         "regenerator": true
       }
     ]
   ],
-  "presets": ["env"]
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
 }
