@@ -215,7 +215,10 @@ class StackedBarChart extends React.Component {
 
     this.chart = d3.select(this.svg)
       .attr('preserveAspectRatio', 'xMinYMin meet')
-      .attr('viewBox', `0 0 ${width} ${height}`);
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('width', width)
+      .attr('height', height);
+
 
     this.legend = d3.select(this.legendContainer);
 

@@ -20,41 +20,6 @@ const defaultMargin = {
   bottom: 80,
 };
 
-// class PieLabelBin {
-//   constructor(columnHeight, fontHeight) {
-//     this.columnHeight = columnHeight;
-//     this.fontHeight = fontHeight;
-//     this.slots = Array(Math.floor(columnHeight / fontHeight)).map(_ => false);
-//     this.keyToBinMap = {};
-//   }
-
-//   // Convert from bin coordinate system to graph coordinate system
-//   linearToCoords(y) {
-//     return y - (this.columnHeight / 2);
-//   }
-
-//   // Convert from graph coordinate system to bin coordinate system
-//   coordsToLinear(y) {
-//     return y + (this.columnHeight / 2);
-//   }
-
-//   getAvailableTop(top, key) {
-//     let bin = Math.floor(this.coordsToLinear(top) / this.fontHeight);
-//     if (bin >= this.slots.length) {
-//       return this.linearToCoords(this.slots.length * this.fontHeight);
-//     }
-//     while (bin < this.slots.length && this.slots[bin]) {
-//       bin += 1;
-//     }
-//     this.keyToBinMap[key] = this.linearToCoords((bin + 1) * this.fontHeight);
-//     this.slots[bin] = true;
-//     return this.keyToBinMap[key];
-//   }
-
-//   getTopByKey(key) {
-//     return this.keyToBinMap[key] || this.linearToCoords(this.slots.length * this.fontHeight);
-//   }
-// }
 
 class PieChart extends React.Component {
 
@@ -90,14 +55,6 @@ class PieChart extends React.Component {
       .outerRadius(radius * 0.9)
       .innerRadius(0);
 
-    // const outerArc = d3.arc()
-    //   .outerRadius(radius)
-    //   .innerRadius(radius);
-
-    // const pointerArc = d3.arc()
-    //   .outerRadius(radius * 0.9)
-    //   .innerRadius(radius * 0.7);
-
     this.color = d3.scaleOrdinal(
         this.props.colors
         || (keys.length > primaryColors.length ? extendedColors : primaryColors)
@@ -123,50 +80,6 @@ class PieChart extends React.Component {
       .attr('stroke', 'white')
       .attr('stroke-width', '1');
 
-    // // Labels
-    // this.gChart.append('g')
-    //   .attr('class', 'labels');
-    // const text = this.gChart
-    //   .select('.labels')
-    //   .selectAll('text')
-    //   .data(pieData, d => d.data.label);
-
-    // const midAngle = (d) => d.startAngle + (d.endAngle - d.startAngle) / 2;
-    // const rightLabelBin = new PieLabelBin(height, 18);
-    // const leftLabelBin = new PieLabelBin(height, 18);
-
-    // text.enter()
-    //   .append('text')
-    //   .attr('dy', '.35em')
-    //   .attr('transform', (d) => {
-    //     const [_, top] = outerArc.centroid(d);
-    //     const pos = midAngle(d) < Math.PI
-    //         ? [radius, rightLabelBin.getAvailableTop(top, d.data.label)]
-    //         : [-radius, leftLabelBin.getAvailableTop(top, d.data.label)];
-    //     return "translate("+ pos +")";
-    //   })
-    //   .attr('text-anchor', d => midAngle(d) < Math.PI ? 'start' : 'end')
-    //   .text(d => `${d.data.label} ${(d.data.value * 100 / sum).toFixed(1)}%`);
-
-    // // Lines
-    // this.gChart.append('g')
-    //   .attr('class', 'lines');
-
-    // const polyline = this.gChart
-    //   .select('.lines')
-    //   .selectAll('polyline')
-    //   .data(pieData, d => d.data.label)
-    //   .enter()
-    //   .append("polyline")
-    //   .attr('points', (d) => {
-    //     const top = midAngle(d) < Math.PI
-    //         ? rightLabelBin.getTopByKey(d.data.label)
-    //         : leftLabelBin.getTopByKey(d.data.label);
-    //     const labelPos = [radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1), top];
-    //     const elbow = [];
-    //     return [pointerArc.centroid(d), labelPos];
-    //   });
-
     this.legend.selectAll('*').remove();
     drawLegend(this.legend, this.color, keys, formatter);
   }
@@ -176,7 +89,10 @@ class PieChart extends React.Component {
     const { width, height } = container;
 
     this.chart = d3.select(this.svg)
-      .attr('preserveAspectRatio', 'xMinYMin meet');
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('width', width)
+      .attr('height', height);
 
     this.legend = d3.select(this.legendContainer);
     this.renderChart();
