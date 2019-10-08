@@ -16,10 +16,11 @@ sudo apt-get install gdal-bin
 All server-side tests are written in RSpec.
 1. `bundle exec rake`
 
-All client-side tests are written using Jest.
+## Running the client
 1. `cd public`
 2. `yarn install`
-3. `yarn test`
+3. `yarn global add parcel-bundler`
+4. `yarn start`
 
 ## Usage
 
