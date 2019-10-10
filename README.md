@@ -31,6 +31,56 @@ If you install foreman `gem install foreman` you can then start both the back an
 
 `yarn production` will build the app using `npx webpack`.
 
+A sample nginx configuration file to get this working along with the Ember based databrowser is below:
+
+```
+server {
+    server_name datacommon.mapc.org;
+
+    passenger_enabled on;
+    passenger_app_env production;
+
+  # include snippets/ngx-http-gzip.conf;
+
+    location ~* ^\/browser$ {
+            rewrite ^\/browser$ browser/ permanent;
+    }
+
+    location /browser {
+        root /var/www/databrowser;
+        try_files $uri /browser/index.html;
+    }
+
+    location / {
+        root /var/www/datacommon/current/public;
+    }
+
+    location /profile {
+        root /var/www/datacommon/current/public;
+        try_files $uri /index.html;
+    }
+
+  listen [::]:443 http2 ssl; # managed by Certbot
+  listen 443 http2 ssl; # managed by Certbot
+  ssl_certificate /etc/letsencrypt/live/datacommon.mapc.org/fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/datacommon.mapc.org/privkey.pem; # managed by Certbot
+  include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+server {
+  if ($host = datacommon.mapc.org) {
+      return 301 https://$host$request_uri;
+  } # managed by Certbot
+
+    listen 80;
+    listen [::]:80;
+
+    server_name datacommon.mapc.org;
+  return 404; # managed by Certbot
+}
+```
+
 ## Usage
 
 The rack app will serve up the metadata for these tables in JSON from the ArcSDE Postgres tables at http://server.com/tabular and http://server.com/geospatial where server.com is the server you have deployed this app to.
