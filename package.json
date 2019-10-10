@@ -8,8 +8,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "staging": "NODE_ENV=staging npx webpack && rsync --delete --progress -r public/* datacommon@prep.mapc.org:/var/www/datacommon/current/public/",
-    "production": "NODE_ENV=production npx webpack && rsync --delete --progress -r public/* datacommon@live.mapc.org:/var/www/datacommon/current/public/",
+    "staging": "NODE_ENV=staging npx webpack",
+    "production": "NODE_ENV=production npx webpack",
     "test": "jest",
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage"

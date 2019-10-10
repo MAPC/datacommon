@@ -27,9 +27,9 @@ foreman start
 If you install foreman `gem install foreman` you can then start both the back and front end with `foreman start`.
 
 ## Deployment
-`yarn staging` will build the app using `npx webpack` and attempt to rsync it to the staging server.
+`yarn staging` will build the app using `npx webpack`.
 
-`yarn production` will build the app using `npx webpack` and attempt to rsync it to the production server.
+`yarn production` will build the app using `npx webpack`.
 
 ## Usage
 
