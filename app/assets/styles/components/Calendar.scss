@@ -1,0 +1,71 @@
+.CalendarGrid {
+  @include media(large) { grid-template-columns: repeat(3, 1fr); }
+  @include media(medium) { grid-template-columns: repeat(2, 1fr); }
+  @include media(small) { column-gap: 60px; }
+  @include media(x-small) { column-gap: 30px; }
+  column-gap: 120px;
+  display: grid;
+  grid-row-gap: 60px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.calendar-item {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  &__month {
+    font-size: $font_size-large;
+    margin-bottom: 30px;
+  }
+
+  &__box {
+    align-items: center;
+    background: $color_font-dark;
+    border: 1px solid $color_brand-secondary;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__box:after {
+    @extend ._pseudo;
+    background: $color_brand-secondary;
+    height: 100%;
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    transition: background .12s, left .12s;
+    width: 100%;
+    z-index: -1;
+  }
+
+  &__box:hover {
+    border-color: $color_brand-secondary--dark;
+
+    &:after {
+      left: 6px;
+
+      background: $color_brand-secondary--dark;
+      transition: background .12s, left .12s;
+    }
+  }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__title-box {
+    @include media(x-small) { height: 125px; }
+    align-items: center;
+    display: flex;
+    height: 100px;
+  }
+
+  &__title {
+    color: white;
+    font-size: $font_size-medium;
+    padding: 1rem;
+    text-align: center;
+  }
+}

@@ -6,6 +6,7 @@ import Home from '../containers/Home';
 import Header from './partials/Header';
 import Footer from './partials/Footer';
 import CommunityProfiles from '../containers/CommunityProfiles';
+import Gallery from './Gallery';
 
 
 class App extends React.Component {
@@ -27,6 +28,7 @@ class App extends React.Component {
                 : (<Redirect to={'/'} />)
               }
             />
+            <Route exact path="/gallery" component={Gallery} />
           </Switch>
         </main>
 

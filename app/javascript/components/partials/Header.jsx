@@ -23,6 +23,7 @@ class Header extends React.Component {
               <ul>
                 <li><a href="/browser">Datasets</a></li>
                 <li><a className={highlightCPLink ? 'active' : null} href="/#community-profiles">Community Profiles</a></li>
+                <li><a href="/gallery">Gallery</a></li>
               </ul>
             </div>
             <button className="login-button">Login</button>
