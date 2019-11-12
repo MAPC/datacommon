@@ -1,0 +1,101 @@
+.chart {
+
+  font-size: $font_size-xsmall;
+  margin-bottom: 1em;
+  svg {
+    .axis {
+      text {
+        font-size: $font_size-xsmall;
+        fill: $color_bg-dark;
+      }
+      path {
+        stroke: $color_bg-dark;
+      }
+    }
+    text.axis-label {
+      font-weight: 700;
+      fill: $color_bg-dark;
+    }
+    text.missing-data {
+      font-size: $font_size-small;
+      fill: $color_font-medium;
+      max-width: 50%;
+    }
+    text {
+      fill: $color_bg-dark;
+      font-family: $font_family-primary;
+    }
+    polyline {
+      stroke: $color_bg-dark;
+      stroke-width: 1px;
+      fill: none;
+    }
+  }
+
+  .legend {
+    background: $color_bg-light;
+    &.two-column {
+      display: flex;
+      ul {
+        width: 50%;
+        display: block;
+        li {
+          width: calc(100% - 1em);
+          margin-right: 1em;
+          margin: 0;
+        }
+      }
+    }
+    ul {
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      li {
+        display: flex;
+        $_size: $font_size-xsmall;
+        font-size: $_size;
+        margin-bottom: 0.3em;
+        &:not(:last-child) {
+          margin-right: 1.5em;
+        }
+
+        svg.color-patch {
+          top: $_size / 2;
+          display: block;
+          flex: 0 0 0.75rem;
+          height: $_size;
+          width: $_size;
+          margin-right: $_size / 2;
+        }
+        span.label {
+          // width: 50%;
+        }
+      }
+    }
+  }
+  @media print {
+    display: flex;
+    .svg-wrapper {
+      flex: 1;
+      max-width: 66%;
+    }
+    .legend {
+      flex: 1;
+      max-width: 33%;
+      ul { display: block; }
+      &.two-column {
+        display: block;
+        ul {
+          width: 100%;
+          display: block;
+          li {
+            width: 100%;
+            margin-right: 0em;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.component.MapBox {
+
+  height: 100%;
+  width: 100%;
+
+  .map-layer {
+    height: 100%;
+    width: 100%;
+  }
+
+  .mapboxgl-canvas-container { height: 100%; }
+  canvas { position: relative !important; }
+
+}

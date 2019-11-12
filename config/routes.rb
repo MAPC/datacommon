@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'pages#index'
   get '/ds', to: 'metadata#tabular'
   get '/gisdata', to: 'metadata#geospatial'
   get '/towndata', to: 'metadata#towndata'

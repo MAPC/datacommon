@@ -1,0 +1,29 @@
+<svg id="Groupe_49" data-name="Groupe 49" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 104.545 89.442">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #6fc68e;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        fill: #1f4e46;
+      }
+
+      .cls-4 {
+        fill: #afe2bd;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.001" y1="0.501" x2="1" y2="0.501" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1f4e46"/>
+      <stop offset="1" stop-color="#47b593"/>
+    </linearGradient>
+  </defs>
+  <path id="Tracé_498" data-name="Tracé 498" class="cls-1" d="M59.5,25S58.456,0,33.459,0C4.166,0,0,51.556,0,51.556H7.681V63.4s-.521,3.906,2.994,3.906c.391,0,5.338,0,11.848.13.911,2.734-.13,6.9.521,13.019H55.722C61.451,49.213,59.5,25,59.5,25Z"/>
+  <path id="Tracé_499" data-name="Tracé 499" class="cls-2" d="M38.47,87.359H71.148c.651-6.119-.391-10.285.521-13.019,6.51-.13,11.457-.13,11.848-.13,3.515,0,2.994-3.906,2.994-3.906V58.456h7.681S90.026,6.9,60.6,6.9c-25,0-26.038,25-26.038,25S32.741,56.243,38.47,87.359ZM76.356,42.052a2.946,2.946,0,0,1,2.994-2.994,2.994,2.994,0,1,1,0,5.989A2.946,2.946,0,0,1,76.356,42.052Z" transform="translate(10.352 2.083)"/>
+  <circle id="Ellipse_6" data-name="Ellipse 6" class="cls-3" cx="2.994" cy="2.994" r="2.994" transform="translate(11.978 27.731)"/>
+  <circle id="Ellipse_7" data-name="Ellipse 7" class="cls-4" cx="2.994" cy="2.994" r="2.994" transform="translate(86.838 41.141)"/>
+</svg>
