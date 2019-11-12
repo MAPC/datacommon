@@ -1,0 +1,23 @@
+.Admin {
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .admin {
+    &__frame {
+      margin-top: 100px;
+      width: 300px;
+    }
+  
+    &__form {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    &__form > .submit {
+        margin-top: 1rem;
+    }
+  }
+  
