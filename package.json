@@ -1,5 +1,5 @@
 {
-  "name": "datacommon_transplant",
+  "name": "datacommon",
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.7.0",

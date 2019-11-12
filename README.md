@@ -1,7 +1,7 @@
 # DataCommon
 
 ## Installation
-1. `bundle install`
+1. `bin/setup`
 2. Setup your database settings by either replacing the values in settings.yml with real values or settings them in your `.env` file.
 3. For the shapefile endpoint make sure your server has ogr2ogr. If it is an Ubuntu server you can follow the instructions to [install GDAL on Ubuntu](http://www.sarasafavi.com/installing-gdalogr-on-ubuntu.html):
 ```
@@ -13,23 +13,10 @@ sudo apt-get install gdal-bin
 
 ## Testing
 All server-side tests are written in RSpec.
-1. `bundle exec rake`
-
-## Running the client
-```
-foreman start
-```
-
-`yarn start` will run [webpack-dev-server](https://github.com/webpack/webpack-dev-server) so you can develop locally.
-
-`bundle exec rackup` will run the back-end (written in ruby and the rack library) so you can test that.
-
-If you install foreman `gem install foreman` you can then start both the back and front end with `foreman start`.
+`bundle exec rspec`
 
 ## Deployment
-`yarn staging` will build the app using `npx webpack`.
-
-`yarn production` will build the app using `npx webpack`.
+TODO: Update deployment strategy for the Rails monorepo.
 
 A sample nginx configuration file to get this working along with the Ember based databrowser is below:
 
@@ -83,4 +70,4 @@ server {
 
 ## Usage
 
-The rack app will serve up the metadata for these tables in JSON from the ArcSDE Postgres tables at http://server.com/tabular and http://server.com/geospatial where server.com is the server you have deployed this app to.
+The app will serve up the metadata for these tables in JSON from the ArcSDE Postgres tables at http://server.com/tabular and http://server.com/geospatial where server.com is the server you have deployed this app to.
