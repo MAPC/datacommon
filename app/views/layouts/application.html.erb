@@ -6,10 +6,17 @@
     <%= csp_meta_tag %>
 
     <%= javascript_pack_tag 'application' %>
+    <%= javascript_pack_tag 'direct_uploads' %>
+    <%= stylesheet_link_tag 'direct_uploads' %>
     <%= yield :head %>
   </head>
 
   <body>
+    <div id="flash_messages" class="flash-style">
+      <% flash.each do |key, value| %>
+        <%= content_tag(:div, value, :class => "flash #{key}") %>
+      <% end %>
+    </div>
     <%= yield %>
     <script src="https://d3js.org/d3.v5.min.js"></script>
   </body>
