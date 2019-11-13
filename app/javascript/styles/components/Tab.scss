@@ -1,0 +1,48 @@
+.component.Tab {
+  display: none;
+  @media print {
+    display: block;
+  }
+  &.active {
+    display: block;
+  }
+  .tab-row {
+    display: flex;
+    padding: 2em 8em;
+    & > .chart-wrapper {
+      flex: 1;
+      max-width: calc(50% - 3em);
+      &:first-child {
+        margin-right: 6em;
+        @media print {
+          margin-right: 3em;
+        }
+      }
+    }
+    @include media(large) {
+      display: block;
+      padding: 2em 12em;
+      & > .chart-wrapper {
+        max-width: none;
+        &:first-child {
+          margin-right: 0em;
+          margin-bottom: 2em;
+        }
+      }
+    }
+    @include media(medium-small) {
+      padding: 2em 0em;
+    }
+    @media print {
+      display: block;
+      padding: 2em 6em;
+      & > .chart-wrapper {
+        page-break-inside: avoid;
+        &:first-child {
+          margin-right: 0em;
+          margin-bottom: 2em;
+        }
+      }
+    }
+  }
+}

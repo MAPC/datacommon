@@ -1,0 +1,25 @@
+<svg id="Groupe_59" data-name="Groupe 59" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 112.01 84.891">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        stroke: #afe2bd;
+        stroke-miterlimit: 10;
+        fill: url(#linear-gradient-2);
+      }
+    </style>
+    <linearGradient id="linear-gradient" y1="0.502" x2="1.001" y2="0.502" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1f4e46"/>
+      <stop offset="1" stop-color="#47b593"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="-0.001" y1="0.501" x2="0.999" y2="0.501" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#6fc68e"/>
+      <stop offset="1" stop-color="#47b593"/>
+    </linearGradient>
+  </defs>
+  <path id="Tracé_522" data-name="Tracé 522" class="cls-1" d="M110.906,15.935a1.384,1.384,0,0,0-1.147-.51h-10.2V9.051a1.55,1.55,0,0,0-1.53-1.53H50.736L44.745.51A1.9,1.9,0,0,0,43.6,0H1.53A1.473,1.473,0,0,0,0,1.53V82.988H0v.51H0v.127H0v.127H0a.125.125,0,0,0,.127.127h0a.125.125,0,0,0,.127.127h0l.127.127H97.776a1.514,1.514,0,0,0,1.53-1.275l11.728-66.034C111.289,16.7,111.161,16.317,110.906,15.935Z"/>
+  <path id="Tracé_523" data-name="Tracé 523" class="cls-2" d="M.8,81.038,11.253,20.486H36.239a.964.964,0,0,0,.51-.127L62.5,12.2h48.7L99.341,81.038Z" transform="translate(0.22 3.352)"/>
+</svg>

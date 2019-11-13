@@ -1,18 +1,6 @@
-begin
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new(:spec)
-  task :default => :spec
+# Add your own tasks in files placed in lib/tasks ending in .rake,
+# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
-  desc 'Launch app Docker container'
-  task :start do
-    system("docker build -t datacommon/app .") 
-    system("docker run -it --rm --env-file $(PWD)/.env -v $(PWD):/usr/src/app -p '9292:9292' --name datacommon_app datacommon/app") 
-  end
+require_relative 'config/application'
 
-  desc 'Remove Docker images'
-  task :clean do
-    system("docker rmi -f datacommon/app")
-  end
-rescue LoadError
-  # no rspec available
-end
+Rails.application.load_tasks

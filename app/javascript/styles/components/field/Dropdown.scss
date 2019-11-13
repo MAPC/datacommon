@@ -1,0 +1,27 @@
+.component.Dropdown {
+  select {
+    color: $color_font-dark;
+    font-weight: 700;
+    width: 100%;
+    background-color: $color_bg-medium;
+    border-radius: 0;
+    border-width: 0 0 2px 0;
+    border-style: solid;
+    border-color: $color_brand-primary;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+    padding: 6px 10px;
+  }
+
+  &::after {
+    content: ' ';
+    position: absolute;
+    right: 8px;
+    top: calc(50% - 4px);
+    width: 0;
+    height: 0;
+    border-top: 8px solid $color_brand-primary;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+  }
+}

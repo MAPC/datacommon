@@ -1,0 +1,28 @@
+$color_brand-primary: #6FC68E;
+$color_brand-secondary: #44aD89;
+$color_brand-secondary--dark: mix(black, $color_brand-secondary, 15);
+
+$color_bg-light: #FFFFFF;
+$color_bg-medium: #F5F5F5;
+$color_bg-dark: #1F4E46;
+$color_bg-medium--light: mix(white, $color_bg-medium, 50);
+
+$color_font-light: #FFFFFF;
+$color_font-medium: #95989A;
+$color_font-dark: #1F4E46;
+$color_font-medium--dark: mix(black, $color_font-medium, 25);
+$color_font-dark--brand: mix($color_brand-primary, $color_font-dark, 25);
+
+$font_family-primary: 'skolar-sans-latin', Helvetica, sans-serif;
+
+$font_size-base: 16px;
+$font_size-base--rem: 1rem;
+$font_size-xsmall: .75rem;  // 12px
+$font_size-small: 1rem;  // 16px
+$font_size-medium: 1.25rem; // 20px
+$font_size-large: 1.875rem;  // 30px
+
+$font_mod-small: .06125rem;
+$font_mod-medium: $font_mod-small * 2;
+
+$elem_button-radius: 5px;

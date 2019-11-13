@@ -1,0 +1,63 @@
+
+.component.search-bar, .component.SearchBar {
+  z-index: 10;
+
+  min-width: 400px;
+
+  &:after {
+    @extend ._pseudo;
+    @extend ._gradient;
+
+    height: 5px;
+    width: 100%;
+  }
+
+
+  input {
+    width: 100%;
+    padding: .6em 1.3em;
+
+    font-size: $font_size-medium;
+    font-weight: 100;
+    font-family: $font_family-primary;
+
+    border: none;
+    outline: none;
+  }
+
+  ul {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index: -1;
+
+    width: 100%;
+    max-height: 50vh;
+
+    border: 1px solid $color_font-medium;
+    border-top: none;
+  }
+
+
+  @mixin _small() {
+    min-width: 200px;
+
+    input {
+      padding: .5em 1.1em;
+      font-size: $font_size-small;
+    }
+
+    ul {
+      top: 45px;
+      max-height: 35vh;
+
+      li { font-size: $font_size-xsmall + $font_mod-small; }
+    }
+
+    &:after { height: 3px; }
+  }
+
+  &.small { @include _small(); }
+  @include media(x-small) { @include _small(); }
+
+}

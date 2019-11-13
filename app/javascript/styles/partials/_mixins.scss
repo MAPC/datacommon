@@ -1,0 +1,25 @@
+// Media query
+@mixin media($size) {
+  @if $size == 'x-small' {
+    @media only screen and (max-width: 480px) { @content; }
+  } @else if $size == 'small' {
+    @media only screen and (max-width: 670px) { @content; }
+  } @else if $size == 'medium-small' {
+    @media only screen and (max-width: 770px) { @content; }
+  } @else if $size == 'medium' {
+    @media only screen and (max-width: 960px) { @content; }
+  } @else if $size == 'large' {
+    @media only screen and (max-width: 1200px) { @content; }
+  } @else if $size == 'x-large' {
+    @media only screen and (max-width: 1600px) { @content; }
+  } @else {
+    @media only screen and (max-width: $size) { @content; }
+  }
+}
+
+@mixin partialGradient($piece, $total) {
+  $finish: mix($color_brand-secondary, $color_brand-primary, ($piece / $total) * 100);
+  $start: mix($color_brand-secondary, $color_brand-primary, (($piece - 1) / $total) * 100);
+
+  background: linear-gradient(to right, $start, $finish);
+}
