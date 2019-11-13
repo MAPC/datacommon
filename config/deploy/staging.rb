@@ -34,8 +34,6 @@ set :passenger_restart_command, 'passenger-config restart-app'
 set :rvm_custom_path, '/usr/share/rvm'
 set :branch, 'dev'
 
-after 'deploy:published', 'compile_react:staging'
-
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a
