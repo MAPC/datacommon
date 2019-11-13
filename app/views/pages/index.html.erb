@@ -1,4 +1,9 @@
+<% content_for :head do %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/0.47.0/mapbox-gl.js"></script>
+  <%= stylesheet_pack_tag 'pages' %>
+  <%= javascript_pack_tag 'pages', defer: true %>
+<% end %>
 <div id="root"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mapbox-gl/0.47.0/mapbox-gl.js"></script>
-<%= javascript_pack_tag 'pages' %>
-<%= stylesheet_pack_tag 'pages' %>
+
+
+
