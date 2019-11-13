@@ -21,7 +21,7 @@ set :repo_url, "git@github.com:mapc/datacommon.git"
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, 'config/settings.yml', 'config/database.yml'
+append :linked_files, 'config/settings.yml', 'config/database.yml', 'config/master.key'
 
 # Default value for linked_dirs is []
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads', 'public/cache'
