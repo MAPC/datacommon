@@ -1,6 +1,7 @@
 import React from 'react';
 import CalendarItem from './CalendarItem'
-import data from '../../../assets/data/temp-cal-data.json'
+import data from './../../../assets/temp-cal-data.json'
+
 
 class CalendarGrid extends React.Component {
   render() {

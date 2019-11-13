@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-
 import Faq from './Faq';
 import Home from '../containers/Home';
 import Header from './partials/Header';
 import Footer from './partials/Footer';
 import CommunityProfiles from '../containers/CommunityProfiles';
+import Gallery from './Gallery';
+import Login from './Login';
+import Admin from './Admin';
+import { AuthContext } from "./context/auth";
+import PrivateRoute from './PrivateRoute';
 
-
-class App extends React.Component {
-
-  render() {
-    return (
+function App(props) {
+  const [authTokens, setAuthTokens] = useState();
+  
+  const setTokens = (data) => {
+    localStorage.setItem("tokens", JSON.stringify(data));
+    setAuthTokens(data);
+  }
+  return (
+    <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <section className="component App">
-        <Header location={this.props.location} />
-
+        <Header location={props.location} />
         <main>
           <Switch>
             <Route exact path="/" component={Home} />
@@ -27,13 +34,16 @@ class App extends React.Component {
                 : (<Redirect to={'/'} />)
               }
             />
-          </Switch>
-        </main>
+            <Route exact path="/gallery" component={Gallery} />
+            <Route exact path="/login" component={Login} />
+            <PrivateRoute exact path="/admin" component={Admin} />
+            </Switch>
+          </main>
 
-        <Footer />
-      </section>
-    );
-  }
+          <Footer />
+        </section>
+      </AuthContext.Provider>
+  );
 
 };
 
