@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import colors from '../../constants/colors';
 import { maxToMargin, maxTextToMargin, drawLegend } from '../../utils/charts';
+import * as d3 from 'd3'
 
 const primaryColors = Array.from(colors.CHART.PRIMARY.values());
 const extendedColors = Array.from(colors.CHART.EXTENDED.values());

@@ -3,12 +3,12 @@ import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
 import { useAuth } from "./context/auth"
 
-function Login() {
+const Login = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const { setAuthTokens } = useAuth();
+  const setAuthTokens = useAuth();
 
   function postLogin() {
     axios.post("https://www.somePlace.com/auth/login", {

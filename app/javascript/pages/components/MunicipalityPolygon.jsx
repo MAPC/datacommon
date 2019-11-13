@@ -1,4 +1,5 @@
 import React from 'react';
+import * as d3 from 'd3';
 
 class MunicipalityPolygon extends React.Component {
 
@@ -58,7 +59,6 @@ class MunicipalityPolygon extends React.Component {
   }
 
   render() {
-
     return (
       <svg
         className="component MunicipalityPolygon"
@@ -67,7 +67,6 @@ class MunicipalityPolygon extends React.Component {
       </svg>
     );
   }
-
 }
 
 export default MunicipalityPolygon;
