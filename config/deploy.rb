@@ -21,10 +21,10 @@ set :repo_url, "git@github.com:mapc/datacommon.git"
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, "config/settings.yml"
+append :linked_files, 'config/settings.yml', 'config/database.yml'
 
 # Default value for linked_dirs is []
-append :linked_dirs, "log"
+append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads', 'public/cache'
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
