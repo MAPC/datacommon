@@ -29,7 +29,7 @@ class CommunityProfiles extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadData();
   }
 

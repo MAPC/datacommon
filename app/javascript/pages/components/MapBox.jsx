@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import colors from '../constants/colors';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 
+
 class MapBox extends React.Component {
 
   constructor() {
-    super(...arguments);
+    super(...arguments) ;
 
     this.addLayer = this.addLayer.bind(this);
 

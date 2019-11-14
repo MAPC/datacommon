@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get '/towndata', to: 'metadata#towndata'
   get '/shapefile', to: 'downloads#shapefile'
   get '/csv', to: 'downloads#csv'
+  match '*path', to: 'pages#index', via: :all
 end

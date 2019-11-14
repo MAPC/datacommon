@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as d3 from 'd3';
 
 import colors from '../../constants/colors';
 import { maxToMargin, maxTextToMargin, drawLegend } from '../../utils/charts';
+import * as d3 from 'd3'
 
 const primaryColors = Array.from(colors.CHART.PRIMARY.values());
 const extendedColors = Array.from(colors.CHART.EXTENDED.values());
@@ -38,20 +38,20 @@ class LineChart extends React.Component {
         yMin: (pBounds.yMin ? Math.min(pBounds.yMin, point[1]) : point[1]),
         yMax: (pBounds.yMax ? Math.max(pBounds.yMax, point[1]) : point[1]),
       }), lBounds
-      ), { xMin: null, xMax: null, yMin: null, yMax: null });
+    ), { xMin: null, xMax: null, yMin: null, yMax: null });
     return {
       xMin: (this.props.xAxis.min != null || this.props.xAxis.min != undefined
-        ? this.props.xAxis.min
-        : bounds.xMin),
+          ? this.props.xAxis.min
+          : bounds.xMin),
       xMax: (this.props.xAxis.max != null || this.props.xAxis.max != undefined
-        ? this.props.xAxis.max
-        : bounds.xMax),
+          ? this.props.xAxis.max
+          : bounds.xMax),
       yMin: (this.props.yAxis.min != null || this.props.yAxis.min != undefined
-        ? this.props.yAxis.min
-        : bounds.yMin),
+          ? this.props.yAxis.min
+          : bounds.yMin),
       yMax: (this.props.yAxis.max != null || this.props.yAxis.max != undefined
-        ? this.props.yAxis.max
-        : bounds.yMax),
+          ? this.props.yAxis.max
+          : bounds.yMax),
     };
   }
 
@@ -74,10 +74,10 @@ class LineChart extends React.Component {
     const colors = this.props.data.reduce((acc, d) => (d.color ? acc.concat([d.color]) : acc), []);
 
     this.color = d3.scaleOrdinal(
-      colors.length
-        ? colors
-        : (keys.length > primaryColors.length ? extendedColors : primaryColors)
-    )
+        colors.length
+            ? colors
+            : (keys.length > primaryColors.length ? extendedColors : primaryColors)
+      )
       .domain(keys);
 
     const xScale = d3.scaleLinear()

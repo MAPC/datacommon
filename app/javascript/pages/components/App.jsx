@@ -2,39 +2,40 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Faq from './Faq';
+import Gallery from './Gallery';
+import Login from './Login';
+import Admin from './Admin'
 import Home from '../containers/Home';
 import Header from './partials/Header';
 import Footer from './partials/Footer';
 import CommunityProfiles from '../containers/CommunityProfiles';
+import PrivateRoute from './PrivateRoute';
+import { AuthContext } from "./context/auth";
 
-
-class App extends React.Component {
-
-  render() {
-    return (
-      <section className="component App">
-        <Header location={this.props.location} />
-
-        <main>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/faq" component={Faq} />
-            <Route path="/profile/:muni/:tab?" render={(props) =>
-              this.props.muniOptions.includes(props.match.params.muni)
-                ? (this.props.tabOptions.includes(props.match.params.tab)
-                  ? (<CommunityProfiles {...props} />)
-                  : (<Redirect to={`/profile/${props.match.params.muni}/${this.props.tabOptions[0]}`} />))
-                : (<Redirect to={'/'} />)
-              }
-            />
-          </Switch>
-        </main>
-
-        <Footer />
-      </section>
-    );
-  }
-
-};
+const App = (props) => {
+  return (
+    <section className="component App">
+      <Header location={props.location} />
+      <main>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/faq" component={Faq} />
+          <Route path="/profile/:muni/:tab?" render={(props2) =>
+            props.muniOptions.includes(props2.match.params.muni)
+              ? (props.tabOptions.includes(props2.match.params.tab)
+                ? (<CommunityProfiles {...props2} />)
+                : (<Redirect to={`/profile/${props2.match.params.muni}/${props.tabOptions[0]}`} />))
+              : (<Redirect to={'/'} />)
+            }
+          />
+          <Route exact path="/gallery" component={Gallery}/>
+          <Route exact path="/login" component={Login}/>
+          <PrivateRoute exact path="/admin" component={Admin} />
+        </Switch>
+      </main>
+      <Footer />
+    </section>
+  );
+}
 
 export default App;

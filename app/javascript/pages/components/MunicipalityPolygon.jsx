@@ -10,11 +10,11 @@ class MunicipalityPolygon extends React.Component {
     if (boundingBox.width == 0) { return; }
     const projection = d3.geoMercator()
       .fitExtent([[
-        sidePadding,
-        sidePadding
-      ], [
-        boundingBox.width - sidePadding,
-        boundingBox.height - measurementPadding * 2
+          sidePadding,
+          sidePadding
+        ], [
+          boundingBox.width - sidePadding,
+          boundingBox.height - measurementPadding * 2
       ]], this.props.feature);
     const path = d3.geoPath(projection);
 
@@ -24,7 +24,7 @@ class MunicipalityPolygon extends React.Component {
       return 3959 * radians; // 3959 is the radius of the Earth in miles
     })(this.props.feature);
     const [leftBottom, rightTop] = path.bounds(this.props.feature);
-    const svg = d3.select(this.svg);
+    const svg =  d3.select(this.svg);
     svg.append("path")
       .datum(this.props.feature)
       .attr('d', path)
@@ -59,7 +59,6 @@ class MunicipalityPolygon extends React.Component {
   }
 
   render() {
-
     return (
       <svg
         className="component MunicipalityPolygon"
@@ -68,7 +67,6 @@ class MunicipalityPolygon extends React.Component {
       </svg>
     );
   }
-
 }
 
 export default MunicipalityPolygon;
