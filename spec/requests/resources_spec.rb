@@ -1,6 +1,4 @@
 require "rails_helper"
-require "digest"
-require "faraday"
 
 RSpec.describe "resources controller", :type => :request do
   it "serves JSON data for a single resource" do
