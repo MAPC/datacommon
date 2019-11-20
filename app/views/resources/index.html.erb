@@ -1,0 +1,21 @@
+<h2>All resources</h2>
+
+<% @resources.each do |resource| %>
+  <h2>ID: <%= resource.id %> <%= link_to resource.title, resource_path(resource) %></h2>
+  <p><%= resource.media_type %></p>
+  <p><%= resource.year_published %></p>
+  <p><%= resource.month_published %></p>
+
+  <% if resource.attachment %>
+    <p><%= link_to "open", resource.attachment %> |
+      <%= link_to "edit", edit_resource_path(resource) %> |
+      <%= link_to "delete", resource_path(resource), method: :delete, data: { confirm: 'Are you certain you want to delete this?' } %> |
+      <%= link_to "url", resource.attachment %>
+    </p>
+      <p>preview </p>
+        <%= link_to image_tag(resource.attachment.preview(resize: "300x300")), resource.attachment %>
+      <p>download</p>
+        <%= link_to image_tag(resource.attachment.preview(resize: "300x300")), rails_blob_path(resource.attachment, disposition: :attachment) %>
+  <% end %>
+  <hr>
+<% end %>

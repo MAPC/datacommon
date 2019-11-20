@@ -20,10 +20,48 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
+
 
 development:
-  <<: *default
-  database: datacommon_development
+  primary:
+    database: datacommon_development
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  tabular:
+    <<: *default
+    database: <%= ENV['DATABASE_TABULAR_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TABULAR_SCHEMA_DATA'] %>
+    replica: true
+  tabular_metadata:
+    <<: *default
+    database: <%= ENV['DATABASE_TABULAR_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TABULAR_SCHEMA_METADATA'] %>
+    replica: true
+  geospatial:
+    <<: *default
+    database: <%= ENV['DATABASE_GEOSPATIAL_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_GEOSPATIAL_SCHEMA_DATA'] %>
+    replica: true
+  geospatial_metadata:
+    <<: *default
+    database: <%= ENV['DATABASE_GEOSPATIAL_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_GEOSPATIAL_SCHEMA_METADATA'] %>
+    replica: true
+  town:
+    <<: *default
+    database: <%= ENV['DATABASE_TOWN_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TOWN_SCHEMA_DATA'] %>
+    replica: true
+  town_metadata:
+    <<: *default
+    database: <%= ENV['DATABASE_TOWN_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TOWN_SCHEMA_METADATA'] %>
+    replica: true
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -56,8 +94,41 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: datacommon_test
+  primary:
+    database: datacommon_test
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  tabular:
+    <<: *default
+    database: <%= ENV['DATABASE_TABULAR_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TABULAR_SCHEMA_DATA'] %>
+    replica: true
+  tabular_metadata:
+    <<: *default
+    database: <%= ENV['DATABASE_TABULAR_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TABULAR_SCHEMA_METADATA'] %>
+    replica: true
+  geospatial:
+    <<: *default
+    database: <%= ENV['DATABASE_GEOSPATIAL_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_GEOSPATIAL_SCHEMA_DATA'] %>
+    replica: true
+  geospatial_metadata:
+    <<: *default
+    database: <%= ENV['DATABASE_GEOSPATIAL_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_GEOSPATIAL_SCHEMA_METADATA'] %>
+    replica: true
+  town:
+    <<: *default
+    database: <%= ENV['DATABASE_TOWN_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TOWN_SCHEMA_DATA'] %>
+    replica: true
+  town_metadata:
+    <<: *default
+    database: <%= ENV['DATABASE_TOWN_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TOWN_SCHEMA_METADATA'] %>
+    replica: true
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,7 +150,40 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: datacommon
-  username: datacommon
-  password: <%= ENV['DATACOMMON_DATABASE_PASSWORD'] %>
+  primary:
+    database: datacommon
+    username: datacommon
+    password: <%= ENV['DATACOMMON_DATABASE_PASSWORD'] %>
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  tabular:
+    <<: *default
+    database: <%= ENV['DATABASE_TABULAR_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TABULAR_SCHEMA_DATA'] %>
+    replica: true
+  tabular_metadata:
+    <<: *default
+    database: <%= ENV['DATABASE_TABULAR_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TABULAR_SCHEMA_METADATA'] %>
+    replica: true
+  geospatial:
+    <<: *default
+    database: <%= ENV['DATABASE_GEOSPATIAL_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_GEOSPATIAL_SCHEMA_DATA'] %>
+    replica: true
+  geospatial_metadata:
+    <<: *default
+    database: <%= ENV['DATABASE_GEOSPATIAL_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_GEOSPATIAL_SCHEMA_METADATA'] %>
+    replica: true
+  town:
+    <<: *default
+    database: <%= ENV['DATABASE_TOWN_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TOWN_SCHEMA_DATA'] %>
+    replica: true
+  town_metadata:
+    <<: *default
+    database: <%= ENV['DATABASE_TOWN_DATABASE'] %>
+    schema_search_path: <%= ENV['DATABASE_TOWN_SCHEMA_METADATA'] %>
+    replica: true

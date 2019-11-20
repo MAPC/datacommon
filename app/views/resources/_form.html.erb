@@ -1,0 +1,23 @@
+<%= form_for resource do |f| %>
+
+<div class="upload-form">
+  <p><%= f.label :attachment %><%= f.file_field :attachment, direct_upload: true, class: "upload-form__attachment" %></p>
+
+  <p><%= f.label :title %></p>
+  <p><%= f.text_field :title, class: "upload-form__title" %></p>
+
+  <p><%= f.label :media_type %></p>
+  <p><%= f.select :media_type, ['pdf', 'csv', 'docx', 'xlsx', 'shp', 'dbf'],  class: "upload-form__mediatype" %></p>
+
+  <p><%= f.label :description %></p>
+  <p><%= f.text_area :description, class: "upload-form__description" %></p>
+
+  <p><%= f.label :year_published %></p>
+  <p><%= f.text_field :year_published, class: "upload-form__yearpublished" %></p>
+
+  <p><%= f.label :month_published %></p>
+  <p><%= f.text_field :month_published, class: "upload-form__monthpublished" %></p>
+
+  <p><%= f.submit class: "upload-form__submit" %></p>
+</div>
+<% end %>
