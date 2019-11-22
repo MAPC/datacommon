@@ -18,6 +18,44 @@ All server-side tests are written in RSpec.
 ## Deployment
 TODO: Update deployment strategy for the Rails monorepo.
 
+Make sure to install poppler on your production/staging server to get PDF previews to work.
+
+```
+sudo apt-get install -y poppler-utils
+```
+
+You also need to update CORS permissions on your AWS bucket and create a relevant AWS IAM user with access to the bucket. A sample working AWS policy is below:
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutAccountPublicAccessBlock",
+                "s3:GetAccountPublicAccessBlock",
+                "s3:ListAllMyBuckets",
+                "s3:ListJobs",
+                "s3:CreateJob",
+                "s3:HeadBucket"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::datacommon-test-bucket",
+                "arn:aws:s3:*:371734135060:job/*",
+                "arn:aws:s3:::datacommon-test-bucket/*"
+            ]
+        }
+    ]
+}
+```
+
 A sample nginx configuration file to get this working along with the Ember based databrowser is below:
 
 ```
