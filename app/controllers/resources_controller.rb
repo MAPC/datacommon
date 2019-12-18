@@ -58,6 +58,10 @@ skip_before_action :verify_authenticity_token
     redirect_to resources_path
   end
 
+  def calendars
+    render "/calendars/#{params[:id]}"
+  end
+
   private
   def set_resource
     @resource = Resource.find(params[:id])
