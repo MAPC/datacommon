@@ -1,10 +1,6 @@
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
-
 import './polyfills/string-startsWith';
 import './polyfills/array-includes';
 import './polyfills/math-log10';
-// import '../assets/styles/app.scss';
 import '../styles/app.scss';
 
 import React from 'react';
@@ -16,6 +12,8 @@ import { ConnectedRouter } from 'react-router-redux';
 import { history, store } from './store';
 import App from './containers/App';
 
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
 
 
 const Index = () => (
@@ -28,5 +26,5 @@ const Index = () => (
 
 ReactDOM.render(
   <Index />,
-  document.querySelector("#root")
+  document.querySelector('#root'),
 );
