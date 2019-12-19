@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get '/shapefile', to: 'downloads#shapefile'
   get '/csv', to: 'downloads#csv'
   get '/gallery', to: 'pages#index'
+  get '/calendar/*date', to: 'pages#index'
 end
