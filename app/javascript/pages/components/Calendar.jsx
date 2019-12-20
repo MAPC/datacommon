@@ -5,16 +5,17 @@ import React from 'react';
 class Calendar extends React.Component {
   componentDidMount() {
     Promise.all([
-      d3.csv('/assets/two-digit-industry-group-01-17.csv', (d) => ({
-        measurementDate: +d.date,
-        category: d.category.split(' ')
+      d3.csv('/assets/tabular.econ_es202_naics_2d_m_2001_2002_2003_2004_2005_2006_2007_2008_2009_2010_2011_2012_2013_2014_2015_2016_2017.csv', (d) => ({
+        measurementDate: +d.cal_year,
+        category: d.naicstitle.split(' ')
           .map((w) => w[0].toUpperCase() + w.substr(1).toLowerCase())
           .join(' '),
-        municipality: d.name,
+        municipality: d.municipal,
         employees: +d.estab,
       })),
     ]).then((employmentData) => {
-      const filteredData = employmentData[0].filter(d => d.municipality === 'MAPC Region' && d.category !== 'Total, All Industries');
+      const filteredData = employmentData[0].filter(d => d.municipality === 'MAPC Region')
+        .filter((d) => d.category !== 'Total, All Industries');
 
       const employmentByDate = Array.from(rollup(filteredData,
         ([d]) => d.employees,
@@ -23,15 +24,13 @@ class Calendar extends React.Component {
         .map(([date, data]) => [new Date(date, 0, 1), data])
         .sort(([firstDate], [secondDate]) => d3.ascending(firstDate, secondDate)); // sort by date
 
-      const topTwelve = 18;
+      const topResults = 18;
       const barSize = 48;
       const margin = ({
         top: 16, right: 6, bottom: 6, left: 0,
       });
-      // let height = margin.top + barSize * topTwelve + margin.bottom;
       const width = window.innerWidth || document.body.clientWidth;
-      const height = (barSize * 12) + margin.top + margin.bottom;
-      const duration = 250;
+      const height = (barSize * topResults) + margin.top + margin.bottom;
 
       const svg = d3.select('.jobs')
         .append('svg')
@@ -42,7 +41,7 @@ class Calendar extends React.Component {
       function rank(value) {
         const data = Array.from(categories, (category) => ({ category, value: value(category) || 0 }));
         data.sort((a, b) => d3.descending(a.value, b.value));
-        for (let i = 0; i < data.length; i += 1) data[i].rank = Math.min(12, i);
+        for (let i = 0; i < data.length; i += 1) data[i].rank = Math.min(topResults, i);
         return data;
       }
 
@@ -73,8 +72,8 @@ class Calendar extends React.Component {
 
       const x = d3.scaleLinear([0, 1], [margin.left, width - margin.right]);
       const y = d3.scaleBand()
-        .domain(d3.range(topTwelve + 1))
-        .rangeRound([margin.top, margin.top + barSize * (topTwelve + 1 + 0.1)])
+        .domain(d3.range(topResults + 1))
+        .rangeRound([margin.top, margin.top + barSize * (topResults + 1 + 0.1)])
         .padding(0.1);
       const formatDate = d3.utcFormat('%Y');
 
@@ -85,7 +84,7 @@ class Calendar extends React.Component {
           .selectAll('rect');
 
         return ([date, data], transition) => bar = bar
-          .data(data.slice(0, 12), (d) => d.category)
+          .data(data.slice(0, topResults), (d) => d.category)
           .join(
             (enter) => enter.append('rect')
               .attr('fill', '#0c8585')
@@ -118,7 +117,7 @@ class Calendar extends React.Component {
           .selectAll('text');
 
         return ([date, data], transition) => label = label
-          .data(data.slice(0, 12), d => d.category)
+          .data(data.slice(0, topResults), d => d.category)
           .join(
             (enter) => enter.append('text')
               .attr('transform', d => `translate(${x((prev.get(d) || d).value)},${y((prev.get(d) || d).rank)})`)
@@ -148,7 +147,7 @@ class Calendar extends React.Component {
         const axis = d3.axisTop(x)
           .ticks(width / 160)
           .tickSizeOuter(0)
-          .tickSizeInner(-barSize * (12 + y.padding()));
+          .tickSizeInner(-barSize * (topResults + y.padding()));
 
         return (_, transition) => {
           g.transition(transition).call(axis);
@@ -164,7 +163,7 @@ class Calendar extends React.Component {
           .style('font-variant-numeric', 'tabular-nums')
           .attr('text-anchor', 'end')
           .attr('x', width - 6)
-          .attr('y', margin.top + barSize * (12 - 0.45))
+          .attr('y', margin.top + barSize * (topResults - 0.45))
           .attr('dy', '0.32em')
           .text(formatDate(allKeyframes[0][0]));
 
