@@ -35,7 +35,7 @@ class CalendarGrid extends React.Component {
 
 
     return (
-      <ul className="component CalendarGrid container">
+      <ul className="component CalendarGrid container tight">
         {allCalendarItems}
       </ul>
     );

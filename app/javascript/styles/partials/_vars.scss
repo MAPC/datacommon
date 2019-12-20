@@ -14,6 +14,7 @@ $color_font-medium--dark: mix(black, $color_font-medium, 25);
 $color_font-dark--brand: mix($color_brand-primary, $color_font-dark, 25);
 
 $font_family-primary: 'skolar-sans-latin', Helvetica, sans-serif;
+$font_family-secondary: 'Monserrat';
 
 $font_size-base: 16px;
 $font_size-base--rem: 1rem;
@@ -27,3 +28,9 @@ $font_mod-small: .06125rem;
 $font_mod-medium: $font_mod-small * 2;
 
 $elem_button-radius: 5px;
+
+// 12-19-20 font/text variables
+$h1_size: 1.875rem;
+$h2_size: 1.5rem;
+$h3_size: 1.25rem;
+$p_size: 1rem;

@@ -17,12 +17,12 @@
     @include media(small) { width: 90%; }
   }
 
-  h2 {
-    margin: 0;
+  .page-section{
     padding: 40px 0;
   }
 
-  .CategoryGrid { margin: 0 auto 80px; }
-
-  .page-section:last-of-type { margin-bottom: -50px; }
+  .page-section__map {
+    margin-bottom: -50px;
+    padding-bottom: 0;
+  }
 }
