@@ -11,11 +11,11 @@ class YearNavItem extends React.Component {
     }
     return (
       <li className="year-navigation__item">
-        <span className={selectedClassName} onClick={() => this.props.changeYear({fullYear})} id={fullYear}>
+        <h1 className={selectedClassName} onClick={() => this.props.changeYear({fullYear})} id={fullYear}>
           <span className="year-navigation__year--lightgreen">20</span>
           <span className="year-navigation__year--darkgreen">{this.props.year}</span>
           <div className="year-navigation__arrow" />
-        </span>
+        </h1>
       </li>    
     );
   }

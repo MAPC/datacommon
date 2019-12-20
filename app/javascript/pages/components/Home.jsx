@@ -5,7 +5,7 @@ import Particles from './partials/Particles';
 import SearchBar from '../containers/SearchBar';
 import CategoryGrid from '../containers/CategoryGrid';
 import CommunitySelector from '../containers/CommunitySelector';
-
+import CalendarImg from './../assets/images/calendar-temp'
 
 class Home extends React.Component {
 
@@ -44,13 +44,25 @@ class Home extends React.Component {
           </div>
         </div>
 
+        <section className="container tight gallery-spotlight page-section">
+          <div className="gallery-spotlight__info">
+            <h2>Gallery of Data</h2>
+            <p className="gallery-spotlight__paragraph">MAPC has for many years produced a wall calendar that provides recipients with insightful information about the region, in the form of a monthly map or data visualization. Each year, these monthly segments covered a wide variety of topics.</p>
+            <p className="gallery-spotlight__paragraph">This year, we are moving to a new format, with two components: the print calendar and digital maps and data visualizations we will publish each month here on MAPC's MetroBoston DataCommon. We hope you will both hand this poseter on your wall, and visit datacommon.mapc.org to see a new map or data visualization on the first of each month.</p>
+            <button className="gallery-spotlight__button"><a href="/gallery">View Gallery</a></button>
+
+          </div>
+          <img src={CalendarImg} className="gallery-spotlight__image"/>
+        </section>
+
+
         <div className="container tight page-section">
           <h2>Data by category</h2>
 
           <CategoryGrid />
         </div>
 
-        <div className="page-section">
+        <div className="page-section page-section__map">
           <a name="community-profiles"></a>
           <CommunitySelector />
         </div>

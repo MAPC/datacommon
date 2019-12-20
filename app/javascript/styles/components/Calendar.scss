@@ -3,8 +3,8 @@
   @include media(medium) { grid-template-columns: repeat(2, 1fr); }
   @include media(small) { column-gap: 60px; }
   @include media(x-small) { column-gap: 30px; }
-  column-gap: 120px;
   display: grid;
+  grid-column-gap: 60px;
   grid-row-gap: 60px;
   grid-template-columns: repeat(4, 1fr);
 }
@@ -15,8 +15,9 @@
   flex-direction: column;
 
   &__month {
-    font-size: $font_size-large;
-    margin-bottom: 30px;
+    font-size: $h2_size;
+    font-weight: bold;
+    margin-top: 0;
   }
 
   &__box {

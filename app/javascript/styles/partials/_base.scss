@@ -21,7 +21,31 @@ main {
   padding-bottom: 50px;
 }
 
-h2 { font-family: $font_family-primary; }
+h1 {
+  font-family: $font_family-primary;
+  font-size: $h1_size;
+  font-weight: bolder;
+}
+
+h2 {
+  font-family: $font_family-primary;
+  font-size: $h2_size;
+  font-weight: bold;
+  margin: 0 0 30px 0;
+}
+
+h3 {
+  font-family: $font_family-primary;
+  font-size: $h3_size;
+  font-weight: bold;
+}
+
+p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: $p_size;
+  font-weight: lighter;
+}
+
 
 .divider-column {
   position: relative;
