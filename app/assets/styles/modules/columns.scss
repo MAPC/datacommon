@@ -1,6 +1,0 @@
-.columns {
-  display: flex;
-
-  &.two > * { flex: 1 0 50%; }
-  &.three > * { flex: 1 0 33.33%; }
-}

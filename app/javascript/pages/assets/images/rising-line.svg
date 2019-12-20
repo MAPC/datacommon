@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92.103 78">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #6fc68e;
+      }
+
+      .cls-2, .cls-3 {
+        fill: none;
+        stroke: #1f4e46;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        stroke-width: 5px;
+      }
+
+      .cls-3 {
+        stroke-width: 5.289px;
+      }
+    </style>
+  </defs>
+  <g id="Groupe_53" data-name="Groupe 53" transform="translate(0.003)">
+    <path id="Tracé_508" data-name="Tracé 508" class="cls-1" d="M87.9,78H1.9V72.3L13.4,58.8,25.7,67,45.6,39.1,63.7,53.4,88,18.4V78Z"/>
+    <path id="Tracé_509" data-name="Tracé 509" class="cls-2" d="M1.9,58.6,12.8,45.8l11.7,8,20.4-28L62.8,40.1,89.9,1.8"/>
+    <path id="Tracé_510" data-name="Tracé 510" class="cls-3" d="M91.7,10.9"/>
+    <path id="Tracé_511" data-name="Tracé 511" class="cls-3" d="M92.1,0"/>
+  </g>
+</svg>

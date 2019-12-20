@@ -1,9 +1,9 @@
 import React from 'react';
 
-import mapcLogo from '../../../assets/images/mapc-logo.svg';
-import twitterImg from '../../../assets/images/twitter.svg';
-import instagramImg from '../../../assets/images/instagram.svg';
-import facebookImg from '../../../assets/images/facebook.svg';
+import mapcLogo from '../../assets/images/mapc-logo.svg';
+import twitterImg from '../../assets/images/twitter.svg';
+import instagramImg from '../../assets/images/instagram.svg';
+import facebookImg from '../../assets/images/facebook.svg';
 
 
 class Footer extends React.Component {

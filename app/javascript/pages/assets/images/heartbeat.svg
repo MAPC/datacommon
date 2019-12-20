@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 85.46 80.549">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #afe2bd;
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-2);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.004" y1="0.499" x2="1" y2="0.499" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#6fc68e"/>
+      <stop offset="1" stop-color="#47b593"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="-0.001" y1="0.499" x2="1.002" y2="0.499" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1f4e46"/>
+      <stop offset="0.195" stop-color="#215249"/>
+      <stop offset="0.393" stop-color="#255e52"/>
+      <stop offset="0.592" stop-color="#2d7361"/>
+      <stop offset="0.793" stop-color="#388f77"/>
+      <stop offset="0.993" stop-color="#46b492"/>
+      <stop offset="1" stop-color="#47b593"/>
+    </linearGradient>
+  </defs>
+  <g id="Groupe_51" data-name="Groupe 51" transform="translate(0.105 -0.041)">
+    <path id="Tracé_500" data-name="Tracé 500" class="cls-1" d="M42.611,80.424c-.166,0-.166.166-.331.166l-7.449-5.463A145.013,145.013,0,0,1,13.146,55.262,59.27,59.27,0,0,1,1.889,36.722C-1.09,27.949-.925,19.176,3.71,10.9,6.69,5.6,11.159,1.794,17.284.636c8.608-1.655,16.223,0,22.347,6.787.828.993,1.821,1.986,2.649,2.98" transform="translate(0 0)"/>
+    <path id="Tracé_501" data-name="Tracé 501" class="cls-2" d="M25.9,10.349c1.159-1.159,2.152-2.318,3.311-3.476C34.342,1.41,40.8-.411,48.082.251c9.932.993,15.726,6.953,18.706,16.057,2.649,7.78,1.655,15.56-1.49,23.175-2.98,6.953-7.284,12.746-12.415,18.375-7.946,8.608-17.216,15.891-26.817,22.678" transform="translate(17.042 0.053)"/>
+    <g id="Groupe_50" data-name="Groupe 50" transform="translate(2.869 15.203)">
+      <path id="Tracé_502" data-name="Tracé 502" class="cls-3" d="M4.354,35.52h10.76l3.973-5.3L30.012,52.239,41.6,22.94,50.87,43.8l7.946-8.277H70.072a2.338,2.338,0,1,0,0-4.635H56.167L52.36,34.693,41.269,9.2,29.35,39.328,19.915,20.291,12.134,30.72H4.354a2.454,2.454,0,0,0-2.649,2.318A2.394,2.394,0,0,0,4.354,35.52Z" transform="translate(-1.692 -9.2)"/>
+    </g>
+  </g>
+</svg>
