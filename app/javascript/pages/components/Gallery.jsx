@@ -41,7 +41,7 @@ class Gallery extends React.Component {
             <div className="calendar-spotlight__info">
               <p className="calendar-spotlight__paragraph">MAPC has for many years produced a wall calendar that provides recipients with insightful information about the region, in the form of a monthly map or data visualization. Each year, these monthly segments covered a wide variety of topics.</p>
               <p className="calendar-spotlight__paragraph">This year, we are moving to a new format, with two components: the print calendar and digital maps and data visualizations we will publish each month here on MAPC's MetroBoston DataCommon. We hope you will both hand this poseter on your wall, and visit datacommon.mapc.org to see a new map or data visualization on the first of each month.</p>
-              <button className="calendar-spotlight__button"><a href="/gallery">Sign Up</a></button>
+              <button className="calendar-spotlight__button"><a href="https://lp.constantcontact.com/su/Vab7XBS">Sign Up</a></button>
             </div>
           </section>
           <hr className="calendar-spotlight__divider"/>
