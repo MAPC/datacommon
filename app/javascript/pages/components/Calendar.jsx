@@ -5,7 +5,7 @@ import React from 'react';
 class Calendar extends React.Component {
   componentDidMount() {
     Promise.all([
-      d3.csv('/assets/four-digit-industry-group-01-17.csv', (d) => ({
+      d3.csv('/assets/two-digit-industry-group-01-17.csv', (d) => ({
         measurementDate: +d.date,
         category: d.category.split(' ')
           .map((w) => w[0].toUpperCase() + w.substr(1).toLowerCase())
@@ -14,7 +14,7 @@ class Calendar extends React.Component {
         employees: +d.estab,
       })),
     ]).then((employmentData) => {
-      const filteredData = employmentData[0].filter(d => d.municipality === 'MAPC Region');
+      const filteredData = employmentData[0].filter(d => d.municipality === 'MAPC Region' && d.category !== 'Total, All Industries');
 
       const employmentByDate = Array.from(rollup(filteredData,
         ([d]) => d.employees,
@@ -23,7 +23,7 @@ class Calendar extends React.Component {
         .map(([date, data]) => [new Date(date, 0, 1), data])
         .sort(([firstDate], [secondDate]) => d3.ascending(firstDate, secondDate)); // sort by date
 
-      const topTwelve = 12;
+      const topTwelve = 18;
       const barSize = 48;
       const margin = ({
         top: 16, right: 6, bottom: 6, left: 0,
