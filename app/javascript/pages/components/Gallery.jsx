@@ -1,7 +1,7 @@
 import React from 'react';
 import YearNav from './partials/YearNav';
 import CalendarGrid from './partials/CalendarGrid';
-import CalendarImg from './../assets/images/calendar-temp'
+import CalendarImg from '../assets/images/calendar-temp.png';
 
 class Gallery extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class Gallery extends React.Component {
 
   changeYear(clickedYear) {
     this.setState((prevState) => {
-      event.stopPropagation();
+      // event.stopPropagation();
       const newSelectedYear = document.getElementById(clickedYear.fullYear);
       const oldSelectedYear = document.getElementById(prevState.selectedYear);
 
@@ -37,10 +37,13 @@ class Gallery extends React.Component {
       calendar2020Blurb = (
         <>
           <section className="container calendar-spotlight tight">
-            <img src={CalendarImg} className="calendar-spotlight__image"/>
+            <div className="calendar-spotlight__image-wrapper">
+              <img src={CalendarImg} className="calendar-spotlight__image"/>
+              <h2 className="calendar-spotlight__image--after">Download 2020 Wall Calendar</h2>
+            </div>
             <div className="calendar-spotlight__info">
-              <p className="calendar-spotlight__paragraph">MAPC has for many years produced a wall calendar that provides recipients with insightful information about the region, in the form of a monthly map or data visualization. Each year, these monthly segments covered a wide variety of topics.</p>
-              <p className="calendar-spotlight__paragraph">This year, we are moving to a new format, with two components: the print calendar and digital maps and data visualizations we will publish each month here on MAPC's MetroBoston DataCommon. We hope you will both hand this poseter on your wall, and visit datacommon.mapc.org to see a new map or data visualization on the first of each month.</p>
+              <p>Welcome to the MAPC 2020 Calendar — which for the first time this year is in the form of a monthly digital publication and a beautiful year-at-a-glance printed poster. Our monthly maps and data visualizations will be, as ever,  insightful, visually arresting, and will cover a range of vital topics.</p>
+              <p>Visit us each month at MAPC’s MetroBoston Data Common to see what’s new!</p>
               <button className="calendar-spotlight__button"><a href="https://lp.constantcontact.com/su/Vab7XBS">Sign Up</a></button>
             </div>
           </section>
