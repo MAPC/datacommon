@@ -44,7 +44,7 @@ class Gallery extends React.Component {
             <div className="calendar-spotlight__info">
               <p>Welcome to the MAPC 2020 Calendar — which for the first time this year is in the form of a monthly digital publication and a beautiful year-at-a-glance printed poster. Our monthly maps and data visualizations will be, as ever,  insightful, visually arresting, and will cover a range of vital topics.</p>
               <p>Visit us each month at MAPC’s MetroBoston Data Common to see what’s new!</p>
-              <button className="calendar-spotlight__button"><a href="/gallery">Sign Up</a></button>
+              <button className="calendar-spotlight__button"><a href="https://lp.constantcontact.com/su/Vab7XBS">Sign Up</a></button>
             </div>
           </section>
           <hr className="calendar-spotlight__divider"/>
