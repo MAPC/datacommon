@@ -47,8 +47,9 @@ class Home extends React.Component {
         <section className="container tight gallery-spotlight page-section">
           <div className="gallery-spotlight__info">
             <h2>Gallery of Data</h2>
-            <p className="gallery-spotlight__paragraph">MAPC has for many years produced a wall calendar that provides recipients with insightful information about the region, in the form of a monthly map or data visualization. Each year, these monthly segments covered a wide variety of topics.</p>
-            <p className="gallery-spotlight__paragraph">This year, we are moving to a new format, with two components: the print calendar and digital maps and data visualizations we will publish each month here on MAPC's MetroBoston DataCommon. We hope you will both hand this poseter on your wall, and visit datacommon.mapc.org to see a new map or data visualization on the first of each month.</p>
+            <p>Welcome to the MAPC Gallery of Data, where we tell the story of Greater Boston’s most complex issues — one monthly map and data visualization at a time.</p>
+            <p>We look at a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
+            <p>Visit every month to see what’s new!</p>
             <button className="gallery-spotlight__button"><a href="/gallery">View Gallery</a></button>
 
           </div>

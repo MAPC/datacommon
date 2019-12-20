@@ -12,13 +12,17 @@
     margin: 0 0 1.25rem;
   }
 
+  &__image {
+    width: 100%;
+  }
+
   &__button {
     background: #fff;
     border: 1px solid $color_brand-secondary;
     border-radius: 0;
     font-family: 'Montserrat', sans-serif;
-    font-size: $h3_size;
-    font-weight: bold;
+    font-size: $p_size;
+    font-weight: bolder;
     margin: 0;
     padding: 1rem;
     text-decoration: underline;
@@ -48,10 +52,6 @@
     }
   }
 
-  &__image {
-    width: 100%;
-  }
-
   &__divider {
     border: 1rem solid #F5F5F5;
     margin-bottom: 40px;
@@ -76,9 +76,58 @@
   -ms-grid-columns: 1fr 1fr 1fr 1fr;
   margin-bottom: 60px;
 
-  &__image {
+  &__image-wrapper {
     grid-column: 1;
     -ms-grid-column: 1;
+    position: relative;
+    width: 100%;
+    &:hover {
+      border-color: #3a9374;
+
+      &::after {
+        -webkit-transition: background .12s, left .12s;
+        background: #3a9374;
+        left: 6px;
+        transition: background .12s, left .12s;
+      }
+		}
+
+    &::after {
+      @extend ._pseudo;
+      background: $color_brand-secondary;
+      height: calc(100% - 4px);
+      left: 4px;
+      position: absolute;
+      top: 4px;
+      transition: background .12s, left .12s;
+      width: 100%;
+      z-index: -1;
+    }
+  }
+
+  &__image {
+    border: 1px solid $color_brand-secondary;
+
+    &--after {
+      display: none;
+      transition: display .12s;
+    }
+  }
+
+  &__image-wrapper:hover > .calendar-spotlight__image--after {
+    align-items: center;
+    background: rgba(174, 221, 191, .6);
+    display: flex;
+    height: calc(100% - 4px);
+    justify-content: center;
+    left: 0;
+    line-height: 2rem;
+    padding: 2rem;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    transition: display .12s;
+    width: 100%;
   }
 
   &__info {
@@ -131,7 +180,7 @@
     -ms-grid-column: 5;
   }
 
-	&__info {
+  &__info {
     @include media(medium) {
       grid-column: 1 / 4;
       -ms-grid-column-span: 3;
