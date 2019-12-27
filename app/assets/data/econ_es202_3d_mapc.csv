@@ -1,0 +1,1541 @@
+muni_id,name,date,naicscode,category,naics_3d,avgemp,estab
+352,MAPC Region,2001,111,Crop Production,111,160,18
+352,MAPC Region,2002,111,Crop Production,111,117,13
+352,MAPC Region,2003,111,Crop Production,111,121,12
+352,MAPC Region,2004,111,Crop Production,111,70,8
+352,MAPC Region,2005,111,Crop Production,111,70,9
+352,MAPC Region,2006,111,Crop Production,111,59,9
+352,MAPC Region,2007,111,Crop Production,111,62,9
+352,MAPC Region,2008,111,Crop Production,111,39,6
+352,MAPC Region,2009,111,Crop Production,111,297,11
+352,MAPC Region,2010,111,Crop Production,111,346,15
+352,MAPC Region,2011,111,Crop Production,111,387,19
+352,MAPC Region,2012,111,Crop Production,111,409,14
+352,MAPC Region,2013,111,Crop Production,111,437,20
+352,MAPC Region,2014,111,Crop Production,111,490,24
+352,MAPC Region,2015,111,Crop Production,111,523,23
+352,MAPC Region,2016,111,Crop Production,111,490,17
+352,MAPC Region,2017,111,Crop Production,111,500,13
+352,MAPC Region,2018,111,Crop Production,111,111,8
+352,MAPC Region,2001,114,"Fishing, Hunting and Trapping",114,299,110
+352,MAPC Region,2002,114,"Fishing, Hunting and Trapping",114,323,111
+352,MAPC Region,2003,114,"Fishing, Hunting and Trapping",114,264,102
+352,MAPC Region,2004,114,"Fishing, Hunting and Trapping",114,298,110
+352,MAPC Region,2005,114,"Fishing, Hunting and Trapping",114,291,116
+352,MAPC Region,2006,114,"Fishing, Hunting and Trapping",114,264,113
+352,MAPC Region,2007,114,"Fishing, Hunting and Trapping",114,209,98
+352,MAPC Region,2008,114,"Fishing, Hunting and Trapping",114,211,94
+352,MAPC Region,2009,114,"Fishing, Hunting and Trapping",114,202,84
+352,MAPC Region,2010,114,"Fishing, Hunting and Trapping",114,146,71
+352,MAPC Region,2011,114,"Fishing, Hunting and Trapping",114,139,67
+352,MAPC Region,2012,114,"Fishing, Hunting and Trapping",114,148,70
+352,MAPC Region,2013,114,"Fishing, Hunting and Trapping",114,116,71
+352,MAPC Region,2014,114,"Fishing, Hunting and Trapping",114,123,72
+352,MAPC Region,2015,114,"Fishing, Hunting and Trapping",114,122,71
+352,MAPC Region,2016,114,"Fishing, Hunting and Trapping",114,129,71
+352,MAPC Region,2017,114,"Fishing, Hunting and Trapping",114,130,72
+352,MAPC Region,2018,114,"Fishing, Hunting and Trapping",114,120,68
+352,MAPC Region,2001,115,Agriculture & Forestry Support Activity,115,105,21
+352,MAPC Region,2002,115,Agriculture & Forestry Support Activity,115,84,21
+352,MAPC Region,2003,115,Agriculture & Forestry Support Activity,115,68,18
+352,MAPC Region,2004,115,Agriculture & Forestry Support Activity,115,47,12
+352,MAPC Region,2005,115,Agriculture & Forestry Support Activity,115,66,13
+352,MAPC Region,2006,115,Agriculture & Forestry Support Activity,115,41,10
+352,MAPC Region,2007,115,Agriculture & Forestry Support Activity,115,57,10
+352,MAPC Region,2008,115,Agriculture & Forestry Support Activity,115,75,11
+352,MAPC Region,2009,115,Agriculture & Forestry Support Activity,115,68,11
+352,MAPC Region,2010,115,Agriculture & Forestry Support Activity,115,89,13
+352,MAPC Region,2011,115,Agriculture & Forestry Support Activity,115,71,10
+352,MAPC Region,2012,115,Agriculture & Forestry Support Activity,115,64,13
+352,MAPC Region,2013,115,Agriculture & Forestry Support Activity,115,88,19
+352,MAPC Region,2014,115,Agriculture & Forestry Support Activity,115,131,26
+352,MAPC Region,2015,115,Agriculture & Forestry Support Activity,115,168,29
+352,MAPC Region,2016,115,Agriculture & Forestry Support Activity,115,142,23
+352,MAPC Region,2017,115,Agriculture & Forestry Support Activity,115,154,25
+352,MAPC Region,2018,115,Agriculture & Forestry Support Activity,115,116,19
+352,MAPC Region,2004,212,Mining (except Oil and Gas),212,31,3
+352,MAPC Region,2005,212,Mining (except Oil and Gas),212,35,3
+352,MAPC Region,2006,212,Mining (except Oil and Gas),212,35,3
+352,MAPC Region,2014,213,Support Activities for Mining,213,44,6
+352,MAPC Region,2015,213,Support Activities for Mining,213,5,3
+352,MAPC Region,2016,213,Support Activities for Mining,213,40,6
+352,MAPC Region,2017,213,Support Activities for Mining,213,39,6
+352,MAPC Region,2001,221,Utilities,221,4607,47
+352,MAPC Region,2002,221,Utilities,221,4387,51
+352,MAPC Region,2003,221,Utilities,221,4291,46
+352,MAPC Region,2004,221,Utilities,221,3906,49
+352,MAPC Region,2005,221,Utilities,221,3746,45
+352,MAPC Region,2006,221,Utilities,221,4043,53
+352,MAPC Region,2007,221,Utilities,221,4126,60
+352,MAPC Region,2008,221,Utilities,221,4255,56
+352,MAPC Region,2009,221,Utilities,221,4366,62
+352,MAPC Region,2010,221,Utilities,221,4408,62
+352,MAPC Region,2011,221,Utilities,221,4395,64
+352,MAPC Region,2012,221,Utilities,221,4433,62
+352,MAPC Region,2013,221,Utilities,221,4074,72
+352,MAPC Region,2014,221,Utilities,221,4150,79
+352,MAPC Region,2015,221,Utilities,221,4091,81
+352,MAPC Region,2016,221,Utilities,221,4276,98
+352,MAPC Region,2017,221,Utilities,221,4279,103
+352,MAPC Region,2018,221,Utilities,221,3542,94
+352,MAPC Region,2001,236,Construction of Buildings,236,16513,2163
+352,MAPC Region,2002,236,Construction of Buildings,236,16747,2388
+352,MAPC Region,2003,236,Construction of Buildings,236,16637,2573
+352,MAPC Region,2004,236,Construction of Buildings,236,16931,2793
+352,MAPC Region,2005,236,Construction of Buildings,236,17260,2782
+352,MAPC Region,2006,236,Construction of Buildings,236,16732,2684
+352,MAPC Region,2007,236,Construction of Buildings,236,16129,2639
+352,MAPC Region,2008,236,Construction of Buildings,236,15773,2522
+352,MAPC Region,2009,236,Construction of Buildings,236,13013,2380
+352,MAPC Region,2010,236,Construction of Buildings,236,12321,2445
+352,MAPC Region,2011,236,Construction of Buildings,236,12619,2432
+352,MAPC Region,2012,236,Construction of Buildings,236,12984,2174
+352,MAPC Region,2013,236,Construction of Buildings,236,14040,2069
+352,MAPC Region,2014,236,Construction of Buildings,236,14729,2203
+352,MAPC Region,2015,236,Construction of Buildings,236,15717,2275
+352,MAPC Region,2016,236,Construction of Buildings,236,17041,2379
+352,MAPC Region,2017,236,Construction of Buildings,236,17935,2474
+352,MAPC Region,2018,236,Construction of Buildings,236,18768,2542
+352,MAPC Region,2001,237,Heavy and Civil Engineering Construction,237,11418,377
+352,MAPC Region,2002,237,Heavy and Civil Engineering Construction,237,8692,323
+352,MAPC Region,2003,237,Heavy and Civil Engineering Construction,237,10796,356
+352,MAPC Region,2004,237,Heavy and Civil Engineering Construction,237,6830,351
+352,MAPC Region,2005,237,Heavy and Civil Engineering Construction,237,8111,319
+352,MAPC Region,2006,237,Heavy and Civil Engineering Construction,237,8022,351
+352,MAPC Region,2007,237,Heavy and Civil Engineering Construction,237,7745,362
+352,MAPC Region,2008,237,Heavy and Civil Engineering Construction,237,7283,339
+352,MAPC Region,2009,237,Heavy and Civil Engineering Construction,237,6636,309
+352,MAPC Region,2010,237,Heavy and Civil Engineering Construction,237,6432,314
+352,MAPC Region,2011,237,Heavy and Civil Engineering Construction,237,6863,331
+352,MAPC Region,2012,237,Heavy and Civil Engineering Construction,237,6858,294
+352,MAPC Region,2013,237,Heavy and Civil Engineering Construction,237,7789,301
+352,MAPC Region,2014,237,Heavy and Civil Engineering Construction,237,8253,307
+352,MAPC Region,2015,237,Heavy and Civil Engineering Construction,237,9692,310
+352,MAPC Region,2016,237,Heavy and Civil Engineering Construction,237,8483,296
+352,MAPC Region,2017,237,Heavy and Civil Engineering Construction,237,9400,318
+352,MAPC Region,2018,237,Heavy and Civil Engineering Construction,237,9662,306
+352,MAPC Region,2001,238,Specialty Trade Contractors,238,46686,4991
+352,MAPC Region,2002,238,Specialty Trade Contractors,238,46554,5194
+352,MAPC Region,2003,238,Specialty Trade Contractors,238,45739,5452
+352,MAPC Region,2004,238,Specialty Trade Contractors,238,45722,5731
+352,MAPC Region,2005,238,Specialty Trade Contractors,238,45938,5699
+352,MAPC Region,2006,238,Specialty Trade Contractors,238,47204,5778
+352,MAPC Region,2007,238,Specialty Trade Contractors,238,46835,5747
+352,MAPC Region,2008,238,Specialty Trade Contractors,238,45746,5614
+352,MAPC Region,2009,238,Specialty Trade Contractors,238,37501,5438
+352,MAPC Region,2010,238,Specialty Trade Contractors,238,36481,5645
+352,MAPC Region,2011,238,Specialty Trade Contractors,238,36428,5633
+352,MAPC Region,2012,238,Specialty Trade Contractors,238,38763,5227
+352,MAPC Region,2013,238,Specialty Trade Contractors,238,41713,5155
+352,MAPC Region,2014,238,Specialty Trade Contractors,238,43601,5474
+352,MAPC Region,2015,238,Specialty Trade Contractors,238,48019,5679
+352,MAPC Region,2016,238,Specialty Trade Contractors,238,49944,5911
+352,MAPC Region,2017,238,Specialty Trade Contractors,238,51995,6112
+352,MAPC Region,2018,238,Specialty Trade Contractors,238,55633,6181
+352,MAPC Region,2001,311,Food Manufacturing,311,9964,376
+352,MAPC Region,2002,311,Food Manufacturing,311,9405,351
+352,MAPC Region,2003,311,Food Manufacturing,311,8724,341
+352,MAPC Region,2004,311,Food Manufacturing,311,8615,329
+352,MAPC Region,2005,311,Food Manufacturing,311,9289,317
+352,MAPC Region,2006,311,Food Manufacturing,311,9374,295
+352,MAPC Region,2007,311,Food Manufacturing,311,9398,293
+352,MAPC Region,2008,311,Food Manufacturing,311,8884,287
+352,MAPC Region,2009,311,Food Manufacturing,311,8683,282
+352,MAPC Region,2010,311,Food Manufacturing,311,9296,290
+352,MAPC Region,2011,311,Food Manufacturing,311,9630,300
+352,MAPC Region,2013,311,Food Manufacturing,311,10917,302
+352,MAPC Region,2012,311,Food Manufacturing,311,10129,296
+352,MAPC Region,2014,311,Food Manufacturing,311,11314,303
+352,MAPC Region,2015,311,Food Manufacturing,311,10673,324
+352,MAPC Region,2016,311,Food Manufacturing,311,10615,341
+352,MAPC Region,2017,311,Food Manufacturing,311,10734,340
+352,MAPC Region,2018,311,Food Manufacturing,311,10614,329
+352,MAPC Region,2001,312,Beverage & Tobacco Product Manufacturing,312,267,5
+352,MAPC Region,2002,312,Beverage & Tobacco Product Manufacturing,312,210,3
+352,MAPC Region,2013,312,Beverage & Tobacco Product Manufacturing,312,88,6
+352,MAPC Region,2014,312,Beverage & Tobacco Product Manufacturing,312,95,6
+352,MAPC Region,2015,312,Beverage & Tobacco Product Manufacturing,312,612,20
+352,MAPC Region,2016,312,Beverage & Tobacco Product Manufacturing,312,617,18
+352,MAPC Region,2017,312,Beverage & Tobacco Product Manufacturing,312,773,25
+352,MAPC Region,2018,312,Beverage & Tobacco Product Manufacturing,312,1166,27
+352,MAPC Region,2001,313,Textile Mills,313,327,19
+352,MAPC Region,2002,313,Textile Mills,313,228,16
+352,MAPC Region,2003,313,Textile Mills,313,119,9
+352,MAPC Region,2004,313,Textile Mills,313,127,7
+352,MAPC Region,2005,313,Textile Mills,313,127,10
+352,MAPC Region,2006,313,Textile Mills,313,93,6
+352,MAPC Region,2001,314,Textile Product Mills,314,587,33
+352,MAPC Region,2002,314,Textile Product Mills,314,490,35
+352,MAPC Region,2003,314,Textile Product Mills,314,359,33
+352,MAPC Region,2004,314,Textile Product Mills,314,204,28
+352,MAPC Region,2005,314,Textile Product Mills,314,196,26
+352,MAPC Region,2006,314,Textile Product Mills,314,160,23
+352,MAPC Region,2007,314,Textile Product Mills,314,238,24
+352,MAPC Region,2008,314,Textile Product Mills,314,237,24
+352,MAPC Region,2009,314,Textile Product Mills,314,219,23
+352,MAPC Region,2010,314,Textile Product Mills,314,208,20
+352,MAPC Region,2011,314,Textile Product Mills,314,122,13
+352,MAPC Region,2012,314,Textile Product Mills,314,168,17
+352,MAPC Region,2013,314,Textile Product Mills,314,192,19
+352,MAPC Region,2014,314,Textile Product Mills,314,127,14
+352,MAPC Region,2015,314,Textile Product Mills,314,143,21
+352,MAPC Region,2016,314,Textile Product Mills,314,195,28
+352,MAPC Region,2017,314,Textile Product Mills,314,144,21
+352,MAPC Region,2018,314,Textile Product Mills,314,193,24
+352,MAPC Region,2001,315,Apparel Manufacturing,315,1310,34
+352,MAPC Region,2002,315,Apparel Manufacturing,315,981,40
+352,MAPC Region,2003,315,Apparel Manufacturing,315,810,26
+352,MAPC Region,2004,315,Apparel Manufacturing,315,881,23
+352,MAPC Region,2005,315,Apparel Manufacturing,315,769,19
+352,MAPC Region,2006,315,Apparel Manufacturing,315,696,16
+352,MAPC Region,2007,315,Apparel Manufacturing,315,725,15
+352,MAPC Region,2008,315,Apparel Manufacturing,315,761,15
+352,MAPC Region,2009,315,Apparel Manufacturing,315,626,15
+352,MAPC Region,2010,315,Apparel Manufacturing,315,612,14
+352,MAPC Region,2011,315,Apparel Manufacturing,315,536,12
+352,MAPC Region,2012,315,Apparel Manufacturing,315,381,8
+352,MAPC Region,2013,315,Apparel Manufacturing,315,295,5
+352,MAPC Region,2014,315,Apparel Manufacturing,315,382,8
+352,MAPC Region,2015,315,Apparel Manufacturing,315,493,10
+352,MAPC Region,2016,315,Apparel Manufacturing,315,419,9
+352,MAPC Region,2017,315,Apparel Manufacturing,315,352,8
+352,MAPC Region,2018,315,Apparel Manufacturing,315,249,7
+352,MAPC Region,2001,316,Leather and Allied Product Manufacturing,316,360,15
+352,MAPC Region,2002,316,Leather and Allied Product Manufacturing,316,304,11
+352,MAPC Region,2003,316,Leather and Allied Product Manufacturing,316,285,11
+352,MAPC Region,2004,316,Leather and Allied Product Manufacturing,316,312,9
+352,MAPC Region,2005,316,Leather and Allied Product Manufacturing,316,300,8
+352,MAPC Region,2006,316,Leather and Allied Product Manufacturing,316,189,7
+352,MAPC Region,2007,316,Leather and Allied Product Manufacturing,316,66,6
+352,MAPC Region,2008,316,Leather and Allied Product Manufacturing,316,91,9
+352,MAPC Region,2009,316,Leather and Allied Product Manufacturing,316,85,6
+352,MAPC Region,2011,316,Leather and Allied Product Manufacturing,316,62,3
+352,MAPC Region,2012,316,Leather and Allied Product Manufacturing,316,65,3
+352,MAPC Region,2013,316,Leather and Allied Product Manufacturing,316,62,3
+352,MAPC Region,2014,316,Leather and Allied Product Manufacturing,316,59,3
+352,MAPC Region,2015,316,Leather and Allied Product Manufacturing,316,57,3
+352,MAPC Region,2001,321,Wood Product Manufacturing,321,543,39
+352,MAPC Region,2002,321,Wood Product Manufacturing,321,552,34
+352,MAPC Region,2003,321,Wood Product Manufacturing,321,508,31
+352,MAPC Region,2004,321,Wood Product Manufacturing,321,534,27
+352,MAPC Region,2005,321,Wood Product Manufacturing,321,475,19
+352,MAPC Region,2006,321,Wood Product Manufacturing,321,505,20
+352,MAPC Region,2007,321,Wood Product Manufacturing,321,290,8
+352,MAPC Region,2008,321,Wood Product Manufacturing,321,201,8
+352,MAPC Region,2009,321,Wood Product Manufacturing,321,24,5
+352,MAPC Region,2010,321,Wood Product Manufacturing,321,26,5
+352,MAPC Region,2011,321,Wood Product Manufacturing,321,29,5
+352,MAPC Region,2012,321,Wood Product Manufacturing,321,30,3
+352,MAPC Region,2013,321,Wood Product Manufacturing,321,26,3
+352,MAPC Region,2014,321,Wood Product Manufacturing,321,99,8
+352,MAPC Region,2015,321,Wood Product Manufacturing,321,110,9
+352,MAPC Region,2016,321,Wood Product Manufacturing,321,156,11
+352,MAPC Region,2017,321,Wood Product Manufacturing,321,86,4
+352,MAPC Region,2018,321,Wood Product Manufacturing,321,79,4
+352,MAPC Region,2001,322,Paper Manufacturing,322,1089,26
+352,MAPC Region,2002,322,Paper Manufacturing,322,781,20
+352,MAPC Region,2003,322,Paper Manufacturing,322,1021,24
+352,MAPC Region,2004,322,Paper Manufacturing,322,1340,24
+352,MAPC Region,2005,322,Paper Manufacturing,322,1093,21
+352,MAPC Region,2006,322,Paper Manufacturing,322,993,20
+352,MAPC Region,2007,322,Paper Manufacturing,322,866,20
+352,MAPC Region,2008,322,Paper Manufacturing,322,675,17
+352,MAPC Region,2009,322,Paper Manufacturing,322,679,17
+352,MAPC Region,2010,322,Paper Manufacturing,322,378,12
+352,MAPC Region,2011,322,Paper Manufacturing,322,717,16
+352,MAPC Region,2012,322,Paper Manufacturing,322,684,16
+352,MAPC Region,2013,322,Paper Manufacturing,322,647,17
+352,MAPC Region,2014,322,Paper Manufacturing,322,619,17
+352,MAPC Region,2015,322,Paper Manufacturing,322,646,17
+352,MAPC Region,2016,322,Paper Manufacturing,322,650,17
+352,MAPC Region,2017,322,Paper Manufacturing,322,629,14
+352,MAPC Region,2018,322,Paper Manufacturing,322,565,11
+352,MAPC Region,2001,323,Printing and Related Support Activities,323,8881,547
+352,MAPC Region,2002,323,Printing and Related Support Activities,323,7720,528
+352,MAPC Region,2003,323,Printing and Related Support Activities,323,6929,507
+352,MAPC Region,2004,323,Printing and Related Support Activities,323,6754,505
+352,MAPC Region,2005,323,Printing and Related Support Activities,323,6559,465
+352,MAPC Region,2006,323,Printing and Related Support Activities,323,6432,461
+352,MAPC Region,2007,323,Printing and Related Support Activities,323,6019,429
+352,MAPC Region,2008,323,Printing and Related Support Activities,323,5731,408
+352,MAPC Region,2009,323,Printing and Related Support Activities,323,4601,397
+352,MAPC Region,2010,323,Printing and Related Support Activities,323,4405,372
+352,MAPC Region,2011,323,Printing and Related Support Activities,323,4213,356
+352,MAPC Region,2012,323,Printing and Related Support Activities,323,3738,314
+352,MAPC Region,2013,323,Printing and Related Support Activities,323,3541,296
+352,MAPC Region,2014,323,Printing and Related Support Activities,323,3370,288
+352,MAPC Region,2015,323,Printing and Related Support Activities,323,3230,259
+352,MAPC Region,2016,323,Printing and Related Support Activities,323,3209,246
+352,MAPC Region,2017,323,Printing and Related Support Activities,323,3185,242
+352,MAPC Region,2018,323,Printing and Related Support Activities,323,2986,222
+352,MAPC Region,2004,324,Petroleum & Coal Products Manufacturing,324,190,3
+352,MAPC Region,2005,324,Petroleum & Coal Products Manufacturing,324,204,3
+352,MAPC Region,2001,325,Chemical Manufacturing,325,6263,109
+352,MAPC Region,2002,325,Chemical Manufacturing,325,7301,123
+352,MAPC Region,2003,325,Chemical Manufacturing,325,7245,110
+352,MAPC Region,2004,325,Chemical Manufacturing,325,6069,111
+352,MAPC Region,2005,325,Chemical Manufacturing,325,7081,116
+352,MAPC Region,2006,325,Chemical Manufacturing,325,6836,119
+352,MAPC Region,2007,325,Chemical Manufacturing,325,7121,129
+352,MAPC Region,2008,325,Chemical Manufacturing,325,7528,120
+352,MAPC Region,2009,325,Chemical Manufacturing,325,7112,104
+352,MAPC Region,2010,325,Chemical Manufacturing,325,6165,106
+352,MAPC Region,2011,325,Chemical Manufacturing,325,5603,95
+352,MAPC Region,2012,325,Chemical Manufacturing,325,5693,101
+352,MAPC Region,2013,325,Chemical Manufacturing,325,5540,91
+352,MAPC Region,2014,325,Chemical Manufacturing,325,6352,96
+352,MAPC Region,2015,325,Chemical Manufacturing,325,8552,105
+352,MAPC Region,2016,325,Chemical Manufacturing,325,8256,108
+352,MAPC Region,2017,325,Chemical Manufacturing,325,8214,114
+352,MAPC Region,2018,325,Chemical Manufacturing,325,7873,106
+352,MAPC Region,2001,326,Plastics & Rubber Products Manufacturing,326,2464,69
+352,MAPC Region,2002,326,Plastics & Rubber Products Manufacturing,326,1892,62
+352,MAPC Region,2003,326,Plastics & Rubber Products Manufacturing,326,1385,45
+352,MAPC Region,2004,326,Plastics & Rubber Products Manufacturing,326,1444,46
+352,MAPC Region,2005,326,Plastics & Rubber Products Manufacturing,326,1268,32
+352,MAPC Region,2006,326,Plastics & Rubber Products Manufacturing,326,821,27
+352,MAPC Region,2007,326,Plastics & Rubber Products Manufacturing,326,668,24
+352,MAPC Region,2008,326,Plastics & Rubber Products Manufacturing,326,684,23
+352,MAPC Region,2009,326,Plastics & Rubber Products Manufacturing,326,792,30
+352,MAPC Region,2010,326,Plastics & Rubber Products Manufacturing,326,778,28
+352,MAPC Region,2011,326,Plastics & Rubber Products Manufacturing,326,898,32
+352,MAPC Region,2012,326,Plastics & Rubber Products Manufacturing,326,888,29
+352,MAPC Region,2013,326,Plastics & Rubber Products Manufacturing,326,1019,32
+352,MAPC Region,2014,326,Plastics & Rubber Products Manufacturing,326,927,29
+352,MAPC Region,2015,326,Plastics & Rubber Products Manufacturing,326,939,32
+352,MAPC Region,2016,326,Plastics & Rubber Products Manufacturing,326,659,25
+352,MAPC Region,2017,326,Plastics & Rubber Products Manufacturing,326,611,21
+352,MAPC Region,2018,326,Plastics & Rubber Products Manufacturing,326,572,20
+352,MAPC Region,2001,327,Nonmetallic Mineral Product Mfg,327,171,15
+352,MAPC Region,2002,327,Nonmetallic Mineral Product Mfg,327,110,10
+352,MAPC Region,2003,327,Nonmetallic Mineral Product Mfg,327,283,17
+352,MAPC Region,2004,327,Nonmetallic Mineral Product Mfg,327,269,19
+352,MAPC Region,2005,327,Nonmetallic Mineral Product Mfg,327,401,30
+352,MAPC Region,2006,327,Nonmetallic Mineral Product Mfg,327,366,34
+352,MAPC Region,2007,327,Nonmetallic Mineral Product Mfg,327,346,31
+352,MAPC Region,2008,327,Nonmetallic Mineral Product Mfg,327,403,29
+352,MAPC Region,2009,327,Nonmetallic Mineral Product Mfg,327,291,24
+352,MAPC Region,2010,327,Nonmetallic Mineral Product Mfg,327,245,20
+352,MAPC Region,2011,327,Nonmetallic Mineral Product Mfg,327,303,22
+352,MAPC Region,2012,327,Nonmetallic Mineral Product Mfg,327,305,22
+352,MAPC Region,2013,327,Nonmetallic Mineral Product Mfg,327,323,23
+352,MAPC Region,2014,327,Nonmetallic Mineral Product Mfg,327,331,27
+352,MAPC Region,2015,327,Nonmetallic Mineral Product Mfg,327,344,33
+352,MAPC Region,2016,327,Nonmetallic Mineral Product Mfg,327,329,24
+352,MAPC Region,2017,327,Nonmetallic Mineral Product Mfg,327,440,37
+352,MAPC Region,2018,327,Nonmetallic Mineral Product Mfg,327,376,34
+352,MAPC Region,2010,331,Primary Metal Manufacturing,331,105,3
+352,MAPC Region,2001,332,Fabricated Metal Product Manufacturing,332,11347,585
+352,MAPC Region,2002,332,Fabricated Metal Product Manufacturing,332,10080,564
+352,MAPC Region,2003,332,Fabricated Metal Product Manufacturing,332,9537,546
+352,MAPC Region,2004,332,Fabricated Metal Product Manufacturing,332,9795,542
+352,MAPC Region,2005,332,Fabricated Metal Product Manufacturing,332,9490,497
+352,MAPC Region,2006,332,Fabricated Metal Product Manufacturing,332,9300,473
+352,MAPC Region,2007,332,Fabricated Metal Product Manufacturing,332,9227,468
+352,MAPC Region,2008,332,Fabricated Metal Product Manufacturing,332,9046,458
+352,MAPC Region,2009,332,Fabricated Metal Product Manufacturing,332,7629,445
+352,MAPC Region,2010,332,Fabricated Metal Product Manufacturing,332,7626,436
+352,MAPC Region,2011,332,Fabricated Metal Product Manufacturing,332,7924,416
+352,MAPC Region,2012,332,Fabricated Metal Product Manufacturing,332,8004,408
+352,MAPC Region,2013,332,Fabricated Metal Product Manufacturing,332,7736,392
+352,MAPC Region,2014,332,Fabricated Metal Product Manufacturing,332,9642,417
+352,MAPC Region,2015,332,Fabricated Metal Product Manufacturing,332,7534,369
+352,MAPC Region,2016,332,Fabricated Metal Product Manufacturing,332,7623,367
+352,MAPC Region,2017,332,Fabricated Metal Product Manufacturing,332,7862,362
+352,MAPC Region,2018,332,Fabricated Metal Product Manufacturing,332,8407,360
+352,MAPC Region,2001,333,Machinery Manufacturing,333,6028,142
+352,MAPC Region,2002,333,Machinery Manufacturing,333,4569,103
+352,MAPC Region,2003,333,Machinery Manufacturing,333,4910,135
+352,MAPC Region,2004,333,Machinery Manufacturing,333,5332,125
+352,MAPC Region,2005,333,Machinery Manufacturing,333,6086,122
+352,MAPC Region,2006,333,Machinery Manufacturing,333,5476,105
+352,MAPC Region,2007,333,Machinery Manufacturing,333,6368,119
+352,MAPC Region,2008,333,Machinery Manufacturing,333,5739,125
+352,MAPC Region,2009,333,Machinery Manufacturing,333,4280,109
+352,MAPC Region,2010,333,Machinery Manufacturing,333,3546,97
+352,MAPC Region,2011,333,Machinery Manufacturing,333,2714,97
+352,MAPC Region,2012,333,Machinery Manufacturing,333,2311,101
+352,MAPC Region,2013,333,Machinery Manufacturing,333,2293,90
+352,MAPC Region,2014,333,Machinery Manufacturing,333,2423,96
+352,MAPC Region,2015,333,Machinery Manufacturing,333,2496,94
+352,MAPC Region,2016,333,Machinery Manufacturing,333,2277,84
+352,MAPC Region,2017,333,Machinery Manufacturing,333,2463,83
+352,MAPC Region,2018,333,Machinery Manufacturing,333,2663,85
+352,MAPC Region,2001,334,Computer and Electronic Product Mfg,334,46280,464
+352,MAPC Region,2002,334,Computer and Electronic Product Mfg,334,33895,388
+352,MAPC Region,2003,334,Computer and Electronic Product Mfg,334,34283,411
+352,MAPC Region,2004,334,Computer and Electronic Product Mfg,334,32673,392
+352,MAPC Region,2005,334,Computer and Electronic Product Mfg,334,30002,369
+352,MAPC Region,2006,334,Computer and Electronic Product Mfg,334,28235,361
+352,MAPC Region,2007,334,Computer and Electronic Product Mfg,334,28150,357
+352,MAPC Region,2008,334,Computer and Electronic Product Mfg,334,28613,354
+352,MAPC Region,2009,334,Computer and Electronic Product Mfg,334,24373,330
+352,MAPC Region,2010,334,Computer and Electronic Product Mfg,334,22826,307
+352,MAPC Region,2011,334,Computer and Electronic Product Mfg,334,22320,293
+352,MAPC Region,2012,334,Computer and Electronic Product Mfg,334,22155,290
+352,MAPC Region,2013,334,Computer and Electronic Product Mfg,334,22727,285
+352,MAPC Region,2014,334,Computer and Electronic Product Mfg,334,23510,292
+352,MAPC Region,2015,334,Computer and Electronic Product Mfg,334,21426,273
+352,MAPC Region,2016,334,Computer and Electronic Product Mfg,334,21326,269
+352,MAPC Region,2017,334,Computer and Electronic Product Mfg,334,18997,249
+352,MAPC Region,2018,334,Computer and Electronic Product Mfg,334,19549,257
+352,MAPC Region,2001,335,Electrical Equipment and Appliances,335,2714,45
+352,MAPC Region,2002,335,Electrical Equipment and Appliances,335,2242,47
+352,MAPC Region,2003,335,Electrical Equipment and Appliances,335,1614,42
+352,MAPC Region,2004,335,Electrical Equipment and Appliances,335,1480,40
+352,MAPC Region,2005,335,Electrical Equipment and Appliances,335,1914,41
+352,MAPC Region,2006,335,Electrical Equipment and Appliances,335,2065,38
+352,MAPC Region,2007,335,Electrical Equipment and Appliances,335,1790,40
+352,MAPC Region,2008,335,Electrical Equipment and Appliances,335,1837,39
+352,MAPC Region,2009,335,Electrical Equipment and Appliances,335,1244,34
+352,MAPC Region,2010,335,Electrical Equipment and Appliances,335,1207,37
+352,MAPC Region,2011,335,Electrical Equipment and Appliances,335,821,34
+352,MAPC Region,2012,335,Electrical Equipment and Appliances,335,1136,40
+352,MAPC Region,2013,335,Electrical Equipment and Appliances,335,878,35
+352,MAPC Region,2014,335,Electrical Equipment and Appliances,335,727,33
+352,MAPC Region,2015,335,Electrical Equipment and Appliances,335,891,32
+352,MAPC Region,2016,335,Electrical Equipment and Appliances,335,1237,41
+352,MAPC Region,2017,335,Electrical Equipment and Appliances,335,1282,37
+352,MAPC Region,2018,335,Electrical Equipment and Appliances,335,1228,35
+352,MAPC Region,2001,336,Transportation Equipment Manufacturing,336,1361,20
+352,MAPC Region,2002,336,Transportation Equipment Manufacturing,336,1275,18
+352,MAPC Region,2003,336,Transportation Equipment Manufacturing,336,1020,20
+352,MAPC Region,2004,336,Transportation Equipment Manufacturing,336,948,16
+352,MAPC Region,2005,336,Transportation Equipment Manufacturing,336,906,14
+352,MAPC Region,2006,336,Transportation Equipment Manufacturing,336,875,13
+352,MAPC Region,2007,336,Transportation Equipment Manufacturing,336,855,15
+352,MAPC Region,2008,336,Transportation Equipment Manufacturing,336,809,12
+352,MAPC Region,2009,336,Transportation Equipment Manufacturing,336,443,10
+352,MAPC Region,2010,336,Transportation Equipment Manufacturing,336,438,10
+352,MAPC Region,2011,336,Transportation Equipment Manufacturing,336,787,16
+352,MAPC Region,2012,336,Transportation Equipment Manufacturing,336,272,9
+352,MAPC Region,2013,336,Transportation Equipment Manufacturing,336,401,10
+352,MAPC Region,2014,336,Transportation Equipment Manufacturing,336,540,13
+352,MAPC Region,2015,336,Transportation Equipment Manufacturing,336,414,10
+352,MAPC Region,2016,336,Transportation Equipment Manufacturing,336,386,15
+352,MAPC Region,2017,336,Transportation Equipment Manufacturing,336,249,9
+352,MAPC Region,2018,336,Transportation Equipment Manufacturing,336,115,6
+352,MAPC Region,2001,337,Furniture and Related Product Mfg,337,1412,149
+352,MAPC Region,2002,337,Furniture and Related Product Mfg,337,1355,143
+352,MAPC Region,2003,337,Furniture and Related Product Mfg,337,1144,128
+352,MAPC Region,2004,337,Furniture and Related Product Mfg,337,951,105
+352,MAPC Region,2005,337,Furniture and Related Product Mfg,337,1097,107
+352,MAPC Region,2006,337,Furniture and Related Product Mfg,337,807,84
+352,MAPC Region,2007,337,Furniture and Related Product Mfg,337,897,82
+352,MAPC Region,2008,337,Furniture and Related Product Mfg,337,732,73
+352,MAPC Region,2009,337,Furniture and Related Product Mfg,337,571,62
+352,MAPC Region,2010,337,Furniture and Related Product Mfg,337,486,57
+352,MAPC Region,2011,337,Furniture and Related Product Mfg,337,488,49
+352,MAPC Region,2012,337,Furniture and Related Product Mfg,337,499,45
+352,MAPC Region,2013,337,Furniture and Related Product Mfg,337,523,48
+352,MAPC Region,2014,337,Furniture and Related Product Mfg,337,497,45
+352,MAPC Region,2015,337,Furniture and Related Product Mfg,337,501,46
+352,MAPC Region,2016,337,Furniture and Related Product Mfg,337,482,43
+352,MAPC Region,2017,337,Furniture and Related Product Mfg,337,550,51
+352,MAPC Region,2018,337,Furniture and Related Product Mfg,337,557,44
+352,MAPC Region,2001,339,Miscellaneous Manufacturing,339,5947,233
+352,MAPC Region,2002,339,Miscellaneous Manufacturing,339,5075,224
+352,MAPC Region,2003,339,Miscellaneous Manufacturing,339,6006,253
+352,MAPC Region,2004,339,Miscellaneous Manufacturing,339,5652,253
+352,MAPC Region,2005,339,Miscellaneous Manufacturing,339,4840,246
+352,MAPC Region,2006,339,Miscellaneous Manufacturing,339,4296,214
+352,MAPC Region,2007,339,Miscellaneous Manufacturing,339,4087,190
+352,MAPC Region,2008,339,Miscellaneous Manufacturing,339,4016,189
+352,MAPC Region,2009,339,Miscellaneous Manufacturing,339,3868,194
+352,MAPC Region,2010,339,Miscellaneous Manufacturing,339,4172,195
+352,MAPC Region,2011,339,Miscellaneous Manufacturing,339,3979,202
+352,MAPC Region,2012,339,Miscellaneous Manufacturing,339,4143,196
+352,MAPC Region,2013,339,Miscellaneous Manufacturing,339,3411,178
+352,MAPC Region,2014,339,Miscellaneous Manufacturing,339,3508,190
+352,MAPC Region,2015,339,Miscellaneous Manufacturing,339,3614,176
+352,MAPC Region,2016,339,Miscellaneous Manufacturing,339,3914,188
+352,MAPC Region,2017,339,Miscellaneous Manufacturing,339,4254,186
+352,MAPC Region,2018,339,Miscellaneous Manufacturing,339,4029,186
+352,MAPC Region,2001,423,"Merchant Wholesalers, Durable Goods",423,42985,2590
+352,MAPC Region,2002,423,"Merchant Wholesalers, Durable Goods",423,40340,2594
+352,MAPC Region,2003,423,"Merchant Wholesalers, Durable Goods",423,39350,2527
+352,MAPC Region,2004,423,"Merchant Wholesalers, Durable Goods",423,36753,2401
+352,MAPC Region,2005,423,"Merchant Wholesalers, Durable Goods",423,36516,2268
+352,MAPC Region,2006,423,"Merchant Wholesalers, Durable Goods",423,38386,2273
+352,MAPC Region,2007,423,"Merchant Wholesalers, Durable Goods",423,38172,2285
+352,MAPC Region,2008,423,"Merchant Wholesalers, Durable Goods",423,36788,2236
+352,MAPC Region,2009,423,"Merchant Wholesalers, Durable Goods",423,33597,2138
+352,MAPC Region,2010,423,"Merchant Wholesalers, Durable Goods",423,30582,2108
+352,MAPC Region,2011,423,"Merchant Wholesalers, Durable Goods",423,30138,2075
+352,MAPC Region,2012,423,"Merchant Wholesalers, Durable Goods",423,29449,2044
+352,MAPC Region,2013,423,"Merchant Wholesalers, Durable Goods",423,29400,1991
+352,MAPC Region,2014,423,"Merchant Wholesalers, Durable Goods",423,29991,2049
+352,MAPC Region,2015,423,"Merchant Wholesalers, Durable Goods",423,31100,2024
+352,MAPC Region,2016,423,"Merchant Wholesalers, Durable Goods",423,31714,2061
+352,MAPC Region,2017,423,"Merchant Wholesalers, Durable Goods",423,32123,2110
+352,MAPC Region,2018,423,"Merchant Wholesalers, Durable Goods",423,34110,2502
+352,MAPC Region,2001,424,"Merchant Wholesalers, Nondurable Goods",424,21305,1141
+352,MAPC Region,2002,424,"Merchant Wholesalers, Nondurable Goods",424,20751,1119
+352,MAPC Region,2003,424,"Merchant Wholesalers, Nondurable Goods",424,19790,1126
+352,MAPC Region,2004,424,"Merchant Wholesalers, Nondurable Goods",424,19793,1142
+352,MAPC Region,2005,424,"Merchant Wholesalers, Nondurable Goods",424,20796,1093
+352,MAPC Region,2006,424,"Merchant Wholesalers, Nondurable Goods",424,21944,1047
+352,MAPC Region,2007,424,"Merchant Wholesalers, Nondurable Goods",424,22258,1044
+352,MAPC Region,2008,424,"Merchant Wholesalers, Nondurable Goods",424,22344,1047
+352,MAPC Region,2009,424,"Merchant Wholesalers, Nondurable Goods",424,19332,998
+352,MAPC Region,2010,424,"Merchant Wholesalers, Nondurable Goods",424,18581,1031
+352,MAPC Region,2011,424,"Merchant Wholesalers, Nondurable Goods",424,19298,1027
+352,MAPC Region,2012,424,"Merchant Wholesalers, Nondurable Goods",424,19352,1022
+352,MAPC Region,2013,424,"Merchant Wholesalers, Nondurable Goods",424,20058,1034
+352,MAPC Region,2014,424,"Merchant Wholesalers, Nondurable Goods",424,20368,1051
+352,MAPC Region,2015,424,"Merchant Wholesalers, Nondurable Goods",424,20345,1018
+352,MAPC Region,2016,424,"Merchant Wholesalers, Nondurable Goods",424,21563,1053
+352,MAPC Region,2017,424,"Merchant Wholesalers, Nondurable Goods",424,21555,1072
+352,MAPC Region,2018,424,"Merchant Wholesalers, Nondurable Goods",424,19038,1226
+352,MAPC Region,2001,425,Electronic Markets and Agents/Brokers,425,11485,2366
+352,MAPC Region,2002,425,Electronic Markets and Agents/Brokers,425,10770,2449
+352,MAPC Region,2003,425,Electronic Markets and Agents/Brokers,425,10818,2553
+352,MAPC Region,2004,425,Electronic Markets and Agents/Brokers,425,10970,2733
+352,MAPC Region,2005,425,Electronic Markets and Agents/Brokers,425,9089,2661
+352,MAPC Region,2006,425,Electronic Markets and Agents/Brokers,425,10056,2639
+352,MAPC Region,2007,425,Electronic Markets and Agents/Brokers,425,10300,2603
+352,MAPC Region,2008,425,Electronic Markets and Agents/Brokers,425,10629,2561
+352,MAPC Region,2009,425,Electronic Markets and Agents/Brokers,425,10314,2494
+352,MAPC Region,2010,425,Electronic Markets and Agents/Brokers,425,10271,2506
+352,MAPC Region,2011,425,Electronic Markets and Agents/Brokers,425,10903,2532
+352,MAPC Region,2012,425,Electronic Markets and Agents/Brokers,425,11011,2285
+352,MAPC Region,2013,425,Electronic Markets and Agents/Brokers,425,11132,2186
+352,MAPC Region,2014,425,Electronic Markets and Agents/Brokers,425,11042,2280
+352,MAPC Region,2015,425,Electronic Markets and Agents/Brokers,425,10621,2307
+352,MAPC Region,2016,425,Electronic Markets and Agents/Brokers,425,10532,2317
+352,MAPC Region,2017,425,Electronic Markets and Agents/Brokers,425,10365,2223
+352,MAPC Region,2018,425,Electronic Markets and Agents/Brokers,425,6706,1497
+352,MAPC Region,2001,441,Motor Vehicle and Parts Dealers,441,16544,790
+352,MAPC Region,2002,441,Motor Vehicle and Parts Dealers,441,16643,764
+352,MAPC Region,2003,441,Motor Vehicle and Parts Dealers,441,16934,786
+352,MAPC Region,2004,441,Motor Vehicle and Parts Dealers,441,17070,787
+352,MAPC Region,2005,441,Motor Vehicle and Parts Dealers,441,17129,795
+352,MAPC Region,2006,441,Motor Vehicle and Parts Dealers,441,16198,769
+352,MAPC Region,2007,441,Motor Vehicle and Parts Dealers,441,15637,761
+352,MAPC Region,2008,441,Motor Vehicle and Parts Dealers,441,15225,739
+352,MAPC Region,2009,441,Motor Vehicle and Parts Dealers,441,13914,701
+352,MAPC Region,2010,441,Motor Vehicle and Parts Dealers,441,14307,719
+352,MAPC Region,2011,441,Motor Vehicle and Parts Dealers,441,14649,710
+352,MAPC Region,2012,441,Motor Vehicle and Parts Dealers,441,14661,694
+352,MAPC Region,2013,441,Motor Vehicle and Parts Dealers,441,14995,690
+352,MAPC Region,2014,441,Motor Vehicle and Parts Dealers,441,15570,719
+352,MAPC Region,2015,441,Motor Vehicle and Parts Dealers,441,16030,733
+352,MAPC Region,2016,441,Motor Vehicle and Parts Dealers,441,16153,719
+352,MAPC Region,2017,441,Motor Vehicle and Parts Dealers,441,16540,717
+352,MAPC Region,2018,441,Motor Vehicle and Parts Dealers,441,16193,708
+352,MAPC Region,2001,442,Furniture and Home Furnishings Stores,442,7210,637
+352,MAPC Region,2002,442,Furniture and Home Furnishings Stores,442,7237,638
+352,MAPC Region,2003,442,Furniture and Home Furnishings Stores,442,6794,668
+352,MAPC Region,2004,442,Furniture and Home Furnishings Stores,442,6925,677
+352,MAPC Region,2005,442,Furniture and Home Furnishings Stores,442,6963,650
+352,MAPC Region,2006,442,Furniture and Home Furnishings Stores,442,6876,643
+352,MAPC Region,2007,442,Furniture and Home Furnishings Stores,442,6334,640
+352,MAPC Region,2008,442,Furniture and Home Furnishings Stores,442,6523,605
+352,MAPC Region,2009,442,Furniture and Home Furnishings Stores,442,5252,529
+352,MAPC Region,2010,442,Furniture and Home Furnishings Stores,442,5312,541
+352,MAPC Region,2011,442,Furniture and Home Furnishings Stores,442,5484,566
+352,MAPC Region,2012,442,Furniture and Home Furnishings Stores,442,5436,550
+352,MAPC Region,2013,442,Furniture and Home Furnishings Stores,442,5487,512
+352,MAPC Region,2014,442,Furniture and Home Furnishings Stores,442,5540,528
+352,MAPC Region,2015,442,Furniture and Home Furnishings Stores,442,5449,513
+352,MAPC Region,2016,442,Furniture and Home Furnishings Stores,442,4942,494
+352,MAPC Region,2017,442,Furniture and Home Furnishings Stores,442,5005,492
+352,MAPC Region,2018,442,Furniture and Home Furnishings Stores,442,5092,465
+352,MAPC Region,2001,443,Electronics and Appliance Stores,443,7384,616
+352,MAPC Region,2002,443,Electronics and Appliance Stores,443,6783,576
+352,MAPC Region,2003,443,Electronics and Appliance Stores,443,6710,582
+352,MAPC Region,2004,443,Electronics and Appliance Stores,443,6743,623
+352,MAPC Region,2005,443,Electronics and Appliance Stores,443,7076,586
+352,MAPC Region,2006,443,Electronics and Appliance Stores,443,7264,536
+352,MAPC Region,2007,443,Electronics and Appliance Stores,443,6880,522
+352,MAPC Region,2008,443,Electronics and Appliance Stores,443,6502,459
+352,MAPC Region,2009,443,Electronics and Appliance Stores,443,4678,350
+352,MAPC Region,2010,443,Electronics and Appliance Stores,443,4856,401
+352,MAPC Region,2011,443,Electronics and Appliance Stores,443,5231,460
+352,MAPC Region,2012,443,Electronics and Appliance Stores,443,5038,423
+352,MAPC Region,2013,443,Electronics and Appliance Stores,443,4623,353
+352,MAPC Region,2014,443,Electronics and Appliance Stores,443,4420,340
+352,MAPC Region,2015,443,Electronics and Appliance Stores,443,4430,308
+352,MAPC Region,2016,443,Electronics and Appliance Stores,443,4333,283
+352,MAPC Region,2017,443,Electronics and Appliance Stores,443,4077,243
+352,MAPC Region,2018,443,Electronics and Appliance Stores,443,4083,229
+352,MAPC Region,2001,444,Building Material & Garden Supply Stores,444,9555,596
+352,MAPC Region,2002,444,Building Material & Garden Supply Stores,444,9717,583
+352,MAPC Region,2003,444,Building Material & Garden Supply Stores,444,8959,546
+352,MAPC Region,2004,444,Building Material & Garden Supply Stores,444,9729,560
+352,MAPC Region,2005,444,Building Material & Garden Supply Stores,444,10100,566
+352,MAPC Region,2006,444,Building Material & Garden Supply Stores,444,9982,552
+352,MAPC Region,2007,444,Building Material & Garden Supply Stores,444,9343,559
+352,MAPC Region,2008,444,Building Material & Garden Supply Stores,444,8930,545
+352,MAPC Region,2009,444,Building Material & Garden Supply Stores,444,8193,539
+352,MAPC Region,2010,444,Building Material & Garden Supply Stores,444,7984,549
+352,MAPC Region,2011,444,Building Material & Garden Supply Stores,444,8454,547
+352,MAPC Region,2012,444,Building Material & Garden Supply Stores,444,8473,527
+352,MAPC Region,2013,444,Building Material & Garden Supply Stores,444,8478,522
+352,MAPC Region,2014,444,Building Material & Garden Supply Stores,444,8918,529
+352,MAPC Region,2015,444,Building Material & Garden Supply Stores,444,8984,545
+352,MAPC Region,2016,444,Building Material & Garden Supply Stores,444,9280,544
+352,MAPC Region,2017,444,Building Material & Garden Supply Stores,444,8910,515
+352,MAPC Region,2018,444,Building Material & Garden Supply Stores,444,9151,509
+352,MAPC Region,2001,445,Food and Beverage Stores,445,41207,1972
+352,MAPC Region,2002,445,Food and Beverage Stores,445,40243,2004
+352,MAPC Region,2003,445,Food and Beverage Stores,445,41667,2117
+352,MAPC Region,2004,445,Food and Beverage Stores,445,40641,2135
+352,MAPC Region,2005,445,Food and Beverage Stores,445,40653,2147
+352,MAPC Region,2006,445,Food and Beverage Stores,445,40842,2166
+352,MAPC Region,2007,445,Food and Beverage Stores,445,41089,2157
+352,MAPC Region,2008,445,Food and Beverage Stores,445,42816,2178
+352,MAPC Region,2009,445,Food and Beverage Stores,445,43730,2197
+352,MAPC Region,2010,445,Food and Beverage Stores,445,44255,2279
+352,MAPC Region,2011,445,Food and Beverage Stores,445,45379,2333
+352,MAPC Region,2012,445,Food and Beverage Stores,445,45000,2256
+352,MAPC Region,2013,445,Food and Beverage Stores,445,45588,2301
+352,MAPC Region,2014,445,Food and Beverage Stores,445,46689,2411
+352,MAPC Region,2015,445,Food and Beverage Stores,445,48881,2454
+352,MAPC Region,2016,445,Food and Beverage Stores,445,48793,2511
+352,MAPC Region,2017,445,Food and Beverage Stores,445,48343,2480
+352,MAPC Region,2018,445,Food and Beverage Stores,445,48164,2441
+352,MAPC Region,2001,446,Health and Personal Care Stores,446,13322,804
+352,MAPC Region,2002,446,Health and Personal Care Stores,446,13334,815
+352,MAPC Region,2003,446,Health and Personal Care Stores,446,12806,793
+352,MAPC Region,2004,446,Health and Personal Care Stores,446,12839,821
+352,MAPC Region,2005,446,Health and Personal Care Stores,446,13072,815
+352,MAPC Region,2006,446,Health and Personal Care Stores,446,13125,818
+352,MAPC Region,2007,446,Health and Personal Care Stores,446,13349,822
+352,MAPC Region,2008,446,Health and Personal Care Stores,446,13459,951
+352,MAPC Region,2009,446,Health and Personal Care Stores,446,13106,973
+352,MAPC Region,2010,446,Health and Personal Care Stores,446,12988,1015
+352,MAPC Region,2011,446,Health and Personal Care Stores,446,12965,1022
+352,MAPC Region,2012,446,Health and Personal Care Stores,446,13166,1048
+352,MAPC Region,2013,446,Health and Personal Care Stores,446,14156,1241
+352,MAPC Region,2014,446,Health and Personal Care Stores,446,14174,1259
+352,MAPC Region,2015,446,Health and Personal Care Stores,446,13893,1230
+352,MAPC Region,2016,446,Health and Personal Care Stores,446,14029,1277
+352,MAPC Region,2017,446,Health and Personal Care Stores,446,14492,1283
+352,MAPC Region,2018,446,Health and Personal Care Stores,446,13883,1282
+352,MAPC Region,2001,447,Gasoline Stations,447,4597,854
+352,MAPC Region,2002,447,Gasoline Stations,447,4510,853
+352,MAPC Region,2003,447,Gasoline Stations,447,4381,864
+352,MAPC Region,2004,447,Gasoline Stations,447,4529,874
+352,MAPC Region,2005,447,Gasoline Stations,447,4400,825
+352,MAPC Region,2006,447,Gasoline Stations,447,4347,787
+352,MAPC Region,2007,447,Gasoline Stations,447,4336,798
+352,MAPC Region,2008,447,Gasoline Stations,447,4142,793
+352,MAPC Region,2009,447,Gasoline Stations,447,4147,781
+352,MAPC Region,2010,447,Gasoline Stations,447,4231,772
+352,MAPC Region,2011,447,Gasoline Stations,447,4211,767
+352,MAPC Region,2012,447,Gasoline Stations,447,4214,754
+352,MAPC Region,2013,447,Gasoline Stations,447,4283,737
+352,MAPC Region,2014,447,Gasoline Stations,447,4421,760
+352,MAPC Region,2015,447,Gasoline Stations,447,4482,756
+352,MAPC Region,2016,447,Gasoline Stations,447,4507,754
+352,MAPC Region,2017,447,Gasoline Stations,447,4572,751
+352,MAPC Region,2018,447,Gasoline Stations,447,4246,717
+352,MAPC Region,2001,448,Clothing and Clothing Accessories Stores,448,24192,1807
+352,MAPC Region,2002,448,Clothing and Clothing Accessories Stores,448,23970,1805
+352,MAPC Region,2003,448,Clothing and Clothing Accessories Stores,448,23427,1793
+352,MAPC Region,2004,448,Clothing and Clothing Accessories Stores,448,23659,1763
+352,MAPC Region,2005,448,Clothing and Clothing Accessories Stores,448,23972,1728
+352,MAPC Region,2006,448,Clothing and Clothing Accessories Stores,448,23520,1745
+352,MAPC Region,2007,448,Clothing and Clothing Accessories Stores,448,24365,1779
+352,MAPC Region,2008,448,Clothing and Clothing Accessories Stores,448,25630,1800
+352,MAPC Region,2009,448,Clothing and Clothing Accessories Stores,448,23713,1806
+352,MAPC Region,2010,448,Clothing and Clothing Accessories Stores,448,24535,1847
+352,MAPC Region,2011,448,Clothing and Clothing Accessories Stores,448,22023,1828
+352,MAPC Region,2012,448,Clothing and Clothing Accessories Stores,448,22348,1827
+352,MAPC Region,2013,448,Clothing and Clothing Accessories Stores,448,22125,1822
+352,MAPC Region,2014,448,Clothing and Clothing Accessories Stores,448,22131,1885
+352,MAPC Region,2015,448,Clothing and Clothing Accessories Stores,448,22014,1862
+352,MAPC Region,2016,448,Clothing and Clothing Accessories Stores,448,22490,1885
+352,MAPC Region,2017,448,Clothing and Clothing Accessories Stores,448,22750,1795
+352,MAPC Region,2018,448,Clothing and Clothing Accessories Stores,448,21401,1760
+352,MAPC Region,2001,451,Sporting Goods/Hobby/Book/Music Stores,451,10586,889
+352,MAPC Region,2002,451,Sporting Goods/Hobby/Book/Music Stores,451,10303,887
+352,MAPC Region,2003,451,Sporting Goods/Hobby/Book/Music Stores,451,9676,860
+352,MAPC Region,2004,451,Sporting Goods/Hobby/Book/Music Stores,451,9465,816
+352,MAPC Region,2005,451,Sporting Goods/Hobby/Book/Music Stores,451,9257,737
+352,MAPC Region,2006,451,Sporting Goods/Hobby/Book/Music Stores,451,9309,720
+352,MAPC Region,2007,451,Sporting Goods/Hobby/Book/Music Stores,451,9314,700
+352,MAPC Region,2008,451,Sporting Goods/Hobby/Book/Music Stores,451,8863,675
+352,MAPC Region,2009,451,Sporting Goods/Hobby/Book/Music Stores,451,8406,690
+352,MAPC Region,2010,451,Sporting Goods/Hobby/Book/Music Stores,451,8454,721
+352,MAPC Region,2011,451,Sporting Goods/Hobby/Book/Music Stores,451,8058,646
+352,MAPC Region,2012,451,Sporting Goods/Hobby/Book/Music Stores,451,8069,655
+352,MAPC Region,2013,451,Sporting Goods/Hobby/Book/Music Stores,451,7927,636
+352,MAPC Region,2014,451,Sporting Goods/Hobby/Book/Music Stores,451,8071,648
+352,MAPC Region,2015,451,Sporting Goods/Hobby/Book/Music Stores,451,7714,630
+352,MAPC Region,2016,451,Sporting Goods/Hobby/Book/Music Stores,451,7595,587
+352,MAPC Region,2017,451,Sporting Goods/Hobby/Book/Music Stores,451,7514,564
+352,MAPC Region,2018,451,Sporting Goods/Hobby/Book/Music Stores,451,7473,548
+352,MAPC Region,2001,452,General Merchandise Stores,452,14923,129
+352,MAPC Region,2002,452,General Merchandise Stores,452,15049,140
+352,MAPC Region,2003,452,General Merchandise Stores,452,15424,151
+352,MAPC Region,2004,452,General Merchandise Stores,452,15382,150
+352,MAPC Region,2005,452,General Merchandise Stores,452,16008,159
+352,MAPC Region,2006,452,General Merchandise Stores,452,15183,174
+352,MAPC Region,2007,452,General Merchandise Stores,452,14726,193
+352,MAPC Region,2008,452,General Merchandise Stores,452,14795,203
+352,MAPC Region,2009,452,General Merchandise Stores,452,15241,211
+352,MAPC Region,2010,452,General Merchandise Stores,452,16351,237
+352,MAPC Region,2011,452,General Merchandise Stores,452,20405,295
+352,MAPC Region,2012,452,General Merchandise Stores,452,19731,292
+352,MAPC Region,2013,452,General Merchandise Stores,452,20012,292
+352,MAPC Region,2014,452,General Merchandise Stores,452,19282,292
+352,MAPC Region,2015,452,General Merchandise Stores,452,19803,303
+352,MAPC Region,2016,452,General Merchandise Stores,452,19871,291
+352,MAPC Region,2017,452,General Merchandise Stores,452,19842,284
+352,MAPC Region,2018,452,General Merchandise Stores,452,21237,321
+352,MAPC Region,2001,453,Miscellaneous Store Retailers,453,11869,1476
+352,MAPC Region,2002,453,Miscellaneous Store Retailers,453,11787,1483
+352,MAPC Region,2003,453,Miscellaneous Store Retailers,453,11158,1444
+352,MAPC Region,2004,453,Miscellaneous Store Retailers,453,10704,1422
+352,MAPC Region,2005,453,Miscellaneous Store Retailers,453,10154,1322
+352,MAPC Region,2006,453,Miscellaneous Store Retailers,453,9854,1276
+352,MAPC Region,2007,453,Miscellaneous Store Retailers,453,9455,1255
+352,MAPC Region,2008,453,Miscellaneous Store Retailers,453,9589,1233
+352,MAPC Region,2009,453,Miscellaneous Store Retailers,453,9061,1201
+352,MAPC Region,2010,453,Miscellaneous Store Retailers,453,9091,1235
+352,MAPC Region,2011,453,Miscellaneous Store Retailers,453,9075,1233
+352,MAPC Region,2012,453,Miscellaneous Store Retailers,453,9193,1158
+352,MAPC Region,2013,453,Miscellaneous Store Retailers,453,9272,1104
+352,MAPC Region,2014,453,Miscellaneous Store Retailers,453,9493,1126
+352,MAPC Region,2015,453,Miscellaneous Store Retailers,453,9391,1105
+352,MAPC Region,2016,453,Miscellaneous Store Retailers,453,9214,1086
+352,MAPC Region,2017,453,Miscellaneous Store Retailers,453,9319,1076
+352,MAPC Region,2018,453,Miscellaneous Store Retailers,453,9233,1064
+352,MAPC Region,2001,454,Nonstore Retailers,454,3819,409
+352,MAPC Region,2002,454,Nonstore Retailers,454,3373,406
+352,MAPC Region,2003,454,Nonstore Retailers,454,3598,423
+352,MAPC Region,2004,454,Nonstore Retailers,454,3508,424
+352,MAPC Region,2005,454,Nonstore Retailers,454,3929,395
+352,MAPC Region,2006,454,Nonstore Retailers,454,4030,403
+352,MAPC Region,2007,454,Nonstore Retailers,454,4348,410
+352,MAPC Region,2008,454,Nonstore Retailers,454,4666,419
+352,MAPC Region,2009,454,Nonstore Retailers,454,4618,441
+352,MAPC Region,2010,454,Nonstore Retailers,454,4818,451
+352,MAPC Region,2011,454,Nonstore Retailers,454,5266,463
+352,MAPC Region,2012,454,Nonstore Retailers,454,5659,462
+352,MAPC Region,2013,454,Nonstore Retailers,454,6307,483
+352,MAPC Region,2014,454,Nonstore Retailers,454,6900,488
+352,MAPC Region,2015,454,Nonstore Retailers,454,7203,492
+352,MAPC Region,2016,454,Nonstore Retailers,454,8167,495
+352,MAPC Region,2017,454,Nonstore Retailers,454,8682,506
+352,MAPC Region,2018,454,Nonstore Retailers,454,10503,502
+352,MAPC Region,2001,481,Air Transportation,481,10907,52
+352,MAPC Region,2002,481,Air Transportation,481,9492,52
+352,MAPC Region,2003,481,Air Transportation,481,8752,54
+352,MAPC Region,2004,481,Air Transportation,481,8158,56
+352,MAPC Region,2005,481,Air Transportation,481,7644,59
+352,MAPC Region,2006,481,Air Transportation,481,6933,47
+352,MAPC Region,2007,481,Air Transportation,481,7013,49
+352,MAPC Region,2008,481,Air Transportation,481,7102,43
+352,MAPC Region,2009,481,Air Transportation,481,6423,40
+352,MAPC Region,2010,481,Air Transportation,481,6198,41
+352,MAPC Region,2011,481,Air Transportation,481,6448,52
+352,MAPC Region,2012,481,Air Transportation,481,6602,46
+352,MAPC Region,2013,481,Air Transportation,481,6543,45
+352,MAPC Region,2014,481,Air Transportation,481,6772,50
+352,MAPC Region,2015,481,Air Transportation,481,7097,53
+352,MAPC Region,2016,481,Air Transportation,481,7476,60
+352,MAPC Region,2017,481,Air Transportation,481,7564,62
+352,MAPC Region,2018,481,Air Transportation,481,8185,68
+352,MAPC Region,2001,483,Water Transportation,483,50,9
+352,MAPC Region,2002,483,Water Transportation,483,35,6
+352,MAPC Region,2003,483,Water Transportation,483,33,4
+352,MAPC Region,2005,483,Water Transportation,483,23,3
+352,MAPC Region,2006,483,Water Transportation,483,17,3
+352,MAPC Region,2007,483,Water Transportation,483,12,4
+352,MAPC Region,2009,483,Water Transportation,483,12,4
+352,MAPC Region,2010,483,Water Transportation,483,13,4
+352,MAPC Region,2012,483,Water Transportation,483,29,4
+352,MAPC Region,2013,483,Water Transportation,483,25,4
+352,MAPC Region,2014,483,Water Transportation,483,14,4
+352,MAPC Region,2015,483,Water Transportation,483,24,7
+352,MAPC Region,2016,483,Water Transportation,483,24,7
+352,MAPC Region,2017,483,Water Transportation,483,15,3
+352,MAPC Region,2018,483,Water Transportation,483,13,3
+352,MAPC Region,2001,484,Truck Transportation,484,6305,569
+352,MAPC Region,2002,484,Truck Transportation,484,5827,560
+352,MAPC Region,2003,484,Truck Transportation,484,5679,553
+352,MAPC Region,2004,484,Truck Transportation,484,5528,526
+352,MAPC Region,2005,484,Truck Transportation,484,5379,497
+352,MAPC Region,2006,484,Truck Transportation,484,5300,454
+352,MAPC Region,2007,484,Truck Transportation,484,5243,450
+352,MAPC Region,2008,484,Truck Transportation,484,5033,430
+352,MAPC Region,2009,484,Truck Transportation,484,4343,409
+352,MAPC Region,2010,484,Truck Transportation,484,4409,419
+352,MAPC Region,2011,484,Truck Transportation,484,4320,416
+352,MAPC Region,2012,484,Truck Transportation,484,4483,404
+352,MAPC Region,2013,484,Truck Transportation,484,4799,416
+352,MAPC Region,2014,484,Truck Transportation,484,5050,440
+352,MAPC Region,2015,484,Truck Transportation,484,5091,490
+352,MAPC Region,2016,484,Truck Transportation,484,5274,532
+352,MAPC Region,2017,484,Truck Transportation,484,5243,575
+352,MAPC Region,2018,484,Truck Transportation,484,5292,594
+352,MAPC Region,2001,485,Transit and Ground Passenger Transport,485,3889,185
+352,MAPC Region,2002,485,Transit and Ground Passenger Transport,485,3561,190
+352,MAPC Region,2003,485,Transit and Ground Passenger Transport,485,3447,180
+352,MAPC Region,2004,485,Transit and Ground Passenger Transport,485,3446,213
+352,MAPC Region,2005,485,Transit and Ground Passenger Transport,485,3599,208
+352,MAPC Region,2006,485,Transit and Ground Passenger Transport,485,3300,192
+352,MAPC Region,2007,485,Transit and Ground Passenger Transport,485,4064,214
+352,MAPC Region,2008,485,Transit and Ground Passenger Transport,485,12313,274
+352,MAPC Region,2009,485,Transit and Ground Passenger Transport,485,3679,201
+352,MAPC Region,2010,485,Transit and Ground Passenger Transport,485,12426,292
+352,MAPC Region,2011,485,Transit and Ground Passenger Transport,485,12951,297
+352,MAPC Region,2012,485,Transit and Ground Passenger Transport,485,13133,280
+352,MAPC Region,2013,485,Transit and Ground Passenger Transport,485,4931,205
+352,MAPC Region,2014,485,Transit and Ground Passenger Transport,485,13787,297
+352,MAPC Region,2015,485,Transit and Ground Passenger Transport,485,14548,359
+352,MAPC Region,2016,485,Transit and Ground Passenger Transport,485,14332,354
+352,MAPC Region,2017,485,Transit and Ground Passenger Transport,485,14058,376
+352,MAPC Region,2018,485,Transit and Ground Passenger Transport,485,13738,345
+352,MAPC Region,2001,487,Scenic and Sightseeing Transportation,487,951,19
+352,MAPC Region,2002,487,Scenic and Sightseeing Transportation,487,835,20
+352,MAPC Region,2003,487,Scenic and Sightseeing Transportation,487,938,21
+352,MAPC Region,2004,487,Scenic and Sightseeing Transportation,487,936,21
+352,MAPC Region,2005,487,Scenic and Sightseeing Transportation,487,790,21
+352,MAPC Region,2006,487,Scenic and Sightseeing Transportation,487,788,20
+352,MAPC Region,2007,487,Scenic and Sightseeing Transportation,487,834,26
+352,MAPC Region,2008,487,Scenic and Sightseeing Transportation,487,967,28
+352,MAPC Region,2009,487,Scenic and Sightseeing Transportation,487,989,33
+352,MAPC Region,2010,487,Scenic and Sightseeing Transportation,487,1023,37
+352,MAPC Region,2011,487,Scenic and Sightseeing Transportation,487,945,26
+352,MAPC Region,2012,487,Scenic and Sightseeing Transportation,487,969,28
+352,MAPC Region,2013,487,Scenic and Sightseeing Transportation,487,1067,31
+352,MAPC Region,2014,487,Scenic and Sightseeing Transportation,487,1101,30
+352,MAPC Region,2015,487,Scenic and Sightseeing Transportation,487,1233,39
+352,MAPC Region,2016,487,Scenic and Sightseeing Transportation,487,1191,36
+352,MAPC Region,2017,487,Scenic and Sightseeing Transportation,487,1267,38
+352,MAPC Region,2018,487,Scenic and Sightseeing Transportation,487,1261,38
+352,MAPC Region,2001,488,Support Activities for Transportation,488,5922,333
+352,MAPC Region,2002,488,Support Activities for Transportation,488,5651,315
+352,MAPC Region,2003,488,Support Activities for Transportation,488,5153,312
+352,MAPC Region,2004,488,Support Activities for Transportation,488,5092,304
+352,MAPC Region,2005,488,Support Activities for Transportation,488,5299,296
+352,MAPC Region,2006,488,Support Activities for Transportation,488,5454,298
+352,MAPC Region,2007,488,Support Activities for Transportation,488,5434,307
+352,MAPC Region,2008,488,Support Activities for Transportation,488,5216,320
+352,MAPC Region,2009,488,Support Activities for Transportation,488,4991,323
+352,MAPC Region,2010,488,Support Activities for Transportation,488,5057,306
+352,MAPC Region,2011,488,Support Activities for Transportation,488,5020,306
+352,MAPC Region,2012,488,Support Activities for Transportation,488,5225,303
+352,MAPC Region,2013,488,Support Activities for Transportation,488,4689,314
+352,MAPC Region,2014,488,Support Activities for Transportation,488,4979,333
+352,MAPC Region,2015,488,Support Activities for Transportation,488,5146,341
+352,MAPC Region,2016,488,Support Activities for Transportation,488,5212,353
+352,MAPC Region,2017,488,Support Activities for Transportation,488,5606,340
+352,MAPC Region,2018,488,Support Activities for Transportation,488,5644,336
+352,MAPC Region,2001,492,Couriers and Messengers,492,2942,121
+352,MAPC Region,2002,492,Couriers and Messengers,492,2767,127
+352,MAPC Region,2003,492,Couriers and Messengers,492,2627,124
+352,MAPC Region,2004,492,Couriers and Messengers,492,2567,106
+352,MAPC Region,2005,492,Couriers and Messengers,492,2630,115
+352,MAPC Region,2006,492,Couriers and Messengers,492,2376,94
+352,MAPC Region,2007,492,Couriers and Messengers,492,2672,102
+352,MAPC Region,2008,492,Couriers and Messengers,492,2714,98
+352,MAPC Region,2009,492,Couriers and Messengers,492,2467,95
+352,MAPC Region,2010,492,Couriers and Messengers,492,2527,109
+352,MAPC Region,2011,492,Couriers and Messengers,492,2263,95
+352,MAPC Region,2012,492,Couriers and Messengers,492,2255,93
+352,MAPC Region,2013,492,Couriers and Messengers,492,2327,87
+352,MAPC Region,2014,492,Couriers and Messengers,492,2393,97
+352,MAPC Region,2015,492,Couriers and Messengers,492,2450,92
+352,MAPC Region,2016,492,Couriers and Messengers,492,2450,82
+352,MAPC Region,2017,492,Couriers and Messengers,492,2386,78
+352,MAPC Region,2018,492,Couriers and Messengers,492,2848,82
+352,MAPC Region,2001,493,Warehousing and Storage,493,1772,41
+352,MAPC Region,2002,493,Warehousing and Storage,493,1835,44
+352,MAPC Region,2003,493,Warehousing and Storage,493,2144,48
+352,MAPC Region,2004,493,Warehousing and Storage,493,2173,51
+352,MAPC Region,2005,493,Warehousing and Storage,493,2162,53
+352,MAPC Region,2006,493,Warehousing and Storage,493,1664,52
+352,MAPC Region,2007,493,Warehousing and Storage,493,1495,45
+352,MAPC Region,2008,493,Warehousing and Storage,493,654,23
+352,MAPC Region,2009,493,Warehousing and Storage,493,633,24
+352,MAPC Region,2010,493,Warehousing and Storage,493,643,24
+352,MAPC Region,2011,493,Warehousing and Storage,493,624,22
+352,MAPC Region,2012,493,Warehousing and Storage,493,1372,32
+352,MAPC Region,2013,493,Warehousing and Storage,493,1332,32
+352,MAPC Region,2014,493,Warehousing and Storage,493,1305,33
+352,MAPC Region,2015,493,Warehousing and Storage,493,1128,30
+352,MAPC Region,2016,493,Warehousing and Storage,493,1083,28
+352,MAPC Region,2017,493,Warehousing and Storage,493,994,26
+352,MAPC Region,2018,493,Warehousing and Storage,493,1082,28
+352,MAPC Region,2001,511,Publishing industries (except Internet),511,33412,1161
+352,MAPC Region,2002,511,Publishing industries (except Internet),511,28172,1083
+352,MAPC Region,2003,511,Publishing industries (except Internet),511,25415,1018
+352,MAPC Region,2004,511,Publishing industries (except Internet),511,25664,1014
+352,MAPC Region,2005,511,Publishing industries (except Internet),511,27183,888
+352,MAPC Region,2006,511,Publishing industries (except Internet),511,28048,842
+352,MAPC Region,2007,511,Publishing industries (except Internet),511,25934,764
+352,MAPC Region,2008,511,Publishing industries (except Internet),511,26313,787
+352,MAPC Region,2009,511,Publishing industries (except Internet),511,25967,747
+352,MAPC Region,2010,511,Publishing industries (except Internet),511,26571,736
+352,MAPC Region,2011,511,Publishing industries (except Internet),511,26702,732
+352,MAPC Region,2012,511,Publishing industries (except Internet),511,26130,743
+352,MAPC Region,2013,511,Publishing industries (except Internet),511,25193,725
+352,MAPC Region,2014,511,Publishing industries (except Internet),511,25478,790
+352,MAPC Region,2015,511,Publishing industries (except Internet),511,27110,789
+352,MAPC Region,2016,511,Publishing industries (except Internet),511,26789,883
+352,MAPC Region,2017,511,Publishing industries (except Internet),511,28988,947
+352,MAPC Region,2018,511,Publishing industries (except Internet),511,27908,1081
+352,MAPC Region,2001,512,Motion Picture & Sound Recording Ind,512,2779,283
+352,MAPC Region,2002,512,Motion Picture & Sound Recording Ind,512,2134,274
+352,MAPC Region,2003,512,Motion Picture & Sound Recording Ind,512,1773,234
+352,MAPC Region,2004,512,Motion Picture & Sound Recording Ind,512,1656,222
+352,MAPC Region,2005,512,Motion Picture & Sound Recording Ind,512,1478,209
+352,MAPC Region,2006,512,Motion Picture & Sound Recording Ind,512,1506,206
+352,MAPC Region,2007,512,Motion Picture & Sound Recording Ind,512,1611,208
+352,MAPC Region,2008,512,Motion Picture & Sound Recording Ind,512,1931,217
+352,MAPC Region,2009,512,Motion Picture & Sound Recording Ind,512,1662,203
+352,MAPC Region,2010,512,Motion Picture & Sound Recording Ind,512,1563,192
+352,MAPC Region,2011,512,Motion Picture & Sound Recording Ind,512,1561,194
+352,MAPC Region,2012,512,Motion Picture & Sound Recording Ind,512,2105,201
+352,MAPC Region,2013,512,Motion Picture & Sound Recording Ind,512,2221,207
+352,MAPC Region,2014,512,Motion Picture & Sound Recording Ind,512,2010,254
+352,MAPC Region,2015,512,Motion Picture & Sound Recording Ind,512,2012,261
+352,MAPC Region,2016,512,Motion Picture & Sound Recording Ind,512,2191,221
+352,MAPC Region,2017,512,Motion Picture & Sound Recording Ind,512,2138,225
+352,MAPC Region,2018,512,Motion Picture & Sound Recording Ind,512,2240,219
+352,MAPC Region,2001,515,Broadcasting (except Internet),515,4148,58
+352,MAPC Region,2002,515,Broadcasting (except Internet),515,3770,51
+352,MAPC Region,2003,515,Broadcasting (except Internet),515,3656,40
+352,MAPC Region,2004,515,Broadcasting (except Internet),515,3666,51
+352,MAPC Region,2005,515,Broadcasting (except Internet),515,3262,49
+352,MAPC Region,2006,515,Broadcasting (except Internet),515,3256,45
+352,MAPC Region,2007,515,Broadcasting (except Internet),515,2975,42
+352,MAPC Region,2008,515,Broadcasting (except Internet),515,3233,52
+352,MAPC Region,2009,515,Broadcasting (except Internet),515,2862,55
+352,MAPC Region,2010,515,Broadcasting (except Internet),515,2417,35
+352,MAPC Region,2011,515,Broadcasting (except Internet),515,2340,40
+352,MAPC Region,2012,515,Broadcasting (except Internet),515,2222,31
+352,MAPC Region,2013,515,Broadcasting (except Internet),515,2296,34
+352,MAPC Region,2014,515,Broadcasting (except Internet),515,2315,39
+352,MAPC Region,2015,515,Broadcasting (except Internet),515,2409,44
+352,MAPC Region,2016,515,Broadcasting (except Internet),515,2424,38
+352,MAPC Region,2017,515,Broadcasting (except Internet),515,2591,42
+352,MAPC Region,2018,515,Broadcasting (except Internet),515,2336,37
+352,MAPC Region,2001,516,Internet Publishing and Broadcasting,516,2000,119
+352,MAPC Region,2002,516,Internet Publishing and Broadcasting,516,1933,113
+352,MAPC Region,2003,516,Internet Publishing and Broadcasting,516,1598,106
+352,MAPC Region,2004,516,Internet Publishing and Broadcasting,516,1427,105
+352,MAPC Region,2005,516,Internet Publishing and Broadcasting,516,1146,74
+352,MAPC Region,2006,516,Internet Publishing and Broadcasting,516,1526,100
+352,MAPC Region,2001,517,Telecommunications,517,11885,340
+352,MAPC Region,2002,517,Telecommunications,517,10142,351
+352,MAPC Region,2003,517,Telecommunications,517,10043,352
+352,MAPC Region,2004,517,Telecommunications,517,8921,370
+352,MAPC Region,2005,517,Telecommunications,517,9223,352
+352,MAPC Region,2006,517,Telecommunications,517,9580,338
+352,MAPC Region,2007,517,Telecommunications,517,10084,382
+352,MAPC Region,2008,517,Telecommunications,517,10466,457
+352,MAPC Region,2009,517,Telecommunications,517,10218,505
+352,MAPC Region,2010,517,Telecommunications,517,10525,525
+352,MAPC Region,2011,517,Telecommunications,517,8860,513
+352,MAPC Region,2012,517,Telecommunications,517,8676,485
+352,MAPC Region,2013,517,Telecommunications,517,8062,484
+352,MAPC Region,2014,517,Telecommunications,517,6818,505
+352,MAPC Region,2015,517,Telecommunications,517,6798,519
+352,MAPC Region,2016,517,Telecommunications,517,6179,510
+352,MAPC Region,2017,517,Telecommunications,517,6514,536
+352,MAPC Region,2018,517,Telecommunications,517,6361,525
+352,MAPC Region,2001,518,"ISPs, Search Portals, & Data Processing",518,7791,264
+352,MAPC Region,2002,518,"ISPs, Search Portals, & Data Processing",518,5600,217
+352,MAPC Region,2003,518,"ISPs, Search Portals, & Data Processing",518,5337,203
+352,MAPC Region,2004,518,"ISPs, Search Portals, & Data Processing",518,5664,196
+352,MAPC Region,2005,518,"ISPs, Search Portals, & Data Processing",518,6702,193
+352,MAPC Region,2006,518,"ISPs, Search Portals, & Data Processing",518,6715,199
+352,MAPC Region,2007,518,"ISPs, Search Portals, & Data Processing",518,4214,118
+352,MAPC Region,2008,518,"ISPs, Search Portals, & Data Processing",518,3595,130
+352,MAPC Region,2009,518,"ISPs, Search Portals, & Data Processing",518,3329,134
+352,MAPC Region,2010,518,"ISPs, Search Portals, & Data Processing",518,3323,118
+352,MAPC Region,2011,518,"ISPs, Search Portals, & Data Processing",518,3005,117
+352,MAPC Region,2012,518,"ISPs, Search Portals, & Data Processing",518,2787,125
+352,MAPC Region,2013,518,"ISPs, Search Portals, & Data Processing",518,2702,131
+352,MAPC Region,2014,518,"ISPs, Search Portals, & Data Processing",518,2436,140
+352,MAPC Region,2015,518,"ISPs, Search Portals, & Data Processing",518,2823,167
+352,MAPC Region,2016,518,"ISPs, Search Portals, & Data Processing",518,3407,187
+352,MAPC Region,2017,518,"ISPs, Search Portals, & Data Processing",518,3627,217
+352,MAPC Region,2018,518,"ISPs, Search Portals, & Data Processing",518,4144,264
+352,MAPC Region,2001,519,Other Information Services,519,1390,31
+352,MAPC Region,2002,519,Other Information Services,519,1389,30
+352,MAPC Region,2003,519,Other Information Services,519,1349,34
+352,MAPC Region,2004,519,Other Information Services,519,1304,33
+352,MAPC Region,2005,519,Other Information Services,519,1424,36
+352,MAPC Region,2006,519,Other Information Services,519,1385,38
+352,MAPC Region,2007,519,Other Information Services,519,5641,245
+352,MAPC Region,2008,519,Other Information Services,519,6022,257
+352,MAPC Region,2009,519,Other Information Services,519,5873,256
+352,MAPC Region,2010,519,Other Information Services,519,6210,270
+352,MAPC Region,2011,519,Other Information Services,519,6526,288
+352,MAPC Region,2012,519,Other Information Services,519,6890,277
+352,MAPC Region,2013,519,Other Information Services,519,7265,296
+352,MAPC Region,2014,519,Other Information Services,519,7788,343
+352,MAPC Region,2015,519,Other Information Services,519,8863,392
+352,MAPC Region,2016,519,Other Information Services,519,7963,388
+352,MAPC Region,2017,519,Other Information Services,519,8363,423
+352,MAPC Region,2018,519,Other Information Services,519,8850,443
+352,MAPC Region,2001,522,Credit Intermediation & Related Activity,522,32866,1673
+352,MAPC Region,2002,522,Credit Intermediation & Related Activity,522,33221,1684
+352,MAPC Region,2003,522,Credit Intermediation & Related Activity,522,33817,1719
+352,MAPC Region,2004,522,Credit Intermediation & Related Activity,522,34207,1771
+352,MAPC Region,2005,522,Credit Intermediation & Related Activity,522,34717,1794
+352,MAPC Region,2006,522,Credit Intermediation & Related Activity,522,35058,1829
+352,MAPC Region,2007,522,Credit Intermediation & Related Activity,522,36305,1860
+352,MAPC Region,2008,522,Credit Intermediation & Related Activity,522,35538,1821
+352,MAPC Region,2009,522,Credit Intermediation & Related Activity,522,35035,1742
+352,MAPC Region,2010,522,Credit Intermediation & Related Activity,522,32752,1724
+352,MAPC Region,2011,522,Credit Intermediation & Related Activity,522,32408,1698
+352,MAPC Region,2012,522,Credit Intermediation & Related Activity,522,31783,1662
+352,MAPC Region,2013,522,Credit Intermediation & Related Activity,522,31973,1653
+352,MAPC Region,2014,522,Credit Intermediation & Related Activity,522,31795,1654
+352,MAPC Region,2015,522,Credit Intermediation & Related Activity,522,32263,1685
+352,MAPC Region,2016,522,Credit Intermediation & Related Activity,522,32959,1700
+352,MAPC Region,2017,522,Credit Intermediation & Related Activity,522,32610,1731
+352,MAPC Region,2018,522,Credit Intermediation & Related Activity,522,31654,1732
+352,MAPC Region,2001,523,Financial Investment & Related Activity,523,45637,1329
+352,MAPC Region,2002,523,Financial Investment & Related Activity,523,43382,1434
+352,MAPC Region,2003,523,Financial Investment & Related Activity,523,37828,1451
+352,MAPC Region,2004,523,Financial Investment & Related Activity,523,36147,1551
+352,MAPC Region,2005,523,Financial Investment & Related Activity,523,37328,1571
+352,MAPC Region,2006,523,Financial Investment & Related Activity,523,38994,1619
+352,MAPC Region,2007,523,Financial Investment & Related Activity,523,41491,1725
+352,MAPC Region,2008,523,Financial Investment & Related Activity,523,41123,1806
+352,MAPC Region,2009,523,Financial Investment & Related Activity,523,37749,1822
+352,MAPC Region,2010,523,Financial Investment & Related Activity,523,37481,1890
+352,MAPC Region,2011,523,Financial Investment & Related Activity,523,37290,1906
+352,MAPC Region,2012,523,Financial Investment & Related Activity,523,36258,1874
+352,MAPC Region,2013,523,Financial Investment & Related Activity,523,37269,1973
+352,MAPC Region,2014,523,Financial Investment & Related Activity,523,37720,2078
+352,MAPC Region,2015,523,Financial Investment & Related Activity,523,37949,2152
+352,MAPC Region,2016,523,Financial Investment & Related Activity,523,38468,2184
+352,MAPC Region,2017,523,Financial Investment & Related Activity,523,38928,2305
+352,MAPC Region,2018,523,Financial Investment & Related Activity,523,39665,2382
+352,MAPC Region,2001,524,Insurance Carriers & Related Activities,524,37881,1848
+352,MAPC Region,2002,524,Insurance Carriers & Related Activities,524,38254,1865
+352,MAPC Region,2003,524,Insurance Carriers & Related Activities,524,37315,1853
+352,MAPC Region,2004,524,Insurance Carriers & Related Activities,524,36890,1871
+352,MAPC Region,2005,524,Insurance Carriers & Related Activities,524,38224,1783
+352,MAPC Region,2006,524,Insurance Carriers & Related Activities,524,41726,1792
+352,MAPC Region,2007,524,Insurance Carriers & Related Activities,524,42002,1776
+352,MAPC Region,2008,524,Insurance Carriers & Related Activities,524,40605,1731
+352,MAPC Region,2009,524,Insurance Carriers & Related Activities,524,40269,1717
+352,MAPC Region,2010,524,Insurance Carriers & Related Activities,524,39402,1715
+352,MAPC Region,2011,524,Insurance Carriers & Related Activities,524,39751,1751
+352,MAPC Region,2012,524,Insurance Carriers & Related Activities,524,39723,1707
+352,MAPC Region,2013,524,Insurance Carriers & Related Activities,524,39837,1686
+352,MAPC Region,2014,524,Insurance Carriers & Related Activities,524,42642,1742
+352,MAPC Region,2015,524,Insurance Carriers & Related Activities,524,41582,1718
+352,MAPC Region,2016,524,Insurance Carriers & Related Activities,524,42749,1719
+352,MAPC Region,2017,524,Insurance Carriers & Related Activities,524,42184,1707
+352,MAPC Region,2018,524,Insurance Carriers & Related Activities,524,41825,1693
+352,MAPC Region,2001,525,"Funds, Trusts & Other Financial Vehicles",525,2021,57
+352,MAPC Region,2002,525,"Funds, Trusts & Other Financial Vehicles",525,2100,65
+352,MAPC Region,2003,525,"Funds, Trusts & Other Financial Vehicles",525,1940,72
+352,MAPC Region,2004,525,"Funds, Trusts & Other Financial Vehicles",525,1917,76
+352,MAPC Region,2005,525,"Funds, Trusts & Other Financial Vehicles",525,2047,73
+352,MAPC Region,2006,525,"Funds, Trusts & Other Financial Vehicles",525,2168,78
+352,MAPC Region,2007,525,"Funds, Trusts & Other Financial Vehicles",525,1536,78
+352,MAPC Region,2008,525,"Funds, Trusts & Other Financial Vehicles",525,1272,83
+352,MAPC Region,2009,525,"Funds, Trusts & Other Financial Vehicles",525,1200,84
+352,MAPC Region,2010,525,"Funds, Trusts & Other Financial Vehicles",525,1133,81
+352,MAPC Region,2011,525,"Funds, Trusts & Other Financial Vehicles",525,1080,92
+352,MAPC Region,2012,525,"Funds, Trusts & Other Financial Vehicles",525,1112,93
+352,MAPC Region,2013,525,"Funds, Trusts & Other Financial Vehicles",525,6,6
+352,MAPC Region,2014,525,"Funds, Trusts & Other Financial Vehicles",525,8,10
+352,MAPC Region,2015,525,"Funds, Trusts & Other Financial Vehicles",525,10,15
+352,MAPC Region,2016,525,"Funds, Trusts & Other Financial Vehicles",525,11,13
+352,MAPC Region,2017,525,"Funds, Trusts & Other Financial Vehicles",525,13,21
+352,MAPC Region,2018,525,"Funds, Trusts & Other Financial Vehicles",525,12,18
+352,MAPC Region,2001,531,Real Estate,531,20277,2604
+352,MAPC Region,2002,531,Real Estate,531,20350,2668
+352,MAPC Region,2003,531,Real Estate,531,20637,2895
+352,MAPC Region,2004,531,Real Estate,531,20682,3014
+352,MAPC Region,2005,531,Real Estate,531,21503,2991
+352,MAPC Region,2006,531,Real Estate,531,21304,2982
+352,MAPC Region,2007,531,Real Estate,531,21230,3046
+352,MAPC Region,2008,531,Real Estate,531,21239,2962
+352,MAPC Region,2009,531,Real Estate,531,20742,2926
+352,MAPC Region,2010,531,Real Estate,531,20871,2978
+352,MAPC Region,2011,531,Real Estate,531,21314,3008
+352,MAPC Region,2012,531,Real Estate,531,21522,2925
+352,MAPC Region,2013,531,Real Estate,531,22256,3014
+352,MAPC Region,2014,531,Real Estate,531,22758,3129
+352,MAPC Region,2015,531,Real Estate,531,23599,3282
+352,MAPC Region,2016,531,Real Estate,531,24473,3431
+352,MAPC Region,2017,531,Real Estate,531,25299,3492
+352,MAPC Region,2018,531,Real Estate,531,26057,3701
+352,MAPC Region,2001,532,Rental and Leasing Services,532,8196,697
+352,MAPC Region,2002,532,Rental and Leasing Services,532,7025,684
+352,MAPC Region,2003,532,Rental and Leasing Services,532,6999,715
+352,MAPC Region,2004,532,Rental and Leasing Services,532,6993,706
+352,MAPC Region,2005,532,Rental and Leasing Services,532,6691,652
+352,MAPC Region,2006,532,Rental and Leasing Services,532,6325,624
+352,MAPC Region,2007,532,Rental and Leasing Services,532,6058,580
+352,MAPC Region,2008,532,Rental and Leasing Services,532,5650,519
+352,MAPC Region,2009,532,Rental and Leasing Services,532,5158,495
+352,MAPC Region,2010,532,Rental and Leasing Services,532,4938,465
+352,MAPC Region,2011,532,Rental and Leasing Services,532,4661,432
+352,MAPC Region,2012,532,Rental and Leasing Services,532,5020,422
+352,MAPC Region,2013,532,Rental and Leasing Services,532,5131,420
+352,MAPC Region,2014,532,Rental and Leasing Services,532,5550,454
+352,MAPC Region,2015,532,Rental and Leasing Services,532,5616,442
+352,MAPC Region,2016,532,Rental and Leasing Services,532,5615,436
+352,MAPC Region,2017,532,Rental and Leasing Services,532,5559,438
+352,MAPC Region,2018,532,Rental and Leasing Services,532,5586,451
+352,MAPC Region,2001,533,"Lessors, Nonfinancial Intangible Assets",533,86,11
+352,MAPC Region,2002,533,"Lessors, Nonfinancial Intangible Assets",533,39,7
+352,MAPC Region,2003,533,"Lessors, Nonfinancial Intangible Assets",533,19,4
+352,MAPC Region,2004,533,"Lessors, Nonfinancial Intangible Assets",533,35,7
+352,MAPC Region,2006,533,"Lessors, Nonfinancial Intangible Assets",533,19,3
+352,MAPC Region,2001,541,Professional and Technical Services,541,188880,15574
+352,MAPC Region,2002,541,Professional and Technical Services,541,172254,15914
+352,MAPC Region,2003,541,Professional and Technical Services,541,165434,16219
+352,MAPC Region,2004,541,Professional and Technical Services,541,168324,16568
+352,MAPC Region,2005,541,Professional and Technical Services,541,173140,15721
+352,MAPC Region,2006,541,Professional and Technical Services,541,180928,15803
+352,MAPC Region,2007,541,Professional and Technical Services,541,186102,15844
+352,MAPC Region,2008,541,Professional and Technical Services,541,196599,16080
+352,MAPC Region,2009,541,Professional and Technical Services,541,190500,15931
+352,MAPC Region,2010,541,Professional and Technical Services,541,187475,16669
+352,MAPC Region,2011,541,Professional and Technical Services,541,194495,17300
+352,MAPC Region,2012,541,Professional and Technical Services,541,201595,16683
+352,MAPC Region,2013,541,Professional and Technical Services,541,211562,16693
+352,MAPC Region,2014,541,Professional and Technical Services,541,218867,17805
+352,MAPC Region,2015,541,Professional and Technical Services,541,226210,18334
+352,MAPC Region,2016,541,Professional and Technical Services,541,234762,18651
+352,MAPC Region,2017,541,Professional and Technical Services,541,241502,18735
+352,MAPC Region,2018,541,Professional and Technical Services,541,253299,19086
+352,MAPC Region,2001,551,Management of Companies and Enterprises,551,35989,513
+352,MAPC Region,2002,551,Management of Companies and Enterprises,551,35682,501
+352,MAPC Region,2003,551,Management of Companies and Enterprises,551,37034,518
+352,MAPC Region,2004,551,Management of Companies and Enterprises,551,36855,507
+352,MAPC Region,2005,551,Management of Companies and Enterprises,551,38846,528
+352,MAPC Region,2006,551,Management of Companies and Enterprises,551,35645,514
+352,MAPC Region,2007,551,Management of Companies and Enterprises,551,36659,537
+352,MAPC Region,2008,551,Management of Companies and Enterprises,551,37370,554
+352,MAPC Region,2009,551,Management of Companies and Enterprises,551,34666,554
+352,MAPC Region,2010,551,Management of Companies and Enterprises,551,34366,585
+352,MAPC Region,2011,551,Management of Companies and Enterprises,551,34627,615
+352,MAPC Region,2012,551,Management of Companies and Enterprises,551,36762,635
+352,MAPC Region,2013,551,Management of Companies and Enterprises,551,38877,650
+352,MAPC Region,2014,551,Management of Companies and Enterprises,551,39637,683
+352,MAPC Region,2015,551,Management of Companies and Enterprises,551,41356,723
+352,MAPC Region,2016,551,Management of Companies and Enterprises,551,42027,725
+352,MAPC Region,2017,551,Management of Companies and Enterprises,551,43060,725
+352,MAPC Region,2018,551,Management of Companies and Enterprises,551,44229,734
+352,MAPC Region,2001,561,Administrative and Support Services,561,103349,5149
+352,MAPC Region,2002,561,Administrative and Support Services,561,94160,5309
+352,MAPC Region,2003,561,Administrative and Support Services,561,91630,5279
+352,MAPC Region,2004,561,Administrative and Support Services,561,93582,5273
+352,MAPC Region,2005,561,Administrative and Support Services,561,94778,5011
+352,MAPC Region,2006,561,Administrative and Support Services,561,97903,4955
+352,MAPC Region,2007,561,Administrative and Support Services,561,102015,5078
+352,MAPC Region,2008,561,Administrative and Support Services,561,99437,5159
+352,MAPC Region,2009,561,Administrative and Support Services,561,88057,5076
+352,MAPC Region,2010,561,Administrative and Support Services,561,90044,5077
+352,MAPC Region,2011,561,Administrative and Support Services,561,92068,5192
+352,MAPC Region,2012,561,Administrative and Support Services,561,93817,5185
+352,MAPC Region,2013,561,Administrative and Support Services,561,96798,5193
+352,MAPC Region,2014,561,Administrative and Support Services,561,99211,5380
+352,MAPC Region,2015,561,Administrative and Support Services,561,104167,5620
+352,MAPC Region,2016,561,Administrative and Support Services,561,105151,5678
+352,MAPC Region,2017,561,Administrative and Support Services,561,104513,5597
+352,MAPC Region,2018,561,Administrative and Support Services,561,105107,5663
+352,MAPC Region,2001,562,Waste Management and Remediation Service,562,2855,160
+352,MAPC Region,2002,562,Waste Management and Remediation Service,562,2744,153
+352,MAPC Region,2003,562,Waste Management and Remediation Service,562,2311,144
+352,MAPC Region,2004,562,Waste Management and Remediation Service,562,2498,168
+352,MAPC Region,2005,562,Waste Management and Remediation Service,562,2326,156
+352,MAPC Region,2006,562,Waste Management and Remediation Service,562,2562,156
+352,MAPC Region,2007,562,Waste Management and Remediation Service,562,2935,173
+352,MAPC Region,2008,562,Waste Management and Remediation Service,562,2523,162
+352,MAPC Region,2009,562,Waste Management and Remediation Service,562,2833,181
+352,MAPC Region,2010,562,Waste Management and Remediation Service,562,2770,194
+352,MAPC Region,2011,562,Waste Management and Remediation Service,562,2812,195
+352,MAPC Region,2012,562,Waste Management and Remediation Service,562,3195,177
+352,MAPC Region,2013,562,Waste Management and Remediation Service,562,3213,185
+352,MAPC Region,2014,562,Waste Management and Remediation Service,562,3061,183
+352,MAPC Region,2015,562,Waste Management and Remediation Service,562,3299,186
+352,MAPC Region,2016,562,Waste Management and Remediation Service,562,3627,200
+352,MAPC Region,2017,562,Waste Management and Remediation Service,562,4105,236
+352,MAPC Region,2018,562,Waste Management and Remediation Service,562,4271,241
+352,MAPC Region,2001,611,Educational Services,611,127715,1036
+352,MAPC Region,2002,611,Educational Services,611,131456,1091
+352,MAPC Region,2003,611,Educational Services,611,127005,1160
+352,MAPC Region,2004,611,Educational Services,611,128802,1240
+352,MAPC Region,2005,611,Educational Services,611,136940,1271
+352,MAPC Region,2006,611,Educational Services,611,143913,1320
+352,MAPC Region,2007,611,Educational Services,611,144947,1288
+352,MAPC Region,2008,611,Educational Services,611,146826,1352
+352,MAPC Region,2009,611,Educational Services,611,150721,1399
+352,MAPC Region,2010,611,Educational Services,611,153163,1416
+352,MAPC Region,2011,611,Educational Services,611,156303,1573
+352,MAPC Region,2012,611,Educational Services,611,160296,1580
+352,MAPC Region,2013,611,Educational Services,611,159730,1616
+352,MAPC Region,2014,611,Educational Services,611,163467,1755
+352,MAPC Region,2015,611,Educational Services,611,164119,1782
+352,MAPC Region,2016,611,Educational Services,611,167536,1867
+352,MAPC Region,2017,611,Educational Services,611,170340,1949
+352,MAPC Region,2018,611,Educational Services,611,176678,2020
+352,MAPC Region,2001,621,Ambulatory Health Care Services,621,64586,5245
+352,MAPC Region,2002,621,Ambulatory Health Care Services,621,63444,5412
+352,MAPC Region,2003,621,Ambulatory Health Care Services,621,63534,5470
+352,MAPC Region,2004,621,Ambulatory Health Care Services,621,64576,5546
+352,MAPC Region,2005,621,Ambulatory Health Care Services,621,65492,5408
+352,MAPC Region,2006,621,Ambulatory Health Care Services,621,69093,5421
+352,MAPC Region,2007,621,Ambulatory Health Care Services,621,71886,5478
+352,MAPC Region,2008,621,Ambulatory Health Care Services,621,74233,5454
+352,MAPC Region,2009,621,Ambulatory Health Care Services,621,77856,5435
+352,MAPC Region,2010,621,Ambulatory Health Care Services,621,78974,5555
+352,MAPC Region,2011,621,Ambulatory Health Care Services,621,82561,5606
+352,MAPC Region,2012,621,Ambulatory Health Care Services,621,85641,5510
+352,MAPC Region,2013,621,Ambulatory Health Care Services,621,88688,5555
+352,MAPC Region,2014,621,Ambulatory Health Care Services,621,90745,5647
+352,MAPC Region,2015,621,Ambulatory Health Care Services,621,93973,5699
+352,MAPC Region,2016,621,Ambulatory Health Care Services,621,97278,5718
+352,MAPC Region,2017,621,Ambulatory Health Care Services,621,99218,5752
+352,MAPC Region,2018,621,Ambulatory Health Care Services,621,100692,5806
+352,MAPC Region,2001,622,Hospitals,622,66244,45
+352,MAPC Region,2002,622,Hospitals,622,71406,47
+352,MAPC Region,2003,622,Hospitals,622,72308,54
+352,MAPC Region,2004,622,Hospitals,622,75547,56
+352,MAPC Region,2005,622,Hospitals,622,77155,55
+352,MAPC Region,2006,622,Hospitals,622,79521,53
+352,MAPC Region,2007,622,Hospitals,622,84136,52
+352,MAPC Region,2008,622,Hospitals,622,84632,48
+352,MAPC Region,2009,622,Hospitals,622,84970,40
+352,MAPC Region,2010,622,Hospitals,622,87987,38
+352,MAPC Region,2011,622,Hospitals,622,88118,35
+352,MAPC Region,2012,622,Hospitals,622,88762,40
+352,MAPC Region,2013,622,Hospitals,622,91299,49
+352,MAPC Region,2014,622,Hospitals,622,98857,51
+352,MAPC Region,2015,622,Hospitals,622,102069,51
+352,MAPC Region,2016,622,Hospitals,622,102590,49
+352,MAPC Region,2017,622,Hospitals,622,105549,49
+352,MAPC Region,2018,622,Hospitals,622,101104,49
+352,MAPC Region,2001,623,Nursing and Residential Care Facilities,623,35701,817
+352,MAPC Region,2002,623,Nursing and Residential Care Facilities,623,35931,773
+352,MAPC Region,2003,623,Nursing and Residential Care Facilities,623,35914,778
+352,MAPC Region,2004,623,Nursing and Residential Care Facilities,623,36027,779
+352,MAPC Region,2005,623,Nursing and Residential Care Facilities,623,36645,791
+352,MAPC Region,2006,623,Nursing and Residential Care Facilities,623,36825,789
+352,MAPC Region,2007,623,Nursing and Residential Care Facilities,623,36627,789
+352,MAPC Region,2008,623,Nursing and Residential Care Facilities,623,37500,807
+352,MAPC Region,2009,623,Nursing and Residential Care Facilities,623,39187,816
+352,MAPC Region,2010,623,Nursing and Residential Care Facilities,623,39132,787
+352,MAPC Region,2011,623,Nursing and Residential Care Facilities,623,40255,844
+352,MAPC Region,2012,623,Nursing and Residential Care Facilities,623,40645,849
+352,MAPC Region,2013,623,Nursing and Residential Care Facilities,623,40946,865
+352,MAPC Region,2014,623,Nursing and Residential Care Facilities,623,41634,873
+352,MAPC Region,2015,623,Nursing and Residential Care Facilities,623,41728,892
+352,MAPC Region,2016,623,Nursing and Residential Care Facilities,623,42072,901
+352,MAPC Region,2017,623,Nursing and Residential Care Facilities,623,43127,1037
+352,MAPC Region,2018,623,Nursing and Residential Care Facilities,623,46050,1048
+352,MAPC Region,2001,624,Social Assistance,624,30729,1639
+352,MAPC Region,2002,624,Social Assistance,624,31995,1702
+352,MAPC Region,2003,624,Social Assistance,624,32642,1721
+352,MAPC Region,2004,624,Social Assistance,624,33192,1758
+352,MAPC Region,2005,624,Social Assistance,624,34288,1761
+352,MAPC Region,2006,624,Social Assistance,624,35017,1791
+352,MAPC Region,2007,624,Social Assistance,624,36496,1796
+352,MAPC Region,2008,624,Social Assistance,624,37235,1822
+352,MAPC Region,2009,624,Social Assistance,624,37244,1883
+352,MAPC Region,2010,624,Social Assistance,624,38480,1942
+352,MAPC Region,2011,624,Social Assistance,624,39997,1981
+352,MAPC Region,2012,624,Social Assistance,624,41651,2032
+352,MAPC Region,2013,624,Social Assistance,624,55395,10667
+352,MAPC Region,2014,624,Social Assistance,624,58944,11872
+352,MAPC Region,2015,624,Social Assistance,624,62314,13113
+352,MAPC Region,2016,624,Social Assistance,624,64807,14926
+352,MAPC Region,2017,624,Social Assistance,624,67391,15831
+352,MAPC Region,2018,624,Social Assistance,624,66507,17571
+352,MAPC Region,2001,711,Performing Arts and Spectator Sports,711,4132,276
+352,MAPC Region,2002,711,Performing Arts and Spectator Sports,711,4187,285
+352,MAPC Region,2003,711,Performing Arts and Spectator Sports,711,3669,276
+352,MAPC Region,2004,711,Performing Arts and Spectator Sports,711,3811,313
+352,MAPC Region,2005,711,Performing Arts and Spectator Sports,711,3869,322
+352,MAPC Region,2006,711,Performing Arts and Spectator Sports,711,4704,298
+352,MAPC Region,2007,711,Performing Arts and Spectator Sports,711,5442,328
+352,MAPC Region,2008,711,Performing Arts and Spectator Sports,711,5888,328
+352,MAPC Region,2009,711,Performing Arts and Spectator Sports,711,5739,326
+352,MAPC Region,2010,711,Performing Arts and Spectator Sports,711,6163,349
+352,MAPC Region,2011,711,Performing Arts and Spectator Sports,711,6271,338
+352,MAPC Region,2012,711,Performing Arts and Spectator Sports,711,6577,396
+352,MAPC Region,2013,711,Performing Arts and Spectator Sports,711,7262,410
+352,MAPC Region,2014,711,Performing Arts and Spectator Sports,711,7864,462
+352,MAPC Region,2015,711,Performing Arts and Spectator Sports,711,8044,451
+352,MAPC Region,2016,711,Performing Arts and Spectator Sports,711,8617,457
+352,MAPC Region,2017,711,Performing Arts and Spectator Sports,711,8645,449
+352,MAPC Region,2018,711,Performing Arts and Spectator Sports,711,8918,473
+352,MAPC Region,2001,712,"Museums, Parks and Historical Sites",712,3003,59
+352,MAPC Region,2002,712,"Museums, Parks and Historical Sites",712,3040,57
+352,MAPC Region,2003,712,"Museums, Parks and Historical Sites",712,2940,62
+352,MAPC Region,2004,712,"Museums, Parks and Historical Sites",712,2777,61
+352,MAPC Region,2005,712,"Museums, Parks and Historical Sites",712,2759,60
+352,MAPC Region,2006,712,"Museums, Parks and Historical Sites",712,2855,62
+352,MAPC Region,2007,712,"Museums, Parks and Historical Sites",712,2946,61
+352,MAPC Region,2008,712,"Museums, Parks and Historical Sites",712,2945,62
+352,MAPC Region,2009,712,"Museums, Parks and Historical Sites",712,2854,61
+352,MAPC Region,2010,712,"Museums, Parks and Historical Sites",712,2925,69
+352,MAPC Region,2011,712,"Museums, Parks and Historical Sites",712,2949,69
+352,MAPC Region,2012,712,"Museums, Parks and Historical Sites",712,3094,69
+352,MAPC Region,2013,712,"Museums, Parks and Historical Sites",712,3316,71
+352,MAPC Region,2014,712,"Museums, Parks and Historical Sites",712,3301,71
+352,MAPC Region,2015,712,"Museums, Parks and Historical Sites",712,3284,73
+352,MAPC Region,2016,712,"Museums, Parks and Historical Sites",712,3369,77
+352,MAPC Region,2017,712,"Museums, Parks and Historical Sites",712,3429,84
+352,MAPC Region,2018,712,"Museums, Parks and Historical Sites",712,3518,88
+352,MAPC Region,2001,713,"Amusement, Gambling & Recreation Ind",713,14826,750
+352,MAPC Region,2002,713,"Amusement, Gambling & Recreation Ind",713,15668,796
+352,MAPC Region,2003,713,"Amusement, Gambling & Recreation Ind",713,16428,902
+352,MAPC Region,2004,713,"Amusement, Gambling & Recreation Ind",713,17042,931
+352,MAPC Region,2005,713,"Amusement, Gambling & Recreation Ind",713,16624,926
+352,MAPC Region,2006,713,"Amusement, Gambling & Recreation Ind",713,16913,918
+352,MAPC Region,2007,713,"Amusement, Gambling & Recreation Ind",713,17578,952
+352,MAPC Region,2008,713,"Amusement, Gambling & Recreation Ind",713,18172,971
+352,MAPC Region,2009,713,"Amusement, Gambling & Recreation Ind",713,17763,976
+352,MAPC Region,2010,713,"Amusement, Gambling & Recreation Ind",713,18438,1038
+352,MAPC Region,2011,713,"Amusement, Gambling & Recreation Ind",713,18772,1081
+352,MAPC Region,2012,713,"Amusement, Gambling & Recreation Ind",713,19459,1086
+352,MAPC Region,2013,713,"Amusement, Gambling & Recreation Ind",713,19779,1119
+352,MAPC Region,2014,713,"Amusement, Gambling & Recreation Ind",713,21004,1171
+352,MAPC Region,2015,713,"Amusement, Gambling & Recreation Ind",713,21922,1206
+352,MAPC Region,2016,713,"Amusement, Gambling & Recreation Ind",713,22794,1227
+352,MAPC Region,2017,713,"Amusement, Gambling & Recreation Ind",713,23477,1285
+352,MAPC Region,2018,713,"Amusement, Gambling & Recreation Ind",713,25197,1280
+352,MAPC Region,2001,721,Accommodation,721,19451,281
+352,MAPC Region,2002,721,Accommodation,721,17588,280
+352,MAPC Region,2003,721,Accommodation,721,17620,291
+352,MAPC Region,2004,721,Accommodation,721,17589,287
+352,MAPC Region,2005,721,Accommodation,721,18331,288
+352,MAPC Region,2006,721,Accommodation,721,18930,296
+352,MAPC Region,2007,721,Accommodation,721,19551,306
+352,MAPC Region,2008,721,Accommodation,721,19900,301
+352,MAPC Region,2009,721,Accommodation,721,18597,297
+352,MAPC Region,2010,721,Accommodation,721,18215,310
+352,MAPC Region,2011,721,Accommodation,721,18591,320
+352,MAPC Region,2012,721,Accommodation,721,18970,321
+352,MAPC Region,2013,721,Accommodation,721,19574,336
+352,MAPC Region,2014,721,Accommodation,721,19419,337
+352,MAPC Region,2015,721,Accommodation,721,20232,349
+352,MAPC Region,2016,721,Accommodation,721,20595,365
+352,MAPC Region,2017,721,Accommodation,721,20438,348
+352,MAPC Region,2018,721,Accommodation,721,20561,354
+352,MAPC Region,2001,722,Food Services and Drinking Places,722,106250,6539
+352,MAPC Region,2002,722,Food Services and Drinking Places,722,108485,6764
+352,MAPC Region,2003,722,Food Services and Drinking Places,722,107971,6884
+352,MAPC Region,2004,722,Food Services and Drinking Places,722,109696,7078
+352,MAPC Region,2005,722,Food Services and Drinking Places,722,110694,6947
+352,MAPC Region,2006,722,Food Services and Drinking Places,722,112152,6919
+352,MAPC Region,2007,722,Food Services and Drinking Places,722,115552,7062
+352,MAPC Region,2008,722,Food Services and Drinking Places,722,117921,7144
+352,MAPC Region,2009,722,Food Services and Drinking Places,722,116105,7170
+352,MAPC Region,2010,722,Food Services and Drinking Places,722,121265,7490
+352,MAPC Region,2011,722,Food Services and Drinking Places,722,126996,7692
+352,MAPC Region,2012,722,Food Services and Drinking Places,722,132261,7588
+352,MAPC Region,2013,722,Food Services and Drinking Places,722,136318,7696
+352,MAPC Region,2014,722,Food Services and Drinking Places,722,140235,7846
+352,MAPC Region,2015,722,Food Services and Drinking Places,722,143523,8050
+352,MAPC Region,2016,722,Food Services and Drinking Places,722,149060,8130
+352,MAPC Region,2017,722,Food Services and Drinking Places,722,152967,8242
+352,MAPC Region,2018,722,Food Services and Drinking Places,722,154171,8151
+352,MAPC Region,2001,811,Repair and Maintenance,811,13760,2356
+352,MAPC Region,2002,811,Repair and Maintenance,811,13485,2408
+352,MAPC Region,2003,811,Repair and Maintenance,811,13555,2447
+352,MAPC Region,2004,811,Repair and Maintenance,811,12945,2497
+352,MAPC Region,2005,811,Repair and Maintenance,811,12360,2387
+352,MAPC Region,2006,811,Repair and Maintenance,811,12100,2327
+352,MAPC Region,2007,811,Repair and Maintenance,811,11840,2307
+352,MAPC Region,2008,811,Repair and Maintenance,811,11479,2268
+352,MAPC Region,2009,811,Repair and Maintenance,811,10957,2241
+352,MAPC Region,2010,811,Repair and Maintenance,811,10975,2296
+352,MAPC Region,2011,811,Repair and Maintenance,811,11214,2341
+352,MAPC Region,2012,811,Repair and Maintenance,811,11204,2260
+352,MAPC Region,2013,811,Repair and Maintenance,811,11786,2290
+352,MAPC Region,2014,811,Repair and Maintenance,811,12170,2359
+352,MAPC Region,2015,811,Repair and Maintenance,811,12474,2402
+352,MAPC Region,2016,811,Repair and Maintenance,811,12781,2391
+352,MAPC Region,2017,811,Repair and Maintenance,811,12603,2391
+352,MAPC Region,2018,811,Repair and Maintenance,811,13075,2364
+352,MAPC Region,2001,812,Personal and Laundry Services,812,20950,2835
+352,MAPC Region,2002,812,Personal and Laundry Services,812,20901,2900
+352,MAPC Region,2003,812,Personal and Laundry Services,812,21019,3025
+352,MAPC Region,2004,812,Personal and Laundry Services,812,21031,3098
+352,MAPC Region,2005,812,Personal and Laundry Services,812,21341,3046
+352,MAPC Region,2006,812,Personal and Laundry Services,812,21625,2961
+352,MAPC Region,2007,812,Personal and Laundry Services,812,22198,2987
+352,MAPC Region,2008,812,Personal and Laundry Services,812,22928,3004
+352,MAPC Region,2009,812,Personal and Laundry Services,812,22350,3023
+352,MAPC Region,2010,812,Personal and Laundry Services,812,22432,3159
+352,MAPC Region,2011,812,Personal and Laundry Services,812,22943,3260
+352,MAPC Region,2012,812,Personal and Laundry Services,812,23535,3197
+352,MAPC Region,2013,812,Personal and Laundry Services,812,24449,3247
+352,MAPC Region,2014,812,Personal and Laundry Services,812,25191,3418
+352,MAPC Region,2015,812,Personal and Laundry Services,812,25857,3523
+352,MAPC Region,2016,812,Personal and Laundry Services,812,26762,3606
+352,MAPC Region,2017,812,Personal and Laundry Services,812,27657,3694
+352,MAPC Region,2018,812,Personal and Laundry Services,812,28095,3768
+352,MAPC Region,2001,813,Membership Organizations & Associations,813,19606,1752
+352,MAPC Region,2002,813,Membership Organizations & Associations,813,20000,1791
+352,MAPC Region,2003,813,Membership Organizations & Associations,813,19426,1842
+352,MAPC Region,2004,813,Membership Organizations & Associations,813,19097,1867
+352,MAPC Region,2005,813,Membership Organizations & Associations,813,19551,1826
+352,MAPC Region,2006,813,Membership Organizations & Associations,813,20422,1850
+352,MAPC Region,2007,813,Membership Organizations & Associations,813,21138,1875
+352,MAPC Region,2008,813,Membership Organizations & Associations,813,22061,1906
+352,MAPC Region,2009,813,Membership Organizations & Associations,813,21863,1924
+352,MAPC Region,2010,813,Membership Organizations & Associations,813,22190,1982
+352,MAPC Region,2011,813,Membership Organizations & Associations,813,22028,1999
+352,MAPC Region,2012,813,Membership Organizations & Associations,813,23417,1976
+352,MAPC Region,2013,813,Membership Organizations & Associations,813,23458,1971
+352,MAPC Region,2014,813,Membership Organizations & Associations,813,24585,2048
+352,MAPC Region,2015,813,Membership Organizations & Associations,813,23063,2020
+352,MAPC Region,2016,813,Membership Organizations & Associations,813,22788,2055
+352,MAPC Region,2017,813,Membership Organizations & Associations,813,22626,2109
+352,MAPC Region,2018,813,Membership Organizations & Associations,813,22574,2129
+352,MAPC Region,2001,814,Private Households,814,7175,5249
+352,MAPC Region,2002,814,Private Households,814,7233,5674
+352,MAPC Region,2003,814,Private Households,814,7567,6089
+352,MAPC Region,2004,814,Private Households,814,7931,6586
+352,MAPC Region,2005,814,Private Households,814,8471,6728
+352,MAPC Region,2006,814,Private Households,814,8984,7243
+352,MAPC Region,2007,814,Private Households,814,10292,8400
+352,MAPC Region,2008,814,Private Households,814,12181,9945
+352,MAPC Region,2009,814,Private Households,814,12766,10458
+352,MAPC Region,2010,814,Private Households,814,14473,12147
+352,MAPC Region,2011,814,Private Households,814,14875,11756
+352,MAPC Region,2012,814,Private Households,814,15671,12345
+352,MAPC Region,2013,814,Private Households,814,5108,4281
+352,MAPC Region,2014,814,Private Households,814,4960,4463
+352,MAPC Region,2015,814,Private Households,814,4984,4588
+352,MAPC Region,2016,814,Private Households,814,5091,4688
+352,MAPC Region,2017,814,Private Households,814,5021,4529
+352,MAPC Region,2018,814,Private Households,814,4858,4589
+352,MAPC Region,2001,921,"Executive, Legislative, & Gen Government",921,7432,78
+352,MAPC Region,2002,921,"Executive, Legislative, & Gen Government",921,6430,77
+352,MAPC Region,2003,921,"Executive, Legislative, & Gen Government",921,5790,73
+352,MAPC Region,2004,921,"Executive, Legislative, & Gen Government",921,5378,78
+352,MAPC Region,2005,921,"Executive, Legislative, & Gen Government",921,5391,78
+352,MAPC Region,2006,921,"Executive, Legislative, & Gen Government",921,5402,78
+352,MAPC Region,2007,921,"Executive, Legislative, & Gen Government",921,5411,76
+352,MAPC Region,2008,921,"Executive, Legislative, & Gen Government",921,5396,74
+352,MAPC Region,2009,921,"Executive, Legislative, & Gen Government",921,5467,73
+352,MAPC Region,2010,921,"Executive, Legislative, & Gen Government",921,5967,72
+352,MAPC Region,2011,921,"Executive, Legislative, & Gen Government",921,5915,72
+352,MAPC Region,2012,921,"Executive, Legislative, & Gen Government",921,5894,72
+352,MAPC Region,2013,921,"Executive, Legislative, & Gen Government",921,5483,87
+352,MAPC Region,2014,921,"Executive, Legislative, & Gen Government",921,5775,95
+352,MAPC Region,2015,921,"Executive, Legislative, & Gen Government",921,5642,93
+352,MAPC Region,2016,921,"Executive, Legislative, & Gen Government",921,5537,94
+352,MAPC Region,2017,921,"Executive, Legislative, & Gen Government",921,5408,94
+352,MAPC Region,2018,921,"Executive, Legislative, & Gen Government",921,5307,95
+352,MAPC Region,2001,922,"Justice, Public Order, and Safety Activities",922,16331,107
+352,MAPC Region,2002,922,"Justice, Public Order, and Safety Activities",922,15431,107
+352,MAPC Region,2003,922,"Justice, Public Order, and Safety Activities",922,15294,112
+352,MAPC Region,2004,922,"Justice, Public Order, and Safety Activities",922,13207,86
+352,MAPC Region,2005,922,"Justice, Public Order, and Safety Activities",922,13383,94
+352,MAPC Region,2006,922,"Justice, Public Order, and Safety Activities",922,13533,95
+352,MAPC Region,2007,922,"Justice, Public Order, and Safety Activities",922,13665,94
+352,MAPC Region,2008,922,"Justice, Public Order, and Safety Activities",922,14233,99
+352,MAPC Region,2009,922,"Justice, Public Order, and Safety Activities",922,13919,103
+352,MAPC Region,2010,922,"Justice, Public Order, and Safety Activities",922,14850,113
+352,MAPC Region,2011,922,"Justice, Public Order, and Safety Activities",922,14201,105
+352,MAPC Region,2012,922,"Justice, Public Order, and Safety Activities",922,14262,108
+352,MAPC Region,2013,922,"Justice, Public Order, and Safety Activities",922,13386,180
+352,MAPC Region,2014,922,"Justice, Public Order, and Safety Activities",922,13326,182
+352,MAPC Region,2015,922,"Justice, Public Order, and Safety Activities",922,13346,180
+352,MAPC Region,2016,922,"Justice, Public Order, and Safety Activities",922,13458,189
+352,MAPC Region,2017,922,"Justice, Public Order, and Safety Activities",922,13618,191
+352,MAPC Region,2018,922,"Justice, Public Order, and Safety Activities",922,13806,208
+352,MAPC Region,2001,923,Administration of Human Resource Programs,923,151,6
+352,MAPC Region,2002,923,Administration of Human Resource Programs,923,192,6
+352,MAPC Region,2003,923,Administration of Human Resource Programs,923,181,6
+352,MAPC Region,2004,923,Administration of Human Resource Programs,923,170,7
+352,MAPC Region,2005,923,Administration of Human Resource Programs,923,169,6
+352,MAPC Region,2006,923,Administration of Human Resource Programs,923,147,6
+352,MAPC Region,2007,923,Administration of Human Resource Programs,923,135,6
+352,MAPC Region,2008,923,Administration of Human Resource Programs,923,134,6
+352,MAPC Region,2009,923,Administration of Human Resource Programs,923,138,6
+352,MAPC Region,2010,923,Administration of Human Resource Programs,923,137,5
+352,MAPC Region,2011,923,Administration of Human Resource Programs,923,135,5
+352,MAPC Region,2012,923,Administration of Human Resource Programs,923,136,5
+352,MAPC Region,2013,923,Administration of Human Resource Programs,923,134,5
+352,MAPC Region,2014,923,Administration of Human Resource Programs,923,132,5
+352,MAPC Region,2015,923,Administration of Human Resource Programs,923,140,5
+352,MAPC Region,2016,923,Administration of Human Resource Programs,923,139,6
+352,MAPC Region,2017,923,Administration of Human Resource Programs,923,139,5
+352,MAPC Region,2018,923,Administration of Human Resource Programs,923,139,5
+352,MAPC Region,2001,924,Administration of Environmental Programs,924,3800,15
+352,MAPC Region,2002,924,Administration of Environmental Programs,924,3559,14
+352,MAPC Region,2003,924,Administration of Environmental Programs,924,3144,12
+352,MAPC Region,2004,924,Administration of Environmental Programs,924,2839,13
+352,MAPC Region,2005,924,Administration of Environmental Programs,924,3293,14
+352,MAPC Region,2006,924,Administration of Environmental Programs,924,3355,12
+352,MAPC Region,2007,924,Administration of Environmental Programs,924,3223,19
+352,MAPC Region,2008,924,Administration of Environmental Programs,924,3187,17
+352,MAPC Region,2009,924,Administration of Environmental Programs,924,3025,22
+352,MAPC Region,2010,924,Administration of Environmental Programs,924,2912,23
+352,MAPC Region,2011,924,Administration of Environmental Programs,924,2972,23
+352,MAPC Region,2012,924,Administration of Environmental Programs,924,2894,23
+352,MAPC Region,2013,924,Administration of Environmental Programs,924,2913,25
+352,MAPC Region,2014,924,Administration of Environmental Programs,924,2884,27
+352,MAPC Region,2015,924,Administration of Environmental Programs,924,2831,39
+352,MAPC Region,2016,924,Administration of Environmental Programs,924,2691,40
+352,MAPC Region,2017,924,Administration of Environmental Programs,924,2624,41
+352,MAPC Region,2018,924,Administration of Environmental Programs,924,2637,42
+352,MAPC Region,2001,925,Community and Housing Program Admin,925,2133,8
+352,MAPC Region,2002,925,Community and Housing Program Admin,925,2128,8
+352,MAPC Region,2003,925,Community and Housing Program Admin,925,2041,8
+352,MAPC Region,2004,925,Community and Housing Program Admin,925,2002,9
+352,MAPC Region,2005,925,Community and Housing Program Admin,925,1937,8
+352,MAPC Region,2006,925,Community and Housing Program Admin,925,1893,9
+352,MAPC Region,2007,925,Community and Housing Program Admin,925,1888,8
+352,MAPC Region,2008,925,Community and Housing Program Admin,925,1900,8
+352,MAPC Region,2009,925,Community and Housing Program Admin,925,1934,8
+352,MAPC Region,2010,925,Community and Housing Program Admin,925,2008,8
+352,MAPC Region,2011,925,Community and Housing Program Admin,925,2002,8
+352,MAPC Region,2012,925,Community and Housing Program Admin,925,2012,8
+352,MAPC Region,2013,925,Community and Housing Program Admin,925,1999,9
+352,MAPC Region,2014,925,Community and Housing Program Admin,925,1760,8
+352,MAPC Region,2015,925,Community and Housing Program Admin,925,1684,10
+352,MAPC Region,2016,925,Community and Housing Program Admin,925,1647,12
+352,MAPC Region,2017,925,Community and Housing Program Admin,925,1623,10
+352,MAPC Region,2018,925,Community and Housing Program Admin,925,1601,9
+352,MAPC Region,2001,926,Administration of Economic Programs,926,5007,48
+352,MAPC Region,2002,926,Administration of Economic Programs,926,4585,49
+352,MAPC Region,2003,926,Administration of Economic Programs,926,6016,52
+352,MAPC Region,2004,926,Administration of Economic Programs,926,5611,55
+352,MAPC Region,2005,926,Administration of Economic Programs,926,5634,55
+352,MAPC Region,2006,926,Administration of Economic Programs,926,5614,63
+352,MAPC Region,2007,926,Administration of Economic Programs,926,5595,66
+352,MAPC Region,2008,926,Administration of Economic Programs,926,5860,72
+352,MAPC Region,2009,926,Administration of Economic Programs,926,6184,75
+352,MAPC Region,2010,926,Administration of Economic Programs,926,6423,64
+352,MAPC Region,2011,926,Administration of Economic Programs,926,5948,70
+352,MAPC Region,2012,926,Administration of Economic Programs,926,5864,66
+352,MAPC Region,2013,926,Administration of Economic Programs,926,5761,64
+352,MAPC Region,2014,926,Administration of Economic Programs,926,5729,68
+352,MAPC Region,2015,926,Administration of Economic Programs,926,5690,67
+352,MAPC Region,2016,926,Administration of Economic Programs,926,5776,70
+352,MAPC Region,2017,926,Administration of Economic Programs,926,5865,76
+352,MAPC Region,2018,926,Administration of Economic Programs,926,5756,86
+352,MAPC Region,2001,928,National Security & International Affair,928,1248,7
+352,MAPC Region,2002,928,National Security & International Affair,928,1188,8
+352,MAPC Region,2003,928,National Security & International Affair,928,1154,9
+352,MAPC Region,2004,928,National Security & International Affair,928,914,8
+352,MAPC Region,2005,928,National Security & International Affair,928,828,8
+352,MAPC Region,2006,928,National Security & International Affair,928,2170,10
+352,MAPC Region,2007,928,National Security & International Affair,928,805,7
+352,MAPC Region,2008,928,National Security & International Affair,928,814,7
+352,MAPC Region,2009,928,National Security & International Affair,928,773,6
+352,MAPC Region,2010,928,National Security & International Affair,928,681,6
+352,MAPC Region,2011,928,National Security & International Affair,928,630,6
+352,MAPC Region,2012,928,National Security & International Affair,928,614,6
+352,MAPC Region,2013,928,National Security & International Affair,928,625,8
+352,MAPC Region,2014,928,National Security & International Affair,928,632,7
+352,MAPC Region,2015,928,National Security & International Affair,928,725,8
+352,MAPC Region,2016,928,National Security & International Affair,928,662,6
+352,MAPC Region,2017,928,National Security & International Affair,928,668,6
+352,MAPC Region,2018,928,National Security & International Affair,928,653,7

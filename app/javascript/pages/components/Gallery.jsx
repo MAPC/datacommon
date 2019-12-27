@@ -37,10 +37,12 @@ class Gallery extends React.Component {
       calendar2020Blurb = (
         <>
           <section className="container calendar-spotlight tight">
-            <div className="calendar-spotlight__image-wrapper">
-              <img src={CalendarImg} className="calendar-spotlight__image"/>
-              <h2 className="calendar-spotlight__image--after">Download 2020 Wall Calendar</h2>
-            </div>
+            <a href='/files/final-mapc-calendar-2020.pdf' download>
+              <div className="calendar-spotlight__image-wrapper">
+                <img src={CalendarImg} className="calendar-spotlight__image"/>
+                <h2 className="calendar-spotlight__image--after">Download 2020 Wall Calendar</h2>
+              </div>
+            </a>
             <div className="calendar-spotlight__info">
               <p>Welcome to the MAPC 2020 Calendar — which for the first time this year is in the form of a monthly digital publication and a beautiful year-at-a-glance printed poster. Our monthly maps and data visualizations will be, as ever,  insightful, visually arresting, and will cover a range of vital topics.</p>
               <p>Visit us each month at MAPC’s MetroBoston Data Common to see what’s new!</p>

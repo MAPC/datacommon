@@ -14,7 +14,9 @@ class CalendarGrid extends React.Component {
         return <CalendarItem
           link={item.url}
           month={item.month}
+          year={item.year}
           image={item.image}
+          item={item}
           title={item.title}
           key={i}
         />
@@ -22,7 +24,7 @@ class CalendarGrid extends React.Component {
 
     // Create some number of blank cards
     const blankCalendarItems = months.map((month, i) => {
-      const blankDisplayMonth = `${month} '${this.props.selectedYear.toString().slice(-2)}`;
+      const blankDisplayMonth = `${month} ${this.props.selectedYear}`;
       const keyValue = `b${i}`;
       return <BlankCalendarItem
         month={blankDisplayMonth}
@@ -31,7 +33,7 @@ class CalendarGrid extends React.Component {
     })
 
     const allCalendarItems = existingCalendarItems.concat(blankCalendarItems);
-  
+
 
 
     return (

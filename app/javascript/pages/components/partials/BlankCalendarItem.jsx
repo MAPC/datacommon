@@ -4,8 +4,8 @@ class BlankCalendarItem extends React.Component {
   render() {
     return (
       <li className="calendar-grid__cell">
-        <a href={this.props.link} className="calendar-item"> 
-          <h2 className="calendar-item__month">{this.props.month}</h2>
+        <a href={this.props.link} className="calendar-item">
+          <h2 className="calendar-item__month">{this.props.month} {this.props.year}</h2>
           <div className="calendar-item__box--blank">
             <h3 className="calendar-item__title--blank">Coming Soon</h3>
           </div>
@@ -14,6 +14,5 @@ class BlankCalendarItem extends React.Component {
     );
   }
 }
-  
+
 export default BlankCalendarItem;
-  

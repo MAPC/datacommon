@@ -23,7 +23,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: $p_size;
     font-weight: bolder;
-    margin: 0;
+    margin: 1rem 0 0 0;
     padding: 1rem;
     text-decoration: underline;
     width: 170px;
@@ -159,7 +159,11 @@
   display: -ms-grid;
   -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
 
+
   &__image {
+    height: 20rem;
+    width: auto;
+
     @include media(medium) {
       grid-column: 4;
       -ms-grid-column: 4;
