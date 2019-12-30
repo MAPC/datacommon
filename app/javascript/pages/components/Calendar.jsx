@@ -173,8 +173,8 @@ class Calendar extends React.Component {
       }
 
       const updateBars = bars(svg);
-      const updateLabels = labels(svg);
       const updateAxis = axis(svg);
+      const updateLabels = labels(svg);
       const updateTicker = ticker(svg);
 
       async function codeToRun() {
