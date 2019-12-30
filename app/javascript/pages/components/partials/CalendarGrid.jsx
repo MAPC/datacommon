@@ -7,7 +7,7 @@ import data from '../../assets/data/temp-cal-data.json';
 
 class CalendarGrid extends React.Component {
   render() {
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const existingCalendarItems = data.filter((item) => item.year === this.props.selectedYear)
       .map((item, i) => {
         months.shift();
@@ -26,18 +26,17 @@ class CalendarGrid extends React.Component {
     const blankCalendarItems = months.map((month, i) => {
       const blankDisplayMonth = `${month} ${this.props.selectedYear}`;
       const keyValue = `b${i}`;
-      return <BlankCalendarItem
-        month={blankDisplayMonth}
-        key={keyValue}
-      />
-    })
+      return (
+        <BlankCalendarItem
+          month={blankDisplayMonth}
+          key={keyValue}
+        />
+      );
+    });
 
     const allCalendarItems = existingCalendarItems.concat(blankCalendarItems);
-
-
-
     return (
-      <ul className="component CalendarGrid container tight">
+      <ul className="CalendarGrid">
         {allCalendarItems}
       </ul>
     );

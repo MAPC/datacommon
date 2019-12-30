@@ -1,3 +1,8 @@
+.Gallery {
+  display: flex;
+  flex-direction: column;
+}
+
 .CalendarGrid {
   @include media(large) {
     grid-template-columns: repeat(3, 1fr);
@@ -14,11 +19,12 @@
   @include media(x-small) {
     column-gap: 30px;
   }
-
+  align-self: center;
   display: grid;
   grid-column-gap: 60px;
   grid-row-gap: 60px;
   grid-template-columns: repeat(4, 1fr);
+  max-width: 1180px;
 }
 
 .calendar-item {
@@ -75,15 +81,15 @@
     border-color: $color_brand-secondary--dark;
 
     &:after {
-      left: 6px;
-
       background: $color_brand-secondary--dark;
+      left: 6px;
       transition: background .12s, left .12s;
     }
   }
 
   &__image {
-    height: 185px;
+    height: 175px;
+    object-fit: cover;
     width: 100%;
   }
 
@@ -164,4 +170,8 @@
     display: block;
     margin-top: 3rem;
   }
+}
+
+.calendar-grid__cell {
+  width: 250px;
 }

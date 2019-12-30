@@ -36,7 +36,7 @@ class Gallery extends React.Component {
     if (this.state.selectedYear === 2020) {
       calendar2020Blurb = (
         <>
-          <section className="container calendar-spotlight tight">
+          <section className="calendar-spotlight">
             <a href='/files/final-mapc-calendar-2020.pdf' download>
               <div className="calendar-spotlight__image-wrapper">
                 <img src={CalendarImg} className="calendar-spotlight__image"/>
@@ -49,9 +49,9 @@ class Gallery extends React.Component {
               <button className="calendar-spotlight__button"><a href="https://lp.constantcontact.com/su/Vab7XBS">Sign Up</a></button>
             </div>
           </section>
-          <hr className="calendar-spotlight__divider"/>
+          <hr className="calendar-spotlight__divider" />
         </>
-      )
+      );
     }
     return (
       <section className="route Gallery">
