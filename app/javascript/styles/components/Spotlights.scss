@@ -159,6 +159,9 @@
   display: -ms-grid;
   -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr;
 
+  &__title {
+    margin-left: -20px;
+  }
 
   &__image {
     height: 20rem;
@@ -182,6 +185,7 @@
     }
     grid-column: 5;
     -ms-grid-column: 5;
+    padding-right: 20px;
   }
 
   &__info {
@@ -203,5 +207,6 @@
     grid-column: 1 / 5;
     -ms-grid-column-span: 4;
     -ms-grid-row: 1;
+    margin: 0 20px 60px 20px;
 	}
 }
