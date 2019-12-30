@@ -49,9 +49,9 @@ class Gallery extends React.Component {
               <button className="calendar-spotlight__button"><a href="https://lp.constantcontact.com/su/Vab7XBS">Sign Up</a></button>
             </div>
           </section>
-          <hr className="calendar-spotlight__divider"/>
+          <hr className="calendar-spotlight__divider" />
         </>
-      )
+      );
     }
     return (
       <section className="route Gallery">
