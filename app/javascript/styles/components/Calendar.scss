@@ -1,8 +1,20 @@
 .CalendarGrid {
-  @include media(large) { grid-template-columns: repeat(3, 1fr); }
-  @include media(medium) { grid-template-columns: repeat(2, 1fr); }
-  @include media(small) { column-gap: 60px; }
-  @include media(x-small) { column-gap: 30px; }
+  @include media(large) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include media(medium) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include media(small) {
+    column-gap: 60px;
+  }
+
+  @include media(x-small) {
+    column-gap: 30px;
+  }
+
   display: grid;
   grid-column-gap: 60px;
   grid-row-gap: 60px;
@@ -76,7 +88,10 @@
   }
 
   &__title-box {
-    @include media(x-small) { height: 125px; }
+    @include media(x-small) {
+      height: 125px;
+    }
+
     align-items: center;
     display: flex;
     height: 100px;
@@ -87,5 +102,66 @@
     font-size: $font_size-medium;
     padding: 1rem;
     text-align: center;
+  }
+}
+
+.jobs {
+  margin-right: 5rem;
+
+  &__title {
+    display: block;
+    font-family: $font_family-primary;
+    font-weight: bolder;
+    font-size: $font_size-large;
+    padding: 1rem 0;
+  }
+
+  &__year {
+    color: $color_font-medium;
+    font-family: $font_family-primary;
+    font-weight: bolder;
+    font-size: 60px;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  &__subtitle {
+    display: block;
+    float: right;
+    color: $color_font-medium;
+    font-family: $font_family-primary;
+    font-weight: bold;
+    font-size: $font_size-medium;
+    left: -15rem;
+    margin-top: -9rem;
+    width: 17rem;
+  }
+
+  &__subtitle-text {
+    display: block;
+    float: right;
+    color: $color_font-medium;
+    font-family: $font_family-primary;
+    font-weight: bold;
+    font-size: $font_size-medium;
+    margin: .5rem 0;
+    width: 17rem;
+  }
+
+  &__download-link {
+    display: block;
+    color: $color_font-medium;
+    cursor: pointer;
+    display: block;
+    font-family: $font_family-primary;
+    font-style: italic;
+    font-weight: 100;
+    margin-top: 1rem;
+    text-decoration: underline;
+  }
+
+  &__explanation {
+    display: block;
+    margin-top: 3rem;
   }
 }

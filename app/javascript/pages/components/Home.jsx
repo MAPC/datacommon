@@ -1,25 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 
 import Particles from './partials/Particles';
 import SearchBar from '../containers/SearchBar';
 import CategoryGrid from '../containers/CategoryGrid';
 import CommunitySelector from '../containers/CommunitySelector';
-import CalendarImg from './../assets/images/calendar-temp'
+import PlaybackImgBackground from './../assets/images/playback-bg';
+import PlaybackImg from './../assets/images/playback';
 
 class Home extends React.Component {
 
   constructor() {
     super(...arguments);
 
+    this.state = {
+      imgSrc: PlaybackImg
+    };
     this.toDataset = this.toDataset.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseOut = this.handleMouseOut.bind(this);
   }
-
 
   componentWillMount() {
     this.props.fetchDatasets();
   }
-
 
   toDataset(dataset) {
     // We need to direct away from the page without using React Router's push()
@@ -27,6 +32,17 @@ class Home extends React.Component {
     window.location.pathname = `/browser/datasets/${dataset.id}`;
   }
 
+  handleMouseOver() {
+    this.setState({
+      imgSrc: PlaybackImgBackground
+    })
+  }
+
+  handleMouseOut() {
+    this.setState({
+      imgSrc: PlaybackImg,
+    });
+  }
 
   render() {
     return (
@@ -47,13 +63,22 @@ class Home extends React.Component {
         <section className="container tight gallery-spotlight page-section">
           <div className="gallery-spotlight__info">
             <h2>Gallery of Data</h2>
-            <p>Welcome to the MAPC Gallery of Data, where we tell the story of Greater Boston’s most complex issues — one monthly map and data visualization at a time.</p>
-            <p>We look at a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
-            <p>Visit every month to see what’s new!</p>
-            <button className="gallery-spotlight__button"><a href="/gallery">View Gallery</a></button>
+            <p>Welcome to the MAPC Gallery of Data, where we tell the story of Greater Boston’s most complex issues — one monthly map and data visualization at a time. We look at a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. </p>
+            <p>Always with data first, and always with an interdisciplinary lens. Visit every month to see what’s new!</p>
+            <button className="gallery-spotlight__button" type="button">
+              <a href="/gallery">View Gallery</a>
+            </button>
 
           </div>
-          <img src={CalendarImg} className="gallery-spotlight__image"/>
+          <Link to="/calendar/2020/january">
+            <img
+              src={this.state.imgSrc}
+              onMouseOver={this.handleMouseOver}
+              onMouseOut={this.handleMouseOut}
+              className="gallery-spotlight__image"
+              alt="gallery"
+            />
+          </Link>
         </section>
 
 
@@ -70,9 +95,7 @@ class Home extends React.Component {
       </section>
     );
   }
-
 }
-
 
 Home.propTypes = {
   datasets: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -80,4 +103,3 @@ Home.propTypes = {
 };
 
 export default Home;
-

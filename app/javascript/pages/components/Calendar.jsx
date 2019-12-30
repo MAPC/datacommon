@@ -5,13 +5,13 @@ import React from 'react';
 class Calendar extends React.Component {
   componentDidMount() {
     Promise.all([
-      d3.csv('/assets/tabular.econ_es202_naics_2d_m_2001_2002_2003_2004_2005_2006_2007_2008_2009_2010_2011_2012_2013_2014_2015_2016_2017.csv', (d) => ({
-        measurementDate: +d.cal_year,
-        category: d.naicstitle.split(' ')
+      d3.csv('/assets/econ_es202_3d_mapc.csv', (d) => ({
+        measurementDate: +d.date,
+        category: d.category.split(' ')
           .map((w) => w[0].toUpperCase() + w.substr(1).toLowerCase())
           .join(' '),
-        municipality: d.municipal,
-        employees: +d.estab,
+        municipality: d.name,
+        employees: +d.avgemp,
       })),
     ]).then((employmentData) => {
       const filteredData = employmentData[0].filter(d => d.municipality === 'MAPC Region')
@@ -27,12 +27,13 @@ class Calendar extends React.Component {
       const topResults = 18;
       const barSize = 48;
       const margin = ({
-        top: 16, right: 6, bottom: 6, left: 0,
+        top: 16, right: 240, bottom: 6, left: 0,
       });
       const width = window.innerWidth || document.body.clientWidth;
       const height = (barSize * topResults) + margin.top + margin.bottom;
 
       const svg = d3.select('.jobs')
+        .attr('class', 'container')
         .append('svg')
         .attr('viewBox', [0, 0, width, height]);
 
@@ -70,7 +71,8 @@ class Calendar extends React.Component {
       let prev = new Map(nameframes.flatMap(([, data]) => d3.pairs(data, (a, b) => [b, a])));
       let next = new Map(nameframes.flatMap(([, data]) => d3.pairs(data)));
 
-      const x = d3.scaleLinear([0, 1], [margin.left, width - margin.right]);
+      const x = d3.scaleLinear([0, 1], [margin.left, width - (margin.right)]);
+
       const y = d3.scaleBand()
         .domain(d3.range(topResults + 1))
         .rangeRound([margin.top, margin.top + barSize * (topResults + 1 + 0.1)])
@@ -80,14 +82,13 @@ class Calendar extends React.Component {
 
       function bars(svg) {
         let bar = svg.append('g')
-          .attr('fill-opacity', 0.6)
           .selectAll('rect');
 
         return ([date, data], transition) => bar = bar
           .data(data.slice(0, topResults), (d) => d.category)
           .join(
             (enter) => enter.append('rect')
-              .attr('fill', '#0c8585')
+              .attr('fill', '#1F4E46')
               .attr('height', y.bandwidth())
               .attr('x', x(0))
               .attr('y', (d) => y((prev.get(d) || d).rank))
@@ -113,7 +114,7 @@ class Calendar extends React.Component {
         let label = svg.append('g')
           .style('font', 'bold 12px var(--sans-serif)')
           .style('font-variant-numeric', 'tabular-nums')
-          .attr('text-anchor', 'end')
+          .attr('text-anchor', 'right')
           .selectAll('text');
 
         return ([date, data], transition) => label = label
@@ -121,15 +122,18 @@ class Calendar extends React.Component {
           .join(
             (enter) => enter.append('text')
               .attr('transform', d => `translate(${x((prev.get(d) || d).value)},${y((prev.get(d) || d).rank)})`)
-              .attr('y', y.bandwidth() / 2)
-              .attr('x', -6)
+              .attr('x', 6)
+              .attr('y', y.bandwidth() / 1.55)
               .attr('dy', '-0.25em')
               .text(d => d.category)
               .call(text => text.append('tspan')
-                .attr('fill-opacity', 0.7)
-                .attr('font-weight', 'normal')
-                .attr('x', -6)
-                .attr('dy', '1.15em')),
+              .style('font-variant-numeric', 'tabular-nums')
+              .attr('text-anchor', 'end')
+              .attr('font-weight', 'bold')
+              .attr('fill', '#FFFFFF')
+              .attr('x', -6)
+              .attr('y', 6)
+              .attr('dy', '1.15em')),
             (update) => update,
             (exit) => exit.transition(transition).remove()
               .attr('transform', d => `translate(${x((next.get(d) || d).value)},${y((next.get(d) || d).rank)})`)
@@ -158,7 +162,9 @@ class Calendar extends React.Component {
       }
 
       function ticker(svg) {
-        const now = svg.append('text')
+        const now = d3.select('.jobs__subtitle')
+          .append('div')
+          .attr('class', 'jobs__year')
           .style('font', `bold ${barSize}px var(--sans-serif)`)
           .style('font-variant-numeric', 'tabular-nums')
           .attr('text-anchor', 'end')
@@ -167,8 +173,22 @@ class Calendar extends React.Component {
           .attr('dy', '0.32em')
           .text(formatDate(allKeyframes[0][0]));
 
+        d3.select('.jobs__subtitle')
+          .append('div')
+          .attr('class', 'jobs__subtitle-text')
+          .text('NAICS Average Weekly Employment for MAPC Region');
+
+        d3.select('.jobs__subtitle')
+          .append('div')
+          .attr('class', 'jobs__download-link')
+          .text('Explore & Download Data')
+          .on('click', () => window.open('https://datacommon.mapc.org/browser/datasets/388'));
+
         return ([date], transition) => {
-          transition.end().then(() => now.text(formatDate(date)));
+          transition.end().then(() => now.text(formatDate(date))
+            .style('font-size', '68px')
+            .attr('fill-color', '#95989A')
+            .style('font-weight', 'bold'));
         };
       }
 
@@ -194,9 +214,20 @@ class Calendar extends React.Component {
   }
 
   render() {
+    const back = "< Back"
     return (
       <section className="route Calendar">
-        <div className="jobs" />
+        <div className="container">
+          <a href="/" className="back-link">{back}</a>
+          <h1 className="jobs__title">Employment by Industry</h1>
+          <div className="jobs" />
+          <h2 className="jobs__subtitle"></h2>
+          <div className="container jobs__explanation">
+            <p>Metro Boston has experienced rapid economic growth over the past two decades. Although the region experienced periods of employment decline during both national recessions, employment in Metro Boston has grown to exceed previous peaks. Professional and Technical Services, Educational Services, and Food Services and Drinking Places have remained the region’s top industries since 2001 and together experienced 34% growth from 2001-2017. Healthcare comes in as one of the region’s other top employing sectors with Hospitals and Ambulatory Health Care Services rising to the 4th and 6th largest employing industries in 2017.</p>
+            <p>While the MAPC region has experienced rapid increases in employment overall, some industries with historically middle-wage occupations have seen declines in employment including Public Administration, Manufacturing, and Utilities. Occupations in these industries include positions such as tax examiners and forklift operators and have often been known to create stable, middle-income jobs.</p>
+            <p>The declines in these middle-income occupations, along with the rapid increases in high-wage business and health care jobs and low-wage food service and hospitality jobs, have created an environment ripe for increased wage polarization. The region’s prosperity depends not only on job growth and the continued competitiveness of the region’s economy, but also high quality of life for all its residents. With rising housing, transportation, healthcare, and childcare costs it is becoming even more difficult for low-wage employees to achieve this quality of life. While Massachusetts has increased the minimum wage in recent years, the state should tie the minimum wage to inflation ensuring wages remain stable. In addition, the state should require companies to pay tipped workers at least $15 an hour. Without ensuring stable, living wages for all employees, job growth in the region amounts to little.</p>
+          </div>
+        </div>
       </section>
     );
   }
