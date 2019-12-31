@@ -28,7 +28,7 @@ class Calendar extends React.Component {
       const topResults = 18;
       const barSize = 48;
       const margin = ({
-        top: 16, right: 240, bottom: 6, left: 0,
+        top: 16, right: 430, bottom: 6, left: 0,
       });
       const width = window.innerWidth || document.body.clientWidth;
       const height = (barSize * topResults) + margin.top + margin.bottom;
@@ -113,8 +113,9 @@ class Calendar extends React.Component {
 
       function labels(svg) {
         let label = svg.append('g')
-          .style('font', 'bold 12px var(--sans-serif)')
+          .style('font-size', '24px')
           .style('font-variant-numeric', 'tabular-nums')
+          .style('font-family', 'Montserrat')
           .attr('text-anchor', 'right')
           .selectAll('text');
 
@@ -125,16 +126,17 @@ class Calendar extends React.Component {
               .attr('transform', d => `translate(${x((prev.get(d) || d).value)},${y((prev.get(d) || d).rank)})`)
               .attr('x', 6)
               .attr('y', y.bandwidth() / 1.55)
-              .attr('dy', '-0.25em')
+              .attr('dy', '0.1em')
+              .style('font-weight', 'lighter')
+              .style('fill', '#1F4E46')
               .text(d => d.category)
               .call(text => text.append('tspan')
               .style('font-variant-numeric', 'tabular-nums')
               .attr('text-anchor', 'end')
-              .attr('font-weight', 'bold')
               .attr('fill', '#FFFFFF')
               .attr('x', -6)
               .attr('y', 6)
-              .attr('dy', '1.15em')),
+              .attr('dy', '1em')),
             (update) => update,
             (exit) => exit.transition(transition).remove()
               .attr('transform', d => `translate(${x((next.get(d) || d).value)},${y((next.get(d) || d).rank)})`)
@@ -152,12 +154,14 @@ class Calendar extends React.Component {
         const axis = d3.axisTop(x)
           .ticks(width / 160)
           .tickSizeOuter(0)
-          .tickSizeInner(-barSize * (topResults + y.padding()));
+          .tickSizeInner(-barSize * (topResults + y.padding()))
+          .tickFormat(d3.format('~s'));
 
         return (_, transition) => {
           g.transition(transition).call(axis);
           g.select('.tick:first-of-type text').remove();
           g.selectAll('.tick:not(:first-of-type) line').attr('stroke', 'white');
+          g.selectAll('.tick > text').style('font-size', '18px');
           g.select('.domain').remove();
         };
       }
@@ -252,7 +256,7 @@ class Calendar extends React.Component {
           <div className="jobs" />
           <h2 className="jobs__subtitle"></h2>
           <div className="container jobs__explanation">
-            <p>Metro Boston has experienced rapid economic growth over the past two decades. Although the region experienced periods of employment decline during both national recessions, employment in Metro Boston has grown to exceed previous peaks. Professional and Technical Services, Educational Services, and Food Services and Drinking Places have remained the region’s top industries since 2001 and together experienced 34% growth from 2001-2017. Healthcare comes in as one of the region’s other top employing sectors with Hospitals and Ambulatory Health Care Services rising to the 4th and 6th largest employing industries in 2017.</p>
+            <p>Metro Boston Real Estate has experienced rapid economic growth over the past two decades. Although the region experienced periods of employment decline during both national recessions, employment in Metro Boston has grown to exceed previous peaks. Professional and Technical Services, Educational Services, and Food Services and Drinking Places have remained the region’s top industries since 2001 and together experienced 34% growth from 2001-2017. Healthcare comes in as one of the region’s other top employing sectors with Hospitals and Ambulatory Health Care Services rising to the 4th and 6th largest employing industries in 2017.</p>
             <p>While the MAPC region has experienced rapid increases in employment overall, some industries with historically middle-wage occupations have seen declines in employment including Public Administration, Manufacturing, and Utilities. Occupations in these industries include positions such as tax examiners and forklift operators and have often been known to create stable, middle-income jobs.</p>
             <p>The declines in these middle-income occupations, along with the rapid increases in high-wage business and health care jobs and low-wage food service and hospitality jobs, have created an environment ripe for increased wage polarization. The region’s prosperity depends not only on job growth and the continued competitiveness of the region’s economy, but also high quality of life for all its residents. With rising housing, transportation, healthcare, and childcare costs it is becoming even more difficult for low-wage employees to achieve this quality of life. While Massachusetts has increased the minimum wage in recent years, the state should tie the minimum wage to inflation ensuring wages remain stable. In addition, the state should require companies to pay tipped workers at least $15 an hour. Without ensuring stable, living wages for all employees, job growth in the region amounts to little.</p>
           </div>
