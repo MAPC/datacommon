@@ -6,8 +6,8 @@ import Particles from './partials/Particles';
 import SearchBar from '../containers/SearchBar';
 import CategoryGrid from '../containers/CategoryGrid';
 import CommunitySelector from '../containers/CommunitySelector';
-import PlaybackImgBackground from './../assets/images/playback-bg';
-import PlaybackImg from './../assets/images/playback';
+import PlaybackImgBackground from './../assets/images/gallery_7';
+import PlaybackImg from './../assets/images/gallery_8';
 
 class Home extends React.Component {
   constructor() {

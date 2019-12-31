@@ -169,8 +169,8 @@
   }
 
   &__image {
-    height: 20rem;
-    width: auto;
+    height: auto;
+    width: 30rem;
 
     @include media(medium) {
       grid-column: 4;
