@@ -175,3 +175,20 @@
 .calendar-grid__cell {
   width: 250px;
 }
+
+.replay {
+  &__container {
+    cursor: pointer;
+  }
+  
+  &__label {
+    display: block;
+    fill: black;
+    float: right;
+    font-family: $font_family-primary;
+    font-size: $font_size-large;
+    font-weight: bold;
+    margin: .5rem 0;
+    width: 17rem;
+  }
+}

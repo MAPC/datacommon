@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
 import { groups, rollup } from 'd3-array';
 import React from 'react';
+import refresh from '../assets/images/refresh.png';
 
 class Calendar extends React.Component {
   componentDidMount() {
@@ -197,7 +198,29 @@ class Calendar extends React.Component {
       const updateLabels = labels(svg);
       const updateTicker = ticker(svg);
 
-      async function codeToRun() {
+      const replay = d3.select('svg')
+        .append('g')
+        .attr('class', 'replay__container')
+        .attr('visibility', 'hidden');
+
+      replay.append('image')
+        .attr('href', refresh )
+        .attr('class', 'replay__image')
+        .attr('width', 64)
+        .attr('height', 64)
+        .attr('x', (width / 2) - (64 / 2))
+        .attr('y', (height / 2) - (128 / 2));
+
+      replay.append('text')
+        .text('Replay')
+        .attr('class', 'replay__label')
+        .attr('x', (width / 2) - (128 / 2) + 20)
+        .attr('y', (height / 2) - (128 / 2) + 90);
+
+
+      async function runChart() {
+        d3.select('.replay__container')
+          .attr('visibility', 'hidden');
         for (let i = 0; i < allKeyframes.length; i += 1) {
           const transition = svg.transition().duration(250).ease(d3.easeLinear);
           x.domain([0, allKeyframes[i][1][0].value]);
@@ -207,9 +230,15 @@ class Calendar extends React.Component {
           updateTicker(allKeyframes[i], transition);
           await transition.end();
         }
+        d3.select('.replay__container')
+          .attr('visibility', 'visible');
       }
 
-      codeToRun();
+      runChart().then(() => {
+        d3.select('.replay__container')
+          .attr('visibility', 'visible');
+        document.querySelector('.replay__container').addEventListener('click', runChart);
+      });
     });
   }
 
