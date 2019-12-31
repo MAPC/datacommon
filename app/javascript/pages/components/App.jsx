@@ -12,6 +12,7 @@ import CommunityProfiles from '../containers/CommunityProfiles';
 import PrivateRoute from './PrivateRoute';
 import { AuthContext } from './context/auth';
 import Calendar from './Calendar';
+import Browser from './Browser';
 
 const App = (props) => (
   <section className="component App">
@@ -31,6 +32,7 @@ const App = (props) => (
         <Route exact path="/gallery" component={Gallery} />
         <Route exact path="/login" component={Login} />
         <Route path='/calendar/:year/:month' component={Calendar} />
+        <Route path='/browser' component={Browser} />
         <PrivateRoute exact path="/admin" component={Admin} />
       </Switch>
     </main>

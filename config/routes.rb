@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   get '/csv', to: 'downloads#csv'
   get '/gallery', to: 'pages#index'
   get '/calendar/*date', to: 'pages#index'
+  get '/browser', to: 'pages#index'
+  get '/browser/datasets/*dataset', to: 'pages#index'
 end
