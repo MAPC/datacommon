@@ -1,7 +1,7 @@
 import React from 'react';
 import YearNav from './partials/YearNav';
 import CalendarGrid from './partials/CalendarGrid';
-import CalendarImg from '../assets/images/calendar-temp.png';
+import CalendarImg from '../assets/images/calendar.png';
 
 class Gallery extends React.Component {
   constructor(props) {
@@ -13,7 +13,6 @@ class Gallery extends React.Component {
 
   changeYear(clickedYear) {
     this.setState((prevState) => {
-      // event.stopPropagation();
       const newSelectedYear = document.getElementById(clickedYear.fullYear);
       const oldSelectedYear = document.getElementById(prevState.selectedYear);
 
