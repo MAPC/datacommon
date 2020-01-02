@@ -181,7 +181,7 @@ class Calendar extends React.Component {
         d3.select('.jobs__subtitle')
           .append('div')
           .attr('class', 'jobs__subtitle-text')
-          .text('NAICS Average Weekly Employment for MAPC Region');
+          .text('NAICS Average Monthly Employment for MAPC Region');
 
         d3.select('.jobs__subtitle')
           .append('div')
