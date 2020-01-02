@@ -62,7 +62,7 @@ class Home extends React.Component {
         <section className="container tight gallery-spotlight page-section">
           <div className="gallery-spotlight__info">
             <h2 className="gallery-spotlight__title">Gallery of Data</h2>
-            <p>Welcome to the MAPC Gallery of Data, where we tell the story of Greater Boston’s most complex issues — one monthly map and data visualization at a time. We look at a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
+            <p>Welcome to the MAPC Gallery of Data, where we tell the story of Greater Boston’s most complex issues one monthly map and data visualization at a time. We look at a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
             <p>Visit every month to see what’s new!</p>
             <button className="gallery-spotlight__button"><a href="/gallery">View Gallery</a></button>
 
