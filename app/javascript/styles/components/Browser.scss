@@ -11,7 +11,14 @@
 
   &__dataset-count {
     color: $color_font-medium;
+    flex: 0 1 25%;
     float: right;
+    font-size: $font_size-xsmall;
+    text-align: right;
+
+    @include media(large) {
+      display: none;
+    }
   }
 
   &:hover {

@@ -1,9 +1,8 @@
 .container {
-  width: calc(100% - 4em);
-  max-width: 1400px;
   margin: 0 auto;
+  max-width: 1400px;
+  width: calc(100% - 4em);
 
-  text-align: left;
 
   @include media(medium) { width: 94%; }
   @media print { width: 94%; }
@@ -12,7 +11,7 @@
     padding-left: 7.07rem;
     padding-right: 7.07rem;
 
-    @include media(large) { padding: initial; }
-    @media print { padding: initial; }
+    @include media(large) { padding: 0; }
+    @media print { padding: 0; }
   }
 }

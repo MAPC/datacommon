@@ -39,6 +39,10 @@
         flex: 1 1 75%;
 
         &:last-of-type { flex: 0 1 25%; }
+
+        @include media(large) {
+          font-size: .8rem;
+        }
       }
     }
   }
