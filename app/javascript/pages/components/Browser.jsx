@@ -42,16 +42,16 @@ class Browser extends React.Component {
   }
 
   handleMenuSelectedItem(childKey) {
-    // add conditional to hide lower level menus.
     if (childKey === 'menuOneSelectedItem') {
       delete this.state.menuTwoSelectedItem;
     }
+
     return (event) => this.setState({
       [childKey]: event.currentTarget.getAttribute('data-key'),
     });
   }
 
-  handleDatasetClick(childKey) {
+  handleDatasetClick() {
     return (event) => history.push('/browser/datasets/' + event.currentTarget.getAttribute('data-key'));
   }
 

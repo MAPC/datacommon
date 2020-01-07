@@ -13,4 +13,9 @@
     color: $color_font-medium;
     float: right;
   }
+
+  &:hover {
+    border-color: $color_brand-secondary--dark;
+    transition: border .12s;
+  }
 }
