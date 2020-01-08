@@ -2,6 +2,7 @@ import React from 'react';
 import { history, store } from '../store';
 import axios from 'axios';
 import DataMenu from './partials/DataMenu';
+import DataViewer from './partials/DataViewer';
 
 class Browser extends React.Component {
   constructor(props) {
@@ -71,6 +72,9 @@ class Browser extends React.Component {
             {menuOneSelectedItem ? <DataMenu items={items[menuOneSelectedItem].items} onMenuClick={this.handleMenuSelectedItem('menuTwoSelectedItem')} /> : null}
             {menuTwoSelectedItem ? <DataMenu items={items[menuOneSelectedItem].items[menuTwoSelectedItem].items} onDatasetClick={this.handleDatasetClick()} /> : null}
           </div>
+        </div>
+        <div>
+          <DataViewer />
         </div>
       </section>
     );
