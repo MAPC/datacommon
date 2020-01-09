@@ -8,28 +8,27 @@
     .container { display: flex; }
 
     .scrollable-menus {
-      flex: 1 0 29%;
-
-      max-width: 29%;
-      margin-right: 2%;
-
+      animation-duration: .8s;
+      animation-name: slidein;
       background: $color_bg-light;
+      flex: 1 0 29%;
+      margin-right: 2%;
+      max-width: 29%;
+      max-height: max-content;
+
 
       &:nth-of-type(3) {
         flex: 1 0 38%;
-        max-width: 38%;
-
         margin-right: 0;
+        max-width: 38%;
       }
 
       h3 {
-        margin: 0;
-        padding: .5em 1.4em;
-
+        border: 1px solid $color_font-medium;
         font-size: $font_size-xsmall;
         font-weight: 400;
-
-        border: 1px solid $color_font-medium;
+        margin: 0;
+        padding: .5em 1.4em;
       }
     }
 
@@ -40,8 +39,23 @@
         flex: 1 1 75%;
 
         &:last-of-type { flex: 0 1 25%; }
+
+        @include media(large) {
+          font-size: .8rem;
+        }
       }
     }
   }
+}
 
+@keyframes slidein {
+  from {
+    margin-left: -29%;
+    z-index: -1;
+  }
+
+  to {
+    margin-left: initial;
+    z-index: -1;
+  }
 }
