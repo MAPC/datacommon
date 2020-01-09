@@ -7,7 +7,9 @@ import DataMenu from './partials/DataMenu';
 class Browser extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      menuOneSelectedItem: this.props.match.params.menuOneSelectedItem,
+    };
 
     this.toDataset = this.toDataset.bind(this);
   }
@@ -82,8 +84,8 @@ class Browser extends React.Component {
         <div className="category-lists">
           <div className="container tight">
             <DataMenu items={items} datasets={this.props.datasets} onMenuClick={this.handleMenuSelectedItem('menuOneSelectedItem')} />
-            {menuOneSelectedItem ? <DataMenu datasets={this.props.datasets} items={items[menuOneSelectedItem].items} onMenuClick={this.handleMenuSelectedItem('menuTwoSelectedItem')} /> : null}
-            {menuTwoSelectedItem ? <DataMenu items={items[menuOneSelectedItem].items[menuTwoSelectedItem].items} onDatasetClick={this.handleDatasetClick()} /> : null}
+            {items.length > 0 && menuOneSelectedItem ? <DataMenu datasets={this.props.datasets} items={items.filter(item => item.menuTitle === menuOneSelectedItem)[0].items} onMenuClick={this.handleMenuSelectedItem('menuTwoSelectedItem')} /> : null}
+            {items.length > 0 && menuTwoSelectedItem ? <DataMenu items={items.filter(item => item.menuTitle === menuOneSelectedItem)[0].items.filter(item => item.menuTitle === menuTwoSelectedItem)[0].items} onDatasetClick={this.handleDatasetClick()} /> : null}
           </div>
         </div>
       </section>
