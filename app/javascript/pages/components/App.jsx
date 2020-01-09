@@ -12,7 +12,7 @@ import CommunityProfiles from '../containers/CommunityProfiles';
 import PrivateRoute from './PrivateRoute';
 import { AuthContext } from './context/auth';
 import Calendar from './Calendar';
-import Browser from './Browser';
+import Browser from '../containers/Browser';
 
 const App = (props) => (
   <section className="component App">
