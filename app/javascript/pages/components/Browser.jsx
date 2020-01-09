@@ -2,50 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { history } from '../store';
 import SearchBar from '../containers/SearchBar';
-import axios from 'axios';
 import DataMenu from './partials/DataMenu';
 
 class Browser extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      items: [],
-    };
+    this.state = {};
 
     this.toDataset = this.toDataset.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchDatasets();
+    this.props.fetchDatasets()
+  }
 
-    axios.get('https://prql.mapc.org/?token=16a2637ee33572e46f5609a578b035dc&query=SELECT%20*%20FROM%20tabular._data_browser%20WHERE%20active%20%3D%20%27Y%27%20ORDER%20BY%20menu1,menu2,menu3%20ASC')
-      .then((response) => {
-        const menuOneItems = [...new Set(response.data.rows.map((item) => item.menu1))];
-        const menu = menuOneItems.map((menuOneTitle) => ({
-          menuTitle: menuOneTitle,
-          items: [
-            ...new Set(
-              response.data.rows
-                .filter((row) => row.menu1 === menuOneTitle)
-                .map((row) => row.menu2),
-            ),
-          ].map((menuTwoTitle) => ({
-            menuTitle: menuTwoTitle,
-            items: [
-              ...new Set(
-                response.data.rows
-                  .filter((row) => row.menu2 === menuTwoTitle)
-                  .map((row) => row.menu3),
-              ),
-            ].map((menuThreeTitle) => ({
-              menuTitle: menuThreeTitle,
-              dataset: response.data.rows.filter((row) => row.menu3 === menuThreeTitle)[0],
-            })),
-          })),
-        }));
-        this.setState({ items: menu });
-      });
+  structureDatasetsForMenu(datasets) {
+    const menuOneItems = [...new Set(datasets.map((item) => item.menu1))];
+    const menu = menuOneItems.map((menuOneTitle) => ({
+      menuTitle: menuOneTitle,
+      items: [
+        ...new Set(
+          datasets
+            .filter((row) => row.menu1 === menuOneTitle)
+            .map((row) => row.menu2),
+        ),
+      ].map((menuTwoTitle) => ({
+        menuTitle: menuTwoTitle,
+        items: [
+          ...new Set(
+            datasets
+              .filter((row) => row.menu2 === menuTwoTitle)
+              .map((row) => row.menu3),
+          ),
+        ].map((menuThreeTitle) => ({
+          menuTitle: menuThreeTitle,
+          dataset: datasets.filter((row) => row.menu3 === menuThreeTitle)[0],
+        })),
+      })),
+    }));
+    return menu;
   }
 
   handleMenuSelectedItem(childKey) {
@@ -69,7 +64,8 @@ class Browser extends React.Component {
   }
 
   render() {
-    const { items, menuOneSelectedItem, menuTwoSelectedItem } = this.state;
+    const { menuOneSelectedItem, menuTwoSelectedItem } = this.state;
+    const items = this.structureDatasetsForMenu(this.props.datasets);
 
     return (
       <section className="route categories">
@@ -85,8 +81,8 @@ class Browser extends React.Component {
         </div>
         <div className="category-lists">
           <div className="container tight">
-            <DataMenu items={items} onMenuClick={this.handleMenuSelectedItem('menuOneSelectedItem')} />
-            {menuOneSelectedItem ? <DataMenu items={items[menuOneSelectedItem].items} onMenuClick={this.handleMenuSelectedItem('menuTwoSelectedItem')} /> : null}
+            <DataMenu items={items} datasets={this.props.datasets} onMenuClick={this.handleMenuSelectedItem('menuOneSelectedItem')} />
+            {menuOneSelectedItem ? <DataMenu datasets={this.props.datasets} items={items[menuOneSelectedItem].items} onMenuClick={this.handleMenuSelectedItem('menuTwoSelectedItem')} /> : null}
             {menuTwoSelectedItem ? <DataMenu items={items[menuOneSelectedItem].items[menuTwoSelectedItem].items} onDatasetClick={this.handleDatasetClick()} /> : null}
           </div>
         </div>
