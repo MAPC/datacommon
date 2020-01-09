@@ -54,7 +54,7 @@ class Browser extends React.Component {
   }
 
   handleDatasetClick() {
-    return (event) => history.push('/browser/datasets/' + event.currentTarget.getAttribute('data-key'));
+    return (event) => window.location.pathname = '/browser/datasets/' + event.currentTarget.getAttribute('data-key');
   }
 
   toDataset(dataset) {
