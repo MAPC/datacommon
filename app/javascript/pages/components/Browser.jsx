@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { history } from '../store';
 import SearchBar from '../containers/SearchBar';
 import DataMenu from './partials/DataMenu';
-import DataViewer from './partials/DataViewer';
 
 class Browser extends React.Component {
   constructor(props) {
@@ -99,9 +98,6 @@ class Browser extends React.Component {
               />
             ) : null}
           </div>
-        </div>
-        <div>
-          <DataViewer />
         </div>
       </section>
     );

@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function DataMenu(props) {
+export default function DataMenu({ items, onMenuClick, onDatasetClick, datasets }) {
   const datasetCount = (item) => {
-    const count = props.datasets.filter(dataset => dataset.menu1 === item.menuTitle || dataset.menu2 === item.menuTitle).length;
+    const count = datasets.filter(dataset => dataset.menu1 === item.menuTitle || dataset.menu2 === item.menuTitle).length;
     return (count + ' Datasets');
   };
 

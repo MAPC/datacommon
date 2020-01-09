@@ -1,41 +1,54 @@
 import React from 'react';
-import DataRow from './DataRow';
 import axios from 'axios';
+import DataRow from './DataRow';
 
 export default class DataViewer extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      // dataKey: props.dataKey,
-      // query: 'https://prql.mapc.org/?query=select%20*%20from%20mapc.malden_zoning_base%20%20LIMIT%2050;&token=1b9b9a1d1738c3dce14331040fa17008',
       qryBase: 'https://prql.mapc.org/',
-      qryToken: '1b9b9a1d1738c3dce14331040fa17008',
-      qryTable: 'mapc.malden_zoning_base',
-      qryLimitYears: '2010',
+      qryToken: '16a2637ee33572e46f5609a578b035dc',
+      qryTable: '',
+      qryLimitYears: '',
+      qrySchemaName: '',
+      qryYearColumn: '',
       headers: [],
       rows: [],
+      acsYears: [],
     };
   }
 
   componentDidMount() {
-    const {
-      qryBase,
-      qryToken,
-      qryTable,
-      qryLimitYears,
-    } = this.state;
+    this.props.fetchDatasets().then((datasets) => {
+      const selectedDataset = this.props.match.params.id;
+      const fullDataset = datasets.datasets.filter((dataset) => !dataset.seq_id === !selectedDataset)[0];
+      console.log(fullDataset);
+      this.setState({
+        qryTable: fullDataset.table_name,
+        qrySchemaName: fullDataset.schemaname,
+        qryYearColumn: fullDataset.yearcolumn,
+      });
+      const {
+        qryBase,
+        qryToken,
+        qryTable,
+        qryLimitYears,
+        qryYearColumn,
+        qrySchemaName,
+      } = this.state;
+      const acsYearQuery = `${qryBase}?query=select distinct(${qryYearColumn}) from ${qrySchemaName}.${qryTable} LIMIT 2050&token=${qryToken}`;
+      const tableQuery = `${qryBase}?query=select * from tabular.${qryTable} order by acs_year DESC LIMIT 15000&token=${qryToken}`;
 
-    const query = `${qryBase}?query=select%20*%20from%20${qryTable}%20%20LIMIT%${qryLimitYears};&token=${qryToken}`;
-
-    axios.get(query)
-      .then((response) => {
+      axios.all([axios.get(acsYearQuery), axios.get(tableQuery)]).then(response => {
         this.setState({
-          rows: response.data.rows,
-          headers: Object.keys(response.data.rows[0]),
+          acsYears: response[0].data.rows,
+          rows: response[1].data.rows,
+          headers: Object.keys(response[1].data.rows[0]),
         });
       });
+    })
   }
+
 
   componentWillUnmount() {
     this._isMounted = false;
@@ -47,10 +60,10 @@ export default class DataViewer extends React.Component {
     const renderedHeaders = filteredHeaders.map((header) => <th className="ui table" key={header}>{header}</th>);
     const renderedRows = rows.map((row) => <DataRow key={row.shape} rowData={row} headers={filteredHeaders} />);
 
-    console.log('headers: ', headers);
-    console.log('filteredHeaders: ', filteredHeaders);
-    console.log('renderedHeaders: ', renderedHeaders);
-    console.log('rows: ', rows);
+    // console.log('headers: ', headers);
+    // console.log('filteredHeaders: ', filteredHeaders);
+    // console.log('renderedHeaders: ', renderedHeaders);
+    // console.log('rows: ', rows);
 
     const renderedTable = (
       <table className="ui table">
