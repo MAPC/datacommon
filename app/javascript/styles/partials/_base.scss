@@ -54,6 +54,7 @@ p {
 }
 
 .scroll-horizontal-rotated {
+  border: 1px solid #95989A;
   overflow-x: auto;
   transform:rotateX(180deg);
   -ms-transform:rotateX(180deg); /* IE 9 */
@@ -61,6 +62,7 @@ p {
 }
 
 .cancel-rotate {
+  padding-top: 10px;
   transform:rotateX(180deg);
   -ms-transform:rotateX(180deg); /* IE 9 */
   -webkit-transform:rotateX(180deg); /* Safari and Chrome */
@@ -75,4 +77,32 @@ p {
 
 .page-section {
   &.grey { background: $color_bg-medium; }
+}
+
+body ::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgba(0,0,0,.25);
+  -webkit-transition: color .2s ease;
+  transition: color .2s ease;
+}
+
+body ::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+}
+
+body ::-webkit-scrollbar-track {
+  background: rgba(0,0,0,.1);
+  border-radius: 0;
+}
+
+body ::-webkit-scrollbar-thumb:hover {
+  background: rgb(146,152,155);
+}
+
+::selection {
+  background-color: #cce2ff;
+  color: rgba(0,0,0,.87);
 }
