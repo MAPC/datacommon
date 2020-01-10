@@ -1,13 +1,5 @@
 .gallery-spotlight,
 .calendar-spotlight {
-  display: flex;
-  flex-direction: row;
-
-  &__info {
-    display: flex;
-    flex-direction: column;
-  }
-
   &__paragraph {
     margin: 0 0 1.25rem;
   }
@@ -122,7 +114,6 @@
   &__image-wrapper:hover > .calendar-spotlight__image--after {
     align-items: center;
     background: rgba(174, 221, 191, .6);
-    display: flex;
     height: 332px;
     justify-content: center;
     left: 0;
