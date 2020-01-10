@@ -13,12 +13,9 @@
   }
 
   @include media(small) {
-    column-gap: 60px;
+    grid-template-columns: 100%
   }
 
-  @include media(x-small) {
-    column-gap: 30px;
-  }
   align-self: center;
   display: grid;
   grid-column-gap: 60px;
@@ -180,7 +177,7 @@
   &__container {
     cursor: pointer;
   }
-  
+
   &__label {
     display: block;
     fill: black;
