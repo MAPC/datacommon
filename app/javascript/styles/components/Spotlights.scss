@@ -52,32 +52,20 @@
 }
 
 .calendar-spotlight {
-  @include media(large) {
-    grid-template-columns: repeat(3, 1fr);
-    -ms-grid-columns: 1fr 1fr 1fr;
-    max-width: 870px;
-  }
-  @include media(medium) {
-    grid-template-columns: repeat(2, 1fr);
-    -ms-grid-columns: 1fr 1fr;
-    max-width: 560px;
-  }
-  @include media(small) { column-gap: 60px; }
-  @include media(x-small) { column-gap: 30px; }
-  align-self: center;
-  column-gap: 60px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  display: -ms-grid;
-  -ms-grid-columns: 1fr 1fr 1fr 1fr;
-  margin-bottom: 60px;
-  max-width: 1180px;
+  margin: 0 auto 60px;
+  max-width: 100%;
+  width: 1180px;
 
   &__image-wrapper {
-    grid-column: 1;
-    -ms-grid-column: 1;
+    display: inline-block;
     position: relative;
     width: 250px;
+
+    @media screen and (max-width: 1350px) {
+      padding: 4rem;
+      width: 100%;
+    }
+
     &:hover {
       border-color: #3a9374;
 
@@ -99,6 +87,10 @@
       transition: background .12s, left .12s;
       width: 100%;
       z-index: -1;
+
+      @media screen and (max-width: 1350px) {
+        display: none;
+      }
     }
   }
 
@@ -127,16 +119,16 @@
   }
 
   &__info {
-    @include media(large) {
-      grid-column: 2 / 4;
-      -ms-grid-column-span: 3;
+    display: inline-block;
+    max-width: 100%;
+    padding: 0 0 0 4rem;
+    vertical-align: top;
+    width: 54rem;
+
+    @media screen and (max-width: 1350px) {
+      padding: 0 1rem;
+      width: 100%;
     }
-    @include media(medium) {
-      grid-column: 2 / 3;
-      -ms-grid-column-span: 2;
-    }
-    grid-column: 2 / 5;
-    -ms-grid-column-span: 4;
   }
 }
 
