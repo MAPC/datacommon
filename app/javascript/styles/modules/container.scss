@@ -1,11 +1,10 @@
 .container {
-  margin: 0 auto;
-  max-width: 1400px;
-  width: calc(100% - 4em);
-
-
   @include media(medium) { width: 94%; }
   @media print { width: 94%; }
+
+  margin: 0 auto;
+  max-width: calc(100% - 4em);
+  width: 1400px;
 
   &.tight {
     padding-left: 7.07rem;
