@@ -74,9 +74,9 @@ class Browser extends React.Component {
         <div className="page-header">
           <div className="container tight">
             <SearchBar
-              contextKey={'dataset'}
-              searchColumn={'title'}
-              action={selected => this.toDataset(selected)}
+              contextKey="dataset"
+              searchColumn="title"
+              action={(selected) => this.toDataset(selected)}
               placeholder={`Search ${this.props.datasets.length} datasets ...`}
             />
           </div>
@@ -84,8 +84,19 @@ class Browser extends React.Component {
         <div className="category-lists">
           <div className="container tight">
             <DataMenu items={items} datasets={this.props.datasets} onMenuClick={this.handleMenuSelectedItem('menuOneSelectedItem')} />
-            {items.length > 0 && menuOneSelectedItem ? <DataMenu datasets={this.props.datasets} items={items.filter(item => item.menuTitle === menuOneSelectedItem)[0].items} onMenuClick={this.handleMenuSelectedItem('menuTwoSelectedItem')} /> : null}
-            {items.length > 0 && menuTwoSelectedItem ? <DataMenu items={items.filter(item => item.menuTitle === menuOneSelectedItem)[0].items.filter(item => item.menuTitle === menuTwoSelectedItem)[0].items} onDatasetClick={this.handleDatasetClick()} /> : null}
+            {items.length > 0 && menuOneSelectedItem ? (
+              <DataMenu
+                datasets={this.props.datasets}
+                items={items.filter((item) => item.menuTitle === menuOneSelectedItem)[0].items}
+                onMenuClick={this.handleMenuSelectedItem('menuTwoSelectedItem')}
+              />
+            ) : null}
+            {items.length > 0 && menuTwoSelectedItem ? (
+              <DataMenu
+                items={items.filter((item) => item.menuTitle === menuOneSelectedItem)[0].items.filter((item) => item.menuTitle === menuTwoSelectedItem)[0].items}
+                onDatasetClick={this.handleDatasetClick()}
+              />
+            ) : null}
           </div>
         </div>
       </section>
