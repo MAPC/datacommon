@@ -52,17 +52,17 @@
 }
 
 .calendar-spotlight {
-  margin: 0 auto 60px;
+  margin: 0 auto 3.75rem;
   max-width: 100%;
-  width: 1180px;
+  width: 73.75rem;
 
   &__image-wrapper {
     display: inline-block;
     position: relative;
-    width: 250px;
+    width: 15.625rem;
 
-    @media screen and (max-width: 414px) {
-      padding: 0 4rem;
+    @media screen and (max-width: 800px) {
+      padding: 0 2rem;
       width: 100%;
     }
 
@@ -123,20 +123,19 @@
     max-width: 100%;
     padding: 0 0 0 4rem;
     vertical-align: top;
-    width: 54rem;
+    width: calc(100% - 15.625rem);
 
-    @media screen and (max-width: 1194px) {
-      width: 38rem;
-    }
-
-    @media screen and (max-width: 414px) {
-      padding: 0 1rem;
+    @media screen and (max-width: 800px) {
+      padding: 0 2rem;
       width: 100%;
     }
   }
 
-  @media screen and (max-width: 1194px) {
-    width: 870px;
+  @media screen and (max-width: 1200px) {
+    width: 54.375rem;
+  }
+  @media screen and (max-width: 960px) {
+    width: 35rem;
   }
 }
 
@@ -156,7 +155,7 @@
     padding-right: 20px;
     width: 30rem;
 
-    @media screen and (max-width: 414px) {
+    @media screen and (max-width: 800px) {
       margin: 2rem auto 0;
       width: 100%;
     }
@@ -164,16 +163,11 @@
 
   &__info {
     display: inline-block;
-    max-width: 100%;
     padding: 0 1.25rem;
     vertical-align: top;
-    width: 48rem;
+    width: calc(100% - 32.5rem);
 
-    @media screen and (max-width: 1194px) {
-      width: 27rem;
-    }
-
-    @media screen and (max-width: 414px) {
+    @media screen and (max-width: 800px) {
       width: 100%;
     }
 	}
