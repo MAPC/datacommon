@@ -27,10 +27,13 @@ class Calendar extends React.Component {
 
       const topResults = 18;
       const barSize = 48;
-      const margin = ({
-        top: 16, right: 430, bottom: 6, left: 0,
-      });
       const width = window.innerWidth || document.body.clientWidth;
+      let margin;
+      if (width > 500) {
+        margin = ({ top: 16, right: 450, bottom: 6, left: 0 });
+      } else {
+        margin = ({ top: 16, right: 0, bottom: 6, left: 0 });
+      }
       const height = (barSize * topResults) + margin.top + margin.bottom;
 
       const svg = d3.select('.jobs')

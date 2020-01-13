@@ -13,12 +13,9 @@
   }
 
   @include media(small) {
-    column-gap: 60px;
+    grid-template-columns: 100%
   }
 
-  @include media(x-small) {
-    column-gap: 30px;
-  }
   align-self: center;
   display: grid;
   grid-column-gap: 60px;
@@ -125,19 +122,24 @@
   &__year {
     color: $color_font-medium;
     font-family: $font_family-primary;
-    font-weight: bolder;
     font-size: 60px;
+    font-weight: bolder;
     line-height: 1;
     margin-bottom: 1.5rem;
   }
 
   &__subtitle {
+    @include media(medium) {
+      left: 0;
+      margin-top: 2rem;
+    }
+
+    color: $color_font-medium;
     display: block;
     float: right;
-    color: $color_font-medium;
     font-family: $font_family-primary;
-    font-weight: bold;
     font-size: $font_size-medium;
+    font-weight: bold;
     left: -15rem;
     margin-top: -9rem;
     width: 17rem;
@@ -155,7 +157,6 @@
   }
 
   &__download-link {
-    display: block;
     color: $color_font-medium;
     cursor: pointer;
     display: block;
@@ -180,7 +181,7 @@
   &__container {
     cursor: pointer;
   }
-  
+
   &__label {
     display: block;
     fill: black;
