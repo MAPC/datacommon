@@ -11,7 +11,7 @@ export default function DataMenu(props) {
       <h3>Topics</h3>
       <ul className="styled lift">
         { props.items.map((item, index) => (
-          <li className='menu-item' onClick={item.items ? props.onMenuClick : props.onDatasetClick} key={index} data-key={item.dataset ? item.dataset.seq_id : index}>
+          <li className='menu-item' onClick={item.items ? props.onMenuClick : props.onDatasetClick} key={index} data-key={item.dataset ? item.dataset.seq_id : item.menuTitle}>
             <div className="category-item-content">
               <div className="category-item-column">{item.menuTitle}</div>
               <div className="menu-item__dataset-count">{item.items ? datasetCount(item) : null}</div>
