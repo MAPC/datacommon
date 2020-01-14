@@ -33,8 +33,8 @@ const App = (props) => (
         <Route exact path="/gallery" component={Gallery} />
         <Route exact path="/login" component={Login} />
         <Route path='/calendar/:year/:month' component={Calendar} />
-        <Route path='/browser/:menuOneSelectedItem' component={Browser} />
         <Route path='/browser/datasets/:id' component={DataViewer} />
+        <Route path='/browser/:menuOneSelectedItem' component={Browser} />
         <Route path='/browser' component={Browser} />
         <PrivateRoute exact path="/admin" component={Admin} />
       </Switch>

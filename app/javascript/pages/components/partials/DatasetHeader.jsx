@@ -40,7 +40,7 @@ function DatasetHeader({
   return (
     <div className="page-header">
       <div className="container back-link">
-        <Link to="/datasets" className="back-link">{'< Back'}</Link>
+        <Link to="/browser" className="back-link">{'< Back'}</Link>
       </div>
       <div className="container tight">
         <h2>{title}</h2>
@@ -85,12 +85,27 @@ function DatasetHeader({
 }
 
 DatasetHeader.propTypes = {
-  title: PropTypes.string.isRequired,
-  table: PropTypes.string.isRequired,
-  source: PropTypes.string.isRequired,
-  universe: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  availableYears: PropTypes.arrayOf(PropTypes.string).isRequired,
+  availableYears: PropTypes.arrayOf(PropTypes.string),
+  database: PropTypes.string,
+  description: PropTypes.string,
+  metadata: PropTypes.arrayOf(PropTypes.object),
+  selectedYears: PropTypes.arrayOf(PropTypes.string),
+  source: PropTypes.string,
+  table: PropTypes.string,
+  title: PropTypes.string,
+  universe: PropTypes.string,
+};
+
+DatasetHeader.defaultProps = {
+  availableYears: [],
+  database: 'ds',
+  description: '',
+  metadata: [],
+  selectedYears: [],
+  source: '',
+  table: '',
+  title: '',
+  universe: '',
 };
 
 export default DatasetHeader;

@@ -10,20 +10,6 @@ export default class DataViewer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      availableYears: [],
-      table: '',
-      schema: '',
-      database: '',
-      queryYearColumn: '',
-      displayHeaders: [],
-      rowHeaders: [],
-      rows: [],
-      title: '',
-      source: '',
-      universe: '',
-      description: '',
-      metadata: {},
-      selectedYears: [],
       currentPage: 1,
     };
     this.updateSelectedYears = this.updateSelectedYears.bind(this);
@@ -34,16 +20,10 @@ export default class DataViewer extends React.Component {
     const queryBase = 'https://prql.mapc.org/';
     const queryToken = '16a2637ee33572e46f5609a578b035dc';
     this.props.fetchDatasets().then((storeResponse) => {
-      const fullDataset = storeResponse.datasets.filter((dataset) => +dataset.seq_id === +this.props.match.params.id)[0];
-      const table = fullDataset.table_name;
-      const schema = fullDataset.schemaname;
-      const database = fullDataset.db_name;
-      const title = fullDataset.menu3;
-      const source = fullDataset.source;
-      const queryYearColumn = fullDataset.yearcolumn;
-      const yearQuery = axios.get(`${queryBase}?query=select distinct(${queryYearColumn}) from ${schema}.${table} LIMIT 50&token=${queryToken}`);
-      const tableQuery = axios.get(`${queryBase}?query=select * from ${schema}.${table} order by ${queryYearColumn} DESC LIMIT 15000&token=${queryToken}`);
-      const headerQuery = axios.get(`/${database}?tables=${table}`, { headers: { 'Access-Control-Allow-Origin': '*' } });
+      const dataset = storeResponse.datasets.filter((datasetObj) => +datasetObj.seq_id === +this.props.match.params.id)[0];
+      const yearQuery = axios.get(`${queryBase}?query=select distinct(${dataset.yearcolumn}) from ${dataset.schemaname}.${dataset.table_name} LIMIT 50&token=${queryToken}`);
+      const tableQuery = axios.get(`${queryBase}?query=select * from ${dataset.schemaname}.${dataset.table_name} order by ${dataset.yearcolumn} DESC LIMIT 15000&token=${queryToken}`);
+      const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
       axios.all([yearQuery, tableQuery, headerQuery]).then((response) => {
         const yearResults = response[0];
         const tableResults = response[1];
@@ -62,12 +42,12 @@ export default class DataViewer extends React.Component {
           description: metadata.filter((row) => row.name === 'descriptn')[0].details,
           metadata,
           selectedYears: [yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse()[0]],
-          table,
-          schema,
-          database,
-          title,
-          source,
-          queryYearColumn,
+          table: dataset.table_name,
+          schema: dataset.schemaname,
+          database: dataset.db_name,
+          title: dataset.menu3,
+          source: dataset.source,
+          queryYearColumn: dataset.yearcolumn,
         });
       });
     });
@@ -107,25 +87,25 @@ export default class DataViewer extends React.Component {
     return (
       <section className="datasets">
         <DatasetHeader
-          title={this.state.title}
-          source={this.state.source}
-          universe={this.state.universe}
           availableYears={this.state.availableYears}
+          database={this.state.database}
           description={this.state.description}
           metadata={this.state.metadata}
-          schema={this.state.schema}
-          table={this.state.table}
-          database={this.state.database}
-          updateSelectedYears={this.updateSelectedYears}
           queryYearColumn={this.state.queryYearColumn}
+          schema={this.state.schema}
           selectedYears={this.state.selectedYears}
+          source={this.state.source}
+          table={this.state.table}
+          title={this.state.title}
+          updateSelectedYears={this.updateSelectedYears}
+          universe={this.state.universe}
         />
         <DatasetTable
-          rows={this.state.rows}
-          displayHeaders={this.state.displayHeaders}
-          rowHeaders={this.state.rowHeaders}
-          queryYearColumn={this.state.queryYearColumn}
           currentPage={this.state.currentPage}
+          displayHeaders={this.state.displayHeaders}
+          queryYearColumn={this.state.queryYearColumn}
+          rows={this.state.rows}
+          rowHeaders={this.state.rowHeaders}
           selectedYears={this.state.selectedYears}
           updatePage={this.updatePage}
         />
