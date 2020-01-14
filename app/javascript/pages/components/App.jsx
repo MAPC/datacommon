@@ -13,6 +13,7 @@ import PrivateRoute from './PrivateRoute';
 import { AuthContext } from './context/auth';
 import Calendar from './Calendar';
 import Browser from '../containers/Browser';
+import DataViewer from '../containers/DataViewer';
 
 const App = (props) => (
   <section className="component App">
@@ -32,6 +33,7 @@ const App = (props) => (
         <Route exact path="/gallery" component={Gallery} />
         <Route exact path="/login" component={Login} />
         <Route path='/calendar/:year/:month' component={Calendar} />
+        <Route path='/browser/datasets/:id' component={DataViewer} />
         <Route path='/browser/:menuOneSelectedItem' component={Browser} />
         <Route path='/browser' component={Browser} />
         <PrivateRoute exact path="/admin" component={Admin} />

@@ -11,6 +11,7 @@
 
   thead {
     th {
+      white-space: nowrap;
       padding: .5em 2em .5em 1em !important;
 
       color: $color_font-dark !important;
@@ -21,6 +22,8 @@
       border-radius: 0;
       border-top: 1px solid;
       border-color: $color_font-medium !important;
+      border-left: 1px solid rgba(34,36,38,.1);
+      border-bottom: 1px solid rgba(34,36,38,.1);
 
       &:hover { background: $color_bg-medium--light !important; }
     }
@@ -32,9 +35,18 @@
     }
 
     td {
-      padding-left: 1em !important;
+      padding: .5em .7em .5em 1em;
       border: none;
       background: $color_bg-light;
     }
   }
+}
+
+
+.ui.table thead tr:first-child>th:first-child {
+  border-radius: .28571429rem 0 0 0;
+}
+
+.ui.sortable.table thead th:first-child {
+  border-left: none;
 }
