@@ -3,8 +3,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import axios from 'axios';
-import DataRow from './DataRow';
-import DatasetHeader from './DatasetHeader';
+import DatasetHeader from './partials/DatasetHeader';
+import DatasetTable from './partials/DatasetTable';
 
 export default class DataViewer extends React.Component {
   constructor(props) {
@@ -27,6 +27,7 @@ export default class DataViewer extends React.Component {
       currentPage: 1,
     };
     this.updateSelectedYears = this.updateSelectedYears.bind(this);
+    this.updatePage = this.updatePage.bind(this);
   }
 
   componentDidMount() {
@@ -86,24 +87,23 @@ export default class DataViewer extends React.Component {
     });
   }
 
-  render() {
-    const { rows, displayHeaders, rowHeaders, queryYearColumn } = this.state;
-    const filteredHeaders = displayHeaders.filter((header) => header !== 'shape');
-    const updatedRowHeaders = rowHeaders.filter((header) => header !== 'shape');
-    const renderedHeaders = filteredHeaders.map((header) => <th className="ui table " key={header}>{header}</th>);
-    const renderedRows = rows.filter((row) => this.state.selectedYears.includes(row[queryYearColumn]))
-      .map((row) => <DataRow key={row.seq_id} rowData={row} headers={updatedRowHeaders} />);
-    const renderedTable = (
-      <table className="ui sortable unstackable selectable compact table ember-view">
-        <thead>
-          <tr>{renderedHeaders}</tr>
-        </thead>
-        <tbody>
-          {renderedRows}
-        </tbody>
-      </table>
-    );
+  updatePage(e, action, numOfPages = 1) {
+    this.setState((prevState) => {
+      let updatedPage;
+      if (action === 'Forward') {
+        updatedPage = prevState.currentPage + 1;
+      } else if (action === 'Backward') {
+        updatedPage = prevState.currentPage - 1;
+      } else if (action === 'Beginning') {
+        updatedPage = 1;
+      } else if (action === 'End') {
+        updatedPage = numOfPages;
+      }
+      return { currentPage: updatedPage };
+    });
+  }
 
+  render() {
     return (
       <section className="datasets">
         <DatasetHeader
@@ -120,15 +120,15 @@ export default class DataViewer extends React.Component {
           queryYearColumn={this.state.queryYearColumn}
           selectedYears={this.state.selectedYears}
         />
-        <div className="table-wrapper">
-          <div className="container tight">
-            <div className="scroll-horizontal-rotated ui lift">
-              <div className="cancel-rotate">
-                {renderedTable}
-              </div>
-            </div>
-          </div>
-        </div>
+        <DatasetTable
+          rows={this.state.rows}
+          displayHeaders={this.state.displayHeaders}
+          rowHeaders={this.state.rowHeaders}
+          queryYearColumn={this.state.queryYearColumn}
+          currentPage={this.state.currentPage}
+          selectedYears={this.state.selectedYears}
+          updatePage={this.updatePage}
+        />
       </section>
     );
   }

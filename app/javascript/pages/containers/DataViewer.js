@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import DataViewer from '../components/partials/DataViewer';
+import DataViewer from '../components/DataViewer';
 import { fetchAll } from '../actions/dataset';
 
 const mapStateToProps = ({ dataset, search }, props) => ({

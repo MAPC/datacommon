@@ -31,7 +31,7 @@ function downloadMetadata(e, metadata) {
 
 function downloadData(schema, table, database, selectedYears, queryYearColumn) {
   const yearString = selectedYears.join();
-  return `/csv?table=${schema}.${table}&database=${database}&years=${yearString}&year_col=${queryYearColumn}`
+  return `/csv?table=${schema}.${table}&database=${database}&years=${yearString}&year_col=${queryYearColumn}`;
 }
 
 function DatasetHeader({
