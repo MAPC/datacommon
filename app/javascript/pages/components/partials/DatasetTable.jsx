@@ -2,14 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DataRow from './DataRow';
 
-function DatasetTable({
-  currentPage, displayHeaders, queryYearColumn, rows, rowHeaders, selectedYears, updatePage
-}) {
-  const filteredHeaders = displayHeaders.filter((header) => header !== 'shape');
-  const updatedRowHeaders = rowHeaders.filter((header) => header !== 'shape');
-  const renderedHeaders = filteredHeaders.map((header) => <th className="ui table " key={header}>{header}</th>);
+function setTableHeaders(columnKeys, metadata) {
+  if (metadata.documentation) {
+    return columnKeys.map((header) => (
+      <th className="ui table" key={header}>
+        {header}
+      </th>
+    ));
+  }
+  return columnKeys
+    .filter((header) => metadata.find((element) => element.name === header))
+    .map((header) => (
+      <th className="ui table" key={header}>
+        { metadata.find((element) => element.name === header).alias }
+      </th>
+    ));
+}
+
+function DatasetTable({ rows, columnKeys, queryYearColumn, currentPage, selectedYears, updatePage, metadata }) {
+  const renderedHeaders = setTableHeaders(columnKeys, metadata);
   const allRows = rows.filter((row) => selectedYears.includes(row[queryYearColumn]))
-    .map((row) => <DataRow key={row.seq_id} rowData={row} headers={updatedRowHeaders} />);
+    .map((row) => <DataRow key={row.seq_id} rowData={row} headers={columnKeys} />);
   const renderedRows = allRows.slice((currentPage - 1) * 50, currentPage * 50);
   const numOfPages = Math.ceil(allRows.length / 50);
   const backButtonClasses = currentPage === 1 ? 'button-wrapper lift disabled' : 'button-wrapper lift';

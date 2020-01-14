@@ -18,38 +18,54 @@ export default class DataViewer extends React.Component {
 
   componentDidMount() {
     const queryBase = 'https://prql.mapc.org/';
-    const queryToken = '16a2637ee33572e46f5609a578b035dc';
     this.props.fetchDatasets().then((storeResponse) => {
       const dataset = storeResponse.datasets.filter((datasetObj) => +datasetObj.seq_id === +this.props.match.params.id)[0];
-      const yearQuery = axios.get(`${queryBase}?query=select distinct(${dataset.yearcolumn}) from ${dataset.schemaname}.${dataset.table_name} LIMIT 50&token=${queryToken}`);
-      const tableQuery = axios.get(`${queryBase}?query=select * from ${dataset.schemaname}.${dataset.table_name} order by ${dataset.yearcolumn} DESC LIMIT 15000&token=${queryToken}`);
-      const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
-      axios.all([yearQuery, tableQuery, headerQuery]).then((response) => {
-        const yearResults = response[0];
-        const tableResults = response[1];
-        const metadata = Object.values(response[2].data)[0];
-
-        const displayHeaders = Object.keys(tableResults.data.fields)
-          .filter((header) => metadata.find((element) => element.name === header))
-          .map((header) => metadata.find((element) => element.name === header).alias);
-
-        this.setState({
-          availableYears: yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse(),
-          rows: tableResults.data.rows,
-          rowHeaders: Object.keys(tableResults.data.rows[0]),
-          displayHeaders,
-          universe: metadata.filter((row) => row.name === 'universe')[0].details,
-          description: metadata.filter((row) => row.name === 'descriptn')[0].details,
-          metadata,
-          selectedYears: [yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse()[0]],
-          table: dataset.table_name,
-          schema: dataset.schemaname,
-          database: dataset.db_name,
-          title: dataset.menu3,
-          source: dataset.source,
-          queryYearColumn: dataset.yearcolumn,
+      if (queryYearColumn) {
+        const queryToken = '16a2637ee33572e46f5609a578b035dc';
+        const yearQuery = axios.get(`${queryBase}?query=select distinct(${dataset.yearcolumn}) from ${dataset.schemaname}.${dataset.table_name} LIMIT 50&token=${queryToken}`);
+        const tableQuery = axios.get(`${queryBase}?query=select * from ${dataset.schemaname}.${dataset.table_name} order by ${dataset.yearcolumn} DESC LIMIT 15000&token=${queryToken}`);
+        const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
+        
+        axios.all([yearQuery, tableQuery, headerQuery]).then((response) => {
+          const yearResults = response[0];
+          const tableResults = response[1];
+          const metadata = Object.values(response[2].data)[0];
+          this.setState({
+            availableYears: yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse(),
+            rows: tableResults.data.rows,
+            rowHeaders: Object.keys(tableResults.data.rows[0]),
+            displayHeaders,
+            universe: metadata.filter((row) => row.name === 'universe')[0].details,
+            description: metadata.filter((row) => row.name === 'descriptn')[0].details,
+            metadata,
+            selectedYears: [yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse()[0]],
+            table: dataset.table_name,
+            schema: dataset.schemaname,
+            database: dataset.db_name,
+            title: dataset.menu3,
+            source: dataset.source,
+            queryYearColumn: dataset.yearcolumn,
+          });
         });
-      });
+      } else {
+        const queryToken = '1b9b9a1d1738c3dce14331040fa17008';
+        const tableQuery = axios.get(`${queryBase}?query=select%20*%20from%20${schema}.${table}%20%20LIMIT%2050;&token=${queryToken}`);
+        const headerQuery = axios.get(`/${database}?tables=${table}`, { headers: { 'Access-Control-Allow-Origin': '*' } });
+        axios.all([tableQuery, headerQuery]).then((response) => {
+          const tableResults = response[0];
+          const metadata = Object.values(response[1].data)[0];
+          this.setState({
+            rows: tableResults.data.rows,
+            columnKeys: Object.keys(tableResults.data.rows[0]).filter((header) => header !== 'shape'),
+            metadata,
+            schema,
+            database,
+            title,
+            source,
+            queryYearColumn,
+          });
+        });
+      }
     });
   }
 
@@ -103,11 +119,14 @@ export default class DataViewer extends React.Component {
         <DatasetTable
           currentPage={this.state.currentPage}
           displayHeaders={this.state.displayHeaders}
+          rows={this.state.rows}
+          columnKeys={this.state.columnKeys}
           queryYearColumn={this.state.queryYearColumn}
           rows={this.state.rows}
           rowHeaders={this.state.rowHeaders}
           selectedYears={this.state.selectedYears}
           updatePage={this.updatePage}
+          metadata={this.state.metadata}
         />
       </section>
     );
