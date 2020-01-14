@@ -23,8 +23,13 @@ function DatasetTable({
   columnKeys, currentPage, metadata, queryYearColumn, rows, selectedYears, updatePage,
 }) {
   const renderedHeaders = setTableHeaders(columnKeys, metadata);
-  const allRows = rows.filter((row) => selectedYears.includes(row[queryYearColumn]))
-    .map((row) => <DataRow key={row.seq_id} rowData={row} headers={columnKeys} />);
+  let allRows;
+  if (queryYearColumn) {
+    allRows = rows.filter((row) => selectedYears.includes(row[queryYearColumn]))
+      .map((row) => <DataRow key={row.seq_id} rowData={row} headers={columnKeys} />);
+  } else {
+    allRows = rows.map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys} />);
+  }
 
   const renderedRows = allRows.slice((currentPage - 1) * 50, currentPage * 50);
   const numOfPages = Math.ceil(allRows.length / 50);
@@ -96,7 +101,10 @@ function DatasetTable({
 DatasetTable.propTypes = {
   columnKeys: PropTypes.arrayOf(PropTypes.string),
   currentPage: PropTypes.number,
-  metadata: PropTypes.arrayOf(PropTypes.object),
+  metadata: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.object),
+    PropTypes.objectOf(PropTypes.object),
+  ]),
   queryYearColumn: PropTypes.string,
   rows: PropTypes.arrayOf(PropTypes.object),
   selectedYears: PropTypes.arrayOf(PropTypes.string),
@@ -106,7 +114,7 @@ DatasetTable.propTypes = {
 DatasetTable.defaultProps = {
   columnKeys: [],
   currentPage: 1,
-  metadata: [{ example: '123', }],
+  metadata: [],
   queryYearColumn: '',
   rows: [],
   selectedYears: [],

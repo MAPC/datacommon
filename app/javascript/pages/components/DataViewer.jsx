@@ -56,11 +56,12 @@ export default class DataViewer extends React.Component {
             rows: tableResults.data.rows,
             columnKeys: Object.keys(tableResults.data.rows[0]).filter((header) => header !== 'shape'),
             metadata,
-            // schema,
-            // database,
-            // title,
-            // source,
-            // queryYearColumn,
+            description: metadata.documentation.metadata.dataIdInfo.idPurp,
+            schema: dataset.schemaname,
+            source: dataset.source,
+            database: dataset.db_name,
+            table: dataset.table_name,
+            title: dataset.menu3,
           });
         });
       }
@@ -118,7 +119,6 @@ export default class DataViewer extends React.Component {
           currentPage={this.state.currentPage}
           columnKeys={this.state.columnKeys}
           rows={this.state.rows}
-          columnKeys={this.state.columnKeys}
           queryYearColumn={this.state.queryYearColumn}
           selectedYears={this.state.selectedYears}
           updatePage={this.updatePage}
