@@ -19,10 +19,13 @@ function setTableHeaders(columnKeys, metadata) {
     ));
 }
 
-function DatasetTable({ rows, columnKeys, queryYearColumn, currentPage, selectedYears, updatePage, metadata }) {
+function DatasetTable({
+  columnKeys, currentPage, metadata, queryYearColumn, rows, selectedYears, updatePage,
+}) {
   const renderedHeaders = setTableHeaders(columnKeys, metadata);
   const allRows = rows.filter((row) => selectedYears.includes(row[queryYearColumn]))
     .map((row) => <DataRow key={row.seq_id} rowData={row} headers={columnKeys} />);
+
   const renderedRows = allRows.slice((currentPage - 1) * 50, currentPage * 50);
   const numOfPages = Math.ceil(allRows.length / 50);
   const backButtonClasses = currentPage === 1 ? 'button-wrapper lift disabled' : 'button-wrapper lift';
@@ -91,21 +94,21 @@ function DatasetTable({ rows, columnKeys, queryYearColumn, currentPage, selected
 }
 
 DatasetTable.propTypes = {
+  columnKeys: PropTypes.arrayOf(PropTypes.string),
   currentPage: PropTypes.number,
-  displayHeaders: PropTypes.arrayOf(PropTypes.string),
+  metadata: PropTypes.arrayOf(PropTypes.object),
   queryYearColumn: PropTypes.string,
   rows: PropTypes.arrayOf(PropTypes.object),
-  rowHeaders: PropTypes.arrayOf(PropTypes.string),
   selectedYears: PropTypes.arrayOf(PropTypes.string),
   updatePage: PropTypes.func.isRequired,
 };
 
 DatasetTable.defaultProps = {
+  columnKeys: [],
   currentPage: 1,
-  displayHeaders: [],
+  metadata: [{ example: '123', }],
   queryYearColumn: '',
   rows: [],
-  rowHeaders: [],
   selectedYears: [],
 };
 
