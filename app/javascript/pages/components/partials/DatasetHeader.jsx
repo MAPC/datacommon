@@ -136,7 +136,7 @@ function DatasetHeader({
 }
 
 DatasetHeader.propTypes = {
-  availableYears: PropTypes.arrayOf(PropTypes.string),
+  availableYears: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   database: PropTypes.string,
   description: PropTypes.string,
   metadata: PropTypes.oneOfType([
@@ -145,7 +145,7 @@ DatasetHeader.propTypes = {
   ]),
   queryYearColumn: PropTypes.string,
   schema: PropTypes.string,
-  selectedYears: PropTypes.arrayOf(PropTypes.string),
+  selectedYears: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   source: PropTypes.string,
   table: PropTypes.string,
   title: PropTypes.string,

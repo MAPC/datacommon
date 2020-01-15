@@ -107,7 +107,7 @@ DatasetTable.propTypes = {
   ]),
   queryYearColumn: PropTypes.string,
   rows: PropTypes.arrayOf(PropTypes.object),
-  selectedYears: PropTypes.arrayOf(PropTypes.string),
+  selectedYears: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   updatePage: PropTypes.func.isRequired,
 };
 
