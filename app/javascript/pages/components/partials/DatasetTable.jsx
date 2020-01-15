@@ -5,8 +5,8 @@ import DataRow from './DataRow';
 function setTableHeaders(columnKeys, metadata) {
   if (metadata.documentation) {
     return columnKeys.map((header) => (
-      <th className="ui table" key={header}>
-        {header}
+      <th className="ui table" key={header.alias}>
+        {header.alias}
       </th>
     ));
   }
@@ -26,9 +26,9 @@ function DatasetTable({
   let allRows;
   if (queryYearColumn) {
     allRows = rows.filter((row) => selectedYears.includes(row[queryYearColumn]))
-      .map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys} />);
+      .map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys.map((key) => key.label)} />);
   } else {
-    allRows = rows.map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys} />);
+    allRows = rows.map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys.map((key) => key.label)} />);
   }
 
   const renderedRows = allRows.slice((currentPage - 1) * 50, currentPage * 50);
@@ -99,7 +99,7 @@ function DatasetTable({
 }
 
 DatasetTable.propTypes = {
-  columnKeys: PropTypes.arrayOf(PropTypes.string),
+  columnKeys: PropTypes.arrayOf(PropTypes.object),
   currentPage: PropTypes.number,
   metadata: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.object),
