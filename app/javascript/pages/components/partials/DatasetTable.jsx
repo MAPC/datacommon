@@ -2,14 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DataRow from './DataRow';
 
+function setTableHeaders(columnKeys, metadata) {
+  if (metadata.documentation) {
+    return columnKeys.map((header) => (
+      <th className="ui table" key={header}>
+        {header}
+      </th>
+    ));
+  }
+  return columnKeys
+    .filter((header) => metadata.find((element) => element.name === header))
+    .map((header) => (
+      <th className="ui table" key={header}>
+        { metadata.find((element) => element.name === header).alias }
+      </th>
+    ));
+}
+
 function DatasetTable({
-  currentPage, displayHeaders, queryYearColumn, rows, rowHeaders, selectedYears, updatePage
+  columnKeys, currentPage, metadata, queryYearColumn, rows, selectedYears, updatePage,
 }) {
-  const filteredHeaders = displayHeaders.filter((header) => header !== 'shape');
-  const updatedRowHeaders = rowHeaders.filter((header) => header !== 'shape');
-  const renderedHeaders = filteredHeaders.map((header) => <th className="ui table " key={header}>{header}</th>);
-  const allRows = rows.filter((row) => selectedYears.includes(row[queryYearColumn]))
-    .map((row) => <DataRow key={row.seq_id} rowData={row} headers={updatedRowHeaders} />);
+  const renderedHeaders = setTableHeaders(columnKeys, metadata);
+  let allRows;
+  if (queryYearColumn) {
+    allRows = rows.filter((row) => selectedYears.includes(row[queryYearColumn]))
+      .map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys} />);
+  } else {
+    allRows = rows.map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys} />);
+  }
+
   const renderedRows = allRows.slice((currentPage - 1) * 50, currentPage * 50);
   const numOfPages = Math.ceil(allRows.length / 50);
   const backButtonClasses = currentPage === 1 ? 'button-wrapper lift disabled' : 'button-wrapper lift';
@@ -78,21 +99,24 @@ function DatasetTable({
 }
 
 DatasetTable.propTypes = {
+  columnKeys: PropTypes.arrayOf(PropTypes.string),
   currentPage: PropTypes.number,
-  displayHeaders: PropTypes.arrayOf(PropTypes.string),
+  metadata: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.object),
+    PropTypes.objectOf(PropTypes.object),
+  ]),
   queryYearColumn: PropTypes.string,
   rows: PropTypes.arrayOf(PropTypes.object),
-  rowHeaders: PropTypes.arrayOf(PropTypes.string),
   selectedYears: PropTypes.arrayOf(PropTypes.string),
   updatePage: PropTypes.func.isRequired,
 };
 
 DatasetTable.defaultProps = {
+  columnKeys: [],
   currentPage: 1,
-  displayHeaders: [],
+  metadata: [],
   queryYearColumn: '',
   rows: [],
-  rowHeaders: [],
   selectedYears: [],
 };
 
