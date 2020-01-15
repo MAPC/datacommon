@@ -49,8 +49,7 @@ export default class DataViewer extends React.Component {
         const queryToken = '1b9b9a1d1738c3dce14331040fa17008';
         const tableQuery = axios.get(`${queryBase}?query=select%20*%20from%20${dataset.schemaname}.${dataset.table_name}%20%20LIMIT%2050;&token=${queryToken}`);
         const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
-        const test = axios.get("https://prql.mapc.org/?token=16a2637ee33572e46f5609a578b035dc&query=SELECT%20*%20FROM%20tabular._data_browser%20WHERE%20active%20%3D%20%27Y%27%20ORDER%20BY%20menu1,menu2,menu3%20ASC")
-        axios.all([tableQuery, headerQuery, test]).then((response) => {
+        axios.all([tableQuery, headerQuery]).then((response) => {
           const tableResults = response[0];
           const metadata = Object.values(response[1].data)[0];
           this.setState({

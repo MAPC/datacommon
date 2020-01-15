@@ -87,6 +87,18 @@ function setSelectYears(availableYears, updateSelectedYears, selectedYears) {
   return null;
 }
 
+function setUniverse(universe) {
+  if (universe) {
+    return (
+      <li>
+        Universe:
+        <em>{` ${universe}`}</em>
+      </li>
+    );
+  }
+  return null;
+}
+
 function DatasetHeader({
   title, table, source, universe, description, availableYears, metadata, schema, database, updateSelectedYears, queryYearColumn, selectedYears,
 }) {
@@ -108,10 +120,7 @@ function DatasetHeader({
                 Source:
                 <em>{` ${source}`}</em>
               </li>
-              <li>
-                Universe:
-                <em>{` ${universe}`}</em>
-              </li>
+              { setUniverse(universe) }
               <li>
                 Description:
                 <em>{` ${description}`}</em>
