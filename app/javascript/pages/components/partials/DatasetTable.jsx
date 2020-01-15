@@ -26,7 +26,7 @@ function DatasetTable({
   let allRows;
   if (queryYearColumn) {
     allRows = rows.filter((row) => selectedYears.includes(row[queryYearColumn]))
-      .map((row) => <DataRow key={row.seq_id} rowData={row} headers={columnKeys} />);
+      .map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys} />);
   } else {
     allRows = rows.map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys} />);
   }
