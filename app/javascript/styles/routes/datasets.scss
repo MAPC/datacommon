@@ -49,38 +49,31 @@
 
   .year-filter {
     display: flex;
-    width: 50%;
-
     font-size: $font_size-xsmall;
     vertical-align: bottom;
 
     span {
-      flex: 0;
-      top: 1px;
       display: block;
-
+      flex: 0;
       min-width: 70px;
+      top: 1px;
     }
 
     ul {
       display: inline-block;
-
       margin: 0;
       margin-left: .5em;
       vertical-align: text-bottom;
     }
 
     li {
-      display: inline-block;
-
-      margin-bottom: 6px;
-      padding: .1em .5em .2em;
-
-      color: $color_font-medium;
-
       border: 1px solid $color_font-medium;
       border-radius: $elem_button-radius;
+      color: $color_font-medium;
       cursor: pointer;
+      display: inline-block;
+      margin-bottom: 6px;
+      padding: .1em .5em .2em;
       transition: color .14s, border-color .14s, border-width .14s, font-weight .14s;
 
       &:not(:last-of-type) { margin-right: 4px; }
@@ -91,11 +84,10 @@
       }
 
       &.selected {
+        border-color: $color_brand-secondary;
+        border-width: 2px;
         color: $color_brand-secondary;
         font-weight: 700;
-
-        border-width: 2px;
-        border-color: $color_brand-secondary;
         transition: color .14s, border-color .14s, border-width .14s, font-weight .14s;
       }
     }
