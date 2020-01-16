@@ -1,16 +1,22 @@
-/* eslint-disable max-len */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
 import React from 'react';
 import axios from 'axios';
+import { css } from '@emotion/core';
+import MoonLoader from 'react-spinners/MoonLoader';
 import DatasetHeader from './partials/DatasetHeader';
 import DatasetTable from './partials/DatasetTable';
+
+const override = css`
+  height: 3.5rem;
+  margin-bottom: .5rem;
+  width: 3.5rem;
+`;
 
 export default class DataViewer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentPage: 1,
+      loading: true,
     };
     this.updateSelectedYears = this.updateSelectedYears.bind(this);
     this.updatePage = this.updatePage.bind(this);
@@ -44,6 +50,7 @@ export default class DataViewer extends React.Component {
             title: dataset.menu3,
             source: dataset.source,
             queryYearColumn: dataset.yearcolumn,
+            loading: false,
           });
         });
       } else {
@@ -67,6 +74,7 @@ export default class DataViewer extends React.Component {
             database: dataset.db_name,
             table: dataset.table_name,
             title: dataset.menu3,
+            loading: false,
           });
         });
       }
@@ -104,32 +112,52 @@ export default class DataViewer extends React.Component {
   }
 
   render() {
+    let pageContents;
+    if (this.state.loading) {
+      pageContents = (
+          <div className="moonloader__wrapper">
+            <MoonLoader
+              size={'56px'}
+              css={override}
+              color={'#767676'}
+              loading={this.state.loading}
+            />
+            Fetching Data
+          </div>
+      );
+    } else {
+      pageContents = (
+        <section className="datasets">
+          <DatasetHeader
+            availableYears={this.state.availableYears}
+            database={this.state.database}
+            description={this.state.description}
+            metadata={this.state.metadata}
+            queryYearColumn={this.state.queryYearColumn}
+            schema={this.state.schema}
+            selectedYears={this.state.selectedYears}
+            source={this.state.source}
+            table={this.state.table}
+            title={this.state.title}
+            updateSelectedYears={this.updateSelectedYears}
+            universe={this.state.universe}
+          />
+          <DatasetTable
+            currentPage={this.state.currentPage}
+            columnKeys={this.state.columnKeys}
+            rows={this.state.rows}
+            queryYearColumn={this.state.queryYearColumn}
+            selectedYears={this.state.selectedYears}
+            updatePage={this.updatePage}
+            metadata={this.state.metadata}
+          />
+        </section>
+      );
+    }
     return (
-      <section className="datasets">
-        <DatasetHeader
-          availableYears={this.state.availableYears}
-          database={this.state.database}
-          description={this.state.description}
-          metadata={this.state.metadata}
-          queryYearColumn={this.state.queryYearColumn}
-          schema={this.state.schema}
-          selectedYears={this.state.selectedYears}
-          source={this.state.source}
-          table={this.state.table}
-          title={this.state.title}
-          updateSelectedYears={this.updateSelectedYears}
-          universe={this.state.universe}
-        />
-        <DatasetTable
-          currentPage={this.state.currentPage}
-          columnKeys={this.state.columnKeys}
-          rows={this.state.rows}
-          queryYearColumn={this.state.queryYearColumn}
-          selectedYears={this.state.selectedYears}
-          updatePage={this.updatePage}
-          metadata={this.state.metadata}
-        />
-      </section>
+      <>
+        {pageContents}
+      </>
     );
   }
 }
