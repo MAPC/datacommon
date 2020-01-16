@@ -2,33 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DataRow from './DataRow';
 
-function setTableHeaders(columnKeys, metadata) {
-  if (metadata.documentation) {
-    return columnKeys.map((header) => (
-      <th className="ui table" key={header}>
-        {header}
-      </th>
-    ));
-  }
-  return columnKeys
-    .filter((header) => metadata.find((element) => element.name === header))
-    .map((header) => (
-      <th className="ui table" key={header}>
-        { metadata.find((element) => element.name === header).alias }
-      </th>
-    ));
+function setTableHeaders(columnKeys) {
+  return columnKeys.map((header) => (
+    <th className="ui table" key={header.alias}>
+      {header.alias}
+    </th>
+  ));
 }
 
 function DatasetTable({
   columnKeys, currentPage, metadata, queryYearColumn, rows, selectedYears, updatePage,
 }) {
-  const renderedHeaders = setTableHeaders(columnKeys, metadata);
+  const renderedHeaders = setTableHeaders(columnKeys);
   let allRows;
   if (queryYearColumn) {
     allRows = rows.filter((row) => selectedYears.includes(row[queryYearColumn]))
-      .map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys} />);
+      .map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys.map((key) => key.name)} />);
   } else {
-    allRows = rows.map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys} />);
+    allRows = rows.map((row, i) => <DataRow key={i} rowData={row} headers={columnKeys.map((key) => key.name)} />);
   }
 
   const renderedRows = allRows.slice((currentPage - 1) * 50, currentPage * 50);
@@ -99,7 +90,7 @@ function DatasetTable({
 }
 
 DatasetTable.propTypes = {
-  columnKeys: PropTypes.arrayOf(PropTypes.string),
+  columnKeys: PropTypes.arrayOf(PropTypes.object),
   currentPage: PropTypes.number,
   metadata: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.object),

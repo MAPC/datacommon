@@ -34,7 +34,8 @@ export default class DataViewer extends React.Component {
             rows: tableResults.data.rows,
             universe: metadata.filter((row) => row.name === 'universe')[0].details,
             description: metadata.filter((row) => row.name === 'descriptn')[0].details,
-            columnKeys: Object.keys(tableResults.data.rows[0]).filter((header) => header !== 'seq_id'),
+            columnKeys: metadata.filter((object) => Object.keys(tableResults.data.rows[0]).includes(object.name))
+              .filter((header) => header.name !== 'seq_id'),
             metadata,
             selectedYears: [yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse()[0]],
             table: dataset.table_name,
@@ -52,9 +53,13 @@ export default class DataViewer extends React.Component {
         axios.all([tableQuery, headerQuery]).then((response) => {
           const tableResults = response[0];
           const metadata = Object.values(response[1].data)[0];
+          const columns = Object.keys(tableResults.data.rows[0]);
+          const sortedMetadata = metadata.documentation.metadata.eainfo.detailed.attr.map((attribute) => ({ name: attribute.attrlabl, alias: attribute.attalias }))
+            .filter((header) => columns.includes(header.name))
+            .filter((header) => header.name !== 'shape');
           this.setState({
             rows: tableResults.data.rows,
-            columnKeys: Object.keys(tableResults.data.rows[0]).filter((header) => header !== 'shape'),
+            columnKeys: sortedMetadata,
             metadata,
             description: metadata.documentation.metadata.dataIdInfo.idPurp,
             schema: dataset.schemaname,
