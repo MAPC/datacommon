@@ -26,33 +26,57 @@ export default class DataViewer extends React.Component {
     const queryBase = 'https://prql.mapc.org/';
     this.props.fetchDatasets().then((storeResponse) => {
       const dataset = storeResponse.datasets.filter((datasetObj) => +datasetObj.seq_id === +this.props.match.params.id)[0];
-      if (dataset.yearcolumn) {
+      if (dataset.schemaname === 'tabular') {
         const queryToken = '16a2637ee33572e46f5609a578b035dc';
-        const yearQuery = axios.get(`${queryBase}?query=select distinct(${dataset.yearcolumn}) from ${dataset.schemaname}.${dataset.table_name} LIMIT 50&token=${queryToken}`);
-        const tableQuery = axios.get(`${queryBase}?query=select * from ${dataset.schemaname}.${dataset.table_name} order by ${dataset.yearcolumn} DESC LIMIT 15000&token=${queryToken}`);
-        const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
-        axios.all([yearQuery, tableQuery, headerQuery]).then((response) => {
-          const yearResults = response[0];
-          const tableResults = response[1];
-          const metadata = Object.values(response[2].data)[0];
-          this.setState({
-            availableYears: yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse(),
-            rows: tableResults.data.rows,
-            universe: metadata.filter((row) => row.name === 'universe')[0].details,
-            description: metadata.filter((row) => row.name === 'descriptn')[0].details,
-            columnKeys: metadata.filter((object) => Object.keys(tableResults.data.rows[0]).includes(object.name))
-              .filter((header) => header.name !== 'seq_id'),
-            metadata,
-            selectedYears: [yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse()[0]],
-            table: dataset.table_name,
-            schema: dataset.schemaname,
-            database: dataset.db_name,
-            title: dataset.menu3,
-            source: dataset.source,
-            queryYearColumn: dataset.yearcolumn,
-            loading: false,
+        if (dataset.yearcolumn) {
+          const yearQuery = axios.get(`${queryBase}?query=select distinct(${dataset.yearcolumn}) from ${dataset.schemaname}.${dataset.table_name} LIMIT 50&token=${queryToken}`);
+          const tableQuery = axios.get(`${queryBase}?query=select * from ${dataset.schemaname}.${dataset.table_name} order by ${dataset.yearcolumn} DESC LIMIT 15000&token=${queryToken}`);
+          const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
+          axios.all([yearQuery, tableQuery, headerQuery]).then((response) => {
+            const yearResults = response[0];
+            const tableResults = response[1];
+            const metadata = Object.values(response[2].data)[0];
+            this.setState({
+              availableYears: yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse(),
+              rows: tableResults.data.rows,
+              universe: metadata.filter((row) => row.name === 'universe')[0].details,
+              description: metadata.filter((row) => row.name === 'descriptn')[0].details,
+              columnKeys: metadata.filter((object) => Object.keys(tableResults.data.rows[0]).includes(object.name))
+                .filter((header) => header.name !== 'seq_id'),
+              metadata,
+              selectedYears: [yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse()[0]],
+              table: dataset.table_name,
+              schema: dataset.schemaname,
+              database: dataset.db_name,
+              title: dataset.menu3,
+              source: dataset.source,
+              queryYearColumn: dataset.yearcolumn,
+              loading: false,
+            });
           });
-        });
+        } else {
+          const tableQuery = axios.get(`${queryBase}?query=select * from ${dataset.schemaname}.${dataset.table_name};&token=${queryToken}`);
+          const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
+          axios.all([tableQuery, headerQuery]).then((response) => {
+            const tableResults = response[0];
+            const metadata = Object.values(response[1].data)[0];
+            this.setState({
+              rows: tableResults.data.rows,
+              universe: metadata.filter((row) => row.name === 'universe')[0].details,
+              description: metadata.filter((row) => row.name === 'descriptn')[0].details,
+              columnKeys: metadata.filter((object) => Object.keys(tableResults.data.rows[0]).includes(object.name))
+                .filter((header) => header.name !== 'seq_id'),
+              metadata,
+              table: dataset.table_name,
+              schema: dataset.schemaname,
+              database: dataset.db_name,
+              title: dataset.menu3,
+              source: dataset.source,
+              queryYearColumn: dataset.yearcolumn,
+              loading: false,
+            });
+          });
+        }
       } else {
         const queryToken = '1b9b9a1d1738c3dce14331040fa17008';
         const tableQuery = axios.get(`${queryBase}?query=select%20*%20from%20${dataset.schemaname}.${dataset.table_name}%20%20LIMIT%2050;&token=${queryToken}`);
