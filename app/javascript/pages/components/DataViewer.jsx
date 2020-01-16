@@ -51,6 +51,7 @@ export default class DataViewer extends React.Component {
               title: dataset.menu3,
               source: dataset.source,
               queryYearColumn: dataset.yearcolumn,
+              loading: false,
             });
           });
         } else {
@@ -72,6 +73,7 @@ export default class DataViewer extends React.Component {
               title: dataset.menu3,
               source: dataset.source,
               queryYearColumn: dataset.yearcolumn,
+              loading: false,
             });
           });
         }
