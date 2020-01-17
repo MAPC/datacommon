@@ -24,14 +24,20 @@ export default class DataViewer extends React.Component {
 
   componentDidMount() {
     const queryBase = 'https://prql.mapc.org/';
+    const queryToken = {
+      ds: '16a2637ee33572e46f5609a578b035dc',
+      gisdata: 'e2e3101e16208f04f7415e36052ce59b',
+      towndata: '1b9b9a1d1738c3dce14331040fa17008',
+    };
+
     this.props.fetchDatasets().then((storeResponse) => {
       const dataset = storeResponse.datasets.filter((datasetObj) => +datasetObj.seq_id === +this.props.match.params.id)[0];
+      const tableQuery = axios.get(`${queryBase}?token=${queryToken[dataset.db_name]}&query=SELECT * FROM ${dataset.schemaname}.${dataset.table_name} ${dataset.yearcolumn ? `ORDER BY ${dataset.yearcolumn} DESC` : ''} LIMIT 15000`);
+      const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
+
       if (dataset.schemaname === 'tabular') {
-        const queryToken = '16a2637ee33572e46f5609a578b035dc';
         if (dataset.yearcolumn) {
-          const yearQuery = axios.get(`${queryBase}?query=select distinct(${dataset.yearcolumn}) from ${dataset.schemaname}.${dataset.table_name} LIMIT 50&token=${queryToken}`);
-          const tableQuery = axios.get(`${queryBase}?query=select * from ${dataset.schemaname}.${dataset.table_name} order by ${dataset.yearcolumn} DESC LIMIT 15000&token=${queryToken}`);
-          const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
+          const yearQuery = axios.get(`${queryBase}?query=select distinct(${dataset.yearcolumn}) from ${dataset.schemaname}.${dataset.table_name} LIMIT 50&token=${queryToken[dataset.db_name]}`);
           axios.all([yearQuery, tableQuery, headerQuery]).then((response) => {
             const yearResults = response[0];
             const tableResults = response[1];
@@ -55,8 +61,6 @@ export default class DataViewer extends React.Component {
             });
           });
         } else {
-          const tableQuery = axios.get(`${queryBase}?query=select * from ${dataset.schemaname}.${dataset.table_name};&token=${queryToken}`);
-          const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
           axios.all([tableQuery, headerQuery]).then((response) => {
             const tableResults = response[0];
             const metadata = Object.values(response[1].data)[0];
@@ -78,9 +82,6 @@ export default class DataViewer extends React.Component {
           });
         }
       } else {
-        const queryToken = '1b9b9a1d1738c3dce14331040fa17008';
-        const tableQuery = axios.get(`${queryBase}?query=select%20*%20from%20${dataset.schemaname}.${dataset.table_name}%20%20LIMIT%2050;&token=${queryToken}`);
-        const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
         axios.all([tableQuery, headerQuery]).then((response) => {
           const tableResults = response[0];
           const metadata = Object.values(response[1].data)[0];
