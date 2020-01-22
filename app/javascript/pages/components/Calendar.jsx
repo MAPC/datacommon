@@ -15,7 +15,7 @@ class Calendar extends React.Component {
         employees: +d.avgemp,
       })),
     ]).then((employmentData) => {
-      const filteredData = employmentData[0].filter(d => d.municipality === 'MAPC Region')
+      const filteredData = employmentData[0].filter((d) => d.municipality === 'MAPC Region')
         .filter((d) => d.category !== 'Total, All Industries');
 
       const employmentByDate = Array.from(rollup(filteredData,
@@ -30,9 +30,13 @@ class Calendar extends React.Component {
       const width = window.innerWidth || document.body.clientWidth;
       let margin;
       if (width > 500) {
-        margin = ({ top: 16, right: 450, bottom: 6, left: 0 });
+        margin = ({
+          top: 16, right: 450, bottom: 6, left: 0,
+        });
       } else {
-        margin = ({ top: 16, right: 0, bottom: 6, left: 0 });
+        margin = ({
+          top: 16, right: 0, bottom: 6, left: 0,
+        });
       }
       const height = (barSize * topResults) + margin.top + margin.bottom;
 
@@ -72,8 +76,8 @@ class Calendar extends React.Component {
 
       const allKeyframes = keyframes(employmentByDate);
       const nameframes = groups(allKeyframes.flatMap(([, data]) => data), (d) => d.category);
-      let prev = new Map(nameframes.flatMap(([, data]) => d3.pairs(data, (a, b) => [b, a])));
-      let next = new Map(nameframes.flatMap(([, data]) => d3.pairs(data)));
+      const prev = new Map(nameframes.flatMap(([, data]) => d3.pairs(data, (a, b) => [b, a])));
+      const next = new Map(nameframes.flatMap(([, data]) => d3.pairs(data)));
 
       const x = d3.scaleLinear([0, 1], [margin.left, width - (margin.right)]);
 
@@ -109,7 +113,7 @@ class Calendar extends React.Component {
 
       function textTween(a, b) {
         const i = d3.interpolateNumber(a, b);
-        return function(t) {
+        return function (t) {
           this.textContent = d3.format(',d')(i(t));
         };
       }
@@ -123,31 +127,31 @@ class Calendar extends React.Component {
           .selectAll('text');
 
         return ([date, data], transition) => label = label
-          .data(data.slice(0, topResults), d => d.category)
+          .data(data.slice(0, topResults), (d) => d.category)
           .join(
             (enter) => enter.append('text')
-              .attr('transform', d => `translate(${x((prev.get(d) || d).value)},${y((prev.get(d) || d).rank)})`)
+              .attr('transform', (d) => `translate(${x((prev.get(d) || d).value)},${y((prev.get(d) || d).rank)})`)
               .attr('x', 6)
               .attr('y', y.bandwidth() / 1.55)
               .attr('dy', '0.1em')
               .style('font-weight', 'lighter')
               .style('fill', '#1F4E46')
-              .text(d => d.category)
-              .call(text => text.append('tspan')
-              .style('font-variant-numeric', 'tabular-nums')
-              .attr('text-anchor', 'end')
-              .attr('fill', '#FFFFFF')
-              .attr('x', -6)
-              .attr('y', 6)
-              .attr('dy', '1em')),
+              .text((d) => d.category)
+              .call((text) => text.append('tspan')
+                .style('font-variant-numeric', 'tabular-nums')
+                .attr('text-anchor', 'end')
+                .attr('fill', '#FFFFFF')
+                .attr('x', -6)
+                .attr('y', 6)
+                .attr('dy', '1em')),
             (update) => update,
             (exit) => exit.transition(transition).remove()
-              .attr('transform', d => `translate(${x((next.get(d) || d).value)},${y((next.get(d) || d).rank)})`)
-              .call(g => g.select('tspan').tween('text', d => textTween(d.value, (next.get(d) || d).value)))
+              .attr('transform', (d) => `translate(${x((next.get(d) || d).value)},${y((next.get(d) || d).rank)})`)
+              .call((g) => g.select('tspan').tween('text', (d) => textTween(d.value, (next.get(d) || d).value))),
           )
           .call((bar) => bar.transition(transition)
-            .attr('transform', d => `translate(${x(d.value)},${y(d.rank)})`)
-            .call(g => g.select('tspan').tween('text', d => textTween((prev.get(d) || d).value, d.value))))
+            .attr('transform', (d) => `translate(${x(d.value)},${y(d.rank)})`)
+            .call((g) => g.select('tspan').tween('text', (d) => textTween((prev.get(d) || d).value, d.value))));
       }
 
       function axis(svg) {
@@ -211,7 +215,7 @@ class Calendar extends React.Component {
         .attr('visibility', 'hidden');
 
       replay.append('image')
-        .attr('href', refresh )
+        .attr('href', refresh)
         .attr('class', 'replay__image')
         .attr('width', 64)
         .attr('height', 64)
@@ -250,14 +254,14 @@ class Calendar extends React.Component {
   }
 
   render() {
-    const back = "<< Back to 2020 Gallery"
+    const back = '<< Back to 2020 Gallery';
     return (
       <section className="route Calendar">
         <div className="container">
           <a href="/gallery" className="back-link">{back}</a>
           <h1 className="jobs__title">Employment by Industry</h1>
           <div className="jobs" />
-          <h2 className="jobs__subtitle"></h2>
+          <h2 className="jobs__subtitle" />
           <div className="container jobs__explanation">
             <p>Metro Boston has experienced rapid economic growth over the past two decades. Although the region experienced periods of employment decline during the 2001 and 2008 national recessions, its employment today is 10% above its previous peak set in 2001. Its top three employing industries since 2001—Professional and Technical Services, Educational Services, and Food Services and Drinking Places—together grew 38% from 2001 to 2018. Healthcare and social assistance industries account for a quarter of jobs among the region’s top 15 industries in 2018, and have seen 89% job growth since 2001. Jobs in Social Assistance, such as those in individual and family services and child day care, were the fastest growing among the region’s top 15, at 116%.</p>
             <p>Average wages in the region across all industries grew 15% (in real dollars) between 2001 and 2018. Yet, looking at wages in the region’s largest individual industries, wage growth has been polarized. Average weekly wages in Social Assistance—the top growing industry among the top 15—declined 4% from an already low $662 per week to $638, in 2018 dollars. Wages in Food Services and Drinking Places, the third largest industry and that with the lowest wages among the top 15, grew only 7%, from $457 to $489. On the other hand, wages in Professional and Technical Services grew 28%, from $2,163 to $2,774, and wages in Financial Investment and Related Activity, already the highest among the top 15, grew the fastest at 39%, from $4,520 to $6,305.</p>
