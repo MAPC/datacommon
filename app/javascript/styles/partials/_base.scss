@@ -1,23 +1,19 @@
 body {
-  color: $color_font-dark;
-  font-size: $font_size-base;
-  font-family: $font_family-primary;
-  line-height: 1.4285em;
-
   background: $color_bg-light;
+  color: $color_font-dark;
+  font-family: $font_family-primary;
+  font-size: $font_size-base;
 
   & > .ember-view,
   #root > .component.App {
     display: flex;
     flex-direction: column;
-
     min-height: 100vh;
   }
 }
 
 main {
   flex: 1 1 auto;
-
   padding-bottom: 50px;
 }
 
@@ -48,9 +44,8 @@ p {
 
 
 .divider-column {
-  position: relative;
-
   padding: 0 !important;
+  position: relative;
 }
 
 .scroll-horizontal-rotated {
