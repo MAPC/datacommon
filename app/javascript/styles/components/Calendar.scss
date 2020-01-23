@@ -110,8 +110,9 @@
 
 .jobs {
   &__subtitle {
-    @include media(medium) {
-      margin: 1rem;
+    @include media(large) {
+      float: initial;
+      margin: initial;
     }
 
     color: $color_font-medium;
