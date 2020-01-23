@@ -109,29 +109,10 @@
 }
 
 .jobs {
-  margin-right: 5rem;
-
-  &__title {
-    display: block;
-    font-family: $font_family-primary;
-    font-weight: bolder;
-    font-size: $font_size-large;
-    padding: 1rem 0;
-  }
-
-  &__year {
-    color: $color_font-medium;
-    font-family: $font_family-primary;
-    font-size: 60px;
-    font-weight: bolder;
-    line-height: 1;
-    margin-bottom: 1.5rem;
-  }
-
   &__subtitle {
-    @include media(medium) {
-      left: 0;
-      margin-top: 2rem;
+    @include media(large) {
+      float: initial;
+      margin: initial;
     }
 
     color: $color_font-medium;
@@ -139,21 +120,38 @@
     float: right;
     font-family: $font_family-primary;
     font-size: $font_size-medium;
-    font-weight: bold;
-    left: -15rem;
-    margin-top: -9rem;
-    width: 17rem;
+    margin: -10rem 0 0 0;
+    max-width: 40%;
+  }
+
+  &__year {
+    @include media(small) {
+      font-size: 3rem;
+    }
+    color: $color_font-medium;
+    font-family: $font_family-primary;
+    font-size: 3.75rem;
+  }
+
+  &__title {
+    @include media(small) {
+      font-size: $font_size-medium;
+    }
+
+    display: block;
+    font-family: $font_family-primary;
+    font-size: $font_size-large;
+    padding: 1rem 0;
   }
 
   &__subtitle-text {
-    display: block;
-    float: right;
+    @include media(small) {
+      font-size: $font_size-small;
+    }
+
     color: $color_font-medium;
     font-family: $font_family-primary;
-    font-weight: bold;
     font-size: $font_size-medium;
-    margin: .5rem 0;
-    width: 17rem;
   }
 
   &__download-link {
@@ -161,15 +159,11 @@
     cursor: pointer;
     display: block;
     font-family: $font_family-primary;
-    font-style: italic;
     font-weight: 100;
-    margin-top: 1rem;
     text-decoration: underline;
   }
 
   &__explanation {
-    display: block;
-    margin-top: 3rem;
   }
 }
 
