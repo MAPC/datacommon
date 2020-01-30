@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import January from './calendar-visualizations/2020/January';
 import February from './calendar-visualizations/2020/February';
 
-const Calendar = (props) => (
+const Calendar = () => (
   <section className="route Calendar">
     <div className="container">
       <a href="/gallery" className="back-link">&lt;&lt; Back to 2020 Gallery</a>
