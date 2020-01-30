@@ -108,7 +108,8 @@
   }
 }
 
-.jobs {
+.calendar-viz {
+  height: inherit;
   &__subtitle {
     @include media(large) {
       float: initial;
@@ -161,9 +162,6 @@
     font-family: $font_family-primary;
     font-weight: 100;
     text-decoration: underline;
-  }
-
-  &__explanation {
   }
 }
 
