@@ -6,8 +6,8 @@ import Particles from './partials/Particles';
 import SearchBar from '../containers/SearchBar';
 import CategoryGrid from '../containers/CategoryGrid';
 import CommunitySelector from '../containers/CommunitySelector';
-import PlaybackImgBackground from './../assets/images/gallery_7';
-import PlaybackImg from './../assets/images/gallery_8';
+import PlaybackImgBackground from './../assets/images/homepage-hover.png';
+import PlaybackImg from './../assets/images/homepage';
 
 class Home extends React.Component {
   constructor() {
@@ -67,7 +67,7 @@ class Home extends React.Component {
             <button className="gallery-spotlight__button"><a href="/gallery">View Gallery</a></button>
 
           </div>
-          <Link to="/calendar/2020/january">
+          <Link to="/calendar/2020/february">
             <img
               src={this.state.imgSrc}
               onMouseOver={this.handleMouseOver}
