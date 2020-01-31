@@ -108,13 +108,12 @@
   }
 }
 
-.jobs {
+.calendar-viz {
   &__subtitle {
     @include media(large) {
       float: initial;
       margin: initial;
     }
-
     color: $color_font-medium;
     display: block;
     float: right;
@@ -133,15 +132,35 @@
     font-size: 3.75rem;
   }
 
+  &__iframe {
+    $mobile-legend-height: 150px;
+    @include media(medium) {
+      display: block;
+      float: unset;
+      margin: 0 auto;
+    }
+
+    @include media(small) {
+      height: 333px + $mobile-legend-height;
+      width: 400px;
+    }
+
+    @include media(x-small) {
+      height: 250px + $mobile-legend-height;
+      width: 300px;
+    }
+    border: 0;
+    float: left;
+    height: 500px;
+    margin: 0 32px 32px 0;
+    width: 600px;
+    z-index: 10;
+  }
+
   &__title {
     @include media(small) {
       font-size: $font_size-medium;
     }
-
-    display: block;
-    font-family: $font_family-primary;
-    font-size: $font_size-large;
-    padding: 1rem 0;
   }
 
   &__subtitle-text {
@@ -161,9 +180,6 @@
     font-family: $font_family-primary;
     font-weight: 100;
     text-decoration: underline;
-  }
-
-  &__explanation {
   }
 }
 
