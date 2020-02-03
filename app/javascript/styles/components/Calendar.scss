@@ -133,7 +133,7 @@
   }
 
   &__iframe {
-    $mobile-legend-height: 150px;
+    $mobile-legend-height: 195px;
     @include media(medium) {
       display: block;
       float: unset;
