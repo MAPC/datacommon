@@ -32,7 +32,7 @@ class Gallery extends React.Component {
 
   render() { 
     return (
-      <section className="route Gallery">
+      <div className="route Gallery">
         <YearNav
           selectedYear={this.state.selectedYear}
           changeYear={this.changeYear}
@@ -42,7 +42,7 @@ class Gallery extends React.Component {
           selectedYear={this.state.selectedYear}
         />
         <CalendarDownload />
-      </section>
+      </div>
     );
   }
 }

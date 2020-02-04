@@ -1,0 +1,60 @@
+.calendar-download {
+  background-color: #F7F7F7;
+  bottom: -50px; // is there a better way to do this?
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    margin: 0 28px; // exact left/right margin?
+  }
+
+  &__image {
+    border: 1px solid $color_brand-secondary;
+    height: 300px;
+  }
+
+  &__info {
+    margin-left: 87px; // exact margin?
+  }
+
+  &__button {
+    background: #fff;
+    border: 1px solid $color_brand-secondary;
+    border-radius: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: $p_size;
+    font-weight: bolder;
+    margin: 1rem 0 0 0;
+    padding: 1rem;
+    text-decoration: underline;
+    width: 170px;
+
+    &:hover {
+      border-color: #3a9374;
+
+      &::after {
+        -webkit-transition: background .12s, left .12s;
+        background: #3a9374;
+        left: 6px;
+        transition: background .12s, left .12s;
+      }
+		}
+
+    &::after {
+      @extend ._pseudo;
+      background: $color_brand-secondary;
+      height: 100%;
+      left: 4px;
+      position: absolute;
+      top: 4px;
+      transition: background .12s, left .12s;
+      width: 100%;
+      z-index: -1;
+    }
+  }
+
+  &--wrapper {
+    margin: 55px auto; // exact top/bottom margin?
+    max-width: 1180px;
+  }
+}
