@@ -7,42 +7,6 @@
     width: 100%;
   }
 
-  &__button {
-    background: #fff;
-    border: 1px solid $color_brand-secondary;
-    border-radius: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-size: $p_size;
-    font-weight: bolder;
-    margin: 1rem 0 0 0;
-    padding: 1rem;
-    text-decoration: underline;
-    width: 170px;
-
-    &:hover {
-      border-color: #3a9374;
-
-      &::after {
-        -webkit-transition: background .12s, left .12s;
-        background: #3a9374;
-        left: 6px;
-        transition: background .12s, left .12s;
-      }
-		}
-
-    &::after {
-      @extend ._pseudo;
-      background: $color_brand-secondary;
-      height: 100%;
-      left: 4px;
-      position: absolute;
-      top: 4px;
-      transition: background .12s, left .12s;
-      width: 100%;
-      z-index: -1;
-    }
-  }
-
   &__divider {
     border: 1rem solid #F5F5F5;
     box-sizing: unset;

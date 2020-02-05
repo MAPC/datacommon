@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import January from './calendar-visualizations/2020/January';
-import February from './calendar-visualizations/2020/February';
+import January from './gallery/2020/January';
+import February from './gallery/2020/February';
 
 const Calendar = () => (
   <section className="route Calendar">

@@ -30,7 +30,7 @@ class Gallery extends React.Component {
     this.setState({ selectedYear: parseInt(event.target.value, 10) });
   }
 
-  render() { 
+  render() {
     return (
       <div className="route Gallery">
         <YearNav
