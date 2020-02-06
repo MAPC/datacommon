@@ -1,4 +1,4 @@
-.cta {
+.call-to-action {
   &__content {
     background: #fff;
     border: 1px solid $color_brand-secondary;
@@ -8,6 +8,7 @@
     font-size: $p_size;
     font-weight: bolder;
     justify-content: center;
+    margin-top: 1.5rem;
     padding: 1rem;
     text-decoration: underline;
     width: 170px;
@@ -17,7 +18,7 @@
       border-color: #3a9374;
     }
 
-    &:hover + .cta__shadow {
+    &:hover + .call-to-action__shadow {
       -webkit-transition: background .12s, left .12s;
       background: #3a9374;
       left: 6px;

@@ -1,19 +1,17 @@
-.Gallery {
-  display: flex;
-  flex-direction: column;
-}
-
 .CalendarGrid {
   @include media(large) {
     grid-template-columns: repeat(3, 1fr);
+    max-width: 870px;
   }
 
   @include media(medium) {
     grid-template-columns: repeat(2, 1fr);
+    max-width: 560px;
   }
 
   @include media(small) {
-    grid-template-columns: 100%
+    grid-template-columns: 100%;
+    max-width: 250px;
   }
 
   align-self: center;
@@ -21,6 +19,7 @@
   grid-column-gap: 60px;
   grid-row-gap: 60px;
   grid-template-columns: repeat(4, 1fr);
+  margin: 0 auto;
   max-width: 1180px;
 }
 

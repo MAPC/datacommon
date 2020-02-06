@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const CallToAction = ({ link, text }) => (
-  <div className="cta__wrapper">
-    <a href={link} className="cta__content">{text}</a>
-    <div className="cta__shadow" />
+  <div className="call-to-action__wrapper">
+    <a href={link} className="call-to-action__content">{text}</a>
+    <div className="call-to-action__shadow" />
   </div>
 );
 

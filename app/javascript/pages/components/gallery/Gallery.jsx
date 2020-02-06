@@ -1,7 +1,7 @@
 import React from 'react';
 import YearNav from './YearNav';
 import CalendarGrid from './CalendarGrid';
-import CalendarDownload from './CalendarDownload';
+import GalleryFooter from './GalleryFooter';
 
 class Gallery extends React.Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class Gallery extends React.Component {
 
   render() {
     return (
-      <div className="route Gallery">
+      <>
         <YearNav
           selectedYear={this.state.selectedYear}
           changeYear={this.changeYear}
@@ -41,8 +41,8 @@ class Gallery extends React.Component {
         <CalendarGrid
           selectedYear={this.state.selectedYear}
         />
-        <CalendarDownload />
-      </div>
+        <GalleryFooter />
+      </>
     );
   }
 }
