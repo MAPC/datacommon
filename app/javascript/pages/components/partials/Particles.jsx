@@ -25,8 +25,10 @@ class Particles extends React.Component {
       dotCount = 200,
       lineWidth = 2,
       neigborDistance = 45,
-      dotColor = colors.BRAND.PRIMARY,
-      lineColor = `rgba(${hexToRgb(colors.BRAND.SECONDARY)}, .3)`,
+      // dotColor = colors.BRAND.PRIMARY,
+      // lineColor = `rgba(${hexToRgb(colors.BRAND.SECONDARY)}, .3)`,
+      dotColor = 'rgba(111, 198, 142, .6)',
+      lineColor = 'rgba(68, 173, 137, .3)',
       w = window.innerWidth,
       h = this.canvas.parentNode.offsetHeight,
       dotArray = [];
@@ -128,6 +130,13 @@ class Particles extends React.Component {
           }
         }
       }
+      contxt.fillStyle = 'rgba(255,255,255,1)'
+      contxt.beginPath()
+      contxt.moveTo(0, h);
+      contxt.lineTo(w, h * .75);
+      contxt.lineTo(w, h);
+      contxt.closePath();
+      contxt.fill();
     }
 
     function checkDist(itemA, itemB) {
@@ -190,6 +199,7 @@ class Particles extends React.Component {
 
   render() {
     const { width, height } = this.state;
+    console.log(window)
 
     return (
       <canvas
