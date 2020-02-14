@@ -1,5 +1,7 @@
-.gallery-spotlight,
-.calendar-spotlight {
+.gallery-spotlight {
+  column-gap: 40px;
+  margin: 0 auto;
+  
   &__paragraph {
     margin: 0 0 1.25rem;
   }
@@ -8,140 +10,11 @@
     width: 100%;
   }
 
-  &__button {
-    background: #fff;
-    border: 1px solid $color_brand-secondary;
-    border-radius: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-size: $p_size;
-    font-weight: bolder;
-    margin: 1rem 0 0 0;
-    padding: 1rem;
-    text-decoration: underline;
-    width: 170px;
-
-    &:hover {
-      border-color: #3a9374;
-
-      &::after {
-        -webkit-transition: background .12s, left .12s;
-        background: #3a9374;
-        left: 6px;
-        transition: background .12s, left .12s;
-      }
-		}
-
-    &::after {
-      @extend ._pseudo;
-      background: $color_brand-secondary;
-      height: 100%;
-      left: 4px;
-      position: absolute;
-      top: 4px;
-      transition: background .12s, left .12s;
-      width: 100%;
-      z-index: -1;
-    }
-  }
-
   &__divider {
     border: 1rem solid #F5F5F5;
     box-sizing: unset;
     margin: 0 0 40px 0;
   }
-}
-
-.calendar-spotlight {
-  margin: 0 auto 3.75rem;
-  max-width: 100%;
-  width: 73.75rem;
-
-  &__image-wrapper {
-    display: inline-block;
-    position: relative;
-    width: 15.625rem;
-
-    @media screen and (max-width: 800px) {
-      padding: 0 2rem;
-      width: 100%;
-    }
-
-    &:hover {
-      border-color: #3a9374;
-
-      &::after {
-        -webkit-transition: background .12s, left .12s;
-        background: #3a9374;
-        left: 6px;
-        transition: background .12s, left .12s;
-      }
-		}
-
-    &::after {
-      @extend ._pseudo;
-      background: $color_brand-secondary;
-      height: 332px;
-      left: 4px;
-      position: absolute;
-      top: 4px;
-      transition: background .12s, left .12s;
-      width: 100%;
-      z-index: -1;
-
-      @media screen and (max-width: 1350px) {
-        display: none;
-      }
-    }
-  }
-
-  &__image {
-    border: 1px solid $color_brand-secondary;
-
-    &--after {
-      display: none;
-      transition: display .12s;
-    }
-  }
-
-  &__image-wrapper:hover > .calendar-spotlight__image--after {
-    align-items: center;
-    background: rgba(174, 221, 191, .6);
-    height: 332px;
-    justify-content: center;
-    left: 0;
-    line-height: 2rem;
-    padding: 2rem;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    transition: display .12s;
-    width: 100%;
-  }
-
-  &__info {
-    display: inline-block;
-    max-width: 100%;
-    padding: 0 0 0 4rem;
-    vertical-align: top;
-    width: calc(100% - 15.625rem);
-
-    @media screen and (max-width: 800px) {
-      padding: 0 2rem;
-      width: 100%;
-    }
-  }
-
-  @media screen and (max-width: 1200px) {
-    width: 54.375rem;
-  }
-  @media screen and (max-width: 960px) {
-    width: 35rem;
-  }
-}
-
-.gallery-spotlight {
-  column-gap: 40px;
-  margin: 0 auto;
 
   &__title {
     margin-left: -20px;

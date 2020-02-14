@@ -1,0 +1,117 @@
+.gallery-footer {
+  background-color: #F7F7F7;
+  bottom: -50px;
+  padding: 60px 0;
+
+  &__content {
+    @include media(large) {
+      grid-template-columns: repeat(3, 1fr);
+      width: 870px;
+    }
+
+    @include media(medium) {
+      grid-template-columns: repeat(2, 1fr);
+      width: 560px;
+    }
+
+    @include media(small) {
+      grid-template-columns: 1fr;
+      width: 250px;
+    }
+    display: grid;
+    grid-column-gap: 60px;
+    grid-row-gap: 60px;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+    max-width: 1180px;
+    min-height: 335px;
+  }
+
+  &__info {
+    @include media(large) {
+      grid-column: 2 / 4;
+    }
+    @include media(medium) {
+      grid-column: 2 / 3;
+    }
+
+    @include media(small) {
+      grid-column: 1;
+    }
+    grid-column: 2 / 5;
+  }
+
+  &__wrapper {
+    @include media(large) {
+      max-width: 870px;
+    }
+
+    @include media(medium) {
+      max-width: 560px;
+    }
+  }
+
+  &__image {
+    width: 250px;
+    z-index: 10;
+
+    &--hover {
+      display: none;
+      height: 333px;
+      left: 0;
+      margin-top: 0;
+      padding-top: 130px;
+      position: absolute;
+      text-align: center;
+      top: 0;
+      width: 250px;
+      z-index: 20;
+    }
+  }
+}
+
+.calendar-download {
+  height: 335px;
+  width: 250px;
+  z-index: 10;
+
+  &__image {
+    border: 1px solid $color_brand-secondary;
+    width: 250px;
+    
+    &:hover {
+      border-color: #3a9374;
+    }
+  }
+
+  &__text {
+    background: rgba($color_brand-primary, .6);
+    height: 333px;
+    left: 0;
+    margin-top: 0;
+    padding-top: 130px;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 250px;
+    z-index: 20;
+  }
+
+  &__calendar-shadow {
+    @extend ._pseudo;
+    background: $color_brand-secondary;
+    height: 335px;
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    transition: background .12s, left .12s;
+    width: 250px;
+  }
+
+  &:hover + .calendar-download__calendar-shadow {
+    -webkit-transition: background .12s, left .12s;
+    background: #3a9374;
+    left: 6px;
+    transition: background .12s, left .12s;
+  }
+}

@@ -6,6 +6,7 @@ import Particles from './partials/Particles';
 import SearchBar from '../containers/SearchBar';
 import CategoryGrid from '../containers/CategoryGrid';
 import CommunitySelector from '../containers/CommunitySelector';
+import CallToAction from './partials/CallToAction';
 import PlaybackImgBackground from './../assets/images/homepage-hover.png';
 import PlaybackImg from './../assets/images/homepage';
 
@@ -64,8 +65,10 @@ class Home extends React.Component {
             <h2 className="gallery-spotlight__title">Gallery of Data</h2>
             <p>Welcome to the MAPC Gallery of Data, where we tell the story of Greater Boston’s most complex issues one monthly map and data visualization at a time. We look at a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
             <p>Visit every month to see what’s new!</p>
-            <button className="gallery-spotlight__button"><a href="/gallery">View Gallery</a></button>
-
+            <CallToAction
+              link="/gallery"
+              text="View Gallery"
+            />
           </div>
           <Link to="/calendar/2020/february">
             <img

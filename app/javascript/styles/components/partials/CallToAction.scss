@@ -1,0 +1,39 @@
+.call-to-action {
+  &__content {
+    background: #fff;
+    border: 1px solid $color_brand-secondary;
+    border-radius: 0;
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    font-size: $p_size;
+    font-weight: bolder;
+    justify-content: center;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    text-decoration: underline;
+    width: 170px;
+    z-index: 10;
+
+    &:hover {
+      border-color: #3a9374;
+    }
+
+    &:hover + .call-to-action__shadow {
+      -webkit-transition: background .12s, left .12s;
+      background: #3a9374;
+      left: 6px;
+      transition: background .12s, left .12s;
+    }
+  }
+
+  &__shadow {
+    @extend ._pseudo;
+    background: $color_brand-secondary;
+    height: 53px;
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    transition: background .12s, left .12s;
+    width: 170px;
+  }
+}

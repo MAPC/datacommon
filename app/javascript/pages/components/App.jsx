@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Faq from './Faq';
-import Gallery from './Gallery';
+import Gallery from './gallery/Gallery';
 import Login from './Login';
 import Admin from './Admin';
 import Home from '../containers/Home';
