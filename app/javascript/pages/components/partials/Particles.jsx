@@ -1,217 +1,162 @@
 import React from 'react';
 
-import colors from '../../constants/colors';
-import hexToRgb from '../../utils/hexToRgb';
-
-
 class Particles extends React.Component {
-
-  constructor() {
-    super(...arguments);
-
+  constructor(props) {
+    super(props);
+    this.canvasRef = React.createRef();
     this.state = {
       width: window.innerWidth,
       height: window.innerHeight / 5,
+      dotArray: [],
+      randNum(n) {
+        return (((Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random()) - 3) / 3) * n;
+      },
+      checkDist(itemA, itemB) {
+        const x1 = itemA.x;
+        const y1 = itemA.y;
+        const x2 = itemB.x;
+        const y2 = itemB.y;
+        return Math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2));
+      },
+      easeInOutQuart(iteration, currentXY, diffXY, totalIterations) {
+        if ((iteration /= totalIterations / 2) < 1) {
+          return diffXY / 2 * iteration * iteration * iteration * iteration + currentXY;
+        }
+        return -diffXY / 2 * ((iteration -= 2) * iteration * iteration * iteration - 2) + currentXY;
+      },
     };
+    this.updateDimensions = this.updateDimensions.bind(this);
+    this.interval = this.interval.bind(this);
+    this.moveDot = this.moveDot.bind(this);
+    this.drawNearestNeighborLines = this.drawNearestNeighborLines.bind(this);
+    this.createDots = this.createDots.bind(this);
   }
 
   componentDidMount() {
-    const component = this;
+    const { width, height } = this.state;
 
-    // From https://codepen.io/jaredstanley/pen/djyRxy
-    var b_canvas,
-      contxt,
-      size = 4,
-      dotCount = 200,
-      lineWidth = 2,
-      neigborDistance = 45,
-      // dotColor = colors.BRAND.PRIMARY,
-      // lineColor = `rgba(${hexToRgb(colors.BRAND.SECONDARY)}, .3)`,
-      dotColor = 'rgba(111, 198, 142, .6)',
-      lineColor = 'rgba(68, 173, 137, .3)',
-      w = window.innerWidth,
-      h = this.canvas.parentNode.offsetHeight,
-      dotArray = [];
-
-    if (this.state.width !== w || this.state.height !== h) {
-      this.setState({ width: w, height: h });
+    window.addEventListener('resize', this.updateDimensions);
+    if (width !== window.innerWidth
+      || height !== this.canvas.parentNode.offsetHeight) {
+      this.setState({ width: window.innerWidth, height: this.canvas.parentNode.offsetHeight });
     }
 
-    var mode = 'neighbor';
-    var urlParams = {};
-    var logCount = 0;
+    const contxt = this.canvas.getContext('2d');
+    contxt.lineWidth = 2;
+    contxt.strokeStyle = 'rgba(111, 198, 142, .6)';
+    this.createDots();
+  }
 
-    start();
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions);
+  }
 
-    function start() {
-      b_canvas = component.canvas;
-      contxt = b_canvas.getContext("2d");
-      contxt.lineWidth = lineWidth;
-      contxt.strokeStyle = dotColor;
-      createDots();
-
-      interval();
-    }
-
-    function interval() {
-      requestAnimationFrame(interval);
-      update();
-    }
-
-    function update() {
-      contxt.clearRect(0, 0, w, h);
-      var item, chance, sum, i;
-      dotArray.forEach(function(item) {
-        move(item);
-        contxt.fillStyle = item.color;
-        contxt.beginPath();
-        contxt.arc(item.x, item.y, item.rad, 0, 2 * Math.PI, false);
-        contxt.fill();
-      })
-
-      if (mode == "neighbor") {
-        drawLinesNeighbors();
-      }
-    }
-
-    function move(itm) {
-      itm.iteration++;
-
-      if (itm.iteration < itm.totalIterations) {
-        itm.x = easeInOutQuart(itm.iteration, itm.curSpot.x, itm.tgt.x-itm.curSpot.x, itm.totalIterations);
-        itm.y = easeInOutQuart(itm.iteration, itm.curSpot.y, itm.tgt.y-itm.curSpot.y, itm.totalIterations);
-
-      }else{
-        itm.iteration=0;
-        itm.curSpot.x = itm.tgt.x;
-        itm.curSpot.y = itm.tgt.y;
-        itm.tgt.x = randNum(400)+itm.tgt.x;
-        itm.tgt.y = randNum(400)+itm.tgt.y;
-      }
-    }
-
-
-    function drawLines() {
-      var item, secondItem;
-      var i, k;
-      for (i = 0; i < dotArray.length; i++) {
-        for (k = i + 1; k < dotArray.length; k++) {
-          if (k > i) {
-            item = dotArray[i];
-            secondItem = dotArray[k];
-            contxt.beginPath();
-            contxt.moveTo(item.x, item.y);
-            contxt.lineTo(secondItem.x, secondItem.y);
-            contxt.lineWidth = lineWidth;
-            contxt.strokeStyle = lineColor;
-            contxt.stroke();
-            contxt.closePath();
-          }
-        }
-      }
-    }
-
-    function drawLinesNeighbors() {
-      var i, k;
-      var item, secondItem, curDist;
-      for (i = 0; i < dotArray.length; i++) {
-        for (k = i + 1; k < dotArray.length; k++) {
-          item = dotArray[i];
-          secondItem = dotArray[k];
-          curDist = checkDist(item, secondItem);
-          if (curDist < neigborDistance) {
-            contxt.beginPath();
-            contxt.moveTo(item.x, item.y);
-            contxt.lineTo(secondItem.x, secondItem.y);
-            contxt.lineWidth = lineWidth;
-            contxt.strokeStyle = lineColor;
-            contxt.stroke();
-            contxt.closePath();
-          }
-        }
-      }
-      contxt.fillStyle = 'rgba(255,255,255,1)'
-      contxt.beginPath()
-      contxt.moveTo(0, h);
-      contxt.lineTo(w, h * .75);
-      contxt.lineTo(w, h);
-      contxt.closePath();
-      contxt.fill();
-    }
-
-    function checkDist(itemA, itemB) {
-      var x1 = itemA.x;
-      var y1 = itemA.y;
-      var x2 = itemB.x;
-      var y2 = itemB.y;
-
-      var d = Math.sqrt((x2 -= x1) * x2 + (y2 -= y1) * y2);
-      return d;
-    }
-
-    function createDots() {
-      var rad;
-      var dot;
-      for (var i = 0; i < dotCount; i++) {
-
-        rad = size;
-        dot = new Dot(
+  createDots() {
+    this.setState((prevState) => {
+      for (let i = 0; i < 200; i += 1) {
+        const x = Math.random() * prevState.width;
+        const y = Math.random() * prevState.height;
+        prevState.dotArray.push({
           i,
-          rad,
-          Math.random() * w,
-          Math.random() * h
-        )
-        dotArray.push(dot)
+          rad: 4,
+          x,
+          y,
+          iteration: Math.round(Math.random() * 150) + 2000,
+          color: 'rgba(111, 198, 142, .6)',
+          totalIterations: Math.round(Math.random() * 300) + 400,
+          curSpot: {
+            x,
+            y,
+          },
+          tgt: {
+            x: prevState.randNum(400) + x,
+            y: prevState.randNum(400) + y,
+          },
+        });
       }
-    }
+      return { dotArray: prevState.dotArray };
+    });
+    this.interval();
+  }
 
-    function Dot(i, rad, x, y) {
-      this.i = i;
-      this.rad = rad;
-      this.x = x;
-      this.y = y;
+  interval() {
+    const { width, height, dotArray } = this.state;
+    const contxt = this.canvas.getContext('2d');
+    requestAnimationFrame(this.interval);
+    contxt.clearRect(0, 0, width, height);
+    dotArray.forEach((dot) => {
+      this.moveDot(dot);
+      contxt.fillStyle = dot.color;
+      contxt.beginPath();
+      contxt.arc(dot.x, dot.y, dot.rad, 0, 2 * Math.PI, false);
+      contxt.fill();
+    });
+    this.drawNearestNeighborLines();
+    contxt.fillStyle = 'rgba(255,255,255,1)';
+    contxt.beginPath();
+    contxt.moveTo(0, height);
+    contxt.lineTo(width, height * 0.75);
+    contxt.lineTo(width, height);
+    contxt.closePath();
+    contxt.fill();
+  }
 
-      this.iteration = Math.round(Math.random()*150)+2000;
-      this.color = dotColor;
+  moveDot(dot) {
+    const { easeInOutQuart, randNum } = this.state;
+    const dotRef = dot;
+    dotRef.iteration += 1;
 
-      this.totalIterations = Math.round(Math.random()*300)+400;
-      this.curSpot = {
-        x: this.x,
-        y: this.y
-      };
-      this.tgt = {
-        x: randNum(400)+this.curSpot.x,
-        y: randNum(400)+this.curSpot.y,
-      };
-    }
-
-    function easeInOutQuart(t, b, c, d) {
-      if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
-      return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
-    }
-
-    function randNum(n){
-      var p = ((Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random()) - 3) / 3;
-      return p*n;
+    if (dotRef.iteration < dotRef.totalIterations) {
+      dotRef.x = easeInOutQuart(dotRef.iteration, dotRef.curSpot.x, dotRef.tgt.x - dotRef.curSpot.x, dotRef.totalIterations);
+      dotRef.y = easeInOutQuart(dotRef.iteration, dotRef.curSpot.y, dotRef.tgt.y - dotRef.curSpot.y, dotRef.totalIterations);
+    } else {
+      dotRef.iteration = 0;
+      dotRef.curSpot.x = dotRef.tgt.x;
+      dotRef.curSpot.y = dotRef.tgt.y;
+      dotRef.tgt.x = randNum(400) + dotRef.tgt.x;
+      dotRef.tgt.y = randNum(400) + dotRef.tgt.y;
     }
   }
 
+  drawNearestNeighborLines() {
+    const { dotArray, checkDist } = this.state;
+    const contxt = this.canvas.getContext('2d');
+    if (dotArray.length > 0) {
+      for (let i = 0; i < 200; i += 1) {
+        for (let k = 0; k < 200; k += 1) {
+          const dot1 = dotArray[i];
+          const dot2 = dotArray[k];
+          const curDist = checkDist(dot1, dot2);
+          if (curDist < 45) {
+            contxt.beginPath();
+            contxt.moveTo(dot1.x, dot1.y);
+            contxt.lineTo(dot2.x, dot2.y);
+            contxt.lineWidth = 2;
+            contxt.strokeStyle = 'rgba(68, 173, 137, .3)';
+            contxt.stroke();
+            contxt.closePath();
+          }
+        }
+      }
+    }
+  }
+
+  updateDimensions() {
+    this.setState({ width: window.innerWidth });
+  }
 
   render() {
     const { width, height } = this.state;
-    console.log(window)
-
     return (
       <canvas
-        ref={el => this.canvas = el}
+        ref={(el) => this.canvas = el}
+        // ref="canvas"
         width={width}
         height={height}
         className="component Particles"
-      >
-      </canvas>
+      />
     );
   }
-
 }
 
 export default Particles;
