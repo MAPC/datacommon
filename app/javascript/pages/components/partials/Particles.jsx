@@ -30,11 +30,11 @@ class Particles extends React.Component {
     this.moveDot = this.moveDot.bind(this);
     this.drawNearestNeighborLines = this.drawNearestNeighborLines.bind(this);
     this.createDots = this.createDots.bind(this);
+    this.drawTriangle = this.drawTriangle.bind(this);
   }
 
   componentDidMount() {
     const { width, height } = this.state;
-
     window.addEventListener('resize', this.updateDimensions);
     if (width !== window.innerWidth
       || height !== this.canvas.parentNode.offsetHeight) {
@@ -92,13 +92,7 @@ class Particles extends React.Component {
       contxt.fill();
     });
     this.drawNearestNeighborLines();
-    contxt.fillStyle = 'rgba(255,255,255,1)';
-    contxt.beginPath();
-    contxt.moveTo(0, height);
-    contxt.lineTo(width, height * 0.75);
-    contxt.lineTo(width, height);
-    contxt.closePath();
-    contxt.fill();
+    this.drawTriangle();
   }
 
   moveDot(dot) {
@@ -141,6 +135,27 @@ class Particles extends React.Component {
     }
   }
 
+  drawTriangle() {
+    const { width, height } = this.state;
+    const contxt = this.canvas.getContext('2d');
+    let triangleHeight = height - 240;
+
+    if (width <= 670) {
+      triangleHeight = height;
+    } else if (width <= 960) {
+      triangleHeight = height - 140;
+    } else if (width <= 1200) {
+      triangleHeight = height - 240;
+    }
+    contxt.fillStyle = 'rgba(255,255,255,1)';
+    contxt.beginPath();
+    contxt.moveTo(0, height);
+    contxt.lineTo(width, triangleHeight);
+    contxt.lineTo(width, height);
+    contxt.closePath();
+    contxt.fill();
+  }
+
   updateDimensions() {
     this.setState({ width: window.innerWidth });
   }
@@ -150,7 +165,6 @@ class Particles extends React.Component {
     return (
       <canvas
         ref={(el) => this.canvas = el}
-        // ref="canvas"
         width={width}
         height={height}
         className="component Particles"
