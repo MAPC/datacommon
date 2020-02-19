@@ -1,4 +1,6 @@
 import React from 'react';
+import hexToRgb from './../../utils/hexToRgb';
+import colors from './../../constants/colors'
 
 class Particles extends React.Component {
   constructor(props) {
@@ -58,11 +60,11 @@ class Particles extends React.Component {
         const y = Math.random() * prevState.height;
         prevState.dotArray.push({
           i,
-          rad: 4,
+          rad: 5,
           x,
           y,
           iteration: Math.round(Math.random() * 150) + 2000,
-          color: 'rgba(111, 198, 142, .6)',
+          color: `rgba(${hexToRgb(colors.BRAND.PRIMARY)}, .6)`,
           totalIterations: Math.round(Math.random() * 300) + 400,
           curSpot: {
             x,
@@ -126,7 +128,7 @@ class Particles extends React.Component {
             contxt.moveTo(dot1.x, dot1.y);
             contxt.lineTo(dot2.x, dot2.y);
             contxt.lineWidth = 2;
-            contxt.strokeStyle = 'rgba(68, 173, 137, .3)';
+            contxt.strokeStyle = `rgba(${hexToRgb(colors.BRAND.SECONDARY)}, .1)`;
             contxt.stroke();
             contxt.closePath();
           }
@@ -147,6 +149,11 @@ class Particles extends React.Component {
     } else if (width <= 1200) {
       triangleHeight = height - 240;
     }
+    contxt.fillStyle = 'rgba(255,255,255,.1)';
+    contxt.beginPath();
+    contxt.rect(0, 0, width, height);
+    contxt.fill();
+
     contxt.fillStyle = 'rgba(255,255,255,1)';
     contxt.beginPath();
     contxt.moveTo(0, height);
