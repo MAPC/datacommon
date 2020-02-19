@@ -156,6 +156,13 @@
     z-index: 10;
   }
 
+  &__d3-map {
+    float: left;
+    height: 500px;
+    margin: 0 32px 32px 0;
+    width: 600px;
+  }
+
   &__title {
     @include media(small) {
       font-size: $font_size-medium;
