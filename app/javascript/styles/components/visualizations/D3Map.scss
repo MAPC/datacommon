@@ -1,0 +1,72 @@
+.d3-map {
+  float: left;
+  height: 500px;
+  margin: 0 32px 32px 0;
+  width: 600px;
+  z-index: 10;
+
+  &__tooltip {
+    background: #fff;
+    border: 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .24);
+    font: 16px sans-serif;
+    max-width: 200px;
+    opacity: 0;
+    padding: 12px;
+    pointer-events: none;
+    position: absolute;
+    z-index: 20;
+  }
+
+  &__options {
+    background: white;
+    left: .5rem;
+    padding: .5rem;
+    position: absolute;
+    top: .5rem;
+    z-index: 20;
+  }
+
+  &__option-label:not(:last-child) {
+    padding-right: 1rem;
+  }
+
+  &__option-button {
+    margin-right: .25rem;
+  }
+}
+
+.tooltip {
+  background: #fff;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .24);
+  font: 16px sans-serif;
+  max-width: 200px;
+  opacity: 0;
+  padding: 12px;
+  pointer-events: none;
+  position: absolute;
+  z-index: 20;
+  
+  &__title {
+    font-family: 'Montserrat';
+    font-size: .75rem;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  &__text {
+    font-family: 'Montserrat';
+    font-size: .75rem;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  &__list {
+    list-style: circle;
+    margin: unset;
+    padding-left: 1rem;
+  }
+}

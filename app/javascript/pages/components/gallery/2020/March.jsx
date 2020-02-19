@@ -2,65 +2,112 @@
 import * as d3 from 'd3';
 import React, { useEffect } from 'react';
 
+const tooltipHtml = (development) => {
+  let tooltipDetails = `<p class='tooltip__title'>${development.attributes.name}</p>
+  <ul class='tooltip__list'>
+  <li class='tooltip__text'>Est. completion in ${development.attributes.year_compl}</li>`;
+  if (development.attributes.hu) {
+    tooltipDetails += `<li class='tooltip__text'>${d3.format(',')(development.attributes.hu)} housing units</li>`;
+  }
+  if (development.attributes.commsf) {
+    tooltipDetails += `<li class='tooltip__text'>${d3.format(',')(development.attributes.commsf)} square feet of commercial space</li>`;
+  }
+  tooltipDetails += '</ul>';
+  return tooltipDetails;
+};
+
+const tooltipLeft = (xCoordinate) => {
+  const tooltipWidth = +getComputedStyle(document.querySelector('.tooltip')).width.slice(0, -2);
+  if (xCoordinate >= 300) {
+    return `${xCoordinate - tooltipWidth}px`;
+  }
+  return `${xCoordinate + 10}px`;
+};
+
+const tooltipTop = (yCoordinate) => {
+  const tooltipHeight = +getComputedStyle(document.querySelector('.tooltip')).height.slice(0, -2);
+  if (yCoordinate >= 250) {
+    return `${yCoordinate - tooltipHeight - 10}px`;
+  }
+  return `${yCoordinate + 20}px`;
+};
+
 const drawMap = (newEngland, massachusetts, mapc, massbuilds) => {
-  console.log(massbuilds)
   const projection = d3.geoAlbers()
     .scale(37000)
     .rotate([71.057, 0])
     .center([0.33, 42.37])
     .translate([960 / 2, 500 / 2]);
 
-  const marchMap = d3.select('.calendar-viz__d3-map');
-  const path = d3.geoPath().projection(projection);
+  const tooltip = d3.select('.tooltip');
+  const marchMap = d3.select('.d3-map');
+  const housingUnits = massbuilds.filter((development) => development.attributes.hu > 0);
+  const commercialUnits = massbuilds.filter((development) => development.attributes.commsf > 0);
 
-  marchMap.style('background', '#98b0ba');
+  const housingRadius = d3.scaleLinear()
+    .domain(d3.extent(housingUnits.map((development) => development.attributes.hu)))
+    .range([3, 10]);
 
-  marchMap.append('g')
-    .attr('class', 'heatmap')
-    .selectAll('path')
-    .data(newEngland.features)
-    .enter()
-    .append('path')
-    .attr('fill', '#ccc8ad')
-    .attr('stroke', '#5a5a5a')
-    .attr('stroke-width', '1')
-    .attr('stroke-opacity', 0.6)
-    .attr('d', path);
+  const commercialRadius = d3.scaleLinear()
+    .domain(d3.extent(commercialUnits.map((development) => development.attributes.commsf)))
+    .range([3, 10]);
 
   marchMap.append('g')
-    .attr('class', 'heatmap')
-    .selectAll('path')
-    .data(massachusetts.features)
-    .enter()
-    .append('path')
-    .attr('fill', '#f0efe7')
-    .attr('stroke', '#5a5a5a')
-    .attr('stroke-width', '1')
-    .attr('stroke-opacity', 0.6)
-    .attr('d', path);
-
-  marchMap.append('g')
-    .attr('class', 'heatmap')
-    .selectAll('path')
-    .data(mapc.features)
-    .enter()
-    .append('path')
-    .attr('fill', 'purple')
-    .attr('stroke', '#ffffff')
-    .attr('stroke-width', '1')
-    .attr('stroke-opacity', 0.6)
-    .attr('d', path);
-
-  marchMap.append('g')
-    .attr('class', 'massbuilds-point')
+    .attr('class', 'massbuilds-points')
     .selectAll('circle')
     .data(massbuilds)
     .enter()
     .append('circle')
-    .attr('cx', (d) => projection(d.geometry.coordinates)[0])
-    .attr('cy', (d) => projection(d.geometry.coordinates)[1])
-    .attr('r', 1)
-    .attr('fill', 'red');
+    .attr('cx', (development) => projection(development.geometry.coordinates)[0])
+    .attr('cy', (development) => projection(development.geometry.coordinates)[1])
+    .attr('r', 3)
+    .attr('class', 'd3-map__point')
+    .attr('fill', '#462B78')
+    .attr('cursor', 'pointer')
+    .on('mousemove', (development) => {
+      tooltip.transition()
+        .duration(50)
+        .style('opacity', 0.9);
+      tooltip.html(tooltipHtml(development))
+        .style('left', tooltipLeft(projection(development.coordinates)[0]))
+        .style('top', tooltipTop(projection(development.coordinates)[1]));
+    })
+    .on('mouseleave', () => {
+      tooltip.transition()
+        .duration(200)
+        .style('opacity', 0);
+    });
+
+  marchMap.append('g')
+    .attr('class', 'd3-map__points d3-map__commercial')
+    .attr('opacity', 0)
+    .selectAll('circle')
+    .data(commercialUnits)
+    .enter()
+    .append('circle')
+    .attr('cx', (development) => projection(development.coordinates)[0])
+    .attr('cy', (development) => projection(development.coordinates)[1])
+    .attr('r', (development) => commercialRadius(development.attributes.commsf))
+    .attr('opacity', 0.5)
+    .attr('stroke', 'black')
+    .attr('class', 'd3-map__point')
+    .attr('fill', '#462B78')
+    .attr('cursor', 'pointer')
+    .on('mousemove', (development) => {
+      tooltip.transition()
+        .duration(50)
+        .style('opacity', 0.9);
+      tooltip.html(tooltipHtml(development))
+        .style('left', tooltipLeft(projection(development.coordinates)[0]))
+        .style('top', tooltipTop(projection(development.coordinates)[1]));
+    })
+    .on('mouseleave', () => {
+      tooltip.transition()
+        .duration(200)
+        .style('opacity', 0);
+    });
+
+  d3.select('.d3-map__points').raise();
 };
 
 const March = () => {
@@ -71,21 +118,58 @@ const March = () => {
       d3.json('/assets/MAPC.geojson'),
       d3.json('/assets/massbuilds.geojson'),
     ]).then((maps) => {
-      const massBuilds = maps[3].features.filter((development) => development.properties.STATUS === 'in_construction' && development.properties.YEAR_COMPL >= 2019);
+      const massBuilds = maps[3].features.filter((development) => development.properties.STATUS === 'in_construction'
+        && development.properties.YEAR_COMPL >= 2019
+        && development.properties.RPA_NAME === 'Metropolitan Area Planning Council');
       drawMap(maps[0], maps[1], maps[2], massBuilds);
     });
   }, []);
   return (
     <>
       <h1 className="calendar-viz__title">A Region Under Construction</h1>
-      <svg className="calendar-viz__d3-map" width="600" height="500" />
-      <p>We all know that the number of new housing units in Greater Boston hasn’t kept up with our growth. But the problem is not just sheer quantity. Whether it’s a growing family that can’t find a big-enough place in the city, roommates who can’t afford to move out on their own, or empty nesters who can’t find a place to downsize in the suburbs, the housing we have in our region is a mismatch for the housing we need, where we need it.</p>
-      <p>This map shows, from area to area, what portion of all the housing units are large – that is, having three or more bedrooms. That’s regardless of whether they’re owner-occupied or rental, single family, condo, or apartment. In the areas that are darkest on the map, more than three quarters of all homes have three or more bedrooms. Carlisle has the highest proportion of large homes at 95%. Meanwhile, the lighter areas on the map, which are mostly in more urban communities, have a lower share of units with three bedrooms.</p>
-      <p>Especially in suburban communities with mostly large units, the lack of smaller places means that seniors looking to downsize in their own community have few options. They instead stay in places with empty bedrooms.</p>
-      <p>Meanwhile, in the mostly urban neighborhoods with a small share of family-sized units, families with children face stiff competition for what little is available: roommate groups with multiple incomes often outbid families. And prices for smaller places are such that members of those roommate groups can’t afford to live on their own.</p>
-      <p>MAPC’s new study, <em><a href="https://metrocommon.mapc.org/reports/10">Crowded In and Priced Out: Why it’s so Hard to Find a Family-Sized Unit in Greater Boston</a></em> found that in Boston and a dozen surrounding cities and towns, households with children only occupy 39 percent of larger units. Instead, families squeeze into smaller places, two or more to a bedroom.</p>
-      <p>Construction of new family-sized units is necessary, but not sufficient. We also need more smaller, senior-friendly units into which older residents can downsize. We need more one-bedroom apartments in which roommates can live affordably on their own. With a greater number and variety of units on the market, more of our region’s residents will be able to find the homes they need and can afford.</p>
-      <p>Read the full report at <a href="https://metrocommon.mapc.org/reports/10">mapc.ma/largeunits.</a></p>
+      <div className="calendar-viz__wrapper">
+        <form className="d3-map__options">
+          <label htmlFor="housing" className="d3-map__option-label">
+            <input
+              type="radio"
+              id="housing"
+              name="march"
+              value="housing"
+              className="d3-map__option-button"
+              onChange={switchView}
+              onClick={() => updateSelection('housing')}
+              checked={currentlySelected === 'housing'}
+            />
+            Housing
+          </label>
+          <label htmlFor="commercial" className="d3-map__option-label">
+            <input
+              type="radio"
+              id="commercial"
+              name="march"
+              value="commercial"
+              className="d3-map__option-button"
+              onChange={switchView}
+              onClick={() => updateSelection('commercial')}
+              checked={currentlySelected === 'commercial'}
+            />
+            Commercial
+          </label>
+        </form>
+        <D3Map
+          oceanFill="#FEFDFE"
+          maFill="#FCF2FB"
+          newEngFill="#FCF2FB"
+          mapcFill="#DDCCF1"
+          mapcLine="#5a5a5a"
+        />
+        <div className="tooltip" />
+      </div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien faucibus et molestie ac feugiat sed lectus vestibulum. Ultricies mi quis hendrerit dolor magna eget. Commodo elit at imperdiet dui accumsan sit amet nulla. Imperdiet sed euismod nisi porta lorem mollis aliquam ut porttitor. At in tellus integer feugiat scelerisque. Eget duis at tellus at urna condimentum. Lectus mauris ultrices eros in cursus turpis massa tincidunt dui. Aliquet risus feugiat in ante metus dictum at tempor. Egestas sed tempus urna et pharetra pharetra.</p>
+      <p>Morbi leo urna molestie at elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec. Vitae suscipit tellus mauris a diam maecenas sed enim ut. Vel quam elementum pulvinar etiam non quam. Arcu felis bibendum ut tristique et egestas quis ipsum suspendisse. Feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi. Praesent semper feugiat nibh sed pulvinar proin. Duis ultricies lacus sed turpis. Massa id neque aliquam vestibulum. Ac tortor vitae purus faucibus ornare suspendisse sed nisi.</p>
+      <p>Tempor orci dapibus ultrices in. Auctor augue mauris augue neque gravida in fermentum et sollicitudin. Ante metus dictum at tempor. Nulla facilisi cras fermentum odio eu feugiat. Enim sit amet venenatis urna cursus eget nunc. Enim nunc faucibus a pellentesque. Fames ac turpis egestas sed tempus urna. Nunc aliquet bibendum enim facilisis gravida neque. Ultricies leo integer malesuada nunc vel risus commodo. Mi eget mauris pharetra et ultrices neque. Enim eu turpis egestas pretium aenean. Elementum nibh tellus molestie nunc non blandit massa enim. Euismod quis viverra nibh cras pulvinar mattis nunc. Faucibus purus in massa tempor nec feugiat nisl pretium.</p>
+      <p>Dictum varius duis at consectetur lorem. Quam nulla porttitor massa id neque aliquam. Neque viverra justo nec ultrices dui sapien eget mi proin. Dignissim sodales ut eu sem integer vitae justo eget. Elit eget gravida cum sociis natoque penatibus et. Dictumst vestibulum rhoncus est pellentesque elit. Volutpat lacus laoreet non curabitur. Cras ornare arcu dui vivamus arcu. Magna fermentum iaculis eu non diam. Posuere ac ut consequat semper. Dignissim suspendisse in est ante in nibh mauris cursus. Sed cras ornare arcu dui vivamus. Mauris nunc congue nisi vitae suscipit tellus mauris. Urna porttitor rhoncus dolor purus non enim praesent. Tristique sollicitudin nibh sit amet commodo nulla facilisi. Congue nisi vitae suscipit tellus mauris. Id cursus metus aliquam eleifend mi in nulla. Turpis massa sed elementum tempus. Dictum sit amet justo donec enim diam vulputate ut. Aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer.</p>
+      <p>Ipsum a arcu cursus vitae. Rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Ac felis donec et odio. Vel quam elementum pulvinar etiam non quam lacus. Quam adipiscing vitae proin sagittis nisl rhoncus. Cursus mattis molestie a iaculis at erat pellentesque. Pretium lectus quam id leo in. Molestie nunc non blandit massa. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. In nibh mauris cursus mattis molestie. Mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Et molestie ac feugiat sed lectus vestibulum. Feugiat sed lectus vestibulum mattis ullamcorper. Viverra justo nec ultrices dui sapien eget mi proin. Ipsum consequat nisl vel pretium. Eget felis eget nunc lobortis. Pharetra sit amet aliquam id diam maecenas.</p>
     </>
   );
 };
