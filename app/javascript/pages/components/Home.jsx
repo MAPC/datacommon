@@ -47,6 +47,7 @@ class Home extends React.Component {
             <CallToAction
               link="/gallery"
               text="Explore"
+              extraClassNames="gallery-spotlight__cta"
             />
           </div>
           <Link to="/gallery" className="gallery-spotlight__link">
@@ -56,6 +57,11 @@ class Home extends React.Component {
               alt="gallery"
             />
           </Link>
+          <CallToAction
+            link="/gallery"
+            text="View Gallery"
+            extraClassNames="gallery-spotlight__cta--mobile"
+          />
         </section>
 
         <div className="container tight page-section">
