@@ -17,12 +17,39 @@
     @include media(small) { width: 90%; }
   }
 
-  .page-section{
+  .page-section {
     padding: 40px 0;
   }
 
   .page-section__map {
     margin-bottom: -50px;
     padding-bottom: 0;
+  }
+}
+
+.gallery-spotlight {
+  &__wrapper {
+    column-gap: 40px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+  }
+  
+  &__info {
+    grid-column: 1 / 4;
+  }
+
+  &__link {
+    grid-column: 4 / 6;
+  }
+  
+  &__image {
+    grid-column: 4 / 6;
+    position: absolute;
+    top: -170px;
+
+    @media screen and (max-width: 800px) {
+      width: 100%;
+    }
   }
 }
