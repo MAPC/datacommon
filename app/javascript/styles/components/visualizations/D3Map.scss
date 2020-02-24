@@ -39,16 +39,22 @@
     margin-right: .25rem;
   }
 
+  &__legend-entry {
+    font-family: 'Montserrat';
+    font-size: .75rem;
+    font-weight: 300;
+  }
+
   &__year {
     @include media(small) {
       font-size: 3rem;
     }
+    bottom: 50px;
     color: $color_font-medium;
     font-family: $font_family-primary;
     font-size: 3.75rem;
     position: absolute;
     right: 70px;
-    bottom: 50px;
     z-index: 20;
   }
 }

@@ -5,6 +5,13 @@ import axios from 'axios';
 import D3Map from '../D3Map';
 import MapSelection from '../MapSelection';
 
+const colors = {
+  primary: '#8544CC',
+  primaryNew: '#462B78',
+  mixedUse: '#c85ca1',
+  mixedUseNew: '#8b2f6a',
+};
+
 const tooltipHtml = (development) => {
   let tooltipDetails = `<p class='tooltip__title'>${development.attributes.name}</p>
   <ul class='tooltip__list'>
@@ -70,7 +77,12 @@ const mapView = (data, selection) => {
   const updateVisualization = () => {
     d3.select('.d3-map__year').text(year);
     marchMap.selectAll('.d3-map__point')
-      .attr('fill', '#462B78')
+      .attr('fill', (development) => {
+        if (development.attributes.hu > 0 && development.attributes.commsf > 0) {
+          return colors.mixedUse;
+        }
+        return colors.primary;
+      })
       .attr('opacity', 0.6);
     marchMap.append('g')
       .attr('class', 'd3-map__points')
@@ -88,7 +100,12 @@ const mapView = (data, selection) => {
       })
       .attr('class', 'd3-map__point')
       .attr('cursor', 'pointer')
-      .attr('fill', '#8544CC')
+      .attr('fill', (development) => {
+        if (development.attributes.hu > 0 && development.attributes.commsf > 0) {
+          return colors.mixedUseNew;
+        }
+        return colors.primaryNew;
+      })
       .on('mousemove', (development) => {
         tooltip.transition()
           .duration(50)
@@ -114,6 +131,72 @@ const mapView = (data, selection) => {
   iterator = setInterval(updateVisualization, 3000);
 };
 
+const drawLegend = () => {
+  const legend = d3.select('.d3-map')
+    .append('svg')
+    .attr('class', 'd3-map__legend')
+    .attr('x', 500)
+    .attr('y', 200);
+
+  const entryOne = legend.append('g')
+    .attr('class', 'd3-map__legend-entry');
+  entryOne.append('circle')
+    .attr('cx', 5)
+    .attr('cy', 5)
+    .attr('r', 5)
+    .attr('fill', colors.primaryNew);
+  entryOne.append('text')
+    .attr('x', 15)
+    .attr('y', 10)
+    .text('New development');
+
+  const entryTwo = legend.append('g')
+    .attr('class', 'd3-map__legend-entry');
+  entryTwo.append('circle')
+    .attr('cx', 5)
+    .attr('cy', 25)
+    .attr('r', 5)
+    .attr('fill', colors.mixedUseNew);
+  entryTwo.append('text')
+    .attr('x', 15)
+    .attr('y', 30)
+    .text('New mixed-use');
+  entryTwo.append('text')
+    .attr('x', 15)
+    .attr('y', 45)
+    .text('development');
+
+  const entryThree = legend.append('g')
+    .attr('class', 'd3-map__legend-entry');
+  entryThree.append('circle')
+    .attr('cx', 5)
+    .attr('cy', 55)
+    .attr('r', 5)
+    .attr('fill', colors.primary)
+    .attr('opacity', 0.6);
+  entryThree.append('text')
+    .attr('x', 15)
+    .attr('y', 60)
+    .text('Existing development');
+
+  const entryFour = legend.append('g')
+    .attr('class', 'd3-map__legend-entry');
+  entryFour.append('circle')
+    .attr('cx', 5)
+    .attr('cy', 75)
+    .attr('r', 5)
+    .attr('fill', colors.mixedUse)
+    .attr('opacity', 0.6);
+  entryFour.append('text')
+    .attr('x', 15)
+    .attr('y', 80)
+    .text('Existing mixed-use');
+  entryFour.append('text')
+    .attr('x', 15)
+    .attr('y', 95)
+    .text('development');
+};
+
 const March = () => {
   const [currentlySelected, updateSelection] = useState('housing');
   useEffect(() => {
@@ -132,7 +215,9 @@ const March = () => {
       d3.select('.d3-map__year').text(2020);
     });
   }, [currentlySelected]);
-
+  if (!document.querySelector('.d3-map__legend')) {
+    drawLegend();
+  }
   return (
     <>
       <h1 className="calendar-viz__title">A Region Under Construction</h1>
