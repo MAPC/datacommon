@@ -12,12 +12,6 @@ const colors = {
   mixedUse: '#c85ca1',
 };
 
-const projection = d3.geoAlbers()
-  .scale(37000)
-  .rotate([71.057, 0])
-  .center([0.33, 42.37])
-  .translate([960 / 2, 500 / 2]);
-
 const tooltipHtml = (development) => {
   let tooltipDetails = `<p class='tooltip__title'>${development.attributes.name}</p>
   <ul class='tooltip__list'>
@@ -118,6 +112,11 @@ const drawLegend = (selection) => {
 const plotPoints = (data, selection) => {
   const marchMap = d3.select('.d3-map');
   const tooltip = d3.select('.d3-map__tooltip');
+  const projection = d3.geoAlbers()
+    .scale(37000)
+    .rotate([71.057, 0])
+    .center([0.33, 42.37])
+    .translate([960 / 2, 500 / 2]);
   let radius;
   if (selection === 'housing') {
     radius = d3.scaleLinear()
@@ -167,7 +166,6 @@ const plotPoints = (data, selection) => {
 };
 
 const mapView = (newDevelopments, selection) => {
-  // drawLegend(selection);
   const marchMap = d3.select('.d3-map');
   const data2015 = newDevelopments.filter((d) => d.attributes.year_compl === 2015);
   const data2016 = newDevelopments.filter((d) => d.attributes.year_compl === 2016);
@@ -203,34 +201,38 @@ const mapView = (newDevelopments, selection) => {
   };
 
   document.querySelectorAll('.d3-map__option-label').forEach((option) => option.addEventListener('click', clearInterval(iterator)));
-
   updateVisualization();
   d3.select('.d3-map__points').raise();
   iterator = setInterval(updateVisualization, 3000);
-
-  // if (!document.querySelector('.d3-map__legend')) {
-
-  
 };
 
 const March = () => {
   const [currentlySelected, updateSelection] = useState('housing');
+  const [housingData, setHousingData] = useState([]);
+  const [commercialData, setCommercialData] = useState([]);
   useEffect(() => {
     const newMassBuilds = 'https://api.massbuilds.com/developments?filter%5Byear_compl%5D%5Bcol%5D=year_compl&filter%5Byear_compl%5D%5Bname%5D=Year%20complete&filter%5Byear_compl%5D%5BglossaryKey%5D=YEAR_COMPLETE&filter%5Byear_compl%5D%5Btype%5D=number&filter%5Byear_compl%5D%5Bfilter%5D=metric&filter%5Byear_compl%5D%5Bvalue%5D=2014&filter%5Byear_compl%5D%5Binflector%5D=%3E';
-
     axios.get(newMassBuilds, { headers: { Accept: 'application/vnd.api+json' } }).then((mapData) => {
       const newDevelopments = mapData.data.data.filter((development) => development.attributes.rpa_name === 'Metropolitan Area Planning Council')
         .map((development) => ({ attributes: development.attributes, coordinates: [development.attributes.longitude, development.attributes.latitude] }));
       const newHousing = newDevelopments.filter((development) => development.attributes.hu > 0);
       const newCommercial = newDevelopments.filter((development) => development.attributes.commsf > 0);
-      drawLegend(currentlySelected)
-      if (currentlySelected === 'housing') {
-        mapView(newHousing, 'housing');
-        // drawLeg
-      } else {
-        mapView(newCommercial, 'commercial');
-      }
+      setHousingData(newHousing);
+      setCommercialData(newCommercial);
+      drawLegend(currentlySelected);
+      mapView(newHousing, 'housing');
     });
+  }, []);
+
+  useEffect(() => {
+    d3.selectAll('.d3-map__points').remove();
+    d3.select('.d3-map__year').text(2015);
+    drawLegend(currentlySelected);
+    if (currentlySelected === 'housing') {
+      mapView(housingData, 'housing');
+    } else {
+      mapView(commercialData, 'commercial');
+    }
   }, [currentlySelected]);
   return (
     <>
@@ -246,10 +248,6 @@ const March = () => {
               className="d3-map__option-button"
               onChange={() => {
                 updateSelection('housing');
-                clearInterval(iterator);
-                d3.selectAll('.d3-map__points').remove();
-                d3.select('.d3-map__year').text(2015);
-                // drawLegend(currentlySelected);
               }}
               checked={currentlySelected === 'housing'}
             />
@@ -264,10 +262,6 @@ const March = () => {
               className="d3-map__option-button"
               onChange={() => {
                 updateSelection('commercial');
-                clearInterval(iterator);
-                d3.selectAll('.d3-map__points').remove();
-                d3.select('.d3-map__year').text(2015);
-                // drawLegend(currentlySelected);
               }}
               checked={currentlySelected === 'commercial'}
             />
