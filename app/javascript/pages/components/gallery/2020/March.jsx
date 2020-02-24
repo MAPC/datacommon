@@ -48,7 +48,7 @@ const drawLegend = (selection) => {
     .append('svg')
     .attr('class', 'd3-map__legend')
     .attr('x', 500)
-    .attr('y', 200);
+    .attr('y', 190);
 
   const entryOne = legend.append('g')
     .attr('class', 'd3-map__legend-entry');
@@ -60,113 +60,78 @@ const drawLegend = (selection) => {
   entryOne.append('text')
     .attr('x', 15)
     .attr('y', 10)
-    .text(`New ${selection} development`);
+    .text(`New ${selection}`);
+  entryOne.append('text')
+    .attr('x', 15)
+    .attr('y', 25)
+    .text('development');
 
   const entryTwo = legend.append('g')
     .attr('class', 'd3-map__legend-entry');
   entryTwo.append('circle')
     .attr('cx', 5)
-    .attr('cy', 25)
+    .attr('cy', 40)
     .attr('r', 5)
     .attr('fill', colors.mixedUseNew);
   entryTwo.append('text')
     .attr('x', 15)
-    .attr('y', 30)
+    .attr('y', 45)
     .text('New mixed-use');
   entryTwo.append('text')
     .attr('x', 15)
-    .attr('y', 45)
+    .attr('y', 60)
     .text('development');
 
   const entryThree = legend.append('g')
     .attr('class', 'd3-map__legend-entry');
   entryThree.append('circle')
     .attr('cx', 5)
-    .attr('cy', 55)
+    .attr('cy', 75)
     .attr('r', 5)
     .attr('fill', colors.primary)
     .attr('opacity', 0.6);
   entryThree.append('text')
     .attr('x', 15)
-    .attr('y', 60)
-    .text(`Existing ${selection} development`);
+    .attr('y', 80)
+    .text(`Existing ${selection}`);
+  entryThree.append('text')
+    .attr('x', 15)
+    .attr('y', 95)
+    .text('development');
 
   const entryFour = legend.append('g')
     .attr('class', 'd3-map__legend-entry');
   entryFour.append('circle')
     .attr('cx', 5)
-    .attr('cy', 75)
+    .attr('cy', 110)
     .attr('r', 5)
     .attr('fill', colors.mixedUse)
     .attr('opacity', 0.6);
   entryFour.append('text')
     .attr('x', 15)
-    .attr('y', 80)
+    .attr('y', 115)
     .text('Existing mixed-use');
   entryFour.append('text')
     .attr('x', 15)
-    .attr('y', 95)
+    .attr('y', 130)
     .text('development');
 };
 
-const plotPoints = (data, selection) => {
+const drawMap = (newDevelopments, selection) => {
   const marchMap = d3.select('.d3-map');
   const tooltip = d3.select('.d3-map__tooltip');
   const projection = d3.geoAlbers()
     .scale(37000)
     .rotate([71.057, 0])
-    .center([0.33, 42.37])
+    .center([0.395, 42.37])
     .translate([960 / 2, 500 / 2]);
-  let radius;
-  if (selection === 'housing') {
-    radius = d3.scaleLinear()
-      .domain(d3.extent(data.map((development) => development.attributes.hu)))
-      .range([3, 10]);
-  } else {
-    radius = d3.scaleLinear()
-      .domain(d3.extent(data.map((development) => development.attributes.commsf)))
-      .range([3, 10]);
-  }
+  const housingRadius = d3.scaleLinear()
+    .domain([d3.min(newDevelopments, (d) => d.attributes.hu || Infinity), d3.max(newDevelopments, (d) => d.attributes.hu)])
+    .range([3, 10]);
+  const commercialRadius = d3.scaleLinear()
+    .domain([d3.min(newDevelopments, (d) => d.attributes.commsf || Infinity), d3.max(newDevelopments, (d) => d.attributes.commsf)])
+    .range([3, 10]);
 
-  marchMap.append('g')
-    .attr('class', 'd3-map__points')
-    .selectAll('circle')
-    .data(data)
-    .enter()
-    .append('circle')
-    .attr('cx', (development) => projection(development.coordinates)[0])
-    .attr('cy', (development) => projection(development.coordinates)[1])
-    .attr('r', (development) => {
-      if (selection === 'housing') {
-        return radius(development.attributes.hu);
-      }
-      return radius(development.attributes.commsf);
-    })
-    .attr('class', 'd3-map__point')
-    .attr('cursor', 'pointer')
-    .attr('fill', (development) => {
-      if (development.attributes.hu > 0 && development.attributes.commsf > 0) {
-        return colors.mixedUseNew;
-      }
-      return colors.primaryNew;
-    })
-    .on('mousemove', (development) => {
-      tooltip.transition()
-        .duration(50)
-        .style('opacity', 0.9);
-      tooltip.html(tooltipHtml(development))
-        .style('left', tooltipLeft(projection(development.coordinates)[0]))
-        .style('top', tooltipTop(projection(development.coordinates)[1]));
-    })
-    .on('mouseleave', () => {
-      tooltip.transition()
-        .duration(200)
-        .style('opacity', 0);
-    });
-};
-
-const mapView = (newDevelopments, selection) => {
-  const marchMap = d3.select('.d3-map');
   const data2015 = newDevelopments.filter((d) => d.attributes.year_compl === 2015);
   const data2016 = newDevelopments.filter((d) => d.attributes.year_compl === 2016);
   const data2017 = newDevelopments.filter((d) => d.attributes.year_compl === 2017);
@@ -191,7 +156,42 @@ const mapView = (newDevelopments, selection) => {
         return colors.primary;
       })
       .attr('opacity', 0.6);
-    plotPoints(dataPool[position], selection);
+
+    marchMap.append('g')
+      .attr('class', 'd3-map__points')
+      .selectAll('circle')
+      .data(dataPool[position])
+      .enter()
+      .append('circle')
+      .attr('cx', (development) => projection(development.coordinates)[0])
+      .attr('cy', (development) => projection(development.coordinates)[1])
+      .attr('r', (development) => {
+        if (selection === 'housing') {
+          return housingRadius(development.attributes.hu);
+        }
+        return commercialRadius(development.attributes.commsf);
+      })
+      .attr('class', 'd3-map__point')
+      .attr('cursor', 'pointer')
+      .attr('fill', (development) => {
+        if (development.attributes.hu > 0 && development.attributes.commsf > 0) {
+          return colors.mixedUseNew;
+        }
+        return colors.primaryNew;
+      })
+      .on('mousemove', (development) => {
+        tooltip.transition()
+          .duration(50)
+          .style('opacity', 0.9);
+        tooltip.html(tooltipHtml(development))
+          .style('left', tooltipLeft(projection(development.coordinates)[0]))
+          .style('top', tooltipTop(projection(development.coordinates)[1]));
+      })
+      .on('mouseleave', () => {
+        tooltip.transition()
+          .duration(200)
+          .style('opacity', 0);
+      });
     year += 1;
     position += 1;
     if (position >= dataPool.length) {
@@ -213,25 +213,25 @@ const March = () => {
   useEffect(() => {
     const newMassBuilds = 'https://api.massbuilds.com/developments?filter%5Byear_compl%5D%5Bcol%5D=year_compl&filter%5Byear_compl%5D%5Bname%5D=Year%20complete&filter%5Byear_compl%5D%5BglossaryKey%5D=YEAR_COMPLETE&filter%5Byear_compl%5D%5Btype%5D=number&filter%5Byear_compl%5D%5Bfilter%5D=metric&filter%5Byear_compl%5D%5Bvalue%5D=2014&filter%5Byear_compl%5D%5Binflector%5D=%3E';
     axios.get(newMassBuilds, { headers: { Accept: 'application/vnd.api+json' } }).then((mapData) => {
-      const newDevelopments = mapData.data.data.filter((development) => development.attributes.rpa_name === 'Metropolitan Area Planning Council')
+      const newDevelopments = mapData.data.data.filter((development) => development.attributes.rpa_name === 'Metropolitan Area Planning Council'
+        && development.attributes.year_compl <= 2025)
         .map((development) => ({ attributes: development.attributes, coordinates: [development.attributes.longitude, development.attributes.latitude] }));
       const newHousing = newDevelopments.filter((development) => development.attributes.hu > 0);
       const newCommercial = newDevelopments.filter((development) => development.attributes.commsf > 0);
       setHousingData(newHousing);
       setCommercialData(newCommercial);
       drawLegend(currentlySelected);
-      mapView(newHousing, 'housing');
+      drawMap(newHousing, 'housing');
     });
   }, []);
-
   useEffect(() => {
     d3.selectAll('.d3-map__points').remove();
     d3.select('.d3-map__year').text(2015);
     drawLegend(currentlySelected);
     if (currentlySelected === 'housing') {
-      mapView(housingData, 'housing');
+      drawMap(housingData, 'housing');
     } else {
-      mapView(commercialData, 'commercial');
+      drawMap(commercialData, 'commercial');
     }
   }, [currentlySelected]);
   return (
