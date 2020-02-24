@@ -63,7 +63,7 @@ const D3Map = (props) => {
     });
   }, []);
   return (
-    <svg className="d3-map" width="700" height="500" />
+    <svg className="d3-map" width="700" height="500" viewBox="0 0 700 500" />
   );
 };
 
