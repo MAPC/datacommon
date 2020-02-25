@@ -6,12 +6,10 @@ import D3Map from '../D3Map';
 
 let iterator;
 const colors = {
-  primaryNew: '#fab903',
-  mixedUseNew: '#fee08e',
-  housing: '#8544CC',
-  mixedUse: '#c85ca1',
-  commercial: 'red',
-  new: 'yellow',
+  new: '#fab903',
+  housing: 'green',
+  commercial: 'blue',
+  mixedUse: 'red',
 };
 
 const tooltipHtml = (development) => {
@@ -50,76 +48,82 @@ const drawLegend = (selection) => {
     .append('svg')
     .attr('class', 'd3-map__legend')
     .attr('x', 500)
-    .attr('y', 190);
+    .attr('y', 150);
+
+  legend.append('text')
+    .attr('class', 'd3-map__year')
+    .attr('x', 0)
+    .attr('y', 42)
+    .attr('fill', colors.new)
+    .text(2015);
 
   const entryOne = legend.append('g')
     .attr('class', 'd3-map__legend-entry');
   entryOne.append('circle')
-    .attr('cx', 5)
-    .attr('cy', 5)
+    .attr('cx', 5 + 5)
+    .attr('cy', 62 + 5)
     .attr('r', 5)
-    .attr('fill', colors.primaryNew);
+    .attr('fill', colors.new);
   entryOne.append('text')
-    .attr('x', 15)
-    .attr('y', 10)
+    .attr('x', 5 + 15)
+    .attr('y', 62 + 10)
     .text(`New ${selection}`);
   entryOne.append('text')
-    .attr('x', 15)
-    .attr('y', 25)
+    .attr('x', 5 + 15)
+    .attr('y', 62 + 25)
     .text('development');
 
   const entryTwo = legend.append('g')
     .attr('class', 'd3-map__legend-entry');
   entryTwo.append('circle')
-    .attr('cx', 5)
-    .attr('cy', 40)
+    .attr('cx', 5 + 5)
+    .attr('cy', 62 + 40)
     .attr('r', 5)
-    .attr('fill', colors.mixedUseNew);
+    .attr('fill', colors.housing);
   entryTwo.append('text')
-    .attr('x', 15)
-    .attr('y', 45)
-    .text('New mixed-use');
+    .attr('x', 5 + 15)
+    .attr('y', 62 + 45)
+    .text('Existing housing');
   entryTwo.append('text')
-    .attr('x', 15)
-    .attr('y', 60)
+    .attr('x', 5 + 15)
+    .attr('y', 62 + 60)
     .text('development');
 
   const entryThree = legend.append('g')
     .attr('class', 'd3-map__legend-entry');
   entryThree.append('circle')
-    .attr('cx', 5)
-    .attr('cy', 75)
+    .attr('cx', 5 + 5)
+    .attr('cy', 62 + 75)
     .attr('r', 5)
-    .attr('fill', colors.housing)
-    .attr('opacity', 0.6);
+    .attr('fill', colors.commercial);
   entryThree.append('text')
-    .attr('x', 15)
-    .attr('y', 80)
-    .text(`Existing ${selection}`);
+    .attr('x', 5 + 15)
+    .attr('y', 62 + 80)
+    .text('Existing commercial');
   entryThree.append('text')
-    .attr('x', 15)
-    .attr('y', 95)
+    .attr('x', 5 + 15)
+    .attr('y', 62 + 95)
     .text('development');
 
   const entryFour = legend.append('g')
     .attr('class', 'd3-map__legend-entry');
   entryFour.append('circle')
-    .attr('cx', 5)
-    .attr('cy', 110)
+    .attr('cx', 5 + 5)
+    .attr('cy', 62 + 110)
     .attr('r', 5)
-    .attr('fill', colors.mixedUse)
-    .attr('opacity', 0.6);
+    .attr('fill', colors.mixedUse);
+
   entryFour.append('text')
-    .attr('x', 15)
-    .attr('y', 115)
+    .attr('x', 5 + 15)
+    .attr('y', 62 + 115)
     .text('Existing mixed-use');
   entryFour.append('text')
-    .attr('x', 15)
-    .attr('y', 130)
+    .attr('x', 5 + 15)
+    .attr('y', 62 + 130)
     .text('development');
 };
 
-const drawMap = (newDevelopments, selection) => {
+const drawMap = (newDevelopments) => {
   const marchMap = d3.select('.d3-map');
   const tooltip = d3.select('.d3-map__tooltip');
   const projection = d3.geoAlbers()
@@ -269,7 +273,6 @@ const March = () => {
           mapcLine="#5a5a5a"
         />
         <div className="d3-map__tooltip" />
-        <div className="d3-map__year">2015</div>
       </div>
       <p>Anyone living or working in Metro Boston is no stranger to the sights and sounds of construction happening around them. It can feel like our region is constantly under development. While many know about a specific development in their community or next to their office it’s hard to know: What is the regional picture? Where is most of this development happening? How close does the construction of new housing units get us to our production goals? Where will jobs be located in the future? MAPC’s MassBuilds database can help answer these questions.</p>
       <p>MassBuilds is a collaborative data inventory that provides a picture of the region’s growth through a website that allows users to view, download, and contribute information about thousands of development projects recently completed or in the pipeline. This map shows projects completed since 2015 as well as those in or nearing construction in the next five years. Together this group totals XXX housing units and XX million sqft of commercial development. XXX growth in the Inner Core includes almost XX of the new housing and jobs, with the balance distributed across XX developments. Office space has dominated the majority of commercial square footage development, accounting for XX percent of all development since 2015. This database also shows a move towards more transit-oriented development. XX% of all housing units are within ½ mile walkshed of a commuter rail or rapid transit station. This may help explain the decline in parking ratios over time. For residential projects with information about parking, we see an average of XX spaces per unit in XXX compared to XX spaces per unit in XXX.</p>

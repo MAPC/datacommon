@@ -46,16 +46,9 @@
   }
 
   &__year {
-    @include media(small) {
-      font-size: 3rem;
-    }
-    bottom: 50px;
     color: $color_font-medium;
     font-family: $font_family-primary;
     font-size: 3.75rem;
-    position: absolute;
-    right: 70px;
-    z-index: 20;
   }
 }
 
