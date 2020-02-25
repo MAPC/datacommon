@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import * as d3 from 'd3';
 import React, { useEffect } from 'react';
+import axios from 'axios';
 
 const tooltipHtml = (development) => {
   let tooltipDetails = `<p class='tooltip__title'>${development.attributes.name}</p>
@@ -58,8 +59,8 @@ const drawMap = (newEngland, massachusetts, mapc, massbuilds) => {
     .data(massbuilds)
     .enter()
     .append('circle')
-    .attr('cx', (development) => projection(development.geometry.coordinates)[0])
-    .attr('cy', (development) => projection(development.geometry.coordinates)[1])
+    .attr('cx', (development) => projection(development.coordinates)[0])
+    .attr('cy', (development) => projection(development.coordinates)[1])
     .attr('r', 3)
     .attr('class', 'd3-map__point')
     .attr('fill', '#462B78')
@@ -112,15 +113,15 @@ const drawMap = (newEngland, massachusetts, mapc, massbuilds) => {
 
 const March = () => {
   useEffect(() => {
+    const massBuildsUrl = 'https://api.massbuilds.com/developments?filter%5Bstatus%5D%5Bcol%5D=status&filter%5Bstatus%5D%5Bname%5D=Status&filter%5Bstatus%5D%5BglossaryKey%5D=STATUS&filter%5Bstatus%5D%5Btype%5D=string&filter%5Bstatus%5D%5Boptions%5D%5B%5D=completed&filter%5Bstatus%5D%5Boptions%5D%5B%5D=in_construction&filter%5Bstatus%5D%5Boptions%5D%5B%5D=planning&filter%5Bstatus%5D%5Boptions%5D%5B%5D=projected&filter%5Bstatus%5D%5Bfilter%5D=metric&filter%5Bstatus%5D%5Bvalue%5D=in_construction&filter%5Bstatus%5D%5Binflector%5D=eq&filter%5Byear_compl%5D%5Bcol%5D=year_compl&filter%5Byear_compl%5D%5Bname%5D=Year%20complete&filter%5Byear_compl%5D%5BglossaryKey%5D=YEAR_COMPLETE&filter%5Byear_compl%5D%5Btype%5D=number&filter%5Byear_compl%5D%5Bfilter%5D=metric&filter%5Byear_compl%5D%5Bvalue%5D=2018&filter%5Byear_compl%5D%5Binflector%5D=%3E';
     Promise.all([
       d3.json('/assets/NewEngland.geojson'),
       d3.json('/assets/Massachusetts.geojson'),
       d3.json('/assets/MAPC.geojson'),
-      d3.json('/assets/massbuilds.geojson'),
+      axios.get(massBuildsUrl, { headers: { Accept: 'application/vnd.api+json' } }),
     ]).then((maps) => {
-      const massBuilds = maps[3].features.filter((development) => development.properties.STATUS === 'in_construction'
-        && development.properties.YEAR_COMPL >= 2019
-        && development.properties.RPA_NAME === 'Metropolitan Area Planning Council');
+      const massBuilds = maps[3].data.data.filter((development) => development.attributes.rpa_name === 'Metropolitan Area Planning Council')
+        .map((development) => ({ attributes: development.attributes, coordinates: [development.attributes.longitude, development.attributes.latitude] }));
       drawMap(maps[0], maps[1], maps[2], massBuilds);
     });
   }, []);
