@@ -2,6 +2,7 @@
 import * as d3 from 'd3';
 import React, { useEffect } from 'react';
 import axios from 'axios';
+import D3Map from '../D3Map';
 
 const tooltipHtml = (development) => {
   let tooltipDetails = `<p class='tooltip__title'>${development.attributes.name}</p>
@@ -33,7 +34,7 @@ const tooltipTop = (yCoordinate) => {
   return `${yCoordinate + 20}px`;
 };
 
-const drawMap = (newEngland, massachusetts, mapc, massbuilds) => {
+const addMapData = (massbuilds) => {
   const projection = d3.geoAlbers()
     .scale(37000)
     .rotate([71.057, 0])
@@ -54,7 +55,7 @@ const drawMap = (newEngland, massachusetts, mapc, massbuilds) => {
     .range([3, 10]);
 
   marchMap.append('g')
-    .attr('class', 'massbuilds-points')
+    .attr('class', 'd3-map__points')
     .selectAll('circle')
     .data(massbuilds)
     .enter()
@@ -114,15 +115,10 @@ const drawMap = (newEngland, massachusetts, mapc, massbuilds) => {
 const March = () => {
   useEffect(() => {
     const massBuildsUrl = 'https://api.massbuilds.com/developments?filter%5Bstatus%5D%5Bcol%5D=status&filter%5Bstatus%5D%5Bname%5D=Status&filter%5Bstatus%5D%5BglossaryKey%5D=STATUS&filter%5Bstatus%5D%5Btype%5D=string&filter%5Bstatus%5D%5Boptions%5D%5B%5D=completed&filter%5Bstatus%5D%5Boptions%5D%5B%5D=in_construction&filter%5Bstatus%5D%5Boptions%5D%5B%5D=planning&filter%5Bstatus%5D%5Boptions%5D%5B%5D=projected&filter%5Bstatus%5D%5Bfilter%5D=metric&filter%5Bstatus%5D%5Bvalue%5D=in_construction&filter%5Bstatus%5D%5Binflector%5D=eq&filter%5Byear_compl%5D%5Bcol%5D=year_compl&filter%5Byear_compl%5D%5Bname%5D=Year%20complete&filter%5Byear_compl%5D%5BglossaryKey%5D=YEAR_COMPLETE&filter%5Byear_compl%5D%5Btype%5D=number&filter%5Byear_compl%5D%5Bfilter%5D=metric&filter%5Byear_compl%5D%5Bvalue%5D=2018&filter%5Byear_compl%5D%5Binflector%5D=%3E';
-    Promise.all([
-      d3.json('/assets/NewEngland.geojson'),
-      d3.json('/assets/Massachusetts.geojson'),
-      d3.json('/assets/MAPC.geojson'),
-      axios.get(massBuildsUrl, { headers: { Accept: 'application/vnd.api+json' } }),
-    ]).then((maps) => {
-      const massBuilds = maps[3].data.data.filter((development) => development.attributes.rpa_name === 'Metropolitan Area Planning Council')
+    axios.get(massBuildsUrl, { headers: { Accept: 'application/vnd.api+json' } }).then((mapData) => {
+      const massBuilds = mapData.data.data.filter((development) => development.attributes.rpa_name === 'Metropolitan Area Planning Council')
         .map((development) => ({ attributes: development.attributes, coordinates: [development.attributes.longitude, development.attributes.latitude] }));
-      drawMap(maps[0], maps[1], maps[2], massBuilds);
+      addMapData(massBuilds);
     });
   }, []);
   return (
