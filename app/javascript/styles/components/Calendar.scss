@@ -109,6 +109,9 @@
 
 .calendar-viz {
   &__wrapper {
+    @include media(medium) {
+      float: unset;
+    }
     float: left;
   }
   

@@ -136,7 +136,6 @@ const drawLegend = (selection) => {
 };
 
 const drawMap = (newDevelopments, selection) => {
-  console.log(newDevelopments)
   const marchMap = d3.select('.d3-map');
   const tooltip = d3.select('.d3-map__tooltip');
   const projection = d3.geoAlbers()
@@ -187,7 +186,7 @@ const drawMap = (newDevelopments, selection) => {
           .style('opacity', 0);
       });
 
-    newPoint.attr('r', 0)
+    newPoint.attr('r', 1)
       .transition()
       .duration(5000)
       .attr('r', 4);
@@ -266,9 +265,7 @@ const March = () => {
               name="march"
               value="housing"
               className="d3-map__option-button"
-              onChange={() => {
-                updateSelection('housing');
-              }}
+              onChange={() => updateSelection('housing')}
               checked={currentlySelected === 'housing'}
             />
             Housing
@@ -280,9 +277,7 @@ const March = () => {
               name="march"
               value="commercial"
               className="d3-map__option-button"
-              onChange={() => {
-                updateSelection('commercial');
-              }}
+              onChange={() => updateSelection('commercial')}
               checked={currentlySelected === 'commercial'}
             />
             Commercial
@@ -294,13 +289,18 @@ const March = () => {
               name="march"
               value="mixeduse"
               className="d3-map__option-button"
-              onChange={() => {
-                updateSelection('mixeduse');
-              }}
+              onChange={() => updateSelection('mixeduse')}
               checked={currentlySelected === 'mixeduse'}
             />
             Mixed Use
           </label>
+        </form>
+        <form className="d3-map__options--mobile">
+          <select onChange={(event) => updateSelection(event.target.value)}>
+            <option value="housing">Housing</option>
+            <option value="commercial">Commercial</option>
+            <option value="mixeduse">Mixed Use</option>
+          </select>
         </form>
         <D3Map
           oceanFill="#FEFDFE"
