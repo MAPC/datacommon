@@ -148,37 +148,16 @@ const drawMap = (newDevelopments, selection) => {
   let year = 2015;
   const updateVisualization = () => {
     d3.select('.d3-map__year').text(year);
-    marchMap.selectAll('.d3-map__point')
-      .attr('fill', (development) => {
-        if (development.attributes.hu > 0 && development.attributes.commsf > 0) {
-          return colors.mixedUse;
-        }
-        return colors.primary;
-      })
-      .attr('opacity', 0.6);
-
-    marchMap.append('g')
+    const newPointsSeries = marchMap.append('g')
       .attr('class', 'd3-map__points')
       .selectAll('circle')
       .data(dataPool[position])
-      .enter()
-      .append('circle')
+      .enter();
+    const newPoint = newPointsSeries.append('circle')
       .attr('cx', (development) => projection(development.coordinates)[0])
       .attr('cy', (development) => projection(development.coordinates)[1])
-      .attr('r', (development) => {
-        if (selection === 'housing') {
-          return housingRadius(development.attributes.hu);
-        }
-        return commercialRadius(development.attributes.commsf);
-      })
       .attr('class', 'd3-map__point')
       .attr('cursor', 'pointer')
-      .attr('fill', (development) => {
-        if (development.attributes.hu > 0 && development.attributes.commsf > 0) {
-          return colors.mixedUseNew;
-        }
-        return colors.primaryNew;
-      })
       .on('mousemove', (development) => {
         tooltip.transition()
           .duration(50)
@@ -192,6 +171,34 @@ const drawMap = (newDevelopments, selection) => {
           .duration(200)
           .style('opacity', 0);
       });
+
+    newPoint.attr('r', 1)
+      .transition()
+      .duration(2000)
+      .attr('r', (development) => {
+        if (selection === 'housing') {
+          return housingRadius(development.attributes.hu);
+        }
+        return commercialRadius(development.attributes.commsf);
+      });
+
+    newPoint.attr('fill', (development) => {
+      if (development.attributes.hu > 0 && development.attributes.commsf > 0) {
+        return colors.mixedUseNew;
+      }
+      return colors.primaryNew;
+    })
+      .attr('opacity', 1)
+      .transition()
+      .delay(4000)
+      .duration(1000)
+      .attr('fill', (development) => {
+        if (development.attributes.hu > 0 && development.attributes.commsf > 0) {
+          return colors.mixedUse;
+        }
+        return colors.primary;
+      })
+      .attr('opacity', 0.6);
     year += 1;
     position += 1;
     if (position >= dataPool.length) {
@@ -203,7 +210,7 @@ const drawMap = (newDevelopments, selection) => {
   document.querySelectorAll('.d3-map__option-label').forEach((option) => option.addEventListener('click', clearInterval(iterator)));
   updateVisualization();
   d3.select('.d3-map__points').raise();
-  iterator = setInterval(updateVisualization, 3000);
+  iterator = setInterval(updateVisualization, 5000);
 };
 
 const March = () => {
@@ -278,11 +285,14 @@ const March = () => {
         <div className="d3-map__tooltip" />
         <div className="d3-map__year">2015</div>
       </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien faucibus et molestie ac feugiat sed lectus vestibulum. Ultricies mi quis hendrerit dolor magna eget. Commodo elit at imperdiet dui accumsan sit amet nulla. Imperdiet sed euismod nisi porta lorem mollis aliquam ut porttitor. At in tellus integer feugiat scelerisque. Eget duis at tellus at urna condimentum. Lectus mauris ultrices eros in cursus turpis massa tincidunt dui. Aliquet risus feugiat in ante metus dictum at tempor. Egestas sed tempus urna et pharetra pharetra.</p>
-      <p>Morbi leo urna molestie at elementum eu facilisis sed odio. Adipiscing diam donec adipiscing tristique risus nec. Vitae suscipit tellus mauris a diam maecenas sed enim ut. Vel quam elementum pulvinar etiam non quam. Arcu felis bibendum ut tristique et egestas quis ipsum suspendisse. Feugiat sed lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi. Praesent semper feugiat nibh sed pulvinar proin. Duis ultricies lacus sed turpis. Massa id neque aliquam vestibulum. Ac tortor vitae purus faucibus ornare suspendisse sed nisi.</p>
-      <p>Tempor orci dapibus ultrices in. Auctor augue mauris augue neque gravida in fermentum et sollicitudin. Ante metus dictum at tempor. Nulla facilisi cras fermentum odio eu feugiat. Enim sit amet venenatis urna cursus eget nunc. Enim nunc faucibus a pellentesque. Fames ac turpis egestas sed tempus urna. Nunc aliquet bibendum enim facilisis gravida neque. Ultricies leo integer malesuada nunc vel risus commodo. Mi eget mauris pharetra et ultrices neque. Enim eu turpis egestas pretium aenean. Elementum nibh tellus molestie nunc non blandit massa enim. Euismod quis viverra nibh cras pulvinar mattis nunc. Faucibus purus in massa tempor nec feugiat nisl pretium.</p>
-      <p>Dictum varius duis at consectetur lorem. Quam nulla porttitor massa id neque aliquam. Neque viverra justo nec ultrices dui sapien eget mi proin. Dignissim sodales ut eu sem integer vitae justo eget. Elit eget gravida cum sociis natoque penatibus et. Dictumst vestibulum rhoncus est pellentesque elit. Volutpat lacus laoreet non curabitur. Cras ornare arcu dui vivamus arcu. Magna fermentum iaculis eu non diam. Posuere ac ut consequat semper. Dignissim suspendisse in est ante in nibh mauris cursus. Sed cras ornare arcu dui vivamus. Mauris nunc congue nisi vitae suscipit tellus mauris. Urna porttitor rhoncus dolor purus non enim praesent. Tristique sollicitudin nibh sit amet commodo nulla facilisi. Congue nisi vitae suscipit tellus mauris. Id cursus metus aliquam eleifend mi in nulla. Turpis massa sed elementum tempus. Dictum sit amet justo donec enim diam vulputate ut. Aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer.</p>
-      <p>Ipsum a arcu cursus vitae. Rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Ac felis donec et odio. Vel quam elementum pulvinar etiam non quam lacus. Quam adipiscing vitae proin sagittis nisl rhoncus. Cursus mattis molestie a iaculis at erat pellentesque. Pretium lectus quam id leo in. Molestie nunc non blandit massa. Vitae proin sagittis nisl rhoncus mattis rhoncus urna. In nibh mauris cursus mattis molestie. Mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Et molestie ac feugiat sed lectus vestibulum. Feugiat sed lectus vestibulum mattis ullamcorper. Viverra justo nec ultrices dui sapien eget mi proin. Ipsum consequat nisl vel pretium. Eget felis eget nunc lobortis. Pharetra sit amet aliquam id diam maecenas.</p>
+      <p>Anyone living or working in Metro Boston is no stranger to the sights and sounds of construction happening around them. It can feel like our region is constantly under development. While many know about a specific development in their community or next to their office it’s hard to know: What is the regional picture? Where is most of this development happening? How close does the construction of new housing units get us to our production goals? Where will jobs be located in the future? MAPC’s MassBuilds database can help answer these questions.</p>
+      <p>MassBuilds is a collaborative data inventory that provides a picture of the region’s growth through a website that allows users to view, download, and contribute information about thousands of development projects recently completed or in the pipeline. This map shows projects completed since 2015 as well as those in or nearing construction in the next five years. Together this group totals XXX housing units and XX million sqft of commercial development. XXX growth in the Inner Core includes almost XX of the new housing and jobs, with the balance distributed across XX developments. Office space has dominated the majority of commercial square footage development, accounting for XX percent of all development since 2015. This database also shows a move towards more transit-oriented development. XX% of all housing units are within ½ mile walkshed of a commuter rail or rapid transit station. This may help explain the decline in parking ratios over time. For residential projects with information about parking, we see an average of XX spaces per unit in XXX compared to XX spaces per unit in XXX.</p>
+      <p>
+MassBuilds was created because tracking and anticipating development across Metro Boston is challenging. Each municipality has its own planning office and building inspector, and information about development is often scattered across multiple websites or sitting in spreadsheets across the region. MassBuilds allows municipalities, and state agencies get a fuller picture of development rends in real time as they regulate and invest in sustainable and equitable development. However, this system is just the beginning of a broader vision. Without a regional system for development applications or building permits, housing and job growth is usually measured after the fact with disparate data sources that often lack detailed information. One day we hope to move to a more integrated regional system that encourages the collection of this data within the development process: projects could be tagged when a construction or occupancy permit is awarded, site plans could automatically track information about parking and affordability, and projects of all sizes could be automatically tracked across the region. Learn more about MassBuilds and contribute data by creating a free account at
+        <a href="https://www.massbuilds.com/map">www.MassBuilds.com</a>
+        {' '}
+today.
+      </p>
     </>
   );
 };
