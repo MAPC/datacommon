@@ -108,6 +108,10 @@
 }
 
 .calendar-viz {
+  &__wrapper {
+    float: left;
+  }
+  
   &__subtitle {
     @include media(large) {
       float: initial;

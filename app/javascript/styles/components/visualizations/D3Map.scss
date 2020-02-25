@@ -1,8 +1,7 @@
 .d3-map {
-  float: left;
   height: 500px;
   margin: 0 32px 32px 0;
-  width: 600px;
+  width: 700px;
   z-index: 10;
 
   &__tooltip {
@@ -28,12 +27,29 @@
     z-index: 20;
   }
 
+  &__option-label {
+    text-transform: capitalize;
+  }
+
   &__option-label:not(:last-child) {
     padding-right: 1rem;
   }
 
   &__option-button {
     margin-right: .25rem;
+  }
+
+  &__year {
+    @include media(small) {
+      font-size: 3rem;
+    }
+    color: $color_font-medium;
+    font-family: $font_family-primary;
+    font-size: 3.75rem;
+    position: absolute;
+    right: 70px;
+    bottom: 50px;
+    z-index: 20;
   }
 }
 

@@ -5,7 +5,7 @@ const drawMap = (newEngland, massachusetts, mapc, props) => {
   const projection = d3.geoAlbers()
     .scale(37000)
     .rotate([71.057, 0])
-    .center([0.33, 42.37])
+    .center([0.4, 42.37])
     .translate([960 / 2, 500 / 2]);
 
   const d3Map = d3.select('.d3-map');
@@ -63,7 +63,7 @@ const D3Map = (props) => {
     });
   }, []);
   return (
-    <svg className="d3-map" width="600" height="500" />
+    <svg className="d3-map" width="700" height="500" />
   );
 };
 
