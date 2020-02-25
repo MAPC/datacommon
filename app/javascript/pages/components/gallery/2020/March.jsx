@@ -8,8 +8,10 @@ let iterator;
 const colors = {
   primaryNew: '#fab903',
   mixedUseNew: '#fee08e',
-  primary: '#8544CC',
+  housing: '#8544CC',
   mixedUse: '#c85ca1',
+  commercial: 'red',
+  new: 'yellow',
 };
 
 const tooltipHtml = (development) => {
@@ -88,7 +90,7 @@ const drawLegend = (selection) => {
     .attr('cx', 5)
     .attr('cy', 75)
     .attr('r', 5)
-    .attr('fill', colors.primary)
+    .attr('fill', colors.housing)
     .attr('opacity', 0.6);
   entryThree.append('text')
     .attr('x', 15)
@@ -125,12 +127,6 @@ const drawMap = (newDevelopments, selection) => {
     .rotate([71.057, 0])
     .center([0.395, 42.37])
     .translate([960 / 2, 500 / 2]);
-  const housingRadius = d3.scaleLinear()
-    .domain([d3.min(newDevelopments, (d) => d.attributes.hu || Infinity), d3.max(newDevelopments, (d) => d.attributes.hu)])
-    .range([3, 10]);
-  const commercialRadius = d3.scaleLinear()
-    .domain([d3.min(newDevelopments, (d) => d.attributes.commsf || Infinity), d3.max(newDevelopments, (d) => d.attributes.commsf)])
-    .range([3, 10]);
 
   const data2015 = newDevelopments.filter((d) => d.attributes.year_compl === 2015);
   const data2016 = newDevelopments.filter((d) => d.attributes.year_compl === 2016);
@@ -172,22 +168,12 @@ const drawMap = (newDevelopments, selection) => {
           .style('opacity', 0);
       });
 
-    newPoint.attr('r', 1)
+    newPoint.attr('r', 0)
       .transition()
-      .duration(2000)
-      .attr('r', (development) => {
-        if (selection === 'housing') {
-          return housingRadius(development.attributes.hu);
-        }
-        return commercialRadius(development.attributes.commsf);
-      });
+      .duration(5000)
+      .attr('r', 4);
 
-    newPoint.attr('fill', (development) => {
-      if (development.attributes.hu > 0 && development.attributes.commsf > 0) {
-        return colors.mixedUseNew;
-      }
-      return colors.primaryNew;
-    })
+    newPoint.attr('fill', colors.new)
       .attr('opacity', 1)
       .transition()
       .delay(4000)
@@ -196,7 +182,7 @@ const drawMap = (newDevelopments, selection) => {
         if (development.attributes.hu > 0 && development.attributes.commsf > 0) {
           return colors.mixedUse;
         }
-        return colors.primary;
+        return colors.housing;
       })
       .attr('opacity', 0.6);
     year += 1;
