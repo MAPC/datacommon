@@ -15,7 +15,8 @@ const colors = {
 const tooltipHtml = (development) => {
   let tooltipDetails = `<p class='tooltip__title'>${development.attributes.name}</p>
   <ul class='tooltip__list'>
-  <li class='tooltip__text'>Est. completion in ${development.attributes.year_compl}</li>`;
+  <li class='tooltip__text'>Est. completion in ${development.attributes.year_compl}</li>
+  <li class='tooltip__text'>${development.attributes.municipal}</li>`;
   if (development.attributes.hu) {
     tooltipDetails += `<li class='tooltip__text'>${d3.format(',')(development.attributes.hu)} housing units</li>`;
   }
@@ -121,9 +122,21 @@ const drawLegend = (selection) => {
     .attr('x', 5 + 15)
     .attr('y', 62 + 130)
     .text('development');
+
+  const link = legend.append('a')
+    .attr('xlink:href', 'https://www.massbuilds.com/map');
+  link.append('text')
+    .attr('x', 10)
+    .attr('y', 62 + 150)
+    .text('Explore more at');
+  link.append('text')
+    .attr('x', 10)
+    .attr('y', 62 + 170)
+    .text('Massbuilds.com');
 };
 
 const drawMap = (newDevelopments, selection) => {
+  console.log(newDevelopments)
   const marchMap = d3.select('.d3-map');
   const tooltip = d3.select('.d3-map__tooltip');
   const projection = d3.geoAlbers()
@@ -153,7 +166,9 @@ const drawMap = (newDevelopments, selection) => {
       .selectAll('circle')
       .data(dataPool[position])
       .enter();
-    const newPoint = newPointsSeries.append('circle')
+    const newPoint = newPointsSeries
+      .append('a')
+      .append('circle')
       .attr('cx', (development) => projection(development.coordinates)[0])
       .attr('cy', (development) => projection(development.coordinates)[1])
       .attr('class', 'd3-map__point')
