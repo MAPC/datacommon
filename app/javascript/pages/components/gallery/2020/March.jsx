@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import * as d3 from 'd3';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import D3Map from '../D3Map';
 
@@ -34,6 +34,15 @@ const tooltipTop = (yCoordinate) => {
   return `${yCoordinate + 20}px`;
 };
 
+const switchView = (event) => {
+  const newView = event.target.id;
+  d3.selectAll('.d3-map__points')
+    .attr('opacity', 0);
+
+  d3.select(`.d3-map__${newView}`)
+    .attr('opacity', 1);
+};
+
 const addMapData = (massbuilds) => {
   const projection = d3.geoAlbers()
     .scale(37000)
@@ -55,14 +64,16 @@ const addMapData = (massbuilds) => {
     .range([3, 10]);
 
   marchMap.append('g')
-    .attr('class', 'd3-map__points')
+    .attr('class', 'd3-map__points d3-map__housing')
     .selectAll('circle')
-    .data(massbuilds)
+    .data(housingUnits)
     .enter()
     .append('circle')
     .attr('cx', (development) => projection(development.coordinates)[0])
     .attr('cy', (development) => projection(development.coordinates)[1])
-    .attr('r', 3)
+    .attr('r', (development) => housingRadius(development.attributes.hu))
+    .attr('opacity', 0.5)
+    .attr('stroke', 'black')
     .attr('class', 'd3-map__point')
     .attr('fill', '#462B78')
     .attr('cursor', 'pointer')
@@ -109,6 +120,35 @@ const addMapData = (massbuilds) => {
         .style('opacity', 0);
     });
 
+  marchMap.append('g')
+    .attr('class', 'd3-map__points d3-map__commercial')
+    .attr('opacity', 0)
+    .selectAll('circle')
+    .data(commercialUnits)
+    .enter()
+    .append('circle')
+    .attr('cx', (development) => projection(development.coordinates)[0])
+    .attr('cy', (development) => projection(development.coordinates)[1])
+    .attr('r', (development) => commercialRadius(development.attributes.commsf))
+    .attr('opacity', 0.5)
+    .attr('stroke', 'black')
+    .attr('class', 'd3-map__point')
+    .attr('fill', 'green')
+    .attr('cursor', 'pointer')
+    .on('mousemove', (development) => {
+      tooltip.transition()
+        .duration(50)
+        .style('opacity', 0.9);
+      tooltip.html(tooltipHtml(development))
+        .style('left', tooltipLeft(projection(development.coordinates)[0]))
+        .style('top', tooltipTop(projection(development.coordinates)[1]));
+    })
+    .on('mouseleave', () => {
+      tooltip.transition()
+        .duration(200)
+        .style('opacity', 0);
+    });
+
   d3.select('.d3-map__points').raise();
 };
 
@@ -121,6 +161,7 @@ const March = () => {
       addMapData(massBuilds);
     });
   }, []);
+  const [currentlySelected, updateSelection] = useState('housing');
   return (
     <>
       <h1 className="calendar-viz__title">A Region Under Construction</h1>

@@ -8,7 +8,7 @@ const drawMap = (newEngland, massachusetts, mapc, props) => {
     .center([0.33, 42.37])
     .translate([960 / 2, 500 / 2]);
 
-  const d3Map = d3.select('.calendar-viz__d3-map');
+  const d3Map = d3.select('.d3-map');
   const path = d3.geoPath().projection(projection);
 
   d3Map.style('background', props.oceanFill);
@@ -63,7 +63,7 @@ const D3Map = (props) => {
     });
   }, []);
   return (
-    <svg className="calendar-viz__d3-map" width="600" height="500" />
+    <svg className="d3-map" width="600" height="500" />
   );
 };
 
