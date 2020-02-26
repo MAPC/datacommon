@@ -75,8 +75,12 @@
 
   &__legend-entry {
     font-family: 'Montserrat';
-    font-size: 1rem;
+    font-size: .75rem;
     font-weight: 300;
+  }
+
+  &__legend-entry--bold {
+    font-weight: 700;
   }
 
   &__legend-link {
@@ -86,7 +90,7 @@
   &__year {
     color: $color_font-medium;
     font-family: $font_family-primary;
-    font-size: 3.75rem;
+    font-size: 3rem;
   }
 }
 
