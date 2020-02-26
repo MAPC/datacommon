@@ -29,11 +29,12 @@
   }
 
   &__options {
-    @media screen and (max-width: 850px) {
+    @include media('small') {
       display: none;
     }
     background: white;
     font-family: 'Montserrat';
+    font-size: .75rem;
     left: .5rem;
     padding: .5rem;
     position: absolute;
@@ -42,15 +43,21 @@
   }
 
   &__options--mobile {
-    @media screen and (max-width: 850px) {
+    @include media('small') {
       display: unset;
-      left: .25rem;
-      position: absolute;
-      top: .25rem;
-      z-index: 20;
+    }
+
+    @include media('x-small') {
+      left: 0;
+      top: 0;
     }
     display: none;
     font-family: 'Montserrat';
+    font-size: .75rem;
+    left: .5rem;
+    position: absolute;
+    top: .5rem;
+    z-index: 20;
   }
 
   &__option-label {

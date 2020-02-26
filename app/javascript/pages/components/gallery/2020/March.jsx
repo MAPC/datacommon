@@ -8,8 +8,7 @@ let iterator;
 const colors = {
   new: '#fab903',
   housing: '#462B78',
-  commercial: '#8544CC',
-  'mixed use': '#A677D9',
+  commercial: '#8544CC'
 };
 
 const tooltipHtml = (development) => {
@@ -195,19 +194,16 @@ const March = () => {
   const [currentlySelected, updateSelection] = useState('housing');
   const [housingData, setHousingData] = useState([]);
   const [commercialData, setCommercialData] = useState([]);
-  const [mixedUseData, setMixedUseData] = useState([]);
   useEffect(() => {
     const newMassBuilds = 'https://api.massbuilds.com/developments?filter%5Byear_compl%5D%5Bcol%5D=year_compl&filter%5Byear_compl%5D%5Bname%5D=Year%20complete&filter%5Byear_compl%5D%5BglossaryKey%5D=YEAR_COMPLETE&filter%5Byear_compl%5D%5Btype%5D=number&filter%5Byear_compl%5D%5Bfilter%5D=metric&filter%5Byear_compl%5D%5Bvalue%5D=2014&filter%5Byear_compl%5D%5Binflector%5D=%3E';
     axios.get(newMassBuilds, { headers: { Accept: 'application/vnd.api+json' } }).then((mapData) => {
       const newDevelopments = mapData.data.data.filter((development) => development.attributes.rpa_name === 'Metropolitan Area Planning Council'
         && development.attributes.year_compl <= 2025)
         .map((development) => ({ attributes: development.attributes, coordinates: [development.attributes.longitude, development.attributes.latitude] }));
-      const housing = newDevelopments.filter((development) => development.attributes.hu > 0 && !development.attributes.commsf);
-      const commercial = newDevelopments.filter((development) => development.attributes.commsf > 0 && !development.attributes.hu);
-      const mixedUse = newDevelopments.filter((development) => development.attributes.commsf > 0 && development.attributes.hu > 0);
+      const housing = newDevelopments.filter((development) => development.attributes.hu > 0);
+      const commercial = newDevelopments.filter((development) => development.attributes.commsf > 0);
       setHousingData(housing);
       setCommercialData(commercial);
-      setMixedUseData(mixedUse);
       drawLegend(currentlySelected);
       drawMap(housing, 'housing');
     });
@@ -220,8 +216,6 @@ const March = () => {
       drawMap(housingData, 'housing');
     } else if (currentlySelected === 'commercial') {
       drawMap(commercialData, 'commercial');
-    } else {
-      drawMap(mixedUseData, 'mixed use');
     }
   }, [currentlySelected]);
   return (
@@ -253,24 +247,11 @@ const March = () => {
             />
             Commercial
           </label>
-          <label htmlFor="mixeduse" className="d3-map__option-label">
-            <input
-              type="radio"
-              id="mixeduse"
-              name="march"
-              value="mixed use"
-              className="d3-map__option-button"
-              onChange={() => updateSelection('mixed use')}
-              checked={currentlySelected === 'mixed use'}
-            />
-            Mixed Use
-          </label>
         </form>
         <form className="d3-map__options--mobile">
           <select onChange={(event) => updateSelection(event.target.value)}>
             <option value="housing">Housing</option>
             <option value="commercial">Commercial</option>
-            <option value="mixed use">Mixed Use</option>
           </select>
         </form>
         <D3Map
