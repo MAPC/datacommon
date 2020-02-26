@@ -6,9 +6,9 @@ import D3Map from '../D3Map';
 
 let iterator;
 const colors = {
-  new: '#fab903',
-  housing: '#462B78',
-  commercial: '#8544CC',
+  new: '#FFCA67',
+  housing: '#654F8F',
+  commercial: '#987CAD',
 };
 
 const tooltipHtml = (development) => {
@@ -329,9 +329,9 @@ const March = () => {
         </form>
         <D3Map
           oceanFill="#FEFDFE"
-          maFill="#FCF2FB"
-          newEngFill="#FCF2FB"
-          mapcFill="#DDCCF1"
+          maFill="#F9F7FF"
+          newEngFill="#F9F7FF"
+          mapcFill="#ECE2FF"
           mapcLine="#5a5a5a"
         />
         <div className="d3-map__tooltip" />
