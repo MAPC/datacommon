@@ -8,7 +8,7 @@ let iterator;
 const colors = {
   new: '#fab903',
   housing: '#462B78',
-  commercial: '#8544CC'
+  commercial: '#8544CC',
 };
 
 const tooltipHtml = (development) => {
@@ -97,20 +97,20 @@ const drawLegend = (selection) => {
     .attr('fill', '#1F4E46')
     .text('development');
 
-  const link = legend.append('a')
-    .attr('xlink:href', 'https://www.massbuilds.com/map');
-  link.append('text')
-    .attr('class', 'd3-map__legend-entry')
-    .attr('x', 10)
-    .attr('y', 62 + 95)
-    .attr('fill', '#1F4E46')
-    .text('Explore more at');
-  link.append('text')
-    .attr('class', 'd3-map__legend-entry d3-map__legend-link')
-    .attr('x', 10)
-    .attr('y', 62 + 113)
-    .attr('fill', '#1F4E46')
-    .text('Massbuilds.com');
+  // const link = legend.append('a')
+  //   .attr('xlink:href', 'https://www.massbuilds.com/map');
+  // link.append('text')
+  //   .attr('class', 'd3-map__legend-entry')
+  //   .attr('x', 10)
+  //   .attr('y', 62 + 95)
+  //   .attr('fill', '#1F4E46')
+  //   .text('Explore more at');
+  // link.append('text')
+  //   .attr('class', 'd3-map__legend-entry d3-map__legend-link')
+  //   .attr('x', 10)
+  //   .attr('y', 62 + 113)
+  //   .attr('fill', '#1F4E46')
+  //   .text('Massbuilds.com');
 };
 
 const drawMap = (newDevelopments, selection) => {
@@ -121,19 +121,25 @@ const drawMap = (newDevelopments, selection) => {
     .rotate([71.057, 0])
     .center([0.395, 42.37])
     .translate([960 / 2, 500 / 2]);
-
-  const data2015 = newDevelopments.filter((d) => d.attributes.year_compl === 2015);
-  const data2016 = newDevelopments.filter((d) => d.attributes.year_compl === 2016);
-  const data2017 = newDevelopments.filter((d) => d.attributes.year_compl === 2017);
-  const data2018 = newDevelopments.filter((d) => d.attributes.year_compl === 2018);
-  const data2019 = newDevelopments.filter((d) => d.attributes.year_compl === 2019);
-  const data2020 = newDevelopments.filter((d) => d.attributes.year_compl === 2020);
-  const data2021 = newDevelopments.filter((d) => d.attributes.year_compl === 2021);
-  const data2022 = newDevelopments.filter((d) => d.attributes.year_compl === 2022);
-  const data2023 = newDevelopments.filter((d) => d.attributes.year_compl === 2023);
-  const data2024 = newDevelopments.filter((d) => d.attributes.year_compl === 2024);
-  const data2025 = newDevelopments.filter((d) => d.attributes.year_compl === 2025);
-  const dataPool = [data2015, data2016, data2017, data2018, data2019, data2020, data2021, data2022, data2023, data2024, data2025];
+  const housingRadius = d3.scaleQuantize()
+    .domain([0, 3000])
+    .range([4, 8, 12]);
+  const commercialRadius = d3.scaleQuantize()
+    .domain([0, 3000000])
+    .range([4, 8, 12]);
+  const dataByYear = [
+    newDevelopments.filter((d) => d.attributes.year_compl === 2015),
+    newDevelopments.filter((d) => d.attributes.year_compl === 2016),
+    newDevelopments.filter((d) => d.attributes.year_compl === 2017),
+    newDevelopments.filter((d) => d.attributes.year_compl === 2018),
+    newDevelopments.filter((d) => d.attributes.year_compl === 2019),
+    newDevelopments.filter((d) => d.attributes.year_compl === 2020),
+    newDevelopments.filter((d) => d.attributes.year_compl === 2021),
+    newDevelopments.filter((d) => d.attributes.year_compl === 2022),
+    newDevelopments.filter((d) => d.attributes.year_compl === 2023),
+    newDevelopments.filter((d) => d.attributes.year_compl === 2024),
+    newDevelopments.filter((d) => d.attributes.year_compl === 2025),
+  ];
   let position = 0;
   let year = 2015;
   const updateVisualization = () => {
@@ -141,7 +147,7 @@ const drawMap = (newDevelopments, selection) => {
     const newPointsSeries = marchMap.append('g')
       .attr('class', 'd3-map__points')
       .selectAll('circle')
-      .data(dataPool[position])
+      .data(dataByYear[position])
       .enter();
     const newPoint = newPointsSeries
       .append('a')
@@ -164,10 +170,15 @@ const drawMap = (newDevelopments, selection) => {
           .style('opacity', 0);
       });
 
-    newPoint.attr('r', 1)
+    newPoint.attr('r', 0)
       .transition()
       .duration(5000)
-      .attr('r', 4);
+      .attr('r', (development) => {
+        if (selection === 'housing') {
+          return housingRadius(development.attributes.hu);
+        }
+        return commercialRadius(development.attributes.commsf);
+      });
 
     newPoint.attr('fill', colors.new)
       .attr('opacity', 1)
@@ -178,7 +189,7 @@ const drawMap = (newDevelopments, selection) => {
       .attr('opacity', 0.6);
     year += 1;
     position += 1;
-    if (position >= dataPool.length) {
+    if (position >= dataByYear.length) {
       clearInterval(iterator);
       year = 2015;
     }
@@ -265,11 +276,7 @@ const March = () => {
       </div>
       <p>Anyone living or working in Metro Boston is no stranger to the sights and sounds of construction happening around them. It can feel like our region is constantly under development. While many know about a specific development in their community or next to their office it’s hard to know: What is the regional picture? Where is most of this development happening? How close does the construction of new housing units get us to our production goals? Where will jobs be located in the future? MAPC’s MassBuilds database can help answer these questions.</p>
       <p>MassBuilds is a collaborative data inventory that provides a picture of the region’s growth through a website that allows users to view, download, and contribute information about thousands of development projects recently completed or in the pipeline. This map shows projects completed since 2015 as well as those in or nearing construction in the next five years. Together this group totals XXX housing units and XX million sqft of commercial development. XXX growth in the Inner Core includes almost XX of the new housing and jobs, with the balance distributed across XX developments. Office space has dominated the majority of commercial square footage development, accounting for XX percent of all development since 2015. This database also shows a move towards more transit-oriented development. XX% of all housing units are within ½ mile walkshed of a commuter rail or rapid transit station. This may help explain the decline in parking ratios over time. For residential projects with information about parking, we see an average of XX spaces per unit in XXX compared to XX spaces per unit in XXX.</p>
-      <p>
-MassBuilds was created because tracking and anticipating development across Metro Boston is challenging. Each municipality has its own planning office and building inspector, and information about development is often scattered across multiple websites or sitting in spreadsheets across the region. MassBuilds allows municipalities, and state agencies get a fuller picture of development rends in real time as they regulate and invest in sustainable and equitable development. However, this system is just the beginning of a broader vision. Without a regional system for development applications or building permits, housing and job growth is usually measured after the fact with disparate data sources that often lack detailed information. One day we hope to move to a more integrated regional system that encourages the collection of this data within the development process: projects could be tagged when a construction or occupancy permit is awarded, site plans could automatically track information about parking and affordability, and projects of all sizes could be automatically tracked across the region. Learn more about MassBuilds and contribute data by creating a free account at
-        <a href="https://www.massbuilds.com/map">www.MassBuilds.com</a>
-        {' '}
-today.
+      <p>MassBuilds was created because tracking and anticipating development across Metro Boston is challenging. Each municipality has its own planning office and building inspector, and information about development is often scattered across multiple websites or sitting in spreadsheets across the region. MassBuilds allows municipalities, and state agencies get a fuller picture of development rends in real time as they regulate and invest in sustainable and equitable development. However, this system is just the beginning of a broader vision. Without a regional system for development applications or building permits, housing and job growth is usually measured after the fact with disparate data sources that often lack detailed information. One day we hope to move to a more integrated regional system that encourages the collection of this data within the development process: projects could be tagged when a construction or occupancy permit is awarded, site plans could automatically track information about parking and affordability, and projects of all sizes could be automatically tracked across the region. Learn more about MassBuilds and contribute data by creating a free account at <a href="https://www.massbuilds.com/map">www.MassBuilds.com</a> today.
       </p>
     </>
   );
