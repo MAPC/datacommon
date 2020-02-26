@@ -7,9 +7,9 @@ import D3Map from '../D3Map';
 let iterator;
 const colors = {
   new: '#fab903',
-  housing: 'green',
-  commercial: 'blue',
-  mixeduse: 'red',
+  housing: '#462B78',
+  commercial: '#8544CC',
+  'mixed use': '#A677D9',
 };
 
 const tooltipHtml = (development) => {
@@ -27,20 +27,24 @@ const tooltipHtml = (development) => {
   return tooltipDetails;
 };
 
-const tooltipLeft = (xCoordinate) => {
+const tooltipLeft = () => {
+  const frameWidth = Math.round(getComputedStyle(document.querySelector('.d3-map')).width.slice(0, -2));
+  const xCoordinate = event.layerX;
   const tooltipWidth = +getComputedStyle(document.querySelector('.d3-map__tooltip')).width.slice(0, -2);
-  if (xCoordinate >= 300) {
-    return `${xCoordinate - tooltipWidth}px`;
+  if (xCoordinate > frameWidth / 2) {
+    return `${xCoordinate - tooltipWidth - 5}px`;
   }
   return `${xCoordinate + 10}px`;
 };
 
-const tooltipTop = (yCoordinate) => {
+const tooltipTop = () => {
+  const frameHeight = Math.round(getComputedStyle(document.querySelector('.d3-map')).height.slice(0, -2));
+  const yCoordinate = event.layerY;
   const tooltipHeight = +getComputedStyle(document.querySelector('.d3-map__tooltip')).height.slice(0, -2);
-  if (yCoordinate >= 250) {
-    return `${yCoordinate - tooltipHeight - 10}px`;
+  if (yCoordinate > frameHeight / 2) {
+    return `${yCoordinate - tooltipHeight - 5}px`;
   }
-  return `${yCoordinate + 20}px`;
+  return `${yCoordinate + 10}px`;
 };
 
 const drawLegend = (selection) => {
@@ -68,70 +72,45 @@ const drawLegend = (selection) => {
   entryOne.append('text')
     .attr('x', 5 + 15)
     .attr('y', 62 + 10)
+    .attr('fill', '#1F4E46')
     .text(`New ${selection}`);
   entryOne.append('text')
     .attr('x', 5 + 15)
-    .attr('y', 62 + 25)
+    .attr('y', 62 + 28)
+    .attr('fill', '#1F4E46')
     .text('development');
 
   const entryTwo = legend.append('g')
     .attr('class', 'd3-map__legend-entry');
   entryTwo.append('circle')
     .attr('cx', 5 + 5)
-    .attr('cy', 62 + 40)
+    .attr('cy', 62 + 48)
     .attr('r', 5)
-    .attr('fill', colors.housing);
+    .attr('fill', colors[selection]);
   entryTwo.append('text')
     .attr('x', 5 + 15)
-    .attr('y', 62 + 45)
-    .text('Existing housing');
+    .attr('y', 62 + 53)
+    .attr('fill', '#1F4E46')
+    .text(`Existing ${selection}`);
   entryTwo.append('text')
     .attr('x', 5 + 15)
-    .attr('y', 62 + 60)
-    .text('development');
-
-  const entryThree = legend.append('g')
-    .attr('class', 'd3-map__legend-entry');
-  entryThree.append('circle')
-    .attr('cx', 5 + 5)
-    .attr('cy', 62 + 75)
-    .attr('r', 5)
-    .attr('fill', colors.commercial);
-  entryThree.append('text')
-    .attr('x', 5 + 15)
-    .attr('y', 62 + 80)
-    .text('Existing commercial');
-  entryThree.append('text')
-    .attr('x', 5 + 15)
-    .attr('y', 62 + 95)
-    .text('development');
-
-  const entryFour = legend.append('g')
-    .attr('class', 'd3-map__legend-entry');
-  entryFour.append('circle')
-    .attr('cx', 5 + 5)
-    .attr('cy', 62 + 110)
-    .attr('r', 5)
-    .attr('fill', colors.mixeduse);
-
-  entryFour.append('text')
-    .attr('x', 5 + 15)
-    .attr('y', 62 + 115)
-    .text('Existing mixed-use');
-  entryFour.append('text')
-    .attr('x', 5 + 15)
-    .attr('y', 62 + 130)
+    .attr('y', 62 + 71)
+    .attr('fill', '#1F4E46')
     .text('development');
 
   const link = legend.append('a')
     .attr('xlink:href', 'https://www.massbuilds.com/map');
   link.append('text')
+    .attr('class', 'd3-map__legend-entry')
     .attr('x', 10)
-    .attr('y', 62 + 150)
+    .attr('y', 62 + 95)
+    .attr('fill', '#1F4E46')
     .text('Explore more at');
   link.append('text')
+    .attr('class', 'd3-map__legend-entry d3-map__legend-link')
     .attr('x', 10)
-    .attr('y', 62 + 170)
+    .attr('y', 62 + 113)
+    .attr('fill', '#1F4E46')
     .text('Massbuilds.com');
 };
 
@@ -177,8 +156,8 @@ const drawMap = (newDevelopments, selection) => {
           .duration(50)
           .style('opacity', 0.9);
         tooltip.html(tooltipHtml(development))
-          .style('left', tooltipLeft(projection(development.coordinates)[0]))
-          .style('top', tooltipTop(projection(development.coordinates)[1]));
+          .style('left', tooltipLeft())
+          .style('top', tooltipTop());
       })
       .on('mouseleave', () => {
         tooltip.transition()
@@ -196,15 +175,7 @@ const drawMap = (newDevelopments, selection) => {
       .transition()
       .delay(4000)
       .duration(1000)
-      .attr('fill', () => {
-        if (selection === 'housing') {
-          return colors.housing;
-        }
-        if (selection === 'commercial') {
-          return colors.commercial;
-        }
-        return colors.mixeduse;
-      })
+      .attr('fill', colors[selection])
       .attr('opacity', 0.6);
     year += 1;
     position += 1;
@@ -250,7 +221,7 @@ const March = () => {
     } else if (currentlySelected === 'commercial') {
       drawMap(commercialData, 'commercial');
     } else {
-      drawMap(mixedUseData, 'mixeduse');
+      drawMap(mixedUseData, 'mixed use');
     }
   }, [currentlySelected]);
   return (
@@ -287,10 +258,10 @@ const March = () => {
               type="radio"
               id="mixeduse"
               name="march"
-              value="mixeduse"
+              value="mixed use"
               className="d3-map__option-button"
-              onChange={() => updateSelection('mixeduse')}
-              checked={currentlySelected === 'mixeduse'}
+              onChange={() => updateSelection('mixed use')}
+              checked={currentlySelected === 'mixed use'}
             />
             Mixed Use
           </label>
@@ -299,7 +270,7 @@ const March = () => {
           <select onChange={(event) => updateSelection(event.target.value)}>
             <option value="housing">Housing</option>
             <option value="commercial">Commercial</option>
-            <option value="mixeduse">Mixed Use</option>
+            <option value="mixed use">Mixed Use</option>
           </select>
         </form>
         <D3Map

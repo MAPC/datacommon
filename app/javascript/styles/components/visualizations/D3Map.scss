@@ -12,12 +12,15 @@
   z-index: 10;
 
   &__tooltip {
+    @include media(x-small) {
+      max-width: 8.5rem;
+    }
     background: #fff;
     border: 0;
     border-radius: 4px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .24);
     font: 16px sans-serif;
-    max-width: 200px;
+    max-width: 12.5rem;
     opacity: 0;
     padding: 12px;
     pointer-events: none;
@@ -26,10 +29,11 @@
   }
 
   &__options {
-    @include media(small) {
+    @media screen and (max-width: 850px) {
       display: none;
     }
     background: white;
+    font-family: 'Montserrat';
     left: .5rem;
     padding: .5rem;
     position: absolute;
@@ -38,7 +42,7 @@
   }
 
   &__options--mobile {
-    @include media(small) {
+    @media screen and (max-width: 850px) {
       display: unset;
       left: .25rem;
       position: absolute;
@@ -46,14 +50,16 @@
       z-index: 20;
     }
     display: none;
+    font-family: 'Montserrat';
   }
 
   &__option-label {
+    font-family: 'Montserrat';
     text-transform: capitalize;
   }
 
   &__option-label:not(:last-child) {
-    padding-right: 1rem;
+    padding-right: .5rem;
   }
 
   &__option-button {
@@ -62,8 +68,12 @@
 
   &__legend-entry {
     font-family: 'Montserrat';
-    font-size: .75rem;
+    font-size: 1rem;
     font-weight: 300;
+  }
+
+  &__legend-link {
+    text-decoration: underline;
   }
 
   &__year {
@@ -73,19 +83,7 @@
   }
 }
 
-.tooltip {
-  background: #fff;
-  border: 0;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .24);
-  font: 16px sans-serif;
-  max-width: 200px;
-  opacity: 0;
-  padding: 12px;
-  pointer-events: none;
-  position: absolute;
-  z-index: 20;
-  
+.tooltip {  
   &__title {
     font-family: 'Montserrat';
     font-size: .75rem;
@@ -106,14 +104,3 @@
     padding-left: 1rem;
   }
 }
-
-// .d3-map__options--mobile::after {
-//   color: #101436;
-//   content: 'v';
-//   // font-family: FontAwesome;
-//   font-size: 1rem;
-//   pointer-events: none;
-//   position: absolute;
-//   right: 20px;
-//   top: 7px;
-// }
