@@ -1,3 +1,5 @@
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
 import './polyfills/string-startsWith';
 import './polyfills/array-includes';
 import './polyfills/math-log10';
