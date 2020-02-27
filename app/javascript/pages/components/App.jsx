@@ -11,7 +11,7 @@ import Footer from './partials/Footer';
 import CommunityProfiles from '../containers/CommunityProfiles';
 import PrivateRoute from './PrivateRoute';
 import { AuthContext } from './context/auth';
-import Calendar from './Calendar';
+import CalendarEntry from './gallery/CalendarEntry';
 import Browser from '../containers/Browser';
 import DataViewer from '../containers/DataViewer';
 
@@ -32,7 +32,7 @@ const App = (props) => (
         />
         <Route exact path="/gallery" component={Gallery} />
         <Route exact path="/login" component={Login} />
-        <Route path="/calendar/:year/:month" component={Calendar} />
+        <Route path="/calendar/:year/:month" component={CalendarEntry} />
         <Route path="/browser/datasets/:id" component={DataViewer} />
         <Route path="/browser/:menuOneSelectedItem" component={Browser} />
         <Route path="/browser" component={Browser} />

@@ -108,6 +108,14 @@
 }
 
 .calendar-viz {
+  &__wrapper {
+    @include media(medium) {
+      float: unset;
+    }
+    float: left;
+    max-width: inherit;
+  }
+  
   &__subtitle {
     @include media(large) {
       float: initial;
@@ -166,7 +174,6 @@
     @include media(small) {
       font-size: $font_size-small;
     }
-
     color: $color_font-medium;
     font-family: $font_family-primary;
     font-size: $font_size-medium;
