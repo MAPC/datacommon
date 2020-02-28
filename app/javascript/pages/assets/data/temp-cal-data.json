@@ -14,16 +14,16 @@
     "month": "February",
     "url": "/calendar/2020/february",
     "image": "/files/february2020.png",
-    "hoverimage": "/files/gallery_7.png",
+    "hoverimage": "/files/february2020.png",
     "explanation": ""
   },
   {
     "year": 2020,
-    "title": "A Region Under Construction",
+    "title": "MassBuilds: A Region Under Construction",
     "month": "March",
     "url": "/calendar/2020/march",
-    "image": "/files/february2020.png",
-    "hoverimage": "/files/gallery_7.png",
+    "image": "/files/march2020.png",
+    "hoverimage": "/files/march2020.png",
     "explanation": ""
   },
   {
