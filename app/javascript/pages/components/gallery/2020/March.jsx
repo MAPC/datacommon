@@ -50,15 +50,15 @@ const drawLegend = (selection) => {
   const legendText = {
     housing: {
       sizeText: 'Housing Units',
-      sizeOneText: '0 - 999',
-      sizeTwoText: '1,000 - 1,999',
-      sizeThreeText: '2,000 - 3,000',
+      sizeOneText: '1 - 99',
+      sizeTwoText: '100 - 499',
+      sizeThreeText: '500+',
     },
     commercial: {
       sizeText: 'Commercial square feet',
-      sizeOneText: '0 - 999,999',
-      sizeTwoText: '1,000,000 - 1,999,999',
-      sizeThreeText: '2,000,000 - 3,000,000',
+      sizeOneText: '1 - 99,999',
+      sizeTwoText: '100,000 - 499,999',
+      sizeThreeText: '500,000+',
     },
   };
   d3.select('.d3-map__legend').remove();
@@ -181,12 +181,23 @@ const drawMap = (newDevelopments, selection) => {
     .rotate([71.057, 0])
     .center([0.395, 42.37])
     .translate([960 / 2, 500 / 2]);
-  const housingRadius = d3.scaleQuantize()
-    .domain([0, 3000])
-    .range([4, 8, 12]);
-  const commercialRadius = d3.scaleQuantize()
-    .domain([0, 3000000])
-    .range([4, 8, 12]);
+  const housingRadius = (size) => {
+    if (size < 100) {
+      return 4;
+    } if (size < 500) {
+      return 8;
+    }
+    return 12;
+  };
+
+  const commercialRadius = (size) => {
+    if (size < 100000) {
+      return 4;
+    } if (size < 500000) {
+      return 8;
+    }
+    return 12;
+  };
 
   const dataByYear = [
     newDevelopments.filter((d) => d.attributes.year_compl === 2015),
@@ -338,7 +349,11 @@ const March = () => {
       <p>Anyone living or working in Metro Boston is no stranger to the sights and sounds of construction happening around them. It can feel like our region is constantly under development. While many know about a specific development in their community or next to their office it’s hard to know: What is the regional picture? Where is most of this development happening? How close does the construction of new housing units get us to our production goals? Where will jobs be located in the future? MAPC’s MassBuilds database can help answer these questions.</p>
       <p>MassBuilds is a collaborative data inventory that provides a picture of the region’s growth through a website that allows users to view, download, and contribute information about thousands of development projects recently completed or in the pipeline. This map of MassBuilds data shows projects completed since 2015 as well as those in or nearing construction in the next five years. Together this group totals 128,374 housing units and 100.86 million sqft of commercial development. 1,310 developments in the Inner Core account for 72% of the housing and 70% of the commercial square footage, with the balance distributed across 864 developments elsewhere in the region. Office and medical space has dominated the majority of commercial square footage development, accounting for 35% percent of all tracked development from 2015 to 2020. This database also shows a move towards transit-oriented development. 65% of all housing units and commercial square footage from 2015-2025 are within ½ mile of a commuter rail or rapid transit station. This may help explain the low residential parking rates. For residential projects with information about parking, we see an average of 0.68 spaces per unit for developments completed 2015-2019 and compared to 0.60 spaces per unit projected for developments with a completion date of 2020-2025.</p>
       <p>
-Data like this helps shape our region and is available because MassBuilds collects it across geographic boundaries. Tracking and anticipating development across Metro Boston is challenging. Each municipality has its own planning office and building inspector, and information about development is often scattered across multiple websites or sitting in spreadsheets across the region. MassBuilds allows municipalities, and state agencies get a fuller picture of development trends in real time as they regulate and invest in sustainable and equitable development. However, this system is just the beginning of a broader vision. Without a regional system for development applications or building permits, housing and job growth is usually measured after the fact with disparate data sources that often lack detailed information. One day we hope to move to a more integrated regional system that encourages the collection of this data within the development process: projects could be tagged when a construction or occupancy permit is awarded, site plans could automatically track information about parking and affordability, and projects of all sizes could be automatically tracked across the region. Learn more about MassBuilds and contribute data by creating a free account at <a href="https://www.massbuilds.com" className="calendar-viz__link">www.MassBuilds.com</a> today.
+Data like this helps shape our region and is available because MassBuilds collects it across geographic boundaries. Tracking and anticipating development across Metro Boston is challenging. Each municipality has its own planning office and building inspector, and information about development is often scattered across multiple websites or sitting in spreadsheets across the region. MassBuilds allows municipalities, and state agencies get a fuller picture of development trends in real time as they regulate and invest in sustainable and equitable development. However, this system is just the beginning of a broader vision. Without a regional system for development applications or building permits, housing and job growth is usually measured after the fact with disparate data sources that often lack detailed information. One day we hope to move to a more integrated regional system that encourages the collection of this data within the development process: projects could be tagged when a construction or occupancy permit is awarded, site plans could automatically track information about parking and affordability, and projects of all sizes could be automatically tracked across the region. Learn more about MassBuilds and contribute data by creating a free account at
+        {' '}
+        <a href="https://www.massbuilds.com" className="calendar-viz__link">www.MassBuilds.com</a>
+        {' '}
+today.
       </p>
       <p><em>All statistics up-to-date as of 9:30am, 2/28/2020, only projects in the MAPC region analyzed.</em></p>
     </>
