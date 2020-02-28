@@ -7,19 +7,12 @@ import SearchBar from '../containers/SearchBar';
 import CategoryGrid from '../containers/CategoryGrid';
 import CommunitySelector from '../containers/CommunitySelector';
 import CallToAction from './partials/CallToAction';
-import PlaybackImgBackground from './../assets/images/homepage-hover.png';
-import PlaybackImg from './../assets/images/homepage';
+import CalendarImage from '../assets/images/calendar-home.svg';
 
 class Home extends React.Component {
   constructor() {
     super(...arguments);
-
-    this.state = {
-      imgSrc: PlaybackImg
-    };
     this.toDataset = this.toDataset.bind(this);
-    this.handleMouseOver = this.handleMouseOver.bind(this);
-    this.handleMouseOut = this.handleMouseOut.bind(this);
   }
 
   componentWillMount() {
@@ -30,18 +23,6 @@ class Home extends React.Component {
     // We need to direct away from the page without using React Router's push()
     // function since the databrowser is currently an Ember app.
     window.location.pathname = `/browser/datasets/${dataset.id}`;
-  }
-
-  handleMouseOver() {
-    this.setState({
-      imgSrc: PlaybackImgBackground
-    })
-  }
-
-  handleMouseOut() {
-    this.setState({
-      imgSrc: PlaybackImg,
-    });
   }
 
   render() {
@@ -59,28 +40,29 @@ class Home extends React.Component {
             />
           </div>
         </div>
-
-        <section className="container tight gallery-spotlight page-section">
+        <section className="page-section container gallery-spotlight__wrapper">
           <div className="gallery-spotlight__info">
-            <h2 className="gallery-spotlight__title">Gallery of Data</h2>
-            <p>Welcome to the MAPC Gallery of Data, where we tell the story of Greater Boston’s most complex issues one monthly map and data visualization at a time. We look at a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
-            <p>Visit every month to see what’s new!</p>
+            <p>Find and explore data visualizations about the region.  Check back monthly or sign up for our newsletter to receive maps and data visualizations.  We cover a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
+            <p><strong>February’s visualization</strong> explores large housing units (3+ bedrooms) across the region.  This visualization uses the latest US Census data, available right here on DataCommon.  Dig deeper into this topic and explore the related MetroCommon report: Crowded In and Priced Out: Why It’s so Hard to Find a Family-Sized Unit in Greater Boston.</p>
             <CallToAction
               link="/gallery"
-              text="View Gallery"
+              text="Explore"
+              extraClassNames="gallery-spotlight__cta"
             />
           </div>
-          <Link to="/calendar/2020/february">
+          <Link to="/gallery" className="gallery-spotlight__link">
             <img
-              src={this.state.imgSrc}
-              onMouseOver={this.handleMouseOver}
-              onMouseOut={this.handleMouseOut}
+              src={CalendarImage}
               className="gallery-spotlight__image"
               alt="gallery"
             />
           </Link>
+          <CallToAction
+            link="/gallery"
+            text="View Gallery"
+            extraClassNames="gallery-spotlight__cta--mobile"
+          />
         </section>
-
 
         <div className="container tight page-section">
           <h2>Data by category</h2>

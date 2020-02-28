@@ -1,4 +1,8 @@
 .call-to-action {
+  &__wrapper {
+    margin-top: 1.5rem;
+  }
+
   &__content {
     background: #fff;
     border: 1px solid $color_brand-secondary;
@@ -8,7 +12,6 @@
     font-size: $p_size;
     font-weight: bolder;
     justify-content: center;
-    margin-top: 1.5rem;
     padding: 1rem;
     text-decoration: underline;
     width: 170px;

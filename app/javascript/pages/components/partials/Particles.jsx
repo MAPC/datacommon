@@ -1,6 +1,6 @@
 import React from 'react';
-import hexToRgb from './../../utils/hexToRgb';
-import colors from './../../constants/colors'
+import hexToRgb from '../../utils/hexToRgb';
+import colors from '../../constants/colors';
 
 class Particles extends React.Component {
   constructor(props) {
@@ -142,12 +142,12 @@ class Particles extends React.Component {
     const contxt = this.canvas.getContext('2d');
     let triangleHeight = height - 240;
 
-    if (width <= 670) {
+    if (width <= 770) {
       triangleHeight = height;
     } else if (width <= 960) {
       triangleHeight = height - 140;
     } else if (width <= 1200) {
-      triangleHeight = height - 240;
+      triangleHeight = height - 180;
     }
     contxt.fillStyle = 'rgba(255,255,255,.1)';
     contxt.beginPath();
