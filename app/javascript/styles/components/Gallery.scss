@@ -7,38 +7,53 @@
     @include media(large) {
       grid-template-columns: repeat(3, 1fr);
       width: 870px;
+      -ms-grid-columns: 1fr 1fr 1fr;
     }
 
     @include media(medium) {
       grid-template-columns: repeat(2, 1fr);
       width: 560px;
+      -ms-grid-columns: 1fr 1fr;
     }
 
     @include media(small) {
       grid-template-columns: 1fr;
       width: 250px;
+      -ms-grid-columns: 1fr;
+      -ms-grid-row: 335px 1fr;
     }
     display: grid;
-    grid-column-gap: 60px;
-    grid-row-gap: 60px;
     grid-template-columns: repeat(4, 1fr);
     margin: 0 auto;
     max-width: 1180px;
     min-height: 335px;
+
+    display: -ms-grid;
+    -ms-grid-columns: 1fr 1fr 1fr 1fr;
+    -ms-grid-rows: 1fr;
   }
 
   &__info {
     @include media(large) {
       grid-column: 2 / 4;
+      -ms-grid-column-span: 2;
     }
     @include media(medium) {
       grid-column: 2 / 3;
+      -ms-grid-row: 1;
+      -ms-grid-column-span: 1;
     }
 
     @include media(small) {
       grid-column: 1;
+      padding-top: 30px;
+      -ms-grid-column: 1;
+      -ms-grid-row: 2;
     }
     grid-column: 2 / 5;
+    padding-left: 30px;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 3;
   }
 
   &__wrapper {
@@ -54,6 +69,8 @@
   &__image {
     width: 250px;
     z-index: 10;
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
 
     &--hover {
       display: none;
@@ -73,28 +90,19 @@
 .calendar-download {
   height: 335px;
   width: 250px;
-  z-index: 10;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
 
   &__image {
     border: 1px solid $color_brand-secondary;
     width: 250px;
+    z-index: 10;
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
     
     &:hover {
       border-color: #3a9374;
     }
-  }
-
-  &__text {
-    background: rgba($color_brand-primary, .6);
-    height: 333px;
-    left: 0;
-    margin-top: 0;
-    padding-top: 130px;
-    position: absolute;
-    text-align: center;
-    top: 0;
-    width: 250px;
-    z-index: 20;
   }
 
   &__calendar-shadow {
