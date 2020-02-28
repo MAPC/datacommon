@@ -43,10 +43,11 @@ class Home extends React.Component {
         <section className="page-section container gallery-spotlight__wrapper">
           <div className="gallery-spotlight__info">
             <p>Find and explore data visualizations about the region.  Check back monthly or sign up for our newsletter to receive maps and data visualizations.  We cover a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
-            <p><strong>February’s visualization</strong> explores large housing units (3+ bedrooms) across the region.  This visualization uses the latest US Census data, available right here on DataCommon.  Dig deeper into this topic and explore the related MetroCommon report: Crowded In and Priced Out: Why It’s so Hard to Find a Family-Sized Unit in Greater Boston.</p>
+            <p>
+              <strong>March’s visualization</strong> looks at development across the region from 2015 through 2025. Using data from MAPC's own <a href="https://www.massbuilds.com" className="calendar-viz__link">MassBuilds</a>, this visualization explores where the most recent development has taken place and what's to come in the next few years.</p>
             <CallToAction
               link="/gallery"
-              text="Explore"
+              text="View Gallery"
               extraClassNames="gallery-spotlight__cta"
             />
           </div>
