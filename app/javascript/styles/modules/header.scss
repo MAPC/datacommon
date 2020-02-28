@@ -1,12 +1,7 @@
 header {
-  width: 100%;
-  padding: 16px 0 10px;
-
-  text-align: center;
-
   background: $color_bg-light;
-
-  .container { display: flex; }
+  padding: 16px 0 10px;
+  width: 100%;
 
   nav {
     flex: 1 0;
@@ -22,14 +17,11 @@ header {
         }
       }
     }
-
-
   }
 
   .header-brand {
-    font-weight: 500;
     font-size: $font_size-large;
-
+    font-weight: 500;
     a {
       color: $color_font-dark;
       &:hover {
@@ -38,22 +30,17 @@ header {
     }
 
     img {
-      top: 5px;
-
       height: 29px;
-      width: 29px;
       margin-right: 10px;
+      top: 5px;
+      width: 29px;
     }
   }
   ul {
-
-    margin-left: 2em;
-
     font-size: $font_size-small;
-
+    margin-left: 2em;
     li {
       display: inline-block;
-
       margin: auto 2em;
       @include media(small) {
         margin: auto 1em;
@@ -63,19 +50,16 @@ header {
     a {
       $_speed: .12s;
       color: $color_font-medium;
-
       transition: color $_speed;
 
       &:hover {
         color: $color_font-medium--dark;
-
         transition: color $_speed;
       }
 
       &.active {
         color: $color_font-dark;
         font-weight: 700;
-
         transition: color $_speed;
 
         &:hover { color: $color_font-dark--brand; }
@@ -87,5 +71,4 @@ header {
     display: none;
     flex: 0 1;
   }
-
 }
