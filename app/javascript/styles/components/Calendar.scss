@@ -38,7 +38,6 @@
   &__box {
     align-items: center;
     background: $color_font-dark;
-    border: 1px solid $color_brand-secondary;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
     display: flex;
     flex-direction: column;
@@ -86,16 +85,16 @@
   }
 
   &__image {
+    border: 1px solid $color_brand-secondary;
     height: 175px;
-    max-width: 250px;
     object-fit: cover;
+    width: 250px;
   }
 
   &__title-box {
     @include media(x-small) {
       height: 125px;
     }
-
     align-items: center;
     display: flex;
     height: 100px;
