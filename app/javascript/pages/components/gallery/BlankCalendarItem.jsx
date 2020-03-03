@@ -1,18 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class BlankCalendarItem extends React.Component {
-  render() {
-    return (
-      <li className="calendar-grid__cell">
-        <a href={this.props.link} className="calendar-item">
-          <h2 className="calendar-item__month">{this.props.month} {this.props.year}</h2>
-          <div className="calendar-item__box--blank">
-            <h3 className="calendar-item__title--blank">Coming Soon</h3>
-          </div>
-        </a>
-      </li>
-    );
-  }
-}
+const BlankCalendarItem = (props) => {
+  const { month } = props;
+  return (
+    <li className="calendar-item__wrapper--blank">
+      <h2 className="calendar-item__month">{month}</h2>
+      <h3 className="blank-calendar-item__title">Coming Soon</h3>
+    </li>
+  );
+};
+
+BlankCalendarItem.propTypes = {
+  month: PropTypes.string.isRequired,
+};
 
 export default BlankCalendarItem;

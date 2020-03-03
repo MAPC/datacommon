@@ -13,8 +13,7 @@ class CategoryGrid extends React.Component {
           <div className="category-image">
             <img src={icons[category] || icons['default']} alt={`Icon for ${category}`} />
           </div>
-
-          <div className="category-title">{category}</div>
+          <span className="category-title">{category}</span>
         </a>
       </li>
     ));

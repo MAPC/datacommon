@@ -1,46 +1,47 @@
 .CalendarGrid {
   @include media(large) {
-    grid-template-columns: repeat(3, 1fr);
     max-width: 870px;
   }
 
   @include media(medium) {
-    grid-template-columns: repeat(2, 1fr);
     max-width: 560px;
   }
 
   @include media(small) {
-    grid-template-columns: 100%;
     max-width: 250px;
   }
-
   align-self: center;
-  display: grid;
-  grid-column-gap: 60px;
-  grid-row-gap: 60px;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin: 0 auto;
   max-width: 1180px;
 }
 
 .calendar-item {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
+  &__wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-bottom: 30px;
+    max-width: 250px;
+  }
 
   &__month {
     font-size: $h2_size;
     font-weight: bold;
     margin-top: 0;
+    text-align: center;
   }
 
   &__box {
     align-items: center;
     background: $color_font-dark;
-    border: 1px solid $color_brand-secondary;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
     display: flex;
     flex-direction: column;
+    max-width: 250px;
 
     &--blank {
       align-items: center;
@@ -51,7 +52,7 @@
       height: 285px;
       justify-content: center;
       transition: background .12s, color .12s;
-      width: 100%;
+      width: 250px;
     }
 
     &--blank:hover {
@@ -84,19 +85,20 @@
   }
 
   &__image {
+    border: 1px solid $color_brand-secondary;
     height: 175px;
     object-fit: cover;
-    width: 100%;
+    width: 250px;
   }
 
   &__title-box {
     @include media(x-small) {
       height: 125px;
     }
-
     align-items: center;
     display: flex;
     height: 100px;
+    max-width: 250px;
   }
 
   &__title {
@@ -104,6 +106,25 @@
     font-size: $font_size-medium;
     padding: 1rem;
     text-align: center;
+  }
+}
+
+.blank-calendar-item {
+  &__title {
+    align-items: center;
+    background: #B7E2C7;
+    border: 1px solid #B7E2C7;
+    color: #B7E2C7;
+    display: flex;
+    height: 285px;
+    justify-content: center;
+    transition: background .12s, color .12s;
+    width: 250px;
+    &:hover {
+      background: white;
+      color: $color_font-dark;
+      transition: background .12s, color .12s;
+    }
   }
 }
 
@@ -191,10 +212,6 @@
   &__link {
     text-decoration: underline;
   }
-}
-
-.calendar-grid__cell {
-  width: 250px;
 }
 
 .replay {

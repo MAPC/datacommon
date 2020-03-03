@@ -38,8 +38,10 @@
       padding: 0;
     }
   }
-  header.print-header {
+  
+  .print-header {
     display: none;
+    text-align: center;
     @media print {
       display: block;
       border-bottom: 1px solid $color_font-medium;

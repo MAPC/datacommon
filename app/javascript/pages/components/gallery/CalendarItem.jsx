@@ -1,21 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-class CalendarItem extends React.Component {
-  render() {
-    return (
-      <li className="calendar-grid__cell">
-        <a href={this.props.link} className="calendar-item">
-          <h2 className="calendar-item__month">{this.props.month} {this.props.year}</h2>
-          <div className="calendar-item__box">
-            <img src={this.props.image} className="calendar-item__image"/>
-            <div className="calendar-item__title-box">
-              <h3 className="calendar-item__title">{this.props.title}</h3>
-            </div>
+const CalendarItem = (props) => {
+  const { link, month, year, image, title } = props;
+  return (
+    <li className="calendar-item__wrapper">
+      <a href={link}>
+        <h2 className="calendar-item__month">
+          {month} {year}
+        </h2>
+        <div className="calendar-item__box">
+          <img src={image} className="calendar-item__image" alt={`Visualization for ${month}`} />
+          <div className="calendar-item__title-box">
+            <h3 className="calendar-item__title">{title}</h3>
           </div>
-        </a>
-      </li>
-    );
-  }
-}
+        </div>
+      </a>
+    </li>
+  );
+};
 
+CalendarItem.propTypes = {
+  link: PropTypes.string.isRequired,
+  month: PropTypes.string.isRequired,
+  year: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};
 export default CalendarItem;
