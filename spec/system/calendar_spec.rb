@@ -11,6 +11,15 @@ RSpec.describe "calendar", :type => :system do
     page.within_frame('february-iframe') do
       expect(page).to have_css('.mapboxgl-canvas')
     end
-    # within('.calendar-viz__iframe') { expect(page).to have_css('.mapboxgl-canvas') }
+  end
+
+  it "displays basemap in March visualization", js: true do
+    visit "/calendar/2020/march"
+    expect(page).to have_css('.d3-map__mapc > path', count: 101)
+  end
+
+  it "renders g elements for each year in the March visualization", js: true do
+    visit "/calendar/2020/march"
+    expect(page).to have_css('.d3-map__points', visible: false)
   end
 end
