@@ -11,7 +11,7 @@ class Particles extends React.Component {
       height: 421,
       dotArray: [],
       randNum(measurement) {
-        return Math.floor(Math.random() * Math.floor(measurement))
+        return Math.floor(Math.random() * Math.floor(measurement));
       },
       checkDist(itemA, itemB) {
         const x1 = itemA.x;
@@ -161,13 +161,9 @@ class Particles extends React.Component {
   }
 
   updateDimensions() {
-    this.setState(() => {
-      const newWidth = window.innerWidth;
-      let newHeight = 421;
-      if (newWidth <= 770) {
-        newHeight = 221;
-      }
-      return { width: newWidth, height: newHeight };
+    this.setState({
+      width: window.innerWidth,
+      height: window.innerWidth <= 770 ? 221 : 421,
     });
   }
 
