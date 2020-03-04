@@ -8,10 +8,10 @@ class Particles extends React.Component {
     this.canvasRef = React.createRef();
     this.state = {
       width: window.innerWidth,
-      height: window.innerHeight / 5,
+      height: 421,
       dotArray: [],
-      randNum(n) {
-        return (((Math.random() + Math.random() + Math.random() + Math.random() + Math.random() + Math.random()) - 3) / 3) * n;
+      randNum(measurement) {
+        return Math.floor(Math.random() * Math.floor(measurement));
       },
       checkDist(itemA, itemB) {
         const x1 = itemA.x;
@@ -36,13 +36,10 @@ class Particles extends React.Component {
   }
 
   componentDidMount() {
-    const { width, height } = this.state;
     window.addEventListener('resize', this.updateDimensions);
-    if (width !== window.innerWidth
-      || height !== this.canvas.parentNode.offsetHeight) {
-      this.setState({ width: window.innerWidth, height: this.canvas.parentNode.offsetHeight });
+    if (window.innerWidth <= 770) {
+      this.setState({ height: 220 });
     }
-
     const contxt = this.canvas.getContext('2d');
     contxt.lineWidth = 2;
     contxt.strokeStyle = 'rgba(111, 198, 142, .6)';
@@ -56,8 +53,8 @@ class Particles extends React.Component {
   createDots() {
     this.setState((prevState) => {
       for (let i = 0; i < 200; i += 1) {
-        const x = Math.random() * prevState.width;
-        const y = Math.random() * prevState.height;
+        const x = prevState.randNum(prevState.width);
+        const y = prevState.randNum(prevState.height);
         prevState.dotArray.push({
           i,
           rad: 5,
@@ -71,8 +68,8 @@ class Particles extends React.Component {
             y,
           },
           tgt: {
-            x: prevState.randNum(400) + x,
-            y: prevState.randNum(400) + y,
+            x: (prevState.randNum(prevState.width) + x) % prevState.width,
+            y: (prevState.randNum(prevState.height) + y) % prevState.height,
           },
         });
       }
@@ -98,7 +95,7 @@ class Particles extends React.Component {
   }
 
   moveDot(dot) {
-    const { easeInOutQuart, randNum } = this.state;
+    const { easeInOutQuart, randNum, width, height } = this.state;
     const dotRef = dot;
     dotRef.iteration += 1;
 
@@ -109,8 +106,8 @@ class Particles extends React.Component {
       dotRef.iteration = 0;
       dotRef.curSpot.x = dotRef.tgt.x;
       dotRef.curSpot.y = dotRef.tgt.y;
-      dotRef.tgt.x = randNum(400) + dotRef.tgt.x;
-      dotRef.tgt.y = randNum(400) + dotRef.tgt.y;
+      dotRef.tgt.x = (randNum(width) + dotRef.tgt.x) % width;
+      dotRef.tgt.y = (randNum(height) + dotRef.tgt.y) % height;
     }
   }
 
@@ -164,17 +161,26 @@ class Particles extends React.Component {
   }
 
   updateDimensions() {
-    this.setState({ width: window.innerWidth });
+    this.setState({
+      width: window.innerWidth,
+      height: window.innerWidth <= 770 ? 221 : 421,
+    });
   }
 
   render() {
     const { width, height } = this.state;
+    const canvasStyles = {
+      width,
+      height,
+      border: 0,
+    };
     return (
       <canvas
         ref={(el) => this.canvas = el}
         width={width}
         height={height}
         className="component Particles"
+        style={canvasStyles}
       />
     );
   }
