@@ -27,7 +27,6 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'faraday'
-gem 'nokogiri'
 gem 'rubyzip'
 
 gem "aws-sdk-s3", require: false

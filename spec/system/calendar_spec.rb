@@ -5,4 +5,21 @@ RSpec.describe "calendar", :type => :system do
     visit "/calendar/2020/january"
     expect(page).to have_css('svg')
   end
+
+  it "displays a map for February", js: true do
+    visit "/calendar/2020/february"
+    page.within_frame('february-iframe') do
+      expect(page).to have_css('.mapboxgl-canvas')
+    end
+  end
+
+  it "displays basemap in March visualization", js: true do
+    visit "/calendar/2020/march"
+    expect(page).to have_css('.d3-map__mapc > path', count: 101)
+  end
+
+  it "renders g elements for each year in the March visualization", js: true do
+    visit "/calendar/2020/march"
+    expect(page).to have_css('.d3-map__points', visible: false)
+  end
 end
