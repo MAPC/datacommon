@@ -47,6 +47,7 @@ function DatasetTable({
               onClick={(e) => {
                 currentPage !== 1 ? updatePage(e, 'Beginning') : null;
               }}
+              className="datatable__button"
             >
               &lt;&lt;
             </button>
@@ -55,6 +56,7 @@ function DatasetTable({
               onClick={(e) => {
                 currentPage !== 1 ? updatePage(e, 'Backward') : null;
               }}
+              className="datatable__button"
             >
                &lt;
             </button>
@@ -71,6 +73,7 @@ function DatasetTable({
               onClick={(e) => {
                 currentPage !== numOfPages ? updatePage(e, 'Forward') : null;
               }}
+              className="datatable__button"
             >
               &gt;
             </button>
@@ -79,6 +82,7 @@ function DatasetTable({
               onClick={(e) => {
                 currentPage !== numOfPages ? updatePage(e, 'End', numOfPages) : null;
               }}
+              className="datatable__button"
             >
               &gt;&gt;
             </button>

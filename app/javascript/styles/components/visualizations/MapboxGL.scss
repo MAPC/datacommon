@@ -1,0 +1,12 @@
+.mapboxgl {
+  &__tooltip {
+    background: #fff;
+    border: 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .24);
+    font: 16px sans-serif;
+    max-width: 12.5rem;
+    padding: 12px;
+    pointer-events: none;
+  }
+}

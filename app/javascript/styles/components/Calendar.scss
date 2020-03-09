@@ -185,6 +185,15 @@
     z-index: 10;
   }
 
+  &__mapbox {
+    border: 0;
+    float: left;
+    height: 600px;
+    margin: 0 32px 32px 0;
+    width: 700px;
+    z-index: 10;
+  }
+
   &__title {
     @include media(small) {
       font-size: $font_size-medium;
