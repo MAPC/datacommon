@@ -9,4 +9,47 @@
     padding: 12px;
     pointer-events: none;
   }
+
+  &__legend {
+    position: absolute;
+    right: 0;
+    z-index: 10;
+  }
+
+  &__legend-entry {
+    font-family: 'Montserrat';
+    font-size: .75rem;
+    font-weight: 300;
+  }
+
+  &__legend-entry--bold {
+    font-weight: 700;
+  }
+
+  &__legend-link {
+    text-decoration: underline;
+  }
+}
+
+.map {
+  &__legend {
+    position: absolute;
+    right: 0;
+    top: 150px;
+    z-index: 10;
+  }
+
+  &__legend-entry {
+    font-family: 'Montserrat';
+    font-size: .75rem;
+    font-weight: 300;
+  }
+
+  &__legend-entry--bold {
+    font-weight: 700;
+  }
+
+  &__legend-link {
+    text-decoration: underline;
+  }
 }
