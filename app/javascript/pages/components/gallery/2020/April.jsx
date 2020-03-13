@@ -41,10 +41,14 @@ const April = () => {
       const responseRate = ['match', ['get', 'ct10_id']];
       const responseRateOpacity = ['match', ['get', 'ct10_id']];
       const percentageCompOwnership = {};
+      const compMarginOfError = {};
+      const numHouseholds = {};
 
       response[0].forEach((row) => {
         choropleth.push(row.tractID, row.hascomp !== 'na' ? colorScale(+row.hascomp) : colors[4]);
         percentageCompOwnership[row.tractID] = row.hascomp;
+        numHouseholds[row.tractID] = row['Total Households'];
+        compMarginOfError[row.tractID] = row.HasCompMOE;
       });
 
       response[1].forEach((row) => {
@@ -85,9 +89,10 @@ const April = () => {
         );
         const tractId = clickedData[0].properties.ct10_id;
         const selectedCompOwnership = percentageCompOwnership[tractId] <= 100 ? `${percentageCompOwnership[tractId]}%` : 'Data unavailable';
-        const tooltipText = `<p class='tooltip__title'>Tract ${tractId} `
-        + `(${clickedData[2].properties.municipal})</p>`
-        + `<p class='tooltip__text'>${selectedCompOwnership}`;
+        const selectedHouseholds = d3.format(',')(numHouseholds[tractId]);
+        const tooltipText = `<p class='tooltip__title'>Tract ${tractId}
+        (${clickedData[2].properties.municipal})</p>
+        <p class='tooltip__text'>${selectedCompOwnership} (+/- ${compMarginOfError[tractId]}%) of approx. ${selectedHouseholds} households`;
         new mapboxgl.Popup()
           .setLngLat(e.lngLat)
           .setHTML(tooltipText)
@@ -99,25 +104,27 @@ const April = () => {
     <>
       <h1 className="calendar-viz__title">Census 2020</h1>
       <div id="aprilMap" className="map calendar-viz__mapbox">
-        <svg height="220" width="220" className="map__legend">
-          <text x="10" y="12" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Households with one or more</text>
-          <text x="10" y="30" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">types of compting devices</text>
-          <rect x="10" y="44" width="16" height="16" style={{ fill: colors[0], stroke: 'black', strokeWidth: '1px' }} />
-          <text x="32" y="55" className="map__legend-entry" fill="#1F4E46">95 - 100%</text>
-          <rect x="10" y="72" width="16" height="16" style={{ fill: colors[1], stroke: 'black', strokeWidth: '1px' }} />
-          <text x="32" y="83" className="map__legend-entry" fill="#1F4E46">90 - 95%</text>
-          <rect x="10" y="100" width="16" height="16" style={{ fill: colors[2], stroke: 'black', strokeWidth: '1px' }} />
-          <text x="32" y="112" className="map__legend-entry" fill="#1F4E46">80 - 90%</text>
-          <rect x="10" y="128" width="16" height="16" style={{ fill: colors[3], stroke: 'black', strokeWidth: '1px' }} />
-          <text x="32" y="140" className="map__legend-entry" fill="#1F4E46">80% and below</text>
-          <rect x="10" y="156" width="16" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
-          <text x="32" y="168" className="map__legend-entry" fill="#1F4E46">Data unavailable</text>
-          <rect x="10" y="184" width="16" height="16" style={{ fill: colors[2], stroke: 'black', strokeWidth: '2px' }} />
-          <line x1="10" y1="192" x2="18" y2="184" style={{ stroke: '#CFCECC', strokeWidth: '2px' }} />
-          <line x1="10" y1="200" x2="26" y2="184" style={{ stroke: '#CFCECC', strokeWidth: '2px' }} />
-          <line x1="18" y1="200" x2="26" y2="192" style={{ stroke: '#CFCECC', strokeWidth: '2px' }} />
-          <text x="32" y="197" className="map__legend-entry" fill="#1F4E46">Hard to count tract</text>
-        </svg>
+        <div className="map__overlay">
+          <svg height="220" width="220" className="map__legend map__legend--translucent">
+            <text x="10" y="22" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Households with one or more</text>
+            <text x="10" y="40" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">types of compting devices</text>
+            <rect x="10" y="54" width="16" height="16" style={{ fill: colors[0], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="65" className="map__legend-entry" fill="#1F4E46">95 - 100%</text>
+            <rect x="10" y="82" width="16" height="16" style={{ fill: colors[1], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="93" className="map__legend-entry" fill="#1F4E46">90 - 95%</text>
+            <rect x="10" y="110" width="16" height="16" style={{ fill: colors[2], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="122" className="map__legend-entry" fill="#1F4E46">80 - 90%</text>
+            <rect x="10" y="138" width="16" height="16" style={{ fill: colors[3], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="150" className="map__legend-entry" fill="#1F4E46">80% and below</text>
+            <rect x="10" y="166" width="16" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="178" className="map__legend-entry" fill="#1F4E46">Data unavailable</text>
+            <rect x="10" y="194" width="16" height="16" style={{ fill: colors[2], stroke: 'black', strokeWidth: '2px' }} />
+            <line x1="10" y1="202" x2="18" y2="194" style={{ stroke: '#CFCECC', strokeWidth: '2px' }} />
+            <line x1="10" y1="210" x2="26" y2="194" style={{ stroke: '#CFCECC', strokeWidth: '2px' }} />
+            <line x1="18" y1="210" x2="26" y2="202" style={{ stroke: '#CFCECC', strokeWidth: '2px' }} />
+            <text x="32" y="207" className="map__legend-entry" fill="#1F4E46">Hard to count tract</text>
+          </svg>
+        </div>
       </div>
     </>
   );
