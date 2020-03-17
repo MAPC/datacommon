@@ -4,8 +4,9 @@ import * as d3 from 'd3';
 import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
-const colors = ['#481418', '#711E25', '#C93D4F', '#D7717F', '#C4C4BE'];
-
+// const colors = ['#C93D4F', '#D7717F', '#E9B1B9', '#FCD7d0', '#C4C4BE'];
+// const colors = ['#481418', '#711E25', '#C93D4F', '#D7717F', '#C4C4BE'];
+const colors = ['#D7717F', '#C93D4F', '#711E25', '#481418', '#C4C4BE'];
 const April = () => {
   Promise.all([
     d3.csv('/assets/april2020.csv'),
@@ -126,6 +127,10 @@ const April = () => {
           </svg>
         </div>
       </div>
+      <p>Since the first census in 1790, the United States has carried out a once-per-decade count of every person living in the country. Now approaching its twenty-fourth iteration, the census provides critial information to lawmakers, politicians, and everyday citizens by assisting in the partioning of billions of federal dollars. For the first time, the census can be completed online--a novel change from the first census, completed on horseback. However, it will also be completed under the impact of a different major, though more unexpected, change: the COVID-19 pandemic.</p>
+      <p>Though not completely widespread, computer ownership (including smartphone ownership) does carry the potential to reach hard-to-count tracts. Defined by <a href="https://www.bostonindicators.org/reports/report-website-pages/census-2020" className="calendar-viz__link">Boston Indicators</a> as the bottom one-fifth of census tracts in terms of census return rate (approximately 73% or below), hard-to-reach tracts are influenced by multiple factors. For example, tracts with high rates of home rentership, distrust in government, or lower household incomes are likely to be considered hard to count. Because of the variety of factors, hard-to-count tracts often overlap with other maps displaying structural inequalities, such as <a href="https://datacommon.mapc.org/calendar/2020/february" className="calendar-viz__link">availability of family-sized housing</a> or <a href="https://climate-vulnerability.mapc.org/" className="calendar-viz__link">climate vulnerability</a>.</p>
+      <p>Because even the lowest rates of computer ownership are generally higher than the corresponding low census response rates, it is possible that this new avenue for completing the survey will in turn result in a more complete count. However, as we move towards a more digital region, it remains critical to consider the communities still living with only 80% computing device ownership. COVID-19 has spurned a sudden wave of employers offering remote work options, but these are only available in some sectors and are further restricted to workers with appropriate equipment at home. Filling out a survey on a smartphone is one thing---handling a full-time job is quite another. With many home computing resources diverted to distance learning, remote work, and staying up-to-date on the ever-changing news cycle, we cannot know what impact electronic submission will have on the census.</p>
+      <p>Additional points of interest/ways to point narrative: dig into numbers on computer ownership versus specific desktop/laptop ownership (impact on remote work and education); differentials in Internet subscriptions; worries about cyber security</p>
     </>
   );
 };
