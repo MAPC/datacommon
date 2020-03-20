@@ -53,11 +53,10 @@ const April = () => {
       });
 
       response[1].forEach((row) => {
-        responseRate.push(row.tractID, +row.MailReturnRateCen2010 <= 73 ? 'Pattern_Hatching_Maroon' : 'blank');
+        responseRate.push(row.tractID, +row.MailReturnRateCen2010 <= 73 ? 'Pattern_Hatching_Brown' : 'blank');
         responseRateOpacity.push(row.tractID, +row.MailReturnRateCen2010 <= 73 ? 1 : 0);
       });
 
-      console.log(aprilMap)
       choropleth.push(colors[4]);
       responseRate.push('black');
       responseRateOpacity.push(0);
@@ -70,7 +69,6 @@ const April = () => {
           'fill-color': choropleth,
         },
       });
-
 
       aprilMap.addLayer({
         id: '2010 Response Rates',
@@ -123,13 +121,16 @@ const April = () => {
             <rect x="10" y="166" width="16" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
             <text x="32" y="178" className="map__legend-entry" fill="#1F4E46">Data unavailable</text>
             <rect x="10" y="194" width="16" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
-            <line x1="10" y1="202" x2="18" y2="194" style={{ stroke: '#6E2A26', strokeWidth: '2px' }} />
-            <line x1="10" y1="210" x2="26" y2="194" style={{ stroke: '#6E2A26', strokeWidth: '2px' }} />
-            <line x1="18" y1="210" x2="26" y2="202" style={{ stroke: '#6E2A26', strokeWidth: '2px' }} />
+            <line x1="10" y1="202" x2="18" y2="194" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
+            <line x1="10" y1="210" x2="26" y2="194" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
+            <line x1="18" y1="210" x2="26" y2="202" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
             <text x="32" y="207" className="map__legend-entry" fill="#1F4E46">Hard to count tract</text>
           </svg>
         </div>
       </div>
+      <p>usto nec ultrices dui sapien eget mi proin sed libero enim sed faucibus turpis in eu mi bibendum neque egestas congue quisque egestas diam in arcu cursus euismod quis viverra nibh cras pulvinar mattis nunc sed blandit libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque</p>
+      <p>viverra mauris in aliquam sem fringilla ut morbi tincidunt augue interdum velit euismod in pellentesque massa placerat duis ultricies lacus sed turpis tincidunt id aliquet risus feugiat in ante metus dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu non odio euismod lacinia at quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur a erat nam at lectus urna duis convallis convallis tellus id interdum velit laoreet id donec ultrices tincidunt arcu non sodales neque sodales ut etiam sit amet nisl purus in mollis nunc sed id semper risus in hendrerit gravida rutrum quisque non tellus orci ac auctor augue mauris augue neque gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt</p>
+      <p>tortor aliquam nulla facilisi cras fermentum odio eu feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas sed sed risus pretium quam vulputate dignissim suspendisse in est ante in nibh mauris cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus viverra adipiscing at in tellus integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque sit amet porttitor eget dolor morbi non arcu risus quis varius quam quisque id diam vel quam elementum pulvinar etiam non quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing elit duis tristique sollicitudin nibh sit amet commodo nulla facilisi nullam vehicula ipsum a</p>
     </>
   );
 };
