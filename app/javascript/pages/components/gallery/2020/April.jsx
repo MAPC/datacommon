@@ -44,6 +44,7 @@ const April = () => {
       const percentageCompOwnership = {};
       const compMarginOfError = {};
       const numHouseholds = {};
+      const responseRates = {};
 
       response[0].forEach((row) => {
         const withoutComputers = 100 - +row.hascomp
@@ -56,6 +57,7 @@ const April = () => {
       response[1].forEach((row) => {
         responseRate.push(row.tractID, +row.MailReturnRateCen2010 <= 73 ? 'Pattern_Hatching_Brown' : 'blank');
         responseRateOpacity.push(row.tractID, +row.MailReturnRateCen2010 <= 73 ? 1 : 0);
+        responseRates[row.tractID] = row.MailReturnRateCen2010;
       });
 
       choropleth.push(colors[4]);
@@ -95,7 +97,10 @@ const April = () => {
           : 'Data unavailable';
         const tooltipText = `<p class='tooltip__title'>Tract ${tractId}
         (${clickedData[2].properties.municipal})</p>
-        ${tractData}`;
+        <ul class='tooltip__list'>
+        <li class='tooltip__text'>${tractData}</li>
+        <li class='tooltip__text'>${responseRates[tractId]}% 2010 census return rate</li>
+        </ul>`;
         new mapboxgl.Popup()
           .setLngLat(e.lngLat)
           .setHTML(tooltipText)
@@ -108,7 +113,7 @@ const April = () => {
       <h1 className="calendar-viz__title">The Digital Census</h1>
       <div id="aprilMap" className="map calendar-viz__mapbox">
         <div className="map__overlay">
-          <svg height="220" width="160" className="map__legend map__legend--translucent">
+          <svg height="250" width="160" className="map__legend map__legend--translucent">
             <text x="10" y="22" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Households without a</text>
             <text x="10" y="40" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">computer</text>
             <rect x="10" y="54" width="16" height="16" style={{ fill: colors[0], stroke: 'black', strokeWidth: '1px' }} />
@@ -125,7 +130,9 @@ const April = () => {
             <line x1="10" y1="202" x2="18" y2="194" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
             <line x1="10" y1="210" x2="26" y2="194" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
             <line x1="18" y1="210" x2="26" y2="202" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
-            <text x="32" y="207" className="map__legend-entry" fill="#1F4E46">Hard to count tract</text>
+            <text x="32" y="207" className="map__legend-entry" fill="#1F4E46">Hard-to-count tract</text>
+            <text x="32" y="225" className="map__legend-entry" fill="#1F4E46">(&#x2264; 73% return rate,</text>
+            <text x="32" y="243" className="map__legend-entry" fill="#1F4E46">2010 census)</text>
           </svg>
         </div>
       </div>
