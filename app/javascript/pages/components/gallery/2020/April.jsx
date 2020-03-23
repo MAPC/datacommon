@@ -63,6 +63,7 @@ const April = () => {
       choropleth.push(colors[4]);
       responseRate.push('black');
       responseRateOpacity.push(0);
+      aprilMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
       aprilMap.addLayer({
         id: 'Computer Ownership by Tract',
         type: 'fill',
