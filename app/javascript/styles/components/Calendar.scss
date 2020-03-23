@@ -132,9 +132,9 @@
   &__wrapper {
     @include media(medium) {
       float: unset;
+      width: 100%;
     }
     float: left;
-    max-width: inherit;
   }
   
   &__subtitle {
@@ -182,15 +182,6 @@
     height: 500px;
     margin: 0 32px 32px 0;
     width: 600px;
-    z-index: 10;
-  }
-
-  &__mapbox {
-    border: 0;
-    float: left;
-    height: 500px;
-    margin: 0 32px 32px 0;
-    width: 700px;
     z-index: 10;
   }
 

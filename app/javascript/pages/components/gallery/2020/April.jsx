@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import * as d3 from 'd3';
 import mapboxgl from 'mapbox-gl';
@@ -21,6 +20,7 @@ const April = () => {
         [-66.541, 46.032], // Northeast bound
       ],
       style: 'mapbox://styles/ihill/ck7qhmh0715wv1ilds1q8cb4z/draft',
+      hash: true,
     });
     const colorScale = (value) => {
       if (isNaN(value)) {
@@ -47,7 +47,7 @@ const April = () => {
       const responseRates = {};
 
       response[0].forEach((row) => {
-        const withoutComputers = 100 - +row.hascomp
+        const withoutComputers = 100 - +row.hascomp;
         choropleth.push(row.tractID, colorScale(withoutComputers));
         percentageCompOwnership[row.tractID] = withoutComputers;
         numHouseholds[row.tractID] = row['Total Households'];
@@ -111,7 +111,8 @@ const April = () => {
   return (
     <>
       <h1 className="calendar-viz__title">The Digital Census</h1>
-      <div id="aprilMap" className="map calendar-viz__mapbox">
+      <div className="calendar-viz__wrapper">
+        <div id="aprilMap" className="mapboxgl__container"/>
         <div className="map__overlay">
           <svg height="250" width="160" className="map__legend map__legend--translucent">
             <text x="10" y="22" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Households without a</text>
