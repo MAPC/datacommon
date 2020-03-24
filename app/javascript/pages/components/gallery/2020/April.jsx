@@ -1,21 +1,33 @@
-/* eslint-disable max-len */
 import React from 'react';
 import * as d3 from 'd3';
 import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
-const colors = ['#FBD2CF', '#F8B4B0', '#F37871', '#F15B52', '#F0EFE7'];
+const colors = ['#F15B52', '#F37871', '#F8B4B0', '#FBD2CF', '#F0EFE7'];
+
 const April = () => {
   Promise.all([
     d3.csv('/assets/april2020.csv'),
     d3.csv('/assets/MA_2010_return_rates.csv'),
   ]).then((response) => {
+    let zoom = 8.4;
+    let center = [-70.944, 42.37];
+    if (window.innerWidth <= 480) {
+      zoom = 7.75;
+      center = [-71.043, 42.372];
+    } else if (window.innerWidth <= 670) {
+      zoom = 8.27;
+      center = [-71.047, 42.377];
+    } else if (window.innerWidth <= 770) {
+      zoom = 8.4;
+      center = [-71.039, 42.37];
+    }
     const aprilMap = new mapboxgl.Map({
       container: 'aprilMap',
-      zoom: 8.4,
+      zoom,
       minZoom: 6,
       maxZoom: 13,
-      center: [-70.944, 42.37],
+      center,
       maxBounds: [
         [-74.728, 38.167], // Southwest bound
         [-66.541, 46.032], // Northeast bound
@@ -25,11 +37,11 @@ const April = () => {
     const colorScale = (value) => {
       if (isNaN(value)) {
         return colors[4];
-      } if (value >= 95) {
+      } if (value >= 25) {
         return colors[0];
-      } if (value >= 85) {
+      } if (value >= 15) {
         return colors[1];
-      } if (value >= 75) {
+      } if (value >= 5) {
         return colors[2];
       }
       return colors[3];
@@ -44,10 +56,12 @@ const April = () => {
       const percentageCompOwnership = {};
       const compMarginOfError = {};
       const numHouseholds = {};
+      const responseRates = {};
 
       response[0].forEach((row) => {
-        choropleth.push(row.tractID, colorScale(+row.hascomp));
-        percentageCompOwnership[row.tractID] = row.hascomp;
+        const withoutComputers = 100 - +row.hascomp;
+        choropleth.push(row.tractID, colorScale(withoutComputers));
+        percentageCompOwnership[row.tractID] = withoutComputers;
         numHouseholds[row.tractID] = row['Total Households'];
         compMarginOfError[row.tractID] = row.HasCompMOE;
       });
@@ -55,11 +69,13 @@ const April = () => {
       response[1].forEach((row) => {
         responseRate.push(row.tractID, +row.MailReturnRateCen2010 <= 73 ? 'Pattern_Hatching_Brown' : 'blank');
         responseRateOpacity.push(row.tractID, +row.MailReturnRateCen2010 <= 73 ? 1 : 0);
+        responseRates[row.tractID] = row.MailReturnRateCen2010;
       });
 
       choropleth.push(colors[4]);
       responseRate.push('black');
       responseRateOpacity.push(0);
+      aprilMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
       aprilMap.addLayer({
         id: 'Computer Ownership by Tract',
         type: 'fill',
@@ -90,11 +106,14 @@ const April = () => {
         );
         const tractId = clickedData[0].properties.ct10_id;
         const tractData = percentageCompOwnership[tractId] <= 100
-          ? `${percentageCompOwnership[tractId]}% (&#177; ${compMarginOfError[tractId]}%) of approx. ${d3.format(',')(numHouseholds[tractId])} households`
+          ? `${d3.format('.1f')(percentageCompOwnership[tractId])}% (&#177; ${compMarginOfError[tractId]}%) of approx. ${d3.format(',')(numHouseholds[tractId])} households`
           : 'Data unavailable';
         const tooltipText = `<p class='tooltip__title'>Tract ${tractId}
         (${clickedData[2].properties.municipal})</p>
-        ${tractData}`;
+        <ul class='tooltip__list'>
+        <li class='tooltip__text'>${tractData}</li>
+        <li class='tooltip__text'>${responseRates[tractId]}% 2010 census return rate</li>
+        </ul>`;
         new mapboxgl.Popup()
           .setLngLat(e.lngLat)
           .setHTML(tooltipText)
@@ -105,26 +124,28 @@ const April = () => {
   return (
     <>
       <h1 className="calendar-viz__title">The Digital Census</h1>
-      <div id="aprilMap" className="map calendar-viz__mapbox">
+      <div className="calendar-viz__wrapper">
+        <div id="aprilMap" className="mapboxgl__container" />
         <div className="map__overlay">
-          <svg height="220" width="160" className="map__legend map__legend--translucent">
-            <text x="10" y="22" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Households with 1+</text>
-            <text x="10" y="40" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">computing devices</text>
-            <rect x="10" y="54" width="16" height="16" style={{ fill: colors[3], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="65" className="map__legend-entry" fill="#1F4E46">65 – 75%</text>
-            <rect x="10" y="82" width="16" height="16" style={{ fill: colors[2], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="93" className="map__legend-entry" fill="#1F4E46">75 – 85%</text>
-            <rect x="10" y="110" width="16" height="16" style={{ fill: colors[1], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="122" className="map__legend-entry" fill="#1F4E46">85 – 95%</text>
-            <rect x="10" y="138" width="16" height="16" style={{ fill: colors[0], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="150" className="map__legend-entry" fill="#1F4E46">95 – 100%</text>
-            <rect x="10" y="166" width="16" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="178" className="map__legend-entry" fill="#1F4E46">Data unavailable</text>
-            <rect x="10" y="194" width="16" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
-            <line x1="10" y1="202" x2="18" y2="194" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
-            <line x1="10" y1="210" x2="26" y2="194" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
-            <line x1="18" y1="210" x2="26" y2="202" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
-            <text x="32" y="207" className="map__legend-entry" fill="#1F4E46">Hard to count tract</text>
+          <span className="map__legend-entry map__legend-entry--bold map__legend-title">Households without a computer</span>
+          <svg height="190" width="160" className="map__legend map__legend--translucent">
+            <rect x="10" y="2" width="16" height="16" style={{ fill: colors[0], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="14" className="map__legend-entry" fill="#1F4E46">25 – 35%</text>
+            <rect x="10" y="30" width="16" height="16" style={{ fill: colors[1], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="42" className="map__legend-entry" fill="#1F4E46">15 – 25%</text>
+            <rect x="10" y="58" width="16" height="16" style={{ fill: colors[2], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="70" className="map__legend-entry" fill="#1F4E46">5 – 15%</text>
+            <rect x="10" y="86" width="16" height="16" style={{ fill: colors[3], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="98" className="map__legend-entry" fill="#1F4E46">0 – 5%</text>
+            <rect x="10" y="114" width="16" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="126" className="map__legend-entry" fill="#1F4E46">Data unavailable</text>
+            <rect x="10" y="142" width="16" height="16" style={{ fill: 'white', stroke: 'black', strokeWidth: '1px' }} />
+            <line x1="10" y1="150" x2="18" y2="142" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
+            <line x1="10" y1="158" x2="26" y2="142" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
+            <line x1="18" y1="158" x2="26" y2="150" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
+            <text x="32" y="154" className="map__legend-entry" fill="#1F4E46">Hard-to-count tract</text>
+            <text x="32" y="166" className="map__legend-entry" fill="#1F4E46">(&#x2264; 73% return rate,</text>
+            <text x="32" y="178" className="map__legend-entry" fill="#1F4E46">2010 census)</text>
           </svg>
         </div>
       </div>

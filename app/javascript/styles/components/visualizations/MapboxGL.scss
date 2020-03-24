@@ -1,4 +1,23 @@
+$mapHeight: calc(94vw * 500 / 700);
+
 .mapboxgl {
+  &__container {
+    @include media(medium) {
+      display: block;
+      float: unset;
+      height: $mapHeight;
+      margin: 0 auto;
+      max-height: 500px;
+      max-width: 700px;
+      width: 100%;
+    }
+    border: 0;
+    float: left;
+    height: 500px;
+    margin: 0 32px 32px 0;
+    width: 700px;
+    z-index: 10;
+  }
   &__tooltip {
     background: #fff;
     border: 0;
@@ -30,18 +49,30 @@
     text-decoration: underline;
   }
 }
+
 .mapboxgl-popup {
   z-index: 20;
 }
 
 .map {
   &__overlay {
-    position: absolute;
-    right: 8px;
-    top: 150px;
-    z-index: 10;
+    @include media(medium) {
+      left: calc(50% + 182px);
+      right: unset;
+    }
+    @include media('medium-small') {
+      position: unset;
+      width: 100%;
+    }
     background: rgba(255, 255, 255, 0.8);
     border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 40px;
+    top: 122px;
+    width: 160px;
+    z-index: 10;
   }
 
   &__legend-entry {
@@ -56,5 +87,9 @@
 
   &__legend-link {
     text-decoration: underline;
+  }
+
+  &__legend-title {
+    margin: .5rem;
   }
 }
