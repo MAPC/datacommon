@@ -57,17 +57,21 @@ $mapHeight: calc(94vw * 500 / 700);
 .map {
   &__overlay {
     @include media(medium) {
-      left: calc(100% / 2 + 182px);
+      left: calc(50% + 182px);
       right: unset;
     }
     @include media('medium-small') {
       position: unset;
+      width: 100%;
     }
     background: rgba(255, 255, 255, 0.8);
     border-radius: 3px;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     right: 40px;
     top: 122px;
+    width: 160px;
     z-index: 10;
   }
 
@@ -83,5 +87,9 @@ $mapHeight: calc(94vw * 500 / 700);
 
   &__legend-link {
     text-decoration: underline;
+  }
+
+  &__legend-title {
+    margin: .5rem;
   }
 }

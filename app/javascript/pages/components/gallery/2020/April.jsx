@@ -4,6 +4,7 @@ import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 const colors = ['#F15B52', '#F37871', '#F8B4B0', '#FBD2CF', '#F0EFE7'];
+
 const April = () => {
   Promise.all([
     d3.csv('/assets/april2020.csv'),
@@ -124,28 +125,27 @@ const April = () => {
     <>
       <h1 className="calendar-viz__title">The Digital Census</h1>
       <div className="calendar-viz__wrapper">
-        <div id="aprilMap" className="mapboxgl__container"/>
+        <div id="aprilMap" className="mapboxgl__container" />
         <div className="map__overlay">
-          <svg height="250" width="160" className="map__legend map__legend--translucent">
-            <text x="10" y="22" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Households without a</text>
-            <text x="10" y="40" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">computer</text>
-            <rect x="10" y="54" width="16" height="16" style={{ fill: colors[0], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="65" className="map__legend-entry" fill="#1F4E46">25 – 35%</text>
-            <rect x="10" y="82" width="16" height="16" style={{ fill: colors[1], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="93" className="map__legend-entry" fill="#1F4E46">15 – 25%</text>
-            <rect x="10" y="110" width="16" height="16" style={{ fill: colors[2], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="122" className="map__legend-entry" fill="#1F4E46">5 – 15%</text>
-            <rect x="10" y="138" width="16" height="16" style={{ fill: colors[3], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="150" className="map__legend-entry" fill="#1F4E46">0 – 5%</text>
-            <rect x="10" y="166" width="16" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="178" className="map__legend-entry" fill="#1F4E46">Data unavailable</text>
-            <rect x="10" y="194" width="16" height="16" style={{ fill: 'white', stroke: 'black', strokeWidth: '1px' }} />
-            <line x1="10" y1="202" x2="18" y2="194" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
-            <line x1="10" y1="210" x2="26" y2="194" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
-            <line x1="18" y1="210" x2="26" y2="202" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
-            <text x="32" y="207" className="map__legend-entry" fill="#1F4E46">Hard-to-count tract</text>
-            <text x="32" y="225" className="map__legend-entry" fill="#1F4E46">(&#x2264; 73% return rate,</text>
-            <text x="32" y="243" className="map__legend-entry" fill="#1F4E46">2010 census)</text>
+          <span className="map__legend-entry map__legend-entry--bold map__legend-title">Households without a computer</span>
+          <svg height="190" width="160" className="map__legend map__legend--translucent">
+            <rect x="10" y="2" width="16" height="16" style={{ fill: colors[0], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="14" className="map__legend-entry" fill="#1F4E46">25 – 35%</text>
+            <rect x="10" y="30" width="16" height="16" style={{ fill: colors[1], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="42" className="map__legend-entry" fill="#1F4E46">15 – 25%</text>
+            <rect x="10" y="58" width="16" height="16" style={{ fill: colors[2], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="70" className="map__legend-entry" fill="#1F4E46">5 – 15%</text>
+            <rect x="10" y="86" width="16" height="16" style={{ fill: colors[3], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="98" className="map__legend-entry" fill="#1F4E46">0 – 5%</text>
+            <rect x="10" y="114" width="16" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="32" y="126" className="map__legend-entry" fill="#1F4E46">Data unavailable</text>
+            <rect x="10" y="142" width="16" height="16" style={{ fill: 'white', stroke: 'black', strokeWidth: '1px' }} />
+            <line x1="10" y1="150" x2="18" y2="142" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
+            <line x1="10" y1="158" x2="26" y2="142" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
+            <line x1="18" y1="158" x2="26" y2="150" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
+            <text x="32" y="154" className="map__legend-entry" fill="#1F4E46">Hard-to-count tract</text>
+            <text x="32" y="166" className="map__legend-entry" fill="#1F4E46">(&#x2264; 73% return rate,</text>
+            <text x="32" y="178" className="map__legend-entry" fill="#1F4E46">2010 census)</text>
           </svg>
         </div>
       </div>
