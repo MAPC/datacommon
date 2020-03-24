@@ -9,18 +9,29 @@ const April = () => {
     d3.csv('/assets/april2020.csv'),
     d3.csv('/assets/MA_2010_return_rates.csv'),
   ]).then((response) => {
+    let zoom = 8.4;
+    let center = [-70.944, 42.37];
+    if (window.innerWidth <= 480) {
+      zoom = 7.75;
+      center = [-71.043, 42.372];
+    } else if (window.innerWidth <= 670) {
+      zoom = 8.27;
+      center = [-71.047, 42.377];
+    } else if (window.innerWidth <= 770) {
+      zoom = 8.4;
+      center = [-71.039, 42.37];
+    }
     const aprilMap = new mapboxgl.Map({
       container: 'aprilMap',
-      zoom: 8.4,
+      zoom,
       minZoom: 6,
       maxZoom: 13,
-      center: [-70.944, 42.37],
+      center,
       maxBounds: [
         [-74.728, 38.167], // Southwest bound
         [-66.541, 46.032], // Northeast bound
       ],
       style: 'mapbox://styles/ihill/ck7qhmh0715wv1ilds1q8cb4z/draft',
-      hash: true,
     });
     const colorScale = (value) => {
       if (isNaN(value)) {
