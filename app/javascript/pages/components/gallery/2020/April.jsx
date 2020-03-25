@@ -107,12 +107,13 @@ const April = () => {
         const tractId = clickedData[0].properties.ct10_id;
         const tractData = percentageCompOwnership[tractId] <= 100
           ? `${d3.format('.1f')(percentageCompOwnership[tractId])}% (&#177; ${compMarginOfError[tractId]}%) of approx. ${d3.format(',')(numHouseholds[tractId])} households`
-          : 'Data unavailable';
+          : 'Computer ownership data unavailable';
+        const returnRate = +responseRates[tractId] !== 99999.0 ? `${responseRates[tractId]}% 2010 census return rate` : '2010 census return rate unavailable'
         const tooltipText = `<p class='tooltip__title'>Tract ${tractId}
         (${clickedData[2].properties.municipal})</p>
         <ul class='tooltip__list'>
         <li class='tooltip__text'>${tractData}</li>
-        <li class='tooltip__text'>${responseRates[tractId]}% 2010 census return rate</li>
+        <li class='tooltip__text'>${returnRate}</li>
         </ul>`;
         new mapboxgl.Popup()
           .setLngLat(e.lngLat)
