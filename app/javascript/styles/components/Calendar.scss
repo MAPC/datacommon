@@ -134,7 +134,12 @@
       float: unset;
       width: 100%;
     }
+    border: 0;
     float: left;
+    height: 500px;
+    margin: 0 32px 32px 0;
+    width: 700px;
+    z-index: 10;
   }
   
   &__subtitle {
