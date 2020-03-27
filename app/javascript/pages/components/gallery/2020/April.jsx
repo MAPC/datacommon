@@ -32,7 +32,7 @@ const April = () => {
         [-74.728, 38.167], // Southwest bound
         [-66.541, 46.032], // Northeast bound
       ],
-      style: 'mapbox://styles/ihill/ck7qhmh0715wv1ilds1q8cb4z/draft',
+      style: 'mapbox://styles/ihill/ck7qhmh0715wv1ilds1q8cb4z',
     });
     const colorScale = (value) => {
       if (isNaN(value)) {
@@ -97,7 +97,6 @@ const April = () => {
       });
 
       aprilMap.moveLayer('Computer Ownership by Tract', 'MAPC municipal borders');
-      aprilMap.removeLayer('MAPC tract borders');
 
       aprilMap.on('click', 'MAPC tracts', (e) => {
         const clickedData = aprilMap.queryRenderedFeatures(
@@ -108,7 +107,7 @@ const April = () => {
         const tractData = percentageCompOwnership[tractId] <= 100
           ? `${d3.format('.1f')(percentageCompOwnership[tractId])}% (&#177; ${compMarginOfError[tractId]}%) of approx. ${d3.format(',')(numHouseholds[tractId])} households`
           : 'Computer ownership data unavailable';
-        const returnRate = +responseRates[tractId] !== 99999.0 ? `${responseRates[tractId]}% 2010 census return rate` : '2010 census return rate unavailable'
+        const returnRate = +responseRates[tractId] !== 99999.0 ? `${responseRates[tractId]}% 2010 census mail return rate` : '2010 census return rate unavailable'
         const tooltipText = `<p class='tooltip__title'>Tract ${tractId}
         (${clickedData[2].properties.municipal})</p>
         <ul class='tooltip__list'>
@@ -145,18 +144,16 @@ const April = () => {
             <line x1="10" y1="158" x2="26" y2="142" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
             <line x1="18" y1="158" x2="26" y2="150" style={{ stroke: '#2C110F', strokeWidth: '2px' }} />
             <text x="32" y="154" className="map__legend-entry" fill="#1F4E46">Hard-to-count tract</text>
-            <text x="32" y="166" className="map__legend-entry" fill="#1F4E46">(&#x2264; 73% return rate,</text>
-            <text x="32" y="178" className="map__legend-entry" fill="#1F4E46">2010 census)</text>
+            <text x="32" y="166" className="map__legend-entry" fill="#1F4E46">(&#x2264; 73% mail return</text>
+            <text x="32" y="178" className="map__legend-entry" fill="#1F4E46">rate, 2010 census)</text>
           </svg>
         </div>
       </div>
-      <p>The COVID-19 pandemic has upended daily life in Greater Boston and around the world. Thousands of people can’t report to work, and millions are being told to cease nonessential travel. Never before has the internet been so essential for working remotely and staying connected with families, friends, and doctors. Unfortunately, ten percent of the region’s households still lack a computer or smartphone needed to access the internet from their home. Not only does this inequity make it harder for people to get the information and socialization they need to make it through this crisis; it will also impact the decennial US Census being conducted this month.</p>
-      <p>While the Census might seem extraneous to some people right now, it is of utmost importance to the functioning of government, including preparation for future public emergencies. Census counts determine legislative apportionment and districts; are the basis for federal funding allocation; and inform innumerable policy, planning, emergency response, and business decisions.</p>
-      <p>Even with this year’s new option to answer the Census online, getting every household to respond is a tough job. This is especially true in so-called “hard-to-count” communities where limited English proficiency, immigration status, nontraditional housing arrangements, and distrust of government, among other factors, are formidable barriers to getting a complete count. Census promotion, outreach, and follow-up efforts are often focused on these neighborhoods to ensure they get counted fairly.</p>
-      <p>The current need for “social distancing” creates a whole new set of challenges for complete count efforts. Many municipalities and community-based organizations had planned extensive personal outreach—events, door knocking, census parties, census kiosks—to promote census response. All of these in-person efforts have been cancelled as a result of the pandemic.</p>
-      <p>Like many jobs, these efforts can’t all be shifted to online activities. As shown on the map, hard-to-count tracts often correspond to those lacking the technology needed to access the internet. In some neighborhoods, over 30 percent of households do not have so much as a smartphone. This will make it hard to reach households with online advertising promoting census response, and these same households will have to wait for a paper form rather than responding online.</p>
-      <p>Along with all the other headwinds discouraging a complete count—the citizenship question, underfunding of Census outreach efforts, and lack of federal leadership, the digital divide may depress return rates among the most at-risk communities, with long term effects on funding, services, and representation.</p>
-      <p>As a result, it’s more critical than ever for people to respond promptly to the Census so that follow-up efforts can be focused on communities that need it. This situation also highlights that as the current pandemic accelerates our transformation into being a more digital region, it is critical to pay attention to equity of access to the online world.</p>
+      <p>The COVID-19 pandemic has upended daily life in Greater Boston and around the world. Thousands of people can’t report to work, and millions are being told to cease nonessential travel. Never before has the internet been so essential for working remotely and staying connected. Unfortunately, 10 percent of the region’s households still lack the technology needed to access the internet from home. Not only does this inequity make it harder for people to get the information and socialization they need to make it through this crisis; it will also impact the decennial US census being conducted this month.</p>
+      <p>While the census might seem extraneous to some people right now, it is of utmost importance to the functioning of government, including preparation for future public emergencies. Census counts determine legislative apportionment and districts; are the basis for federal funding allocation; and inform innumerable policy, planning, emergency response, and business decisions.</p>
+      <p>Even with this year’s new option to answer the census online, getting every household to respond is a tough job. This is especially true in <a href="https://www.bostonindicators.org/reports/report-website-pages/census-2020" className="calendar-viz__link">“hard-to-count”</a> communities where limited English proficiency, immigration status, nontraditional housing arrangements, and distrust of government, among other factors, are formidable barriers to getting a complete count. Many municipalities and community-based organizations had planned extensive personal outreach—door knocking, parties, census kiosks—to promote census response in these neighborhoods. However, the current need for “social distancing” means that all of these in-person efforts have been cancelled.</p>
+      <p>Like many jobs, census outreach and follow-up efforts can’t all be shifted online. As shown on the map, hard-to-count tracts often correspond to those lacking the technology needed to access the internet. In some neighborhoods, over 30 percent of households do not have so much as a smartphone. This will make it hard to reach households with online advertising promoting census response, and these same households will have to wait for a paper form rather than responding online. The digital divide may depress return rates among the most at-risk communities, with long term effects on funding, services, and representation.</p>
+      <p>It’s more critical than ever to respond promptly to the census so that follow-up efforts can be focused on communities that need it. As the current pandemic accelerates our transformation into a more digital region, we must pay attention to equity of access to the online world.</p>
     </>
   );
 };
