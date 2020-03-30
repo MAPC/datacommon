@@ -132,6 +132,7 @@
   &__wrapper {
     @include media(medium) {
       float: unset;
+      height: 100%;
       width: 100%;
     }
     border: 0;
