@@ -6,7 +6,7 @@ function downloadMetadata(e, database, metadata, title, table = '', description 
   e.preventDefault();
   const documentHeader = ['name', 'alias', 'details'];
   let rows;
-  if (database === 'towndata') {
+  if (database === 'towndata' || database === 'gisdata') {
     const metadataName = metadata.documentation.metadata.eainfo.detailed.attr.map((attr) => (attr.attlabl ? attr.attlabel : 'undefined'));
     const metadataAlias = metadata.documentation.metadata.eainfo.detailed.attr.map((attr) => attr.attalias);
     const metadataDescription = metadata.documentation.metadata.eainfo.detailed.attr.map((attr) => (attr.attrdef ? attr.attrdef : 'undefined'));
@@ -50,7 +50,7 @@ function downloadShp(database, schema, table) {
 }
 
 function setDownloadLinks(metadata, schema, table, title, description, selectedYears, queryYearColumn, database) {
-  if (database === 'towndata') {
+  if (database === 'towndata' || database === 'gisdata') {
     return (
       <div className="details-content-column download-links">
         Download:
