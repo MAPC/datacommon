@@ -3,7 +3,8 @@
 	[
 		{
 			"path": ".",
-      "folder_exclude_patterns": [".cache", "dist", "node_modules"],
+      "folder_exclude_patterns": [".cache", "dist", "node_modules", "tmp"],
+      "file_exclude_patterns": ["*.svg", "*.map"],
 		}
 	]
 }

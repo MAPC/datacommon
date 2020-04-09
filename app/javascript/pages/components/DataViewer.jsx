@@ -25,9 +25,9 @@ export default class DataViewer extends React.Component {
   componentDidMount() {
     const queryBase = 'https://prql.mapc.org/';
     const queryToken = {
-      ds: '16a2637ee33572e46f5609a578b035dc',
-      gisdata: 'e2e3101e16208f04f7415e36052ce59b',
-      towndata: '1b9b9a1d1738c3dce14331040fa17008',
+      ds: '96608389a2545f7adac815ea258ad27e',
+      gisdata: '5e567e555ab7a2d22effa249e81cb903',
+      towndata: '679f04f0eb9830c655334ab644479116',
     };
 
     this.props.fetchDatasets().then((storeResponse) => {
