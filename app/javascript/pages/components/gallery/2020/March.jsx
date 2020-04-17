@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import * as d3 from 'd3';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import D3Map from '../D3Map';
 
 let iterator;
@@ -12,15 +11,15 @@ const colors = {
 };
 
 const tooltipHtml = (development) => {
-  let tooltipDetails = `<p class='tooltip__title'>${development.attributes.name}</p>
+  let tooltipDetails = `<p class='tooltip__title'>${development.name}</p>
   <ul class='tooltip__list'>
-  <li class='tooltip__text'>Est. completion in ${development.attributes.year_compl}</li>
-  <li class='tooltip__text'>${development.attributes.municipal}</li>`;
-  if (development.attributes.hu) {
-    tooltipDetails += `<li class='tooltip__text'>${d3.format(',')(development.attributes.hu)} housing units</li>`;
+  <li class='tooltip__text'>Est. completion in ${development.year_compl}</li>
+  <li class='tooltip__text'>${development.municipal}</li>`;
+  if (development.hu) {
+    tooltipDetails += `<li class='tooltip__text'>${d3.format(',')(development.hu)} housing units</li>`;
   }
-  if (development.attributes.commsf) {
-    tooltipDetails += `<li class='tooltip__text'>${d3.format(',')(development.attributes.commsf)} square feet of commercial space</li>`;
+  if (development.commsf) {
+    tooltipDetails += `<li class='tooltip__text'>${d3.format(',')(development.commsf)} square feet of commercial space</li>`;
   }
   tooltipDetails += '</ul>';
   return tooltipDetails;
@@ -200,17 +199,17 @@ const drawMap = (newDevelopments, selection) => {
   };
 
   const dataByYear = [
-    newDevelopments.filter((d) => d.attributes.year_compl === 2015),
-    newDevelopments.filter((d) => d.attributes.year_compl === 2016),
-    newDevelopments.filter((d) => d.attributes.year_compl === 2017),
-    newDevelopments.filter((d) => d.attributes.year_compl === 2018),
-    newDevelopments.filter((d) => d.attributes.year_compl === 2019),
-    newDevelopments.filter((d) => d.attributes.year_compl === 2020),
-    newDevelopments.filter((d) => d.attributes.year_compl === 2021),
-    newDevelopments.filter((d) => d.attributes.year_compl === 2022),
-    newDevelopments.filter((d) => d.attributes.year_compl === 2023),
-    newDevelopments.filter((d) => d.attributes.year_compl === 2024),
-    newDevelopments.filter((d) => d.attributes.year_compl === 2025),
+    newDevelopments.filter((d) => d.year_compl === '2015'),
+    newDevelopments.filter((d) => d.year_compl === '2016'),
+    newDevelopments.filter((d) => d.year_compl === '2017'),
+    newDevelopments.filter((d) => d.year_compl === '2018'),
+    newDevelopments.filter((d) => d.year_compl === '2019'),
+    newDevelopments.filter((d) => d.year_compl === '2020'),
+    newDevelopments.filter((d) => d.year_compl === '2021'),
+    newDevelopments.filter((d) => d.year_compl === '2022'),
+    newDevelopments.filter((d) => d.year_compl === '2023'),
+    newDevelopments.filter((d) => d.year_compl === '2024'),
+    newDevelopments.filter((d) => d.year_compl === '2025'),
   ];
   let position = 0;
   let year = 2015;
@@ -247,9 +246,9 @@ const drawMap = (newDevelopments, selection) => {
       .duration(5000)
       .attr('r', (development) => {
         if (selection === 'housing') {
-          return housingRadius(development.attributes.hu);
+          return housingRadius(development.hu);
         }
-        return commercialRadius(development.attributes.commsf);
+        return commercialRadius(development.commsf);
       });
 
     newPoint.attr('fill', colors.new)
@@ -269,8 +268,8 @@ const drawMap = (newDevelopments, selection) => {
 
   document.querySelectorAll('.d3-map__option-label').forEach((option) => option.addEventListener('click', clearInterval(iterator)));
   updateVisualization();
-  d3.select('.d3-map__points').raise();
   iterator = setInterval(updateVisualization, 5000);
+  d3.select('.d3-map__points').raise();
 };
 
 const March = () => {
@@ -278,13 +277,10 @@ const March = () => {
   const [housingData, setHousingData] = useState([]);
   const [commercialData, setCommercialData] = useState([]);
   useEffect(() => {
-    const newMassBuilds = 'https://api.massbuilds.com/developments?filter%5Byear_compl%5D%5Bcol%5D=year_compl&filter%5Byear_compl%5D%5Bname%5D=Year%20complete&filter%5Byear_compl%5D%5BglossaryKey%5D=YEAR_COMPLETE&filter%5Byear_compl%5D%5Btype%5D=number&filter%5Byear_compl%5D%5Bfilter%5D=metric&filter%5Byear_compl%5D%5Bvalue%5D=2014&filter%5Byear_compl%5D%5Binflector%5D=%3E';
-    axios.get(newMassBuilds, { headers: { Accept: 'application/vnd.api+json' } }).then((mapData) => {
-      const newDevelopments = mapData.data.data.filter((development) => development.attributes.rpa_name === 'Metropolitan Area Planning Council'
-        && development.attributes.year_compl <= 2025)
-        .map((development) => ({ attributes: development.attributes, coordinates: [development.attributes.longitude, development.attributes.latitude] }));
-      const housing = newDevelopments.filter((development) => development.attributes.hu > 0);
-      const commercial = newDevelopments.filter((development) => development.attributes.commsf > 0);
+    d3.csv('/assets/march2020.csv').then((mapData) => {
+      const newDevelopments = mapData.map((development) => ({ ...development, coordinates: [development.longitude, development.latitude] }));
+      const housing = newDevelopments.filter((development) => development.hu > 0);
+      const commercial = newDevelopments.filter((development) => development.commsf > 0);
       setHousingData(housing);
       setCommercialData(commercial);
       drawLegend(currentlySelected);
@@ -355,7 +351,8 @@ Data like this helps shape our region and is available because MassBuilds collec
         {' '}
 today.
       </p>
-      <p><em>All statistics up-to-date as of 9:30am, 2/28/2020, only projects in the MAPC region analyzed.</em></p>
+      <p><em>Map data up-to-date as of 11:15am, 4/17/2020.
+      <br />All statistics up-to-date as of 9:30am, 2/28/2020, only projects in the MAPC region analyzed.</em></p>
     </>
   );
 };
