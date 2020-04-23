@@ -2,6 +2,8 @@
 import React from 'react';
 import Papa from 'papaparse';
 import mapboxgl from 'mapbox-gl';
+import testingCenter from '../../../assets/images/testing-center.svg';
+import alternativeShelter from '../../../assets/images/alternative-shelter.svg';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 
@@ -23,7 +25,7 @@ const May = () => {
       container: 'mayMap',
       zoom,
       minZoom: 6,
-      maxZoom: 13,
+      maxZoom: 15,
       center,
       maxBounds: [
         [-74.728, 38.167], // Southwest bound
@@ -70,9 +72,7 @@ const May = () => {
         },
       });
 
-      console.log(geojsonForShelters)
       setTimeout(() => {
-        console.log("Content loaded!")
         mayMap.addSource('testingCenters', {
           type: 'geojson',
           data: geojsonForTesting,
@@ -88,7 +88,7 @@ const May = () => {
           type: 'symbol',
           source: 'testingCenters',
           layout: {
-            'icon-image': 'hospital-JP-15',
+            'icon-image': 'testing-center',
             'icon-size': 1,
           },
         });
@@ -98,7 +98,7 @@ const May = () => {
           type: 'symbol',
           source: 'alternativeShelters',
           layout: {
-            'icon-image': 'town-15',
+            'icon-image': 'alternative-shelter',
             'icon-size': 1,
           },
         });
@@ -109,6 +109,20 @@ const May = () => {
       loadDataPoints();
       mayMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
     });
+
+    mayMap.on('click', 'alternativeShelters', (e) => {
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`${e.features[0].properties.Name}`)
+        .addTo(mayMap);
+    });
+
+    mayMap.on('click', 'testingCenters', (e) => {
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`${e.features[0].properties.Name}`)
+        .addTo(mayMap);
+    });
   });
 
   return (
@@ -116,6 +130,26 @@ const May = () => {
       <h1 className="calendar-viz__title">A Regional Response to COVID-19</h1>
       <div className="calendar-viz__wrapper">
         <div id="mayMap" className="mapboxgl__container" />
+        <div className="map__overlay" style={{ top: '98px' }}>
+          <svg height="140" width="160" className="map__legend map__legend--translucent">
+            <image href={testingCenter} height="20" width="20" x="7" y="7" />
+            <text x="32" y="22" className="map__legend-entry" fill="#1F4E46">Testing center</text>
+            <image href={alternativeShelter} height="20" width="20" x="7" y="32" />
+            <text x="32" y="47" className="map__legend-entry" fill="#1F4E46">Alternative shelter</text>
+            <text x="8" y="75" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Explore & Download</text>
+            <text x="8" y="89" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Data</text>
+            <text x="8" y="105" className="map__legend-entry" fill="#1F4E46">
+              &#8226;
+              {' '}
+              <a href="https://www.mass.gov/doc/ma-covid-19-testing-sites/download" className="calendar-viz__link" fill="#1F4E46">COVID-19 testing sites</a>
+            </text>
+            <text x="8" y="121" className="map__legend-entry" fill="#1F4E46">
+              &#8226;
+              {' '}
+              <a href="https://docs.google.com/spreadsheets/d/1RYc2Y0wgjzt4liubLk_l631zUeAIz9ilCFHYNsthimU/edit?usp=sharing" className="calendar-viz__link" fill="#1F4E46">Alternative shelters</a>
+            </text>
+          </svg>
+        </div>
       </div>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin quam eu ligula faucibus, eu mollis metus elementum. Sed sit amet ligula quis arcu finibus pulvinar eget et risus. Sed lectus mi, ornare id vulputate nec, scelerisque vitae velit. Morbi lacus ante, pulvinar et augue sit amet, suscipit sagittis mauris. Nullam quis tincidunt neque, a luctus arcu. Morbi malesuada erat enim, id sollicitudin sem vestibulum a. Curabitur tempus orci turpis, ac pulvinar nisi aliquet vel. Duis feugiat eros eu felis elementum, in tempor purus lacinia. Nam nec vehicula urna. Morbi at mi nec metus ultrices tempor non eget risus. Maecenas in odio diam. Donec ligula magna, volutpat et ornare nec, varius nec felis.</p>
       <p>Nulla condimentum vel dolor mollis venenatis. Proin nec vestibulum purus. Nullam cursus ultricies euismod. Curabitur vulputate velit nisi, ac convallis nunc mollis sit amet. Donec turpis felis, lobortis vitae blandit et, eleifend eget justo. Nam pharetra vel massa at convallis. Quisque justo ipsum, elementum in tempus eu, gravida eget sapien. Curabitur tristique tincidunt massa. Maecenas magna eros, lobortis ut orci eget, ullamcorper porta purus. Curabitur ut maximus nisl.</p>
