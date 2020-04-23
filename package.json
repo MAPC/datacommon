@@ -26,6 +26,7 @@
     "history": "^4.10.1",
     "isomorphic-fetch": "^2.2.1",
     "mapbox-gl": "^1.8.1",
+    "papaparse": "^5.2.0",
     "path-to-regexp": "^2.2.1",
     "prop-types": "^15.7.2",
     "react": "^0.14.0 || ^15.0.0-0 || ^16.0.0-0",

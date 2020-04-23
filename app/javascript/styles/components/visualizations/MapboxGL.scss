@@ -87,3 +87,23 @@
     margin: .5rem;
   }
 }
+
+.marker {
+  &__hospital {
+    background-image: url('../pages/assets/images/hospital-JP-15.svg');
+    background-size: cover;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+  }
+
+  &__shelter {
+    background-image: url('../pages/assets/images/home-15.svg');
+    background-size: cover;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+  }
+}
