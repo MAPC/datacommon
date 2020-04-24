@@ -66,7 +66,7 @@ const May = () => {
         complete(results) {
           const { data } = results;
           data.forEach((row) => {
-            const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
+            const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact, Address: row.Address }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
             geojsonForShelters.features.push(entry);
           });
         },
@@ -102,7 +102,7 @@ const May = () => {
             'icon-size': 1,
           },
         });
-      }, 1000);
+      }, 1500);
     };
 
     mayMap.on('load', () => {
@@ -111,23 +111,24 @@ const May = () => {
     });
 
     mayMap.on('click', 'alternativeShelters', (e) => {
+      const title = e.features[0].properties.Name !== '' ? `<p class='tooltip__title'>${e.features[0].properties.Name}</p>` : `<p class='tooltip__title'>${e.features[0].properties.Address}</p>`;
       new mapboxgl.Popup()
         .setLngLat(e.lngLat)
-        .setHTML(`${e.features[0].properties.Name}`)
+        .setHTML(title)
         .addTo(mayMap);
     });
 
     mayMap.on('click', 'testingCenters', (e) => {
       new mapboxgl.Popup()
         .setLngLat(e.lngLat)
-        .setHTML(`${e.features[0].properties.Name}`)
+        .setHTML(`<p class='tooltip__title'>${e.features[0].properties.Name}</p>`)
         .addTo(mayMap);
     });
   });
 
   return (
     <>
-      <h1 className="calendar-viz__title">A Regional Response to COVID-19</h1>
+      <h1 className="calendar-viz__title">Responsing to COVID-19</h1>
       <div className="calendar-viz__wrapper">
         <div id="mayMap" className="mapboxgl__container" />
         <div className="map__overlay" style={{ top: '98px' }}>
@@ -151,10 +152,12 @@ const May = () => {
           </svg>
         </div>
       </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin quam eu ligula faucibus, eu mollis metus elementum. Sed sit amet ligula quis arcu finibus pulvinar eget et risus. Sed lectus mi, ornare id vulputate nec, scelerisque vitae velit. Morbi lacus ante, pulvinar et augue sit amet, suscipit sagittis mauris. Nullam quis tincidunt neque, a luctus arcu. Morbi malesuada erat enim, id sollicitudin sem vestibulum a. Curabitur tempus orci turpis, ac pulvinar nisi aliquet vel. Duis feugiat eros eu felis elementum, in tempor purus lacinia. Nam nec vehicula urna. Morbi at mi nec metus ultrices tempor non eget risus. Maecenas in odio diam. Donec ligula magna, volutpat et ornare nec, varius nec felis.</p>
-      <p>Nulla condimentum vel dolor mollis venenatis. Proin nec vestibulum purus. Nullam cursus ultricies euismod. Curabitur vulputate velit nisi, ac convallis nunc mollis sit amet. Donec turpis felis, lobortis vitae blandit et, eleifend eget justo. Nam pharetra vel massa at convallis. Quisque justo ipsum, elementum in tempus eu, gravida eget sapien. Curabitur tristique tincidunt massa. Maecenas magna eros, lobortis ut orci eget, ullamcorper porta purus. Curabitur ut maximus nisl.</p>
-      <p>Proin velit eros, luctus quis velit eget, tempus suscipit eros. Aliquam vel turpis nisl. Ut facilisis lorem id sagittis vestibulum. Donec auctor mi massa, sit amet sagittis odio sodales at. Curabitur condimentum ex eu diam placerat accumsan. Praesent volutpat ex id urna tincidunt, in lobortis nisl porta. Vestibulum et erat sed dui vulputate ullamcorper at at nulla. Nam molestie rhoncus ex quis dictum.</p>
-      <p>Duis quis rhoncus velit. Donec accumsan purus vel lectus egestas ultrices. Aliquam ac sodales mi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur elit est, sodales sed pellentesque a, gravida a purus. Donec finibus magna ac quam vulputate dictum. Aenean elementum elit nulla, pretium elementum odio feugiat vitae. Duis a facilisis ligula. Aliquam consectetur sed ante nec posuere. Maecenas volutpat mi at nunc placerat, sit amet molestie purus tincidunt. Sed id condimentum urna. Integer ut iaculis neque, nec malesuada ante. Pellentesque lorem mi, molestie vel dui ornare, commodo finibus sem. Mauris lorem ante, vehicula id purus et, ultrices eleifend justo.</p>
+      <p>In the weeks since Governor Baker declared a state of emergency, municipalities across the region and commonwealth at large have been quickly assembling the necessary infrastructure to combat COVID-19. While most of MAPC’s work focuses on the Metropolitan Boston region, this is an all-hands-on-deck situation requiring extra cross-collaboration.</p>
+      <p>Massachusetts assembled a list of 76 identified COVID-19 testing centers from across the entire state, spread over 59 municipalities. 45 of those centers are in 30 municipalities in our region, primarily in the Inner Core. These locations do require a clinician’s referral and an appointment, so if you believe you need a test, you should begin by contacting your primary health care provider.</p>
+      <p>While “social distancing” has become a part of many of our daily vocabularies, there are some people in our region who do not have that luxury. People experiencing homelessness are particularly vulnerable to the effects of COVID-19, but also first responders and coronavirus patients requiring post-acute care. In addition to traditional shelters, other institutions across the commonwealth are stepping up to provide alternative shelters to those in need. Some universities and hotels have opened up dorms and rooms to serve as alternative shelters, and the Boston Convention and Exhibition Center has opened 1,000 beds for patients in recovery.</p>
+      <p>Additionally, residents are forming unofficial grassroots organizations to help their neighbors. As highlighted in an <a href="https://www.bostonglobe.com/2020/04/15/metro/you-are-not-alone-there-is-hope-coronavirus-outbreak-spreads-so-does-volunteerism/" className="calendar-viz__link">April 15 Boston Globe article</a>, “mutual aid” groups such as Newton Neighbors Helping Newton Neighbors aim to connect vulnerable populations to volunteers offering to perform tasks such as grocery delivery.</p>
+      <p>Governance in the time of COVID-19 is like nothing we have seen before, and unique problems require unique solutions. As the situation continues to evolve, the region and the commonwealth must continue to strive towards an equitable respsonse.</p>
+      <p>Below is a spreadsheet representing the data on the above map. If your test center or alternative shelter is not displayed, please contact us.</p>
       <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT4cTPo1GJnF8Wll4OOP-Ow-DaCQ3vsbKSS4oF3KUK2k-vEIwZHRamXr8lLN4BOPcv2yD5pFF0FyYiA/pubhtml?widget=true&amp;headers=false" className="calendar-viz__spreadsheet" />
     </>
   );
