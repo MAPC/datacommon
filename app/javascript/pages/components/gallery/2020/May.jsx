@@ -25,7 +25,7 @@ const May = () => {
       container: 'mayMap',
       zoom,
       minZoom: 6,
-      maxZoom: 15,
+      maxZoom: 16,
       center,
       maxBounds: [
         [-74.728, 38.167], // Southwest bound
@@ -35,19 +35,120 @@ const May = () => {
     });
 
     const addDataToMap = (sourceName, geojson, iconName) => {
-      mayMap.addSource(sourceName, {
-        type: 'geojson',
-        data: geojson,
+      if (sourceName === 'alternativeShelters') {
+        mayMap.addSource(sourceName, {
+          type: 'geojson',
+          data: geojson,
+          cluster: true,
+          clusterMaxZoom: 13, // Max zoom to cluster points on
+          clusterRadius: 30, // Radius of each cluster when clustering points (defaults to 50)
+        });
+  
+        mayMap.addLayer({
+          id: sourceName,
+          type: 'symbol',
+          source: sourceName,
+          filter: ['has', 'point_count'],
+          layout: {
+            'icon-image': iconName,
+            'icon-allow-overlap': true,
+            'icon-offset': [0, 5],
+            'icon-size': [
+              'step',
+              ['get', 'point_count'],
+              0.75,
+              7,
+              1,
+              15,
+              1.25,
+            ],
+          },
+        });
+  
+        mayMap.addLayer({
+          id: `cluster-count_${sourceName}`,
+          type: 'symbol',
+          source: sourceName,
+          filter: ['has', 'point_count'],
+          layout: {
+            'text-field': '{point_count_abbreviated}',
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-size': 14,
+          },
+          paint: {
+            'text-color': 'white',
+          },
+        });
+  
+        mayMap.addLayer({
+          id: `unclustered-point_${sourceName}`,
+          type: 'symbol',
+          source: sourceName,
+          filter: ['!', ['has', 'point_count']],
+          layout: {
+            'icon-image': iconName,
+            'icon-size': 0.5,
+            'icon-allow-overlap': true,
+          },
+        });
+  
+        mayMap.on('click', sourceName, (e) => {
+          const features = mayMap.queryRenderedFeatures(e.point, {
+            layers: [sourceName],
+          });
+          const clusterId = features[0].properties.cluster_id;
+          mayMap.getSource(sourceName).getClusterExpansionZoom(
+            clusterId,
+            (err, zoomIn) => {
+              if (err) return;
+              mayMap.easeTo({
+                center: features[0].geometry.coordinates,
+                zoom: zoomIn,
+              });
+            },
+          );
+        });
+      } else if (sourceName === 'testingCenters') {
+        mayMap.addSource(sourceName, {
+          type: 'geojson',
+          data: geojson,
+        });
+
+        mayMap.addLayer({
+          id: `unclustered-point_${sourceName}`,
+          type: 'circle',
+          source: sourceName,
+          paint: {
+            'circle-color': '#000000',
+            'circle-radius': 4,
+            'circle-stroke-width': 1,
+            'circle-stroke-color': '#fff',
+            }
+        });
+      }
+
+      mayMap.on('click', `unclustered-point_${sourceName}`, (e) => {
+        const title = e.features[0].properties.Name !== '' ? `<p class='tooltip__title'>${e.features[0].properties.Name}</p>` : `<p class='tooltip__title'>${e.features[0].properties.Address}</p>`;
+        new mapboxgl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(title)
+          .addTo(mayMap);
       });
 
-      mayMap.addLayer({
-        id: sourceName,
-        type: 'symbol',
-        source: sourceName,
-        layout: {
-          'icon-image': iconName,
-          'icon-size': 1,
-        },
+      mayMap.on('mouseenter', sourceName, () => {
+        mayMap.getCanvas().style.cursor = 'pointer';
+      });
+
+      mayMap.on('mouseleave', sourceName, () => {
+        mayMap.getCanvas().style.cursor = '';
+      });
+
+      mayMap.on('mouseenter', `unclustered-point_${sourceName}`, () => {
+        mayMap.getCanvas().style.cursor = 'pointer';
+      });
+
+      mayMap.on('mouseleave', `unclustered-point_${sourceName}`, () => {
+        mayMap.getCanvas().style.cursor = '';
       });
     };
 
@@ -86,7 +187,7 @@ const May = () => {
             const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact, Address: row.Address }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
             geojsonForShelters.features.push(entry);
           });
-          addDataToMap('alternativeShelters', geojsonForShelters, 'alternative-shelter');
+          addDataToMap('alternativeShelters', geojsonForShelters, 'larger-shelter');
         },
       });
     };
@@ -96,34 +197,19 @@ const May = () => {
       mayMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
       mayMap.resize();
     });
-
-    mayMap.on('click', 'alternativeShelters', (e) => {
-      const title = e.features[0].properties.Name !== '' ? `<p class='tooltip__title'>${e.features[0].properties.Name}</p>` : `<p class='tooltip__title'>${e.features[0].properties.Address}</p>`;
-      new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(title)
-        .addTo(mayMap);
-    });
-
-    mayMap.on('click', 'testingCenters', (e) => {
-      new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(`<p class='tooltip__title'>${e.features[0].properties.Name}</p>`)
-        .addTo(mayMap);
-    });
   });
 
   return (
     <>
-      <h1 className="calendar-viz__title">Responsing to COVID-19</h1>
+      <h1 className="calendar-viz__title">Responding to COVID-19</h1>
       <div className="calendar-viz__wrapper">
         <div id="mayMap" className="mapboxgl__container" />
         <div className="map__overlay" style={{ top: '98px' }}>
-          <svg height="140" width="160" className="map__legend map__legend--translucent">
-            <image href={testingCenter} height="20" width="20" x="7" y="7" />
-            <text x="32" y="22" className="map__legend-entry" fill="#1F4E46">Testing center</text>
-            <image href={alternativeShelter} height="20" width="20" x="7" y="32" />
-            <text x="32" y="47" className="map__legend-entry" fill="#1F4E46">Alternative shelter</text>
+          <svg height="170" width="160" className="map__legend map__legend--translucent">
+            <image href={alternativeShelter} height="20" width="20" x="7" y="7" />
+            <text x="32" y="22" className="map__legend-entry" fill="#1F4E46">Alternative shelter</text>
+            <circle cx="17" cy="42" r="4" stroke="white" stroke-width="1" fill="#000000" />
+            <text x="32" y="47" className="map__legend-entry" fill="#1F4E46">Testing center</text>
             <text x="8" y="75" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Explore & Download</text>
             <text x="8" y="89" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Data</text>
             <text x="8" y="105" className="map__legend-entry" fill="#1F4E46">
@@ -136,19 +222,25 @@ const May = () => {
               {' '}
               <a href="https://docs.google.com/spreadsheets/d/1RYc2Y0wgjzt4liubLk_l631zUeAIz9ilCFHYNsthimU/edit?usp=sharing" className="calendar-viz__link" fill="#1F4E46">Alternative shelters</a>
             </text>
+            <text x="8" y="137" className="map__legend-entry" fill="#1F4E46">
+              &#8226;
+              {' '}
+              <a href="https://www.mass.gov/info-details/archive-of-covid-19-cases-in-massachusetts" className="calendar-viz__link" fill="#1F4E46">Massachusetts</a>
+            </text>
+            <text x="15" y="152" className="map__legend-entry" fill="#1F4E46">
+              <a href="https://www.mass.gov/info-details/archive-of-covid-19-cases-in-massachusetts" className="calendar-viz__link" fill="#1F4E46">COVID-19 dashboards</a>
+            </text>
           </svg>
         </div>
       </div>
       <p>In the weeks since Governor Baker declared a state of emergency, municipalities across the region and commonwealth at large have been quickly assembling the necessary infrastructure to combat COVID-19. While most of MAPC’s work focuses on the Metropolitan Boston region, this is an all-hands-on-deck situation requiring extra cross-collaboration.</p>
-      <p>Massachusetts assembled a list of 76 identified COVID-19 testing centers from across the entire state, spread over 59 municipalities. 45 of those centers are in 30 municipalities in our region, primarily in the Inner Core. These locations do require a clinician’s referral and an appointment, so if you believe you need a test, you should begin by contacting your primary health care provider.</p>
-      <p>While “social distancing” has become a part of many of our daily vocabularies, there are some people in our region who do not have that luxury. People experiencing homelessness are particularly vulnerable to the effects of COVID-19, but also first responders and coronavirus patients requiring post-acute care. In addition to traditional shelters, other institutions across the commonwealth are stepping up to provide alternative shelters to those in need. Some universities and hotels have opened up dorms and rooms to serve as alternative shelters, and the Boston Convention and Exhibition Center has opened 1,000 beds for patients in recovery.</p>
-      <p>
-Additionally, residents are forming unofficial grassroots organizations to help their neighbors. As highlighted in an
-        <a href="https://www.bostonglobe.com/2020/04/15/metro/you-are-not-alone-there-is-hope-coronavirus-outbreak-spreads-so-does-volunteerism/" className="calendar-viz__link">April 15 Boston Globe article</a>
-, “mutual aid” groups such as Newton Neighbors Helping Newton Neighbors aim to connect vulnerable populations to volunteers offering to perform tasks such as grocery delivery.
+      <p>As of April 24, there are 76 COVID-19 testing centers from across Massachusetts, spread over 59 municipalities. 45 of those centers are in 30 municipalities in our region, primarily in the Inner Core. When mobile testing at nursing homes, assisted living residences, and rest homes and facilities began as a pilot program on March 31, both the number of tests administered and percentage of tests returning positive increased. While this is due in part to viral spread, it also highlights the distinction between total cases and confirmed cases.</p>
+      <p>With an increase in confirmed cases comes an increased need for isolated quarantine spaces above and beyond what many of us are practicing as daily physical distancing. Existing shelters have found themselves in a unique conundrum: while the necessity for safe shelter is more pertinent than ever, bed capacities often must be lowered to keep facilities compliant with physical distancing guidelines. Additionally, some who test positive may not be able to safely return to their homes for self-isolation due to overcrowding or proximity to immunocompromised housemates.</p>
+      <p>In response, institutions such as hotels and universities across the commonwealth are partnering with municipalities and public health organizations to provide extra alternative shelters. Some are focusing on depopulating existing overcrowded shelters; others serve primarily to house first responders and front-line staff who cannot safely return to their primary residences. As Massachusetts enters the peak of infections, these sites will only become more necessary, and additional sites may be needed.</p>
+      <p>Below is a spreadsheet with all of the data currently on the above map. Because COVID-19’s impacts on our region and commonwealth are evolving every day, some testing centers or alternative shelters may be missing. If you know of such a facility that should be included, please reach out to Barry Keppard at
+      {' '}
+      <a href="mailto:bkeppard@mapc.org" className="calendar-viz__link">bkeppard@mapc.org</a>.
       </p>
-      <p>Governance in the time of COVID-19 is like nothing we have seen before, and unique problems require unique solutions. As the situation continues to evolve, the region and the commonwealth must continue to strive towards an equitable respsonse.</p>
-      <p>Below is a spreadsheet representing the data on the above map. If your test center or alternative shelter is not displayed, please contact us.</p>
       <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT4cTPo1GJnF8Wll4OOP-Ow-DaCQ3vsbKSS4oF3KUK2k-vEIwZHRamXr8lLN4BOPcv2yD5pFF0FyYiA/pubhtml?widget=true&amp;headers=false" className="calendar-viz__spreadsheet" />
     </>
   );
