@@ -11,6 +11,7 @@ const CalendarEntry = () => (
         <Route path="/calendar/2020/february" component={calendar2020.February} />
         <Route path="/calendar/2020/march" component={calendar2020.March} />
         <Route path="/calendar/2020/april" component={calendar2020.April} />
+        <Route path="/calendar/2020/may" component={calendar2020.May} />
       </Switch>
     </div>
   </section>
