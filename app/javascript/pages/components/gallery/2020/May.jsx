@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useEffect } from 'react';
 import Papa from 'papaparse';
 import mapboxgl from 'mapbox-gl';
 import testingCenter from '../../../assets/images/testing-center.svg';
@@ -8,7 +8,7 @@ import alternativeShelter from '../../../assets/images/alternative-shelter.svg';
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 
 const May = () => {
-  window.addEventListener('DOMContentLoaded', () => {
+  useEffect(() => {
     let zoom = 8.4;
     let center = [-70.944, 42.37];
     if (window.innerWidth <= 480) {
@@ -34,80 +34,67 @@ const May = () => {
       style: 'mapbox://styles/ihill/ck92yirkh2mt71ho83t7y60m9/draft',
     });
 
+    const addDataToMap = (sourceName, geojson, iconName) => {
+      mayMap.addSource(sourceName, {
+        type: 'geojson',
+        data: geojson,
+      });
+
+      mayMap.addLayer({
+        id: sourceName,
+        type: 'symbol',
+        source: sourceName,
+        layout: {
+          'icon-image': iconName,
+          'icon-size': 1,
+        },
+      });
+    };
 
     const loadDataPoints = () => {
-      const geojsonForTesting = {
-        type: 'FeatureCollection',
-        name: 'testingCenters',
-        crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
-        features: [],
-      };
       Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vT4cTPo1GJnF8Wll4OOP-Ow-DaCQ3vsbKSS4oF3KUK2k-vEIwZHRamXr8lLN4BOPcv2yD5pFF0FyYiA/pub?gid=0&single=true&output=csv', {
         download: true,
         header: true,
         complete(results) {
           const { data } = results;
+          const geojsonForTesting = {
+            type: 'FeatureCollection',
+            name: 'testingCenters',
+            crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
+            features: [],
+          };
           data.forEach((row) => {
             const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
             geojsonForTesting.features.push(entry);
           });
+          addDataToMap('testingCenters', geojsonForTesting, 'testing-center');
         },
       });
 
-      const geojsonForShelters = {
-        type: 'FeatureCollection',
-        name: 'alternativeShelters',
-        crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
-        features: [],
-      };
       Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vT4cTPo1GJnF8Wll4OOP-Ow-DaCQ3vsbKSS4oF3KUK2k-vEIwZHRamXr8lLN4BOPcv2yD5pFF0FyYiA/pub?gid=1774213708&single=true&output=csv', {
         download: true,
         header: true,
         complete(results) {
           const { data } = results;
+          const geojsonForShelters = {
+            type: 'FeatureCollection',
+            name: 'alternativeShelters',
+            crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
+            features: [],
+          };
           data.forEach((row) => {
             const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact, Address: row.Address }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
             geojsonForShelters.features.push(entry);
           });
+          addDataToMap('alternativeShelters', geojsonForShelters, 'alternative-shelter');
         },
       });
-
-      setTimeout(() => {
-        mayMap.addSource('testingCenters', {
-          type: 'geojson',
-          data: geojsonForTesting,
-        });
-
-        mayMap.addSource('alternativeShelters', {
-          type: 'geojson',
-          data: geojsonForShelters,
-        });
-
-        mayMap.addLayer({
-          id: 'testingCenters',
-          type: 'symbol',
-          source: 'testingCenters',
-          layout: {
-            'icon-image': 'testing-center',
-            'icon-size': 1,
-          },
-        });
-
-        mayMap.addLayer({
-          id: 'alternativeShelters',
-          type: 'symbol',
-          source: 'alternativeShelters',
-          layout: {
-            'icon-image': 'alternative-shelter',
-            'icon-size': 1,
-          },
-        });
-      }, 1500);
     };
 
     mayMap.on('load', () => {
       loadDataPoints();
       mayMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+      mayMap.resize();
     });
 
     mayMap.on('click', 'alternativeShelters', (e) => {
@@ -155,7 +142,11 @@ const May = () => {
       <p>In the weeks since Governor Baker declared a state of emergency, municipalities across the region and commonwealth at large have been quickly assembling the necessary infrastructure to combat COVID-19. While most of MAPC’s work focuses on the Metropolitan Boston region, this is an all-hands-on-deck situation requiring extra cross-collaboration.</p>
       <p>Massachusetts assembled a list of 76 identified COVID-19 testing centers from across the entire state, spread over 59 municipalities. 45 of those centers are in 30 municipalities in our region, primarily in the Inner Core. These locations do require a clinician’s referral and an appointment, so if you believe you need a test, you should begin by contacting your primary health care provider.</p>
       <p>While “social distancing” has become a part of many of our daily vocabularies, there are some people in our region who do not have that luxury. People experiencing homelessness are particularly vulnerable to the effects of COVID-19, but also first responders and coronavirus patients requiring post-acute care. In addition to traditional shelters, other institutions across the commonwealth are stepping up to provide alternative shelters to those in need. Some universities and hotels have opened up dorms and rooms to serve as alternative shelters, and the Boston Convention and Exhibition Center has opened 1,000 beds for patients in recovery.</p>
-      <p>Additionally, residents are forming unofficial grassroots organizations to help their neighbors. As highlighted in an <a href="https://www.bostonglobe.com/2020/04/15/metro/you-are-not-alone-there-is-hope-coronavirus-outbreak-spreads-so-does-volunteerism/" className="calendar-viz__link">April 15 Boston Globe article</a>, “mutual aid” groups such as Newton Neighbors Helping Newton Neighbors aim to connect vulnerable populations to volunteers offering to perform tasks such as grocery delivery.</p>
+      <p>
+Additionally, residents are forming unofficial grassroots organizations to help their neighbors. As highlighted in an
+        <a href="https://www.bostonglobe.com/2020/04/15/metro/you-are-not-alone-there-is-hope-coronavirus-outbreak-spreads-so-does-volunteerism/" className="calendar-viz__link">April 15 Boston Globe article</a>
+, “mutual aid” groups such as Newton Neighbors Helping Newton Neighbors aim to connect vulnerable populations to volunteers offering to perform tasks such as grocery delivery.
+      </p>
       <p>Governance in the time of COVID-19 is like nothing we have seen before, and unique problems require unique solutions. As the situation continues to evolve, the region and the commonwealth must continue to strive towards an equitable respsonse.</p>
       <p>Below is a spreadsheet representing the data on the above map. If your test center or alternative shelter is not displayed, please contact us.</p>
       <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT4cTPo1GJnF8Wll4OOP-Ow-DaCQ3vsbKSS4oF3KUK2k-vEIwZHRamXr8lLN4BOPcv2yD5pFF0FyYiA/pubhtml?widget=true&amp;headers=false" className="calendar-viz__spreadsheet" />
