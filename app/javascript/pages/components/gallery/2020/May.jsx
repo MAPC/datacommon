@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import Papa from 'papaparse';
 import mapboxgl from 'mapbox-gl';
 import alternativeShelter from '../../../assets/images/alternative-shelter.svg';
+import CallToAction from '../../partials/CallToAction';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 
@@ -33,7 +34,7 @@ const May = () => {
       style: 'mapbox://styles/ihill/ck92yirkh2mt71ho83t7y60m9/draft',
     });
 
-    const mapShelterData = (sourceName, geojson, iconName) => {
+    const mapShelterData = (sourceName, geojson) => {
       mayMap.addSource(sourceName, {
         type: 'geojson',
         data: geojson,
@@ -48,7 +49,7 @@ const May = () => {
         source: sourceName,
         filter: ['has', 'point_count'],
         layout: {
-          'icon-image': iconName,
+          'icon-image': 'alternative-shelter',
           'icon-allow-overlap': true,
           'icon-ignore-placement': true,
           'icon-offset': [0, 5],
@@ -75,7 +76,7 @@ const May = () => {
           'text-size': 14,
         },
         paint: {
-          'text-color': 'white',
+          'text-color': '#03332D',
         },
       });
 
@@ -85,7 +86,7 @@ const May = () => {
         source: sourceName,
         filter: ['!', ['has', 'point_count']],
         layout: {
-          'icon-image': iconName,
+          'icon-image': 'alternative-shelter',
           'icon-size': 0.5,
           'icon-allow-overlap': true,
         },
@@ -124,10 +125,10 @@ const May = () => {
         type: 'circle',
         source: sourceName,
         paint: {
-          'circle-color': '#03332D',
+          'circle-color': '#FFFFFF',
           'circle-radius': 4,
           'circle-stroke-width': 1,
-          'circle-stroke-color': '#fff',
+          'circle-stroke-color': '#03332D',
         },
       });
       if (mayMap.getLayer('Testing Centers') && mayMap.getLayer('Alternative Shelter clusters')) {
@@ -170,7 +171,7 @@ const May = () => {
             const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact, Address: row.Address }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
             geojsonForShelters.features.push(entry);
           });
-          mapShelterData('alternativeShelters', geojsonForShelters, 'alternative-shelter');
+          mapShelterData('alternativeShelters', geojsonForShelters);
         },
       });
     };
@@ -208,7 +209,7 @@ const May = () => {
           <svg height="170" width="160" className="map__legend map__legend--translucent">
             <image href={alternativeShelter} height="20" width="20" x="7" y="7" />
             <text x="32" y="22" className="map__legend-entry" fill="#1F4E46">Alternative shelter</text>
-            <circle cx="17" cy="42" r="4" stroke="white" strokeWidth="1" fill="#03332D" />
+            <circle cx="17" cy="42" r="4" stroke="#03332D" strokeWidth="1" fill="white" />
             <text x="32" y="47" className="map__legend-entry" fill="#1F4E46">Testing center</text>
             <text x="8" y="75" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Explore & Download</text>
             <text x="8" y="89" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Data</text>
@@ -233,17 +234,23 @@ const May = () => {
           </svg>
         </div>
       </div>
-      <p>In the weeks since Governor Baker declared a state of emergency, municipalities across the region and commonwealth at large have been quickly assembling the necessary infrastructure to combat COVID-19. While most of MAPC’s work focuses on the Metropolitan Boston region, this is an all-hands-on-deck situation requiring extra cross-collaboration.</p>
-      <p>As of April 24, there are 103 COVID-19 testing centers from across Massachusetts, spread over 72 municipalities. 64 of those centers are in 36 municipalities in our region, primarily in the Inner Core. When mobile testing at nursing homes, assisted living residences, and rest homes and facilities began as a pilot program on March 31, both the number of tests administered and percentage of tests returning positive increased. While this is due in part to viral spread, it also highlights the distinction between total cases and confirmed cases.</p>
-      <p>With an increase in confirmed cases comes an increased need for isolated quarantine spaces above and beyond what many of us are practicing as daily physical distancing. Existing shelters have found themselves in a unique conundrum: while the necessity for safe shelter is more pertinent than ever, bed capacities often must be lowered to keep facilities compliant with physical distancing guidelines. Additionally, some who test positive may not be able to safely return to their homes for self-isolation due to overcrowding or proximity to immunocompromised housemates.</p>
-      <p>In response, institutions such as hotels and universities across the commonwealth are partnering with municipalities and public health organizations to provide extra alternative shelters. Some are focusing on depopulating existing overcrowded shelters; others serve primarily to house first responders and front-line staff who cannot safely return to their primary residences. As Massachusetts enters the peak of infections, these sites will only become more necessary, and additional sites may be needed.</p>
+      <p>In the weeks since the COVID-19 emergency began, municipalities across the Commonwealth have been ramping up testing capacity as quickly as possible. As of May 1, the number of COVID-19 testing centers in Massachusetts has increased to 103. Sixty-four of those centers are concentrated in 36 municipalities located primarily in our region’s Inner Core, where there are many residents who live in places in which social distancing and quarantine are not possible.</p>
+      <p>With the expansion of testing, the number of confirmed cases grew – both because of the virus’s spread, and because of the increased rate of case identification. And with the concentration of testing in the Inner Core communities came a spike in confirmed cases among those with nowhere to quarantine themselves. Among these numbers are those who live in overcrowded places, those who live in close quarters with immunocompromised family members or housemates, and those who are homeless.</p>
+      <p>Existing shelters have found themselves in a conundrum: while the necessity for safe shelter is greater than ever, bed capacities often must be lowered to keep facilities compliant with physical distancing guidelines.</p>
+      <p>In response, institutions such as hotels and universities are partnering with municipalities and public health organizations to provide extra alternative shelters and isolation centers. Some are focusing on depopulating existing overcrowded shelters; others serve primarily to house first responders and front-line staff who cannot safely return to their primary residences. As Massachusetts enters the peak of infections, these sites will only become more necessary, and additional sites may be needed.</p>
       <p>
-Below is a spreadsheet with all of the data currently on the above map. Because COVID-19’s impacts on our region and commonwealth are evolving every day, some testing centers or alternative shelters may be missing. If you know of such a facility that should be included, please reach out to Barry Keppard at
+Below is a spreadsheet with all of the data currently on the above map. Because COVID-19’s impacts on our region and commonwealth are evolving every day, some testing facilities, alternative shelters, or isolation centers may be missing. If you know of such a facility that should be included, please reach out to Barry Keppard at
         {' '}
         <a href="mailto:bkeppard@mapc.org" className="calendar-viz__link">bkeppard@mapc.org</a>
 .
       </p>
-      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT4cTPo1GJnF8Wll4OOP-Ow-DaCQ3vsbKSS4oF3KUK2k-vEIwZHRamXr8lLN4BOPcv2yD5pFF0FyYiA/pubhtml?widget=true&amp;headers=false" className="calendar-viz__spreadsheet" />
+      <CallToAction
+        link="https://www.mapc.org/resource-library/covid-19-resources/"
+        text="View more MAPC COVID-19 resources"
+        isDefaultLength={false}
+        extraClassNames="calendar-viz__cta"
+      />
+      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT4cTPo1GJnF8Wll4OOP-Ow-DaCQ3vsbKSS4oF3KUK2k-vEIwZHRamXr8lLN4BOPcv2yD5pFF0FyYiA/pubhtml?widget=true&amp;headers=false" className="calendar-viz__spreadsheet"/>
     </>
   );
 };

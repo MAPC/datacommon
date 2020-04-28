@@ -17,6 +17,10 @@
     width: 170px;
     z-index: 10;
 
+    &--long {
+      width: 354px;
+    }
+
     &:hover {
       border-color: #3a9374;
     }
@@ -38,5 +42,9 @@
     top: 4px;
     transition: background .12s, left .12s;
     width: 170px;
+
+    &--long {
+      width: 354px;
+    }
   }
 }
