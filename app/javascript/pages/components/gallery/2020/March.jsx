@@ -25,9 +25,9 @@ const tooltipHtml = (development) => {
   return tooltipDetails;
 };
 
-const tooltipLeft = () => {
+const tooltipLeft = (left) => {
   const frameWidth = Math.round(getComputedStyle(document.querySelector('.d3-map')).width.slice(0, -2));
-  const xCoordinate = event.layerX;
+  const xCoordinate = Math.round(left);
   const tooltipWidth = +getComputedStyle(document.querySelector('.d3-map__tooltip')).width.slice(0, -2);
   if (xCoordinate > frameWidth / 2) {
     return `${xCoordinate - tooltipWidth - 5}px`;
@@ -35,10 +35,9 @@ const tooltipLeft = () => {
   return `${xCoordinate + 10}px`;
 };
 
-const tooltipTop = () => {
-  console.log(event);
+const tooltipTop = (top) => {
   const frameHeight = Math.round(getComputedStyle(document.querySelector('.d3-map')).height.slice(0, -2));
-  const yCoordinate = event.layerY;
+  const yCoordinate = Math.round(top);
   const tooltipHeight = +getComputedStyle(document.querySelector('.d3-map__tooltip')).height.slice(0, -2);
   if (yCoordinate > frameHeight / 2) {
     return `${yCoordinate - tooltipHeight - 5}px`;
@@ -233,8 +232,8 @@ const drawMap = (newDevelopments, selection) => {
           .duration(50)
           .style('opacity', 0.9);
         tooltip.html(tooltipHtml(development))
-          .style('left', tooltipLeft())
-          .style('top', tooltipTop());
+          .style('left', tooltipLeft(projection(development.coordinates)[0]))
+          .style('top', tooltipTop(projection(development.coordinates)[1]));
       })
       .on('mouseleave', () => {
         tooltip.transition()
