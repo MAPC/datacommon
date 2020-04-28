@@ -33,124 +33,106 @@ const May = () => {
       style: 'mapbox://styles/ihill/ck92yirkh2mt71ho83t7y60m9/draft',
     });
 
-    const addDataToMap = (sourceName, geojson, iconName) => {
-      if (sourceName === 'alternativeShelters') {
-        mayMap.addSource(sourceName, {
-          type: 'geojson',
-          data: geojson,
-          cluster: true,
-          clusterMaxZoom: 13, // Max zoom to cluster points on
-          clusterRadius: 30, // Radius of each cluster when clustering points (defaults to 50)
-        });
+    const mapShelterData = (sourceName, geojson, iconName) => {
+      mayMap.addSource(sourceName, {
+        type: 'geojson',
+        data: geojson,
+        cluster: true,
+        clusterMaxZoom: 13, // Max zoom to cluster points on
+        clusterRadius: 30, // Radius of each cluster when clustering points (defaults to 50)
+      });
 
-        mayMap.addLayer({
-          id: sourceName,
-          type: 'symbol',
-          source: sourceName,
-          filter: ['has', 'point_count'],
-          layout: {
-            'icon-image': iconName,
-            'icon-allow-overlap': true,
-            'icon-offset': [0, 5],
-            'icon-size': [
-              'step',
-              ['get', 'point_count'],
-              0.75,
-              7,
-              1,
-              15,
-              1.25,
-            ],
-          },
-        });
+      mayMap.addLayer({
+        id: 'Alternative Shelter clusters',
+        type: 'symbol',
+        source: sourceName,
+        filter: ['has', 'point_count'],
+        layout: {
+          'icon-image': iconName,
+          'icon-allow-overlap': true,
+          'icon-ignore-placement': true,
+          'icon-offset': [0, 5],
+          'icon-size': [
+            'step',
+            ['get', 'point_count'],
+            0.75,
+            7,
+            1,
+            15,
+            1.25,
+          ],
+        },
+      });
 
-        mayMap.addLayer({
-          id: `cluster-count_${sourceName}`,
-          type: 'symbol',
-          source: sourceName,
-          filter: ['has', 'point_count'],
-          layout: {
-            'text-field': '{point_count_abbreviated}',
-            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-            'text-size': 14,
-          },
-          paint: {
-            'text-color': 'white',
-          },
-        });
+      mayMap.addLayer({
+        id: 'Alternative Shelter cluster count',
+        type: 'symbol',
+        source: sourceName,
+        filter: ['has', 'point_count'],
+        layout: {
+          'text-field': '{point_count_abbreviated}',
+          'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+          'text-size': 14,
+        },
+        paint: {
+          'text-color': 'white',
+        },
+      });
 
-        mayMap.addLayer({
-          id: `unclustered-point_${sourceName}`,
-          type: 'symbol',
-          source: sourceName,
-          filter: ['!', ['has', 'point_count']],
-          layout: {
-            'icon-image': iconName,
-            'icon-size': 0.5,
-            'icon-allow-overlap': true,
-          },
-        });
+      mayMap.addLayer({
+        id: 'Unclustered Alternative Shelter',
+        type: 'symbol',
+        source: sourceName,
+        filter: ['!', ['has', 'point_count']],
+        layout: {
+          'icon-image': iconName,
+          'icon-size': 0.5,
+          'icon-allow-overlap': true,
+        },
+      });
 
-        mayMap.on('click', sourceName, (e) => {
-          const features = mayMap.queryRenderedFeatures(e.point, {
-            layers: [sourceName],
-          });
-          const clusterId = features[0].properties.cluster_id;
-          mayMap.getSource(sourceName).getClusterExpansionZoom(
-            clusterId,
-            (err, zoomIn) => {
-              if (err) return;
-              mayMap.easeTo({
-                center: features[0].geometry.coordinates,
-                zoom: zoomIn,
-              });
-            },
-          );
-        });
-      } else if (sourceName === 'testingCenters') {
-        mayMap.addSource(sourceName, {
-          type: 'geojson',
-          data: geojson,
-        });
-
-        mayMap.addLayer({
-          id: `unclustered-point_${sourceName}`,
-          type: 'circle',
-          source: sourceName,
-          paint: {
-            'circle-color': '#03332D',
-            'circle-radius': 4,
-            'circle-stroke-width': 1,
-            'circle-stroke-color': '#fff',
-          },
-        });
+      if (mayMap.getLayer('Testing Centers') && mayMap.getLayer('Alternative Shelter clusters')) {
+        mayMap.moveLayer('Testing Centers', 'Alternative Shelter clusters');
       }
 
-      mayMap.on('click', `unclustered-point_${sourceName}`, (e) => {
-        const title = e.features[0].properties.Name !== '' ? `<p class='tooltip__title'>${e.features[0].properties.Name}</p>` : `<p class='tooltip__title'>${e.features[0].properties.Address}</p>`;
-        new mapboxgl.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML(title)
-          .addTo(mayMap);
+      mayMap.on('click', 'Alternative Shelter clusters', (e) => {
+        const features = mayMap.queryRenderedFeatures(e.point, {
+          layers: ['Alternative Shelter clusters'],
+        });
+        const clusterId = features[0].properties.cluster_id;
+        mayMap.getSource(sourceName).getClusterExpansionZoom(
+          clusterId,
+          (err, zoomIn) => {
+            if (err) return;
+            mayMap.easeTo({
+              center: features[0].geometry.coordinates,
+              zoom: zoomIn,
+            });
+          },
+        );
+      });
+    };
+
+    const mapTestingCenters = (sourceName, geojson) => {
+      mayMap.addSource(sourceName, {
+        type: 'geojson',
+        data: geojson,
       });
 
-      mayMap.on('mouseenter', sourceName, () => {
-        mayMap.getCanvas().style.cursor = 'pointer';
+      mayMap.addLayer({
+        id: 'Testing Centers',
+        type: 'circle',
+        source: sourceName,
+        paint: {
+          'circle-color': '#03332D',
+          'circle-radius': 4,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#fff',
+        },
       });
-
-      mayMap.on('mouseleave', sourceName, () => {
-        mayMap.getCanvas().style.cursor = '';
-      });
-
-      mayMap.on('mouseenter', `unclustered-point_${sourceName}`, () => {
-        mayMap.getCanvas().style.cursor = 'pointer';
-      });
-
-      mayMap.on('mouseleave', `unclustered-point_${sourceName}`, () => {
-        mayMap.getCanvas().style.cursor = '';
-      });
-
-      mayMap.moveLayer('unclustered-point_testingCenters', 'alternativeShelters');
+      if (mayMap.getLayer('Testing Centers') && mayMap.getLayer('Alternative Shelter clusters')) {
+        mayMap.moveLayer('Testing Centers', 'Alternative Shelter clusters');
+      }
     };
 
     const loadDataPoints = () => {
@@ -169,7 +151,7 @@ const May = () => {
             const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
             geojsonForTesting.features.push(entry);
           });
-          addDataToMap('testingCenters', geojsonForTesting, 'testing-center');
+          mapTestingCenters('testingCenters', geojsonForTesting);
         },
       });
 
@@ -188,7 +170,7 @@ const May = () => {
             const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact, Address: row.Address }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
             geojsonForShelters.features.push(entry);
           });
-          addDataToMap('alternativeShelters', geojsonForShelters, 'alternative-shelter');
+          mapShelterData('alternativeShelters', geojsonForShelters, 'alternative-shelter');
         },
       });
     };
@@ -197,6 +179,23 @@ const May = () => {
       loadDataPoints();
       mayMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
       mayMap.resize();
+      ['Alternative Shelter clusters', 'Alternative Shelter cluster count', 'Unclustered Alternative Shelter', 'Testing Centers'].forEach((layer) => {
+        mayMap.on('mouseenter', layer, () => {
+          mayMap.getCanvas().style.cursor = 'pointer';
+        });
+        mayMap.on('mouseleave', layer, () => {
+          mayMap.getCanvas().style.cursor = '';
+        });
+      });
+      ['Unclustered Alternative Shelter', 'Testing Centers'].forEach((layer) => {
+        mayMap.on('click', layer, (e) => {
+          const title = e.features[0].properties.Name !== '' ? `<p class='tooltip__title'>${e.features[0].properties.Name}</p>` : `<p class='tooltip__title'>${e.features[0].properties.Address}</p>`;
+          new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(title)
+            .addTo(mayMap);
+        });
+      });
     });
   });
 
