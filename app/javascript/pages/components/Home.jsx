@@ -44,7 +44,7 @@ class Home extends React.Component {
           <div className="gallery-spotlight__info">
             <p>Find and explore data visualizations about the region. Check back monthly or sign up for our newsletter to receive maps and data visualizations. We cover a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
             <p>
-              <strong>May’s visualization</strong> highlights the work municipalities across Massachusetts have done to increase available shelters for the folks most impacted by COVID-19. As testing becomes more widespread and suspected cases are confirmed, these shelters will only become more invaluable.</p>
+              <strong>May’s visualization</strong> highlights the work municipalities across Massachusetts have done to increase available shelters and isolation centers for the folks most impacted by COVID-19. As testing becomes more widespread and suspected cases are confirmed, these facilities will only become more invaluable.</p>
             <CallToAction
               link="/gallery"
               text="View Gallery"

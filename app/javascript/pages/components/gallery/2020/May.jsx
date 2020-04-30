@@ -31,7 +31,7 @@ const May = () => {
         [-74.728, 38.167], // Southwest bound
         [-66.541, 46.032], // Northeast bound
       ],
-      style: 'mapbox://styles/ihill/ck92yirkh2mt71ho83t7y60m9/draft',
+      style: 'mapbox://styles/ihill/ck92yirkh2mt71ho83t7y60m9',
     });
 
     const mapShelterData = (sourceName, geojson) => {
@@ -206,38 +206,42 @@ const May = () => {
       <div className="calendar-viz__wrapper">
         <div id="mayMap" className="mapboxgl__container" />
         <div className="map__overlay" style={{ top: '98px' }}>
-          <svg height="170" width="160" className="map__legend map__legend--translucent">
-            <image href={alternativeShelter} height="20" width="20" x="7" y="7" />
-            <text x="32" y="22" className="map__legend-entry" fill="#1F4E46">Alternative shelter</text>
-            <circle cx="17" cy="42" r="4" stroke="#03332D" strokeWidth="1" fill="white" />
-            <text x="32" y="47" className="map__legend-entry" fill="#1F4E46">Testing center</text>
-            <text x="8" y="75" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Explore & Download</text>
-            <text x="8" y="89" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Data</text>
-            <text x="8" y="105" className="map__legend-entry" fill="#03332D">
+          <svg height="184" width="160" className="map__legend map__legend--translucent">
+            <image href={alternativeShelter} height="20" width="20" x="7" y="14" />
+            <text x="32" y="22" className="map__legend-entry" fill="#1F4E46">Alternative shelter/</text>
+            <text x="32" y="36" className="map__legend-entry" fill="#1F4E46">isolation center</text>
+            <circle cx="17" cy="52" r="4" stroke="#03332D" strokeWidth="1" fill="white" />
+            <text x="32" y="56" className="map__legend-entry" fill="#1F4E46">Testing center</text>
+            <text x="8" y="76" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Explore & Download</text>
+            <text x="8" y="90" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Data</text>
+            <text x="8" y="110" className="map__legend-entry" fill="#03332D">
               &#8226;
               {' '}
               <a href="https://www.mass.gov/doc/ma-covid-19-testing-sites/download" className="calendar-viz__link" fill="#1F4E46">COVID-19 testing sites</a>
             </text>
-            <text x="8" y="121" className="map__legend-entry" fill="#1F4E46">
+            <text x="8" y="124" className="map__legend-entry" fill="#1F4E46">
               &#8226;
               {' '}
               <a href="https://docs.google.com/spreadsheets/d/1RYc2Y0wgjzt4liubLk_l631zUeAIz9ilCFHYNsthimU/edit?usp=sharing" className="calendar-viz__link" fill="#1F4E46">Alternative shelters</a>
             </text>
-            <text x="8" y="137" className="map__legend-entry" fill="#1F4E46">
+            <text x="15" y="138" className="map__legend-entry" fill="#1F4E46">
+              <a href="https://docs.google.com/spreadsheets/d/1RYc2Y0wgjzt4liubLk_l631zUeAIz9ilCFHYNsthimU/edit?usp=sharing" className="calendar-viz__link" fill="#1F4E46">& isolation centers</a>
+            </text>
+            <text x="8" y="152" className="map__legend-entry" fill="#1F4E46">
               &#8226;
               {' '}
               <a href="https://www.mass.gov/info-details/archive-of-covid-19-cases-in-massachusetts" className="calendar-viz__link" fill="#1F4E46">Massachusetts</a>
             </text>
-            <text x="15" y="152" className="map__legend-entry" fill="#1F4E46">
+            <text x="15" y="166" className="map__legend-entry" fill="#1F4E46">
               <a href="https://www.mass.gov/info-details/archive-of-covid-19-cases-in-massachusetts" className="calendar-viz__link" fill="#1F4E46">COVID-19 dashboards</a>
             </text>
           </svg>
         </div>
       </div>
-      <p>In the weeks since the COVID-19 emergency began, municipalities across the Commonwealth have been ramping up testing capacity as quickly as possible. As of May 1, the number of COVID-19 testing centers in Massachusetts has increased to 103. Sixty-four of those centers are concentrated in 36 municipalities located primarily in our region’s Inner Core, where there are many residents who live in places in which social distancing and quarantine are not possible.</p>
+      <p>In the weeks since the COVID-19 emergency began, municipalities across the Commonwealth have been ramping up testing capacity as quickly as possible. As of April 30, the number of COVID-19 testing centers in Massachusetts has increased to 114. Sixty-five of those centers are located in 36 municipalities in our region, primarily concentrated in the Inner Core.</p>
       <p>With the expansion of testing, the number of confirmed cases grew – both because of the virus’s spread, and because of the increased rate of case identification. And with the concentration of testing in the Inner Core communities came a spike in confirmed cases among those with nowhere to quarantine themselves. Among these numbers are those who live in overcrowded places, those who live in close quarters with immunocompromised family members or housemates, and those who are homeless.</p>
       <p>Existing shelters have found themselves in a conundrum: while the necessity for safe shelter is greater than ever, bed capacities often must be lowered to keep facilities compliant with physical distancing guidelines.</p>
-      <p>In response, institutions such as hotels and universities are partnering with municipalities and public health organizations to provide extra alternative shelters and isolation centers. Some are focusing on depopulating existing overcrowded shelters; others serve primarily to house first responders and front-line staff who cannot safely return to their primary residences. As Massachusetts enters the peak of infections, these sites will only become more necessary, and additional sites may be needed.</p>
+      <p>In response, institutions such as hotels and universities are partnering with municipalities and public health organizations to provide extra alternative shelters and isolation centers. Some are focusing on depopulating existing overcrowded shelters; others serve primarily to house first responders and front-line staff who cannot safely return to their primary residences. As Massachusetts undergoes the peak of infections, these sites will only become more necessary, and additional sites may be needed.</p>
       <p>
 Below is a spreadsheet with all of the data currently on the above map. Because COVID-19’s impacts on our region and commonwealth are evolving every day, some testing facilities, alternative shelters, or isolation centers may be missing. If you know of such a facility that should be included, please reach out to Barry Keppard at
         {' '}
