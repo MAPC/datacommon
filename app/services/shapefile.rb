@@ -25,12 +25,12 @@ class Shapefile
   end
 
   def to_shp(table_name, database_name)
-    template = ERB.new File.new("config/settings.yml").read
+    template = ERB.new File.new("config/database.yml").read
     @settings = YAML.load(template.result(binding))
     file_name = "export-#{table_name}"
     arguments = []
     arguments << %Q(-f 'ESRI Shapefile' #{File.join(CACHE_DIR, file_name)}.shp)
-    arguments << %Q(PG:'host=#{@settings['database']['host']} port=#{@settings['database']['port']} user=#{@settings['database']['username']} dbname=#{allowed_database_name(database_name)} password=#{@settings['database']['password']}')
+    arguments << %Q(PG:'host=#{@settings['default']['host']} port=#{@settings['default']['port']} user=#{@settings['default']['username']} dbname=#{allowed_database_name(database_name)} password=#{@settings['default']['password']}')
     arguments << %Q(-sql 'SELECT *,sde.ST_AsText(shape) FROM #{table_name}' -skipfailures)
 
     `ogr2ogr #{arguments.join(" ")}`
