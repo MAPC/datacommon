@@ -21,13 +21,13 @@ def zip(file_name)
 end
 
 def to_shp(table_name, database_name)
-  template = ERB.new File.new("config/settings.yml").read
+  template = ERB.new File.new("config/database.yml").read
   @settings = YAML.load template.result(binding)
 
   file_name = "export-#{table_name}"
   arguments = []
   arguments << %Q(-f 'ESRI Shapefile' #{File.join(CACHE_DIR, file_name)}.shp)
-  arguments << %Q(PG:'host=#{@settings['database']['host']} port=#{@settings['database']['port']} user=#{@settings['database']['username']} dbname=#{database_name} password=#{@settings['database']['password']}')
+  arguments << %Q(PG:'host=#{@settings['default']['host']} port=#{@settings['default']['port']} user=#{@settings['default']['username']} dbname=#{database_name} password=#{@settings['default']['password']}')
   arguments << %Q(-sql 'SELECT *,sde.ST_AsText(shape) FROM #{table_name}' -skipfailures)
 
   `ogr2ogr #{arguments.join(" ")}`
@@ -36,13 +36,13 @@ def to_shp(table_name, database_name)
 end
 
 def to_csv(table_name, database_name)
-  template = ERB.new File.new("config/settings.yml").read
+  template = ERB.new File.new("config/database.yml").read
   @settings = YAML.load template.result(binding)
 
   file_name = "#{table_name}.csv"
   arguments = []
   arguments << %Q(-c "\\copy (SELECT * FROM #{table_name}) to '#{File.join(CACHE_DIR, file_name)}' with csv header")
-  arguments << %Q(-w -h #{@settings['database']['host']} -p #{@settings['database']['port']} -U #{@settings['database']['username']} -d #{database_name})
+  arguments << %Q(-w -h #{@settings['default']['host']} -p #{@settings['default']['port']} -U #{@settings['default']['username']} -d #{database_name})
   arguments << %Q(> log/psql.log 2>&1)
 
   `psql #{arguments.join(" ")}`
@@ -52,17 +52,17 @@ def to_csv(table_name, database_name)
   return file_name
 end
 
-template = ERB.new File.new("config/settings.yml").read
+template = ERB.new File.new("config/database.yml").read
 @settings = YAML.load template.result(binding)
 
 connection = ActiveRecord::Base.establish_connection(
   adapter:  'postgresql',
-  host: @settings['database']['host'],
-  port: @settings['database']['port'],
-  database: @settings['database']['tabular']['database'],
-  username: @settings['database']['username'],
-  password: @settings['database']['password'],
-  schema_search_path: @settings['database']['tabular']['schema']['data']
+  host: @settings['default']['host'],
+  port: @settings['default']['port'],
+  database: @settings['default']['tabular']['database'],
+  username: @settings['default']['username'],
+  password: @settings['default']['password'],
+  schema_search_path: @settings['default']['tabular']['schema_search_path']
 )
 
 tables = ActiveRecord::Base.connection.execute("SELECT * FROM tabular._data_browser WHERE db_name = 'gisdata';")

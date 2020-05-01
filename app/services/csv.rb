@@ -22,7 +22,7 @@ class Csv
   end
 
   def to_csv(table_name, database_name, years = nil, year_col = nil)
-    template = ERB.new File.new("config/settings.yml").read
+    template = ERB.new File.new("config/database.yml").read
     @settings = YAML.load template.result(binding)
 
     file_name = generate_filename(table_name, years)
@@ -35,7 +35,7 @@ class Csv
     end
 
     arguments << %Q(\) to '#{File.join(CACHE_DIR, file_name)}' with csv header")
-    arguments << %Q(-w -h #{@settings['database']['host']} -p #{@settings['database']['port']} -U #{@settings['database']['username']} -d #{allowed_database_name(database_name)})
+    arguments << %Q(-w -h #{@settings['default']['host']} -p #{@settings['default']['port']} -U #{@settings['default']['username']} -d #{allowed_database_name(database_name)})
 
     psql_out = `psql #{arguments.join(' ')} 2>&1`
     FileUtils.mkdir_p('log')
