@@ -2,7 +2,7 @@
 
 ## Installation
 1. `bin/setup`
-2. Setup your database settings by either replacing the values in settings.yml with real values or settings them in your `.env` file.
+2. Setup your database settings by either replacing the values in database.yml with real values or settings them in your `.env` file.
 3. For the shapefile endpoint make sure your server has ogr2ogr. If it is an Ubuntu server you can follow the instructions to [install GDAL on Ubuntu](http://www.sarasafavi.com/installing-gdalogr-on-ubuntu.html):
 ```
 sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update
