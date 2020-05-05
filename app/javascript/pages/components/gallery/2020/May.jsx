@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
-import React, { useEffect } from 'react';
-import Papa from 'papaparse';
+import React from 'react';
+import * as d3 from 'd3';
 import mapboxgl from 'mapbox-gl';
 import alternativeShelter from '../../../assets/images/alternative-shelter.svg';
 import CallToAction from '../../partials/CallToAction';
@@ -8,7 +8,32 @@ import CallToAction from '../../partials/CallToAction';
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 
 const May = () => {
-  useEffect(() => {
+  Promise.all([
+    d3.csv('/assets/may2020__testing-centers.csv'),
+    d3.csv('/assets/may2020__shelters.csv'),
+  ]).then((response) => {
+    const geojsonForTesting = {
+      type: 'FeatureCollection',
+      name: 'testingCenters',
+      crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
+      features: [],
+    };
+    response[0].forEach((row) => {
+      const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
+      geojsonForTesting.features.push(entry);
+    });
+
+    const geojsonForShelters = {
+      type: 'FeatureCollection',
+      name: 'alternativeShelters',
+      crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
+      features: [],
+    };
+    response[1].forEach((row) => {
+      const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
+      geojsonForShelters.features.push(entry);
+    });
+
     let zoom = 8.4;
     let center = [-70.944, 42.37];
     if (window.innerWidth <= 480) {
@@ -34,41 +59,49 @@ const May = () => {
       style: 'mapbox://styles/ihill/ck92yirkh2mt71ho83t7y60m9',
     });
 
-    const mapShelterData = (sourceName, geojson) => {
-      mayMap.addSource(sourceName, {
+    mayMap.on('load', () => {
+      mayMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+      mayMap.resize();
+      mayMap.addSource('testingCenters', {
         type: 'geojson',
-        data: geojson,
+        data: geojsonForTesting,
+      });
+      mayMap.addLayer({
+        id: 'Testing Centers',
+        type: 'circle',
+        source: 'testingCenters',
+        paint: {
+          'circle-color': '#FFFFFF',
+          'circle-radius': 4,
+          'circle-stroke-width': 1,
+          'circle-stroke-color': '#03332D',
+        },
+      });
+
+      mayMap.addSource('alternativeShelters', {
+        type: 'geojson',
+        data: geojsonForShelters,
         cluster: true,
         clusterMaxZoom: 13, // Max zoom to cluster points on
         clusterRadius: 30, // Radius of each cluster when clustering points (defaults to 50)
       });
-
       mayMap.addLayer({
         id: 'Alternative Shelter clusters',
         type: 'symbol',
-        source: sourceName,
+        source: 'alternativeShelters',
         filter: ['has', 'point_count'],
         layout: {
           'icon-image': 'alternative-shelter',
           'icon-allow-overlap': true,
           'icon-ignore-placement': true,
           'icon-offset': [0, 5],
-          'icon-size': [
-            'step',
-            ['get', 'point_count'],
-            0.75,
-            7,
-            1,
-            15,
-            1.25,
-          ],
+          'icon-size': ['step', ['get', 'point_count'], 0.75, 7, 1, 15, 1.25],
         },
       });
-
       mayMap.addLayer({
         id: 'Alternative Shelter cluster count',
         type: 'symbol',
-        source: sourceName,
+        source: 'alternativeShelters',
         filter: ['has', 'point_count'],
         layout: {
           'text-field': '{point_count_abbreviated}',
@@ -79,11 +112,10 @@ const May = () => {
           'text-color': '#03332D',
         },
       });
-
       mayMap.addLayer({
         id: 'Unclustered Alternative Shelter',
         type: 'symbol',
-        source: sourceName,
+        source: 'alternativeShelters',
         filter: ['!', ['has', 'point_count']],
         layout: {
           'icon-image': 'alternative-shelter',
@@ -92,16 +124,31 @@ const May = () => {
         },
       });
 
-      if (mayMap.getLayer('Testing Centers') && mayMap.getLayer('Alternative Shelter clusters')) {
-        mayMap.moveLayer('Testing Centers', 'Alternative Shelter clusters');
-      }
+      ['Alternative Shelter clusters', 'Alternative Shelter cluster count', 'Unclustered Alternative Shelter', 'Testing Centers'].forEach((layer) => {
+        mayMap.on('mouseenter', layer, () => {
+          mayMap.getCanvas().style.cursor = 'pointer';
+        });
+        mayMap.on('mouseleave', layer, () => {
+          mayMap.getCanvas().style.cursor = '';
+        });
+      });
+
+      ['Unclustered Alternative Shelter', 'Testing Centers'].forEach((layer) => {
+        mayMap.on('click', layer, (e) => {
+          const title = e.features[0].properties.Name !== '' ? `<p class='tooltip__title'>${e.features[0].properties.Name}</p>` : `<p class='tooltip__title'>${e.features[0].properties.Address}</p>`;
+          new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(title)
+            .addTo(mayMap);
+        });
+      });
 
       mayMap.on('click', 'Alternative Shelter clusters', (e) => {
         const features = mayMap.queryRenderedFeatures(e.point, {
           layers: ['Alternative Shelter clusters'],
         });
         const clusterId = features[0].properties.cluster_id;
-        mayMap.getSource(sourceName).getClusterExpansionZoom(
+        mayMap.getSource('alternativeShelters').getClusterExpansionZoom(
           clusterId,
           (err, zoomIn) => {
             if (err) return;
@@ -112,94 +159,8 @@ const May = () => {
           },
         );
       });
-    };
-
-    const mapTestingCenters = (sourceName, geojson) => {
-      mayMap.addSource(sourceName, {
-        type: 'geojson',
-        data: geojson,
-      });
-
-      mayMap.addLayer({
-        id: 'Testing Centers',
-        type: 'circle',
-        source: sourceName,
-        paint: {
-          'circle-color': '#FFFFFF',
-          'circle-radius': 4,
-          'circle-stroke-width': 1,
-          'circle-stroke-color': '#03332D',
-        },
-      });
-      if (mayMap.getLayer('Testing Centers') && mayMap.getLayer('Alternative Shelter clusters')) {
-        mayMap.moveLayer('Testing Centers', 'Alternative Shelter clusters');
-      }
-    };
-
-    const loadDataPoints = () => {
-      Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vT4cTPo1GJnF8Wll4OOP-Ow-DaCQ3vsbKSS4oF3KUK2k-vEIwZHRamXr8lLN4BOPcv2yD5pFF0FyYiA/pub?gid=0&single=true&output=csv', {
-        download: true,
-        header: true,
-        complete(results) {
-          const { data } = results;
-          const geojsonForTesting = {
-            type: 'FeatureCollection',
-            name: 'testingCenters',
-            crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
-            features: [],
-          };
-          data.forEach((row) => {
-            const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
-            geojsonForTesting.features.push(entry);
-          });
-          mapTestingCenters('testingCenters', geojsonForTesting);
-        },
-      });
-
-      Papa.parse('https://docs.google.com/spreadsheets/d/e/2PACX-1vT4cTPo1GJnF8Wll4OOP-Ow-DaCQ3vsbKSS4oF3KUK2k-vEIwZHRamXr8lLN4BOPcv2yD5pFF0FyYiA/pub?gid=1774213708&single=true&output=csv', {
-        download: true,
-        header: true,
-        complete(results) {
-          const { data } = results;
-          const geojsonForShelters = {
-            type: 'FeatureCollection',
-            name: 'alternativeShelters',
-            crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
-            features: [],
-          };
-          data.forEach((row) => {
-            const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact, Address: row.Address }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
-            geojsonForShelters.features.push(entry);
-          });
-          mapShelterData('alternativeShelters', geojsonForShelters);
-        },
-      });
-    };
-
-    mayMap.on('load', () => {
-      loadDataPoints();
-      mayMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-      mayMap.resize();
-      ['Alternative Shelter clusters', 'Alternative Shelter cluster count', 'Unclustered Alternative Shelter', 'Testing Centers'].forEach((layer) => {
-        mayMap.on('mouseenter', layer, () => {
-          mayMap.getCanvas().style.cursor = 'pointer';
-        });
-        mayMap.on('mouseleave', layer, () => {
-          mayMap.getCanvas().style.cursor = '';
-        });
-      });
-      ['Unclustered Alternative Shelter', 'Testing Centers'].forEach((layer) => {
-        mayMap.on('click', layer, (e) => {
-          const title = e.features[0].properties.Name !== '' ? `<p class='tooltip__title'>${e.features[0].properties.Name}</p>` : `<p class='tooltip__title'>${e.features[0].properties.Address}</p>`;
-          new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML(title)
-            .addTo(mayMap);
-        });
-      });
     });
   });
-
   return (
     <>
       <h1 className="calendar-viz__title">Responding to COVID-19</h1>
@@ -222,10 +183,10 @@ const May = () => {
             <text x="8" y="124" className="map__legend-entry" fill="#1F4E46">
               &#8226;
               {' '}
-              <a href="https://docs.google.com/spreadsheets/d/1RYc2Y0wgjzt4liubLk_l631zUeAIz9ilCFHYNsthimU/edit?usp=sharing" className="calendar-viz__link" fill="#1F4E46">Alternative shelters</a>
+              <a href="https://mapc365.sharepoint.com/:x:/s/DataServicesSP/ET8f2yfgFPRLjQ2YDhIhWGQB_azsNvGzPC-IR539rVymFA?e=wDc9MR" className="calendar-viz__link" fill="#1F4E46">Alternative shelters</a>
             </text>
             <text x="15" y="138" className="map__legend-entry" fill="#1F4E46">
-              <a href="https://docs.google.com/spreadsheets/d/1RYc2Y0wgjzt4liubLk_l631zUeAIz9ilCFHYNsthimU/edit?usp=sharing" className="calendar-viz__link" fill="#1F4E46">& isolation centers</a>
+              <a href="https://mapc365.sharepoint.com/:x:/s/DataServicesSP/ET8f2yfgFPRLjQ2YDhIhWGQB_azsNvGzPC-IR539rVymFA?e=wDc9MR" className="calendar-viz__link" fill="#1F4E46">& isolation centers</a>
             </text>
             <text x="8" y="152" className="map__legend-entry" fill="#1F4E46">
               &#8226;
@@ -243,7 +204,7 @@ const May = () => {
       <p>Existing shelters have found themselves in a conundrum: while the necessity for safe shelter is greater than ever, bed capacities often must be lowered to keep facilities compliant with physical distancing guidelines.</p>
       <p>In response, institutions such as hotels and universities are partnering with municipalities and public health organizations to provide extra alternative shelters and isolation centers. Some are focusing on depopulating existing overcrowded shelters; others serve primarily to house first responders and front-line staff who cannot safely return to their primary residences. As Massachusetts undergoes the peak of infections, these sites will only become more necessary, and additional sites may be needed.</p>
       <p>
-Below is a spreadsheet with all of the data currently on the above map. Because COVID-19’s impacts on our region and commonwealth are evolving every day, some testing facilities, alternative shelters, or isolation centers may be missing. If you know of such a facility that should be included, please reach out to Barry Keppard at
+        <a href="https://mapc365.sharepoint.com/:x:/s/DataServicesSP/ET8f2yfgFPRLjQ2YDhIhWGQB_azsNvGzPC-IR539rVymFA?e=wDc9MR" className="calendar-viz__link">This spreadsheet</a> contains all of the data currently on the above map. Because COVID-19’s impacts on our region and commonwealth are evolving every day, some testing facilities, alternative shelters, or isolation centers may be missing. If you know of such a facility that should be included, please reach out to Barry Keppard at
         {' '}
         <a href="mailto:bkeppard@mapc.org" className="calendar-viz__link">bkeppard@mapc.org</a>
 .
@@ -254,7 +215,6 @@ Below is a spreadsheet with all of the data currently on the above map. Because 
         isDefaultLength={false}
         extraClassNames="calendar-viz__cta"
       />
-      <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT4cTPo1GJnF8Wll4OOP-Ow-DaCQ3vsbKSS4oF3KUK2k-vEIwZHRamXr8lLN4BOPcv2yD5pFF0FyYiA/pubhtml?widget=true&amp;headers=false" className="calendar-viz__spreadsheet"/>
     </>
   );
 };
