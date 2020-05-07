@@ -1,0 +1,11 @@
+﻿soc_2,Occupation (shortened),Occupation,pre_firstquartile,pre_median,pre_thirdquartile,pre_mean,post_firstquartile,post_median,post_thirdquartile,post_mean,n
+11,Management,Management Occupations,"53,219","87,239","135,222","113,928","57,809","73,996","73,996","65,317",404914
+13,Business and Financial Operations,Business and Financial Operations Occupations,"47,670","70,422","106,439","92,562","55,035","66,411","73,996","62,892",207777
+15,Computer and Mathematical,Computer and Mathematical Occupations,"62,158","92,692","126,521","99,978","62,279","73,996","73,996","66,654",144803
+17,Architecture and Engineering,Architecture and Engineering Occupations,"59,245","85,589","114,841","93,756","60,823","73,994","73,996","66,164",82605
+19,"Life, Physical, and Social Science","Life, Physical, and Social Science Occupations","39,258","66,011","106,868","83,436","50,829","64,206","73,996","61,202",64618
+21,Community and Social Service,Community and Social Service Occupations,"28,789","43,620","63,863","47,893","45,594","53,010","63,131","54,181",70483
+23,Legal,Legal Occupations,"51,708","88,015","175,624","140,094","57,054","73,996","73,996","64,986",42040
+25,"Education, Training, and Library","Education, Training, and Library Occupations","22,751","48,068","76,334","54,883","42,576","55,234","69,367","55,364",251693
+27,"Arts, Design, Entertainment, Sports, and Media","Arts, Design, Entertainment, Sports, and Media Occupations","24,204","50,162","79,829","60,107","43,302","56,281","71,115","55,958",62248
+29,Healthcare Practitioners and Technical,Healthcare Practitioners and Technical Occupations,"43,336","68,254","102,841","91,994","52,868","65,327","73,996","62,174",229131

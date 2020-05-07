@@ -1,0 +1,24 @@
+﻿soc_2,Occupation (shortened),Occupation,pre_firstquartile,pre_median,pre_thirdquartile,pre_mean,post_firstquartile,post_median,post_thirdquartile,post_mean,n
+11,Management,Management Occupations,"53,219","87,239","135,222","113,928","57,809","73,996","73,996","65,317",404914
+13,Business and Financial Operations,Business and Financial Operations Occupations,"47,670","70,422","106,439","92,562","55,035","66,411","73,996","62,892",207777
+15,Computer and Mathematical,Computer and Mathematical Occupations,"62,158","92,692","126,521","99,978","62,279","73,996","73,996","66,654",144803
+17,Architecture and Engineering,Architecture and Engineering Occupations,"59,245","85,589","114,841","93,756","60,823","73,994","73,996","66,164",82605
+19,"Life, Physical, and Social Science","Life, Physical, and Social Science Occupations","39,258","66,011","106,868","83,436","50,829","64,206","73,996","61,202",64618
+21,Community and Social Service,Community and Social Service Occupations,"28,789","43,620","63,863","47,893","45,594","53,010","63,131","54,181",70483
+23,Legal,Legal Occupations,"51,708","88,015","175,624","140,094","57,054","73,996","73,996","64,986",42040
+25,"Education, Training, and Library","Education, Training, and Library Occupations","22,751","48,068","76,334","54,883","42,576","55,234","69,367","55,364",251693
+27,"Arts, Design, Entertainment, Sports, and Media","Arts, Design, Entertainment, Sports, and Media Occupations","24,204","50,162","79,829","60,107","43,302","56,281","71,115","55,958",62248
+29,Healthcare Practitioners and Technical,Healthcare Practitioners and Technical Occupations,"43,336","68,254","102,841","91,994","52,868","65,327","73,996","62,174",229131
+31,Healthcare Support,Healthcare Support Occupations,"17,448","27,674","39,276","31,803","39,924","45,037","50,838","46,359",93850
+33,Protective Service,Protective Service Occupations,"29,705","65,004","95,795","67,194","46,052","63,702","73,996","59,299",74790
+35,Food Preparation and Serving Related,Food Preparation and Serving Related Occupations,"9,750","17,603","29,803","22,907","36,075","40,001","46,101","42,237",183872
+37,"Building, Grounds Cleaning, and Maintenance",Building and Grounds Cleaning and Maintenance Occupations,"13,414","25,304","39,607","30,103","37,907","43,852","51,003","45,694",108520
+39,Personal Care and Service,Personal Care and Service Occupations,"10,076","19,804","32,996","26,455","36,238","41,102","47,698","43,564",106955
+41,Sales and Related,Sales and Related Occupations,"14,902","38,507","77,013","63,086","38,651","50,453","69,707","53,024",315149
+43,Office and Administrative Support,Office and Administrative Support Occupations,"20,720","37,919","54,524","42,910","41,560","50,160","58,462","50,911",415086
+45,"Farming, Fishing, and Forestry","Farming, Fishing, and Forestry Occupations","13,001","21,926","36,189","37,057","37,700","42,163","49,294","45,619",6629
+47,Construction and Extraction,Construction and Extraction Occupations,"27,946","45,800","71,512","53,700","45,173","54,100","66,956","55,484",135789
+49,"Installation, Maintenance, and Repair","Installation, Maintenance, and Repair Occupations","33,535","53,657","74,507","57,061","47,968","58,028","68,453","57,655",76138
+51,Production,Production Occupations,"24,204","38,168","55,615","44,565","43,302","50,284","59,007","51,920",149874
+53,Transportation and Material Moving,Transportation and Material Moving Occupations,"15,966","29,803","52,343","37,736","39,183","46,101","57,372","48,874",155097
+55,Military Specific,Military Specific Occupations,"21,288","53,219","81,787","59,298","41,844","57,809","72,093","56,386",2816
