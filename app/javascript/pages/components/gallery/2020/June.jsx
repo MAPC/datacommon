@@ -5,9 +5,9 @@ import * as d3 from 'd3';
 
 const June = () => {
   const [employmentData, setData] = useState([]);
-  const svgWidth = 1000;
-  const svgHeight = 600;
-  const yAxisOffset = 240;
+  const svgWidth = 1000 || window.innerWidth;
+  const svgHeight = 625;
+  const yAxisOffset = 300;
   useEffect(() => {
     d3.csv('/assets/june2020.csv').then((result) => {
       setData(result);
@@ -15,12 +15,12 @@ const June = () => {
   }, []);
 
   const yAxis = d3.scaleBand()
-    .range([0, 570])
+    .range([0, svgHeight - 20])
     .padding(1)
     .domain(employmentData.map((d) => d['Occupation (shortened)']));
 
   const xAxis = d3.scaleLinear()
-    .range([600, 0])
+    .range([svgWidth, 0])
     .domain([3400, 0]);
 
   if (document.querySelector('svg') === null) {
@@ -37,7 +37,7 @@ const June = () => {
       .call(d3.axisTop(xAxis)
         .tickFormat(d3.format('$~s')))
       .attr('class', 'xaxis')
-      .style('font-size', '14px')
+      .style('font-size', '12px')
       .style('font-variant-numeric', 'tabular-nums')
       .style('font-family', 'Montserrat')
       .attr('text-anchor', 'middle');
@@ -45,7 +45,7 @@ const June = () => {
     graph.append('g')
       .call(d3.axisLeft(yAxis))
       .attr('class', 'yaxis')
-      .style('font-size', '10px')
+      .style('font-size', '12px')
       .style('font-variant-numeric', 'tabular-nums')
       .style('font-family', 'Montserrat')
       .attr('text-anchor', 'end')
@@ -54,35 +54,31 @@ const June = () => {
       .attr('dx', '-12px');
 
     graph.append('line')
-      .style('stroke', 'black')
+      .style('stroke', '#1F4E46')
+      .style('opacity', 0.3)
       .style('stroke-width', 1)
       .style('stroke-dasharray', '5, 5')
       .attr('x1', xAxis(1423))
       .attr('y1', 0)
       .attr('x2', xAxis(1423))
-      .attr('y2', 600);
+      .attr('y2', svgHeight);
 
     graph.append('g')
-      .attr('class', 'pre-ranges')
-      .selectAll('min')
+      .selectAll('pre-ranges')
       .data(employmentData)
       .enter()
       .append('rect')
-      .attr('class', 'pre-ranges')
-      .style('fill', 'gold')
-      .style('opacity', 0.5)
+      .style('fill', '#FFEB7F')
       .attr('x', (d) => xAxis(+d.pre_firstquartile / 52))
       .attr('y', (d) => yAxis(d['Occupation (shortened)']) - 5)
       .attr('width', (d) => xAxis(+d.pre_thirdquartile / 52) - xAxis(+d.pre_firstquartile / 52))
       .attr('height', 10);
 
     graph.append('g')
-      .attr('class', 'post-ranges')
-      .selectAll('min')
+      .selectAll('post-ranges')
       .data(employmentData)
       .enter()
       .append('rect')
-      .attr('class', 'post-ranges')
       .style('fill', 'cornflowerblue')
       .style('opacity', 0.5)
       .attr('x', (d) => xAxis(+d.post_firstquartile / 52))
@@ -91,41 +87,36 @@ const June = () => {
       .attr('height', 10);
 
     graph.append('g')
-      .attr('class', 'pre-medians')
-      .selectAll('premed')
+      .selectAll('pre-medians')
       .data(employmentData)
       .enter()
       .append('line')
-      .attr('class', 'pre-medians')
       .style('stroke', 'gold')
-      .style('stroke-width', 2)
+      .style('stroke-width', 3)
       .attr('x1', (d) => xAxis(+d.pre_median / 52))
       .attr('y1', (d) => yAxis(d['Occupation (shortened)']) + 10)
       .attr('x2', (d) => xAxis(+d.pre_median / 52))
       .attr('y2', (d) => yAxis(d['Occupation (shortened)']) - 10);
 
     graph.append('g')
-      .attr('class', 'post-medians')
-      .selectAll('prostmed')
+      .selectAll('post-medians')
       .data(employmentData)
       .enter()
       .append('line')
-      .attr('class', 'post-medians')
       .style('stroke', 'cornflowerblue')
-      .style('stroke-width', 2)
+      .style('stroke-width', 3)
       .attr('x1', (d) => xAxis(+d.post_median / 52))
       .attr('y1', (d) => yAxis(d['Occupation (shortened)']) + 10)
       .attr('x2', (d) => xAxis(+d.post_median / 52))
       .attr('y2', (d) => yAxis(d['Occupation (shortened)']) - 10);
 
     graph.append('g')
-      .attr('class', 'connections')
-      .selectAll('connect')
+      .selectAll('connections')
       .data(employmentData)
       .enter()
       .append('line')
-      .attr('class', 'connections')
-      .style('stroke', 'black')
+      .style('stroke', '#1F4E46')
+      .style('opacity', 0.5)
       .style('stroke-width', 1)
       .attr('x1', (d) => {
         if (+d.pre_thirdquartile < +d.post_firstquartile) {
@@ -162,19 +153,21 @@ function wrap(text, width) {
     let word;
     let line = [];
     let lineNumber = 0;
-    const lineHeight = 1.1; // ems
+    const lineHeight = 0.6; // ems
     const y = text.attr('y');
     const dy = parseFloat(text.attr('dy'));
     let tspan = text.text(null).append('tspan').attr('x', 0).attr('y', y)
       .attr('dy', `${dy}em`);
+    tspan.attr('class', 'top-line');
     while (word = words.pop()) {
       line.push(word);
       tspan.text(line.join(' '));
       if (tspan.node().getComputedTextLength() > width) {
+        tspan.attr('y', y - 7);
         line.pop();
         tspan.text(line.join(' '));
         line = [word];
-        tspan = text.append('tspan').attr('x', 0).attr('y', y).attr('dy', `${++lineNumber * lineHeight + dy}em`)
+        tspan = text.append('tspan').attr('x', -12).attr('y', y).attr('dy', `${++lineNumber * lineHeight + dy}em`)
           .text(word);
       }
     }
