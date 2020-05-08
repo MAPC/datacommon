@@ -49,7 +49,7 @@ function wrap(text, width) {
 
 const June = () => {
   const [employmentData, setData] = useState([]);
-  const svgWidth = 1000 || window.innerWidth;
+  const svgWidth = 1000;
   const svgHeight = 650;
   const yAxisOffset = 300;
   useEffect(() => {
@@ -64,14 +64,22 @@ const June = () => {
     .domain(employmentData.map((d) => d['Occupation (shortened)']));
 
   const xAxis = d3.scaleLinear()
-    .range([svgWidth, 0])
+    .range([svgWidth - yAxisOffset, 0])
     .domain([3400, 0]);
 
   if (document.querySelector('svg') === null) {
     const svg = d3.select('.calendar-viz')
       .append('svg')
-      .attr('width', '100%')
-      .attr('height', svgHeight);
+      .attr('width', svgWidth)
+      .attr('height', svgHeight)
+      .attr('viewBox', [0, 0, svgWidth, svgHeight]);
+
+    const legend = d3.select('.calendar-viz')
+      .append('svg')
+      .attr('width', 250)
+      .attr('height', 90)
+      .style('vertical-align', 'top')
+      .style('margin-top', '40px');
 
     const tooltip = d3.select('body').append('div')
       .attr('class', 'tooltip')
@@ -101,7 +109,6 @@ const June = () => {
       .call(wrap, yAxisOffset)
       .attr('dx', '-12px');
 
-    console.log(xAxis(1423))
     graph.append('line')
       .style('stroke', '#1F4E46')
       .style('opacity', 0.3)
@@ -112,6 +119,15 @@ const June = () => {
       .attr('x2', xAxis(1423))
       .attr('y2', svgHeight);
 
+    // todo: flip text vertically
+    graph.append('text')
+      .style('font-size', '12px')
+      .style('font-variant-numeric', 'tabular-nums')
+      .style('font-family', 'Montserrat')
+      .style('fill', '#1F4E46')
+      .attr('x', xAxis(1423) + 5)
+      .attr('y', yAxis('Personal Care and Service'))
+      .text('Max. weekly benefit ($1,423)');
     employmentData.forEach((occupation) => {
       const barGroup = graph.append('g').attr('class', `soc__${occupation.soc_2}`);
 
@@ -173,6 +189,73 @@ const June = () => {
       })
         .on('mouseleave', () => { tooltip.style('display', 'none'); });
     });
+
+    legend.append('rect')
+      .style('fill', '#FFEB7F')
+      .attr('x', 10)
+      .attr('y', 10)
+      .attr('width', 25)
+      .attr('height', 10);
+
+    legend.append('line')
+      .style('stroke', 'gold')
+      .style('stroke-width', 3)
+      .attr('x1', 22.5)
+      .attr('y1', 5)
+      .attr('x2', 22.5)
+      .attr('y2', 25);
+
+    legend.append('text')
+      .style('font-size', '12px')
+      .style('font-variant-numeric', 'tabular-nums')
+      .style('font-family', 'Montserrat')
+      .style('fill', '#1F4E46')
+      .attr('x', 40)
+      .attr('y', 20)
+      .text('Weekly salary range');
+
+    legend.append('text')
+      .style('font-size', '12px')
+      .style('font-variant-numeric', 'tabular-nums')
+      .style('font-family', 'Montserrat')
+      .style('fill', '#1F4E46')
+      .attr('x', 40)
+      .attr('y', 35)
+      .text('(1st quartile, median, 3rd quartile)');
+
+    legend.append('rect')
+      .style('fill', 'cornflowerblue')
+      .style('opacity', 0.5)
+      .attr('x', 10)
+      .attr('y', 50)
+      .attr('width', 25)
+      .attr('height', 10);
+
+    legend.append('line')
+      .style('stroke', 'cornflowerblue')
+      .style('stroke-width', 3)
+      .attr('x1', 22.25)
+      .attr('y1', 45)
+      .attr('x2', 22.5)
+      .attr('y2', 65);
+
+    legend.append('text')
+      .style('font-size', '12px')
+      .style('font-variant-numeric', 'tabular-nums')
+      .style('font-family', 'Montserrat')
+      .style('fill', '#1F4E46')
+      .attr('x', 40)
+      .attr('y', 60)
+      .text('Weekly benefit range');
+
+    legend.append('text')
+      .style('font-size', '12px')
+      .style('font-variant-numeric', 'tabular-nums')
+      .style('font-family', 'Montserrat')
+      .style('fill', '#1F4E46')
+      .attr('x', 40)
+      .attr('y', 75)
+      .text('(1st quartile, median, 3rd quartile)');
   }
 
   return (
