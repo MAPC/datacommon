@@ -21,10 +21,10 @@ AFC Urgent Care West Springfield,(413) 781-0100,"18 Union St., West Springfield,
 AFC Urgent Care Worcester,(508) 755-4010,"117A Stafford Street , Worcester MA 01603",Worcester,-71.8472084,42.2382539,FALSE,
 Athol Hospital,(978) 249-3511,"2033 Main St, Athol, MA 01331",Athol,-72.2108729,42.5850917,FALSE,
 Baystate Franklin Medical Center,(413) 795-8378,"164 High Street, Greenfield, MA 01301",Greenfield,-72.5945743,42.5962073,FALSE,
+Baystate Westfield Testing Center,(413) 795-8378,"57 Union Street, Westfield, MA 01085",Westfield,-72.7415522,42.1310279,FALSE,
 Baystate Mary Lane Outpatient Center,(413) 795-8378,"85 South Street, Ware, MA 01082",Ware,-72.2443654,42.2537647,FALSE,
 Baystate Springfield Carew St. Testing Center,(413) 795-8378,"298 Carew Street, Springfield, MA 01104",Springfield,-72.5976083,42.1169844,FALSE,
 Baystate Springfield High St. Testing Center,(413) 795-8378,"140 High Street, Springfield, MA 01105",Springfield,-72.5816832,42.1054826,FALSE,
-Baystate Westfield Testing Center,(413) 795-8378,"57 Union Street, Westfield, MA 01085",Westfield,-72.7415522,42.1310279,FALSE,
 Bellingham Urgent Care,(508) 488-5488,"1 Wrentham St, Bellingham, MA 02019",Bellingham,-71.4915827,42.025063,FALSE,
 Berkshire Medical Center,(413) 447-2000,"725 North St, Pittsfield, MA 01201",Pittsfield,-73.2514171,42.4596419,FALSE,
 Beth Israel Deaconess Needham,(781) 453-3000,"148 Chestnut St, Needham, MA, 02492",Needham,-71.2388439,42.2770465,TRUE,ICC/TRIC
@@ -53,6 +53,8 @@ Carewell Urgent Care Tewksbury,(978) 851-4683,"345 Main St, Tewksbury, MA 01876"
 CareWell Urgent Care Worcester Greenwood St,(774) 420-2103,"348 Greenwood St, Worcester, MA 01607",Worcester,-71.7998166,42.2133219,FALSE,
 CareWell Urgent Care Worcester Lincoln St,(774) 420-2111,"500 Lincoln St, Worcester, MA 01605",Worcester,-71.7763741,42.2959776,FALSE,
 Carney Hospital,(617) 296-4000,"2100 Dorchester Ave, Dorchester, MA 02124",Boston,-71.0684122,42.2780828,TRUE,ICC
+CHA East Cambridge,617-665-2928,"163 Gore Street, Cambridge, MA 02141",Cambridge,-71.0875283,42.373061,TRUE,ICC
+CHA Somerville,617-665-2928,"236 Highland Avenue, Somerville, MA 02143",Somerville,-71.1117387,42.3899679,TRUE,ICC
 CHA Malden Care Center,,"195 Canal Street, Malden, MA 02148",Malden,-71.0749006,42.4198677,TRUE,ICC
 Charlton Memorial Hospital,(508) 973-1919,"363 Highland Ave, Fall River, MA 02720",Fall River,-71.1473461,41.709408,FALSE,
 Codman Square Health Center,(617) 825-9660,"637 Washington St, Boston, MA 02124",Boston,-71.0741578,42.2893729,TRUE,ICC
@@ -69,7 +71,7 @@ CVS Rapid Testing Site - Lowell,cvs.com/minuteclinic/covid-19-testing to registe
 Dartmouth Drive Thru,(508) 973-1919,"300 Faunce Corner Road, Dartmouth, MA 02747",Dartmouth,-70.9930647,41.659985,FALSE,
 DotHouse Health,(617) 740-2292,"1353 Dorchester Avenue, Dorchester, MA 02122",Boston,-71.0615761,42.3045038,TRUE,ICC
 East Boston Neighborhood Health Center,(617) 569-5800,"10 Gove St, Boston, MA 02128",Boston,-71.0403581,42.3722753,TRUE,ICC
-Emerson Hospital,(978) 369-1400,"133 Old Rd to 9 Acre Cr., Concord, MA 01742",Concord,-71.3771888,42.4518228,TRUE,MAGIC
+Health Center Emerson Hospital,(978) 369-1400,"133 Old Rd to 9 Acre Cr., Concord, MA 01742",Concord,-71.3771888,42.4518228,TRUE,MAGIC
 Harvard Pilgrim Health Care Quincy Drive-Through,(617) 303-6400,"1600 Crown Colony Drive, Quincy, MA 02169",Quincy,-71.0225343,42.2329702,TRUE,ICC
 Harvard Street Neighborhood Health Center,(617) 825-3400,"632 Blue Hill Avenue, Dorchester, MA 02121",Boston,-71.0872962,42.3025033,TRUE,ICC
 Henry Heywood Memorial Hospital,(978) 632-3420,"242 Green Street, Gardner, MA 01440",Gardner,-71.9892473,42.5864198,FALSE,
@@ -78,6 +80,7 @@ Holy Family Haverhill,(978) 374-2000,"140 Lincoln Avenue, Haverhill, MA 01830",H
 Lahey Health Urgent Care,(978) 304-8380,"480 Maple Street Danvers, MA 01923",Danvers,-70.9741437,42.5841827,TRUE,NSTF
 Lawrence General Hospital,(978) 683-4000,"1 General Street, Lawrence, MA 01841",Lawrence,-71.1528889,42.7097626,FALSE,
 Lawrence Memorial Hospital,(781) 306-6000,"170 Governors Ave, Medford, MA 02155",Medford,-71.1132941,42.4263013,TRUE,ICC
+Lowell Community Health Center,(978) 937-9700,"161 Jackson St, Lowell, MA 01854",Lowell,-71.313661,42.6421859,FALSE,
 Lynn Community Health Center,(781) 581-3900,"269 Union St, Lynn, MA 01901",Lynn,-70.945816,42.4651743,TRUE,ICC
 Manet Community Health Center,(617) 376-3000,"110 W Squantum Street, Quincy, MA 02170",Quincy,-71.0329757,42.2726341,TRUE,ICC
 Massachusetts General Hospital,(617) 726-2000,"55 Fruit Street, Boston, MA 02114",Boston,-71.071022,42.363158,TRUE,ICC
