@@ -158,7 +158,7 @@ const May = () => {
       <div className="calendar-viz__wrapper">
         <div id="mayMap" className="mapboxgl__container" />
         <div className="map__overlay" style={{ top: '98px' }}>
-          <svg height="184" width="160" className="map__legend map__legend--translucent">
+          <svg height="170" width="160" className="map__legend map__legend--translucent">
             <image href={alternativeShelter} height="20" width="20" x="7" y="14" />
             <text x="32" y="22" className="map__legend-entry" fill="#1F4E46">Alternative shelter/</text>
             <text x="32" y="36" className="map__legend-entry" fill="#1F4E46">isolation center</text>
@@ -169,22 +169,19 @@ const May = () => {
             <text x="8" y="110" className="map__legend-entry" fill="#03332D">
               &#8226;
               {' '}
-              <a href="https://www.mass.gov/doc/ma-covid-19-testing-sites/download" className="calendar-viz__link" fill="#1F4E46">COVID-19 testing sites</a>
+              <a href="https://memamaps.maps.arcgis.com/sharing/rest/content/items/1c7c77eefb544d108d51372d83131dcc/data" className="calendar-viz__link" fill="#1F4E46">COVID-19 testing sites</a>
             </text>
             <text x="8" y="124" className="map__legend-entry" fill="#1F4E46">
               &#8226;
               {' '}
               <a href="https://mapc365.sharepoint.com/:x:/s/DataServicesSP/ET8f2yfgFPRLjQ2YDhIhWGQB_azsNvGzPC-IR539rVymFA?e=wDc9MR" className="calendar-viz__link" fill="#1F4E46">Alternative shelters</a>
             </text>
-            <text x="15" y="138" className="map__legend-entry" fill="#1F4E46">
-              <a href="https://mapc365.sharepoint.com/:x:/s/DataServicesSP/ET8f2yfgFPRLjQ2YDhIhWGQB_azsNvGzPC-IR539rVymFA?e=wDc9MR" className="calendar-viz__link" fill="#1F4E46">& isolation centers</a>
-            </text>
-            <text x="8" y="152" className="map__legend-entry" fill="#1F4E46">
+            <text x="8" y="138" className="map__legend-entry" fill="#1F4E46">
               &#8226;
               {' '}
               <a href="https://www.mass.gov/info-details/archive-of-covid-19-cases-in-massachusetts" className="calendar-viz__link" fill="#1F4E46">Massachusetts</a>
             </text>
-            <text x="15" y="166" className="map__legend-entry" fill="#1F4E46">
+            <text x="15" y="152" className="map__legend-entry" fill="#1F4E46">
               <a href="https://www.mass.gov/info-details/archive-of-covid-19-cases-in-massachusetts" className="calendar-viz__link" fill="#1F4E46">COVID-19 dashboards</a>
             </text>
           </svg>
@@ -197,9 +194,15 @@ const May = () => {
       <p>
         <a href="https://mapc365.sharepoint.com/:x:/s/DataServicesSP/ET8f2yfgFPRLjQ2YDhIhWGQB_azsNvGzPC-IR539rVymFA?e=wDc9MR" className="calendar-viz__link">This spreadsheet</a>
         {' '}
-contains all of the data currently on the above map. Because COVID-19’s impacts on our region and commonwealth are evolving every day, some testing facilities, alternative shelters, or isolation centers may be missing. If you know of such a facility that should be included, please reach out to Barry Keppard at
+contains all of the alternative shelters and isolation centers displayed on the map, while testing centers as collected by Massachusetts Emergency Management Agency can be found
+        {' '}
+        <a href="https://memamaps.maps.arcgis.com/sharing/rest/content/items/1c7c77eefb544d108d51372d83131dcc/data" className="calendar-viz__link">here</a>
+. Because COVID-19’s impacts on our region and commonwealth are evolving every day, some facilities may be missing. If you know of an alternative shelter or isolation center that should be included, please reach out to Barry Keppard at
         {' '}
         <a href="mailto:bkeppard@mapc.org" className="calendar-viz__link">bkeppard@mapc.org</a>
+. If a testing center is missing or misrepresented, you can submit a change suggestion
+        {' '}
+        <a href="https://memamaps.maps.arcgis.com/sharing/rest/content/items/1c7c77eefb544d108d51372d83131dcc/data" className="calendar-viz__link">through this form</a>
 .
       </p>
       <CallToAction
