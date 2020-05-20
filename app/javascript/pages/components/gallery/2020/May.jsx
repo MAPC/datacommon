@@ -8,28 +8,14 @@ import CallToAction from '../../partials/CallToAction';
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 
 const May = () => {
-  Promise.all([
-    d3.csv('/assets/may2020__testing-centers.csv'),
-    d3.csv('/assets/may2020__shelters.csv'),
-  ]).then((response) => {
-    const geojsonForTesting = {
-      type: 'FeatureCollection',
-      name: 'testingCenters',
-      crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
-      features: [],
-    };
-    response[0].forEach((row) => {
-      const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
-      geojsonForTesting.features.push(entry);
-    });
-
+  d3.csv('/assets/may2020__shelters.csv').then((response) => {
     const geojsonForShelters = {
       type: 'FeatureCollection',
       name: 'alternativeShelters',
       crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
       features: [],
     };
-    response[1].forEach((row) => {
+    response.forEach((row) => {
       const entry = { type: 'Feature', properties: { Name: row['Facility Name'], Contact: row.Contact }, geometry: { type: 'Point', coordinates: [+row.Longitude, +row.Latitude] } };
       geojsonForShelters.features.push(entry);
     });
@@ -62,14 +48,13 @@ const May = () => {
     mayMap.on('load', () => {
       mayMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
       mayMap.resize();
-      mayMap.addSource('testingCenters', {
-        type: 'geojson',
-        data: geojsonForTesting,
-      });
       mayMap.addLayer({
         id: 'Testing Centers',
         type: 'circle',
-        source: 'testingCenters',
+        source: {
+          type: 'geojson',
+          data: 'https://services1.arcgis.com/TXaY625xGc0yvAuQ/arcgis/rest/services/Test_Sites_Public/FeatureServer/0/query?where=OBJECTID_1+%3D+OBJECTID_1&outfields=*&f=pgeojson',
+        },
         paint: {
           'circle-color': '#FFFFFF',
           'circle-radius': 4,
@@ -133,14 +118,20 @@ const May = () => {
         });
       });
 
-      ['Unclustered Alternative Shelter', 'Testing Centers'].forEach((layer) => {
-        mayMap.on('click', layer, (e) => {
-          const title = e.features[0].properties.Name !== '' ? `<p class='tooltip__title'>${e.features[0].properties.Name}</p>` : `<p class='tooltip__title'>${e.features[0].properties.Address}</p>`;
-          new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML(title)
-            .addTo(mayMap);
-        });
+      mayMap.on('click', 'Unclustered Alternative Shelter', (e) => {
+        const title = e.features[0].properties.Name !== '' ? `<p class='tooltip__title'>${e.features[0].properties.Name}</p>` : `<p class='tooltip__title'>${e.features[0].properties.Address}</p>`;
+        new mapboxgl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(title)
+          .addTo(mayMap);
+      });
+
+      mayMap.on('click', 'Testing Centers', (e) => {
+        const title = e.features[0].properties.name !== '' ? `<p class='tooltip__title'>${e.features[0].properties.name}</p>` : `<p class='tooltip__title'>${e.features[0].properties.fulladdr}</p>`;
+        new mapboxgl.Popup()
+          .setLngLat(e.lngLat)
+          .setHTML(title)
+          .addTo(mayMap);
       });
 
       mayMap.on('click', 'Alternative Shelter clusters', (e) => {
@@ -204,7 +195,9 @@ const May = () => {
       <p>Existing shelters have found themselves in a conundrum: while the necessity for safe shelter is greater than ever, bed capacities often must be lowered to keep facilities compliant with physical distancing guidelines.</p>
       <p>In response, institutions such as hotels and universities are partnering with municipalities and public health organizations to provide extra alternative shelters and isolation centers. Some are focusing on depopulating existing overcrowded shelters; others serve primarily to house first responders and front-line staff who cannot safely return to their primary residences. As Massachusetts undergoes the peak of infections, these sites will only become more necessary, and additional sites may be needed.</p>
       <p>
-        <a href="https://mapc365.sharepoint.com/:x:/s/DataServicesSP/ET8f2yfgFPRLjQ2YDhIhWGQB_azsNvGzPC-IR539rVymFA?e=wDc9MR" className="calendar-viz__link">This spreadsheet</a> contains all of the data currently on the above map. Because COVID-19’s impacts on our region and commonwealth are evolving every day, some testing facilities, alternative shelters, or isolation centers may be missing. If you know of such a facility that should be included, please reach out to Barry Keppard at
+        <a href="https://mapc365.sharepoint.com/:x:/s/DataServicesSP/ET8f2yfgFPRLjQ2YDhIhWGQB_azsNvGzPC-IR539rVymFA?e=wDc9MR" className="calendar-viz__link">This spreadsheet</a>
+        {' '}
+contains all of the data currently on the above map. Because COVID-19’s impacts on our region and commonwealth are evolving every day, some testing facilities, alternative shelters, or isolation centers may be missing. If you know of such a facility that should be included, please reach out to Barry Keppard at
         {' '}
         <a href="mailto:bkeppard@mapc.org" className="calendar-viz__link">bkeppard@mapc.org</a>
 .
