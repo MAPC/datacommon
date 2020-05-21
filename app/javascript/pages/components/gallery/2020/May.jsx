@@ -194,15 +194,15 @@ const May = () => {
       <p>
         <a href="https://mapc365.sharepoint.com/:x:/s/DataServicesSP/ET8f2yfgFPRLjQ2YDhIhWGQB_azsNvGzPC-IR539rVymFA?e=wDc9MR" className="calendar-viz__link">This spreadsheet</a>
         {' '}
-contains all of the alternative shelters and isolation centers displayed on the map, while testing centers as collected by Massachusetts Emergency Management Agency can be found
+contains all of the alternative shelters and isolation centers displayed on the map, while testing centers as collected by the Massachusetts Emergency Management Agency can be found
         {' '}
         <a href="https://memamaps.maps.arcgis.com/sharing/rest/content/items/1c7c77eefb544d108d51372d83131dcc/data" className="calendar-viz__link">here</a>
 . Because COVID-19’s impacts on our region and commonwealth are evolving every day, some facilities may be missing. If you know of an alternative shelter or isolation center that should be included, please reach out to Barry Keppard at
         {' '}
         <a href="mailto:bkeppard@mapc.org" className="calendar-viz__link">bkeppard@mapc.org</a>
-. If a testing center is missing or misrepresented, you can submit a change suggestion
+. If a testing center is missing or misrepresented, you can submit a change suggestion through
         {' '}
-        <a href="https://memamaps.maps.arcgis.com/sharing/rest/content/items/1c7c77eefb544d108d51372d83131dcc/data" className="calendar-viz__link">through this form</a>
+        <a href="https://survey123.arcgis.com/share/1abc65a9f8024a3a93eeb0bee98fd2a5" className="calendar-viz__link">this form</a>
 .
       </p>
       <CallToAction
