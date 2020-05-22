@@ -51,13 +51,16 @@ const June = () => {
   const [svgWidth, setWidth] = useState(1000);
   const [svgHeight, setHeight] = useState(650);
   const [yAxisOffset, setOffset] = useState(165);
-  const [viewBox, setViewBox] = useState([0, 0, 1000, 650]);
   useEffect(() => {
     d3.csv('/assets/june2020.csv').then((result) => {
       setData(result);
-      if (window.innerWidth < 550) {
+      if (window.innerWidth < 400) {
+        setWidth(300);
+      } else if (window.innerWidth < 460) {
+        setOffset(110);
+        setWidth(350);
+      } else if (window.innerWidth < 550) {
         setWidth(400);
-        setViewBox([0, 0, 400, 650]);
       } else if (window.innerWidth < 650) {
         setOffset(120);
         setWidth(500);
@@ -80,10 +83,11 @@ const June = () => {
   useEffect(() => {
     window.addEventListener('resize', () => {
       const chart = d3.select('calendar-viz__chart');
-      if (window.innerWidth < 550) {
+      if (window.innerWidth < 460) {
+        setOffset(110);
+        setWidth(350);
+      } else if (window.innerWidth < 550) {
         setWidth(400);
-        setViewBox([0, 0, 400, 650]);
-        chart.attr('viewBox', viewBox);
       } else if (window.innerWidth < 650) {
         setOffset(120);
         setWidth(500);
@@ -91,7 +95,6 @@ const June = () => {
         setWidth(550);
       } else if (window.innerWidth < 850) {
         setWidth(600);
-        setViewBox([0, 0, 600, 650]);
       } else if (window.innerWidth < 1000) {
         setWidth(750);
       } else if (window.innerWidth < 1200) {
@@ -242,18 +245,19 @@ const June = () => {
 
   return (
     <>
-      <h1 className="calendar-viz__title">Untitled Unemployment Visualization</h1>
-      <div className="calendar-viz container">
+      <h1 className="calendar-viz__title">Unemployment Under the Federal CARES Act</h1>
+      <div className="calendar-viz">
         <svg className="calendar-viz__chart" />
-        <svg className="calendar-viz__legend" height="80" width="250">
+        <svg className="calendar-viz__legend" height="120" width="250">
           <rect fill="gold" opacity="0.5" x="10" y="10" width="25" height="10" />
           <line x1="22.25" y1="5" x2="22.25" y2="25" strokeWidth="3" stroke="gold" />
-          <text x="40" y="20" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#1F4E46' }}>Weekly salary range</text>
-          <text x="40" y="35" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#1F4E46' }}>(1st quartile, median, 3rd quartile)</text>
+          <text x="40" y="20" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#95989A' }}>Weekly salary range</text>
+          <text x="40" y="35" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#95989A' }}>(1st quartile, median, 3rd quartile)</text>
           <rect fill="cornflowerblue" opacity="0.5" x="10" y="50" width="25" height="10" />
           <line x1="22.25" y1="45" x2="22.25" y2="65" strokeWidth="3" stroke="cornflowerblue" />
-          <text x="40" y="60" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#1F4E46' }}>Weekly benefit range</text>
-          <text x="40" y="75" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#1F4E46' }}>(1st quartile, median, 3rd quartile)</text>
+          <text x="40" y="60" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#95989A' }}>Weekly benefit range</text>
+          <text x="40" y="75" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#95989A' }}>(1st quartile, median, 3rd quartile)</text>
+          <a href="#"><text x="40" y="105" className="calendar-viz__download-link" style={{'font-size': '20px'}}>Explore & Download Data</text></a>
         </svg>
       </div>
       <p>From March 16 through May 2, over 770,000 workers in Massachusetts filed for unemployment benefits, with more trying every day. The weekly monetary benefits, typically calculated as half of the worker’s expected weekly wages (capped at $823), have temporarily increased by $600 as a result of the Federal CARES Act. With the additional benefit, any worker making less than $1,200 a week ($62,400 a year) before the loss of their job is seeing an increase in household income as a result of unemployment payments. We estimate that 62% of all eligible workers will experience an increase in wages as a result of the expanded unemployment benefits.</p>
