@@ -1,0 +1,23 @@
+﻿soc_2,Occupation,Occupation (shortened),pre_firstquartile,pre_median,pre_thirdquartile,pre_mean,post_firstquartile,post_median,post_thirdquartile,post_mean,n
+35,Food Preparation and Serving Related Occupations,Food Preparation,9750,17603,29803,22907,36075,40001,46101,42237,183872
+39,Personal Care and Service Occupations,Personal Care,10076,19804,32996,26455,36238,41102,47698,43564,106955
+45,"Farming, Fishing, and Forestry Occupations","Farming, Fishing, Forestry",13001,21926,36189,37057,37700,42163,49294,45619,6629
+37,"Building, Grounds Cleaning, and Maintenance Occupations","Building, Grounds Cleaning",13414,25304,39607,30103,37907,43852,51003,45694,108520
+31,Healthcare Support Occupations,Healthcare Support,17448,27674,39276,31803,39924,45037,50838,46359,93850
+53,Transportation and Material Moving Occupations,Transportation,15966,29803,52343,37736,39183,46101,57372,48874,155097
+43,Office and Administrative Support Occupations,Office and Admin,20720,37919,54524,42910,41560,50160,58462,50911,415086
+51,Production Occupations,Production,24204,38168,55615,44565,43302,50284,59007,51920,149874
+41,Sales and Related Occupations,Sales,14902,38507,77013,63086,38651,50453,69707,53024,315149
+21,Community and Social Service Occupations,"Community, Social Service",28789,43620,63863,47893,45594,53010,63131,54181,70483
+47,Construction and Extraction Occupations,"Construction, Extraction",27946,45800,71512,53700,45173,54100,66956,55484,135789
+25,"Education, Training, and Library Occupations","Education, Training, Library",22751,48068,76334,54883,42576,55234,69367,55364,251693
+27,"Arts, Design, Entertainment, Sports, and Media Occupations","Arts, Sports, Media",24204,50162,79829,60107,43302,56281,71115,55958,62248
+49,"Installation, Maintenance, and Repair Occupations",Installation,33535,53657,74507,57061,47968,58028,68453,57655,76138
+33,Protective Service Occupations,Protective Service,29705,65004,95795,67194,46052,63702,73996,59299,74790
+19,"Life, Physical, and Social Science Occupations",Sciences,39258,66011,106868,83436,50829,64206,73996,61202,64618
+29,Healthcare Practitioners and Technical Occupations,Healthcare Practioners,43336,68254,102841,91994,52868,65327,73996,62174,229131
+13,Business and Financial Operations Occupations,"Business, Finance",47670,70422,106439,92562,55035,66411,73996,62892,207777
+17,Architecture and Engineering Occupations,"Architecture, Engineering",59245,85589,114841,93756,60823,73994,73996,66164,82605
+11,Management Occupations,Management,53219,87239,135222,113928,57809,73996,73996,65317,404914
+23,Legal Occupations,Legal,51708,88015,175624,140094,57054,73996,73996,64986,42040
+15,Computer and Mathematical Occupations,Computers,62158,92692,126521,99978,62279,73996,73996,66654,144803
