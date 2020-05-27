@@ -185,22 +185,23 @@ const June = () => {
     const barGroup = graph.append('g').attr('class', `soc__${occupation.soc_2}`);
 
     barGroup.append('rect')
-      .style('fill', '#FFEB7F')
+      .style('fill', '#F67D41') // orange
+      .style('opacity', 0.6)
       .attr('x', xAxis(+occupation.pre_firstquartile / 52))
       .attr('y', yAxis(occupation['Occupation (shortened)']) - 5)
       .attr('width', xAxis(+occupation.pre_thirdquartile / 52) - xAxis(+occupation.pre_firstquartile / 52))
       .attr('height', 10);
 
     barGroup.append('rect')
-      .style('fill', 'cornflowerblue')
-      .style('opacity', 0.5)
+      .style('fill', '#0097C4') // blue
+      .style('opacity', 0.6)
       .attr('x', xAxis(+occupation.post_firstquartile / 52))
       .attr('y', yAxis(occupation['Occupation (shortened)']) - 5)
       .attr('width', xAxis(+occupation.post_thirdquartile / 52) - xAxis(+occupation.post_firstquartile / 52))
       .attr('height', 10);
 
     barGroup.append('line')
-      .style('stroke', 'gold')
+      .style('stroke', '#F67D41')
       .style('stroke-width', 3)
       .attr('x1', xAxis(+occupation.pre_median / 52))
       .attr('y1', yAxis(occupation['Occupation (shortened)']) + 10)
@@ -208,7 +209,7 @@ const June = () => {
       .attr('y2', yAxis(occupation['Occupation (shortened)']) - 10);
 
     barGroup.append('line')
-      .style('stroke', 'cornflowerblue')
+      .style('stroke', '#0097C4')
       .style('stroke-width', 3)
       .attr('x1', xAxis(+occupation.post_median / 52))
       .attr('y1', yAxis(occupation['Occupation (shortened)']) + 10)
@@ -249,19 +250,19 @@ const June = () => {
       <div className="calendar-viz">
         <svg className="calendar-viz__chart" />
         <svg className="calendar-viz__legend" height="120" width="250">
-          <rect fill="gold" opacity="0.5" x="10" y="10" width="25" height="10" />
-          <line x1="22.25" y1="5" x2="22.25" y2="25" strokeWidth="3" stroke="gold" />
+          <rect fill="#F67D41" opacity="0.6" x="10" y="10" width="25" height="10" />
+          <line x1="22.25" y1="5" x2="22.25" y2="25" strokeWidth="3" stroke="#F67D41" />
           <text x="40" y="20" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#95989A' }}>Weekly salary range</text>
           <text x="40" y="35" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#95989A' }}>(1st quartile, median, 3rd quartile)</text>
-          <rect fill="cornflowerblue" opacity="0.5" x="10" y="50" width="25" height="10" />
-          <line x1="22.25" y1="45" x2="22.25" y2="65" strokeWidth="3" stroke="cornflowerblue" />
+          <rect fill="#0097C4" opacity="0.6" x="10" y="50" width="25" height="10" />
+          <line x1="22.25" y1="45" x2="22.25" y2="65" strokeWidth="3" stroke="#0097C4" />
           <text x="40" y="60" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#95989A' }}>Weekly benefit range</text>
           <text x="40" y="75" style={{'font-size': '12px', 'font-variant-numeric': 'tabular-nums', 'font-family': 'Montserrat', 'fill': '#95989A' }}>(1st quartile, median, 3rd quartile)</text>
           <a href="#"><text x="40" y="105" className="calendar-viz__download-link" style={{'font-size': '20px'}}>Explore & Download Data</text></a>
         </svg>
       </div>
       <p>From March 16 through May 2, over 770,000 workers in Massachusetts filed for unemployment benefits, with more trying every day. The weekly monetary benefits, typically calculated as half of the worker’s expected weekly wages (capped at $823), have temporarily increased by $600 as a result of the Federal CARES Act. With the additional benefit, any worker making less than $1,200 a week ($62,400 a year) before the loss of their job is seeing an increase in household income as a result of unemployment payments. We estimate that 62% of all eligible workers will experience an increase in wages as a result of the expanded unemployment benefits.</p>
-      <p>This visualization exposes how vulnerable many households were before this crisis. The horizontal yellow and blue bars represent the range of wages and expected weekly unemployment benefits for the middle 50% of workers. Additionally, the darker vertical lines indicate the median wages and benefits. The further to the left the median wage is from the median benefit, the more an unemployed worker in that occupation is likely to earn from collecting benefits.</p>
+      <p>This visualization exposes how vulnerable many households were before this crisis. The horizontal orange and blue bars represent the range of wages and expected weekly unemployment benefits for the middle 50% of workers. Additionally, the darker vertical lines indicate the median wages and benefits. The further to the left the median wage is from the median benefit, the more an unemployed worker in that occupation is likely to earn from collecting benefits.</p>
       <p>Looking more closely at the data, another trend becomes apparent: those whose wages most lag behind potential unemployment benefits are the workers we have deemed as essential. On the other side of the same coin, those whose median wages most outpace their potential median benefits work in occupations that translate well to remote work. An unemployed lawyer or software engineer may be able to find another job while staying home (though hiring freezes have certainly made this more difficult); an employed pharmacy sales clerk or grocery store cashier may be at higher exposure for less money than an unemployed colleague.</p>
       <p>On July 25, the increase in unemployment benefits from the CARES act will end. For those who receive more money through unemployment than they did working, going back will not be easy. Of equal concern are the many households who will be negatively affected by the economic crisis, but who will not receive federal assistance; especially undocumented workers, who may find themselves facing dire circumstances. Immediate action is needed to ensure that these households don’t fall through the cracks during this crisis. Providing long-term solutions to raise wages, improve financial security, and provide housing security will help ensure vulnerable households emerge from COVID-19 more resilient than before.</p>
     </>
