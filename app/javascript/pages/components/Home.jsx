@@ -44,7 +44,7 @@ class Home extends React.Component {
           <div className="gallery-spotlight__info">
             <p>Find and explore data visualizations about the region. Check back monthly or sign up for our newsletter to receive maps and data visualizations. We cover a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
             <p>
-              <strong>May’s visualization</strong> highlights the work municipalities across Massachusetts have done to increase available shelters and isolation centers for the folks most impacted by COVID-19. As testing becomes more widespread and suspected cases are confirmed, these facilities will only become more invaluable.</p>
+              <strong>June’s visualization</strong> examines how the Federal CARES Act's temporary $600-per-week increase in unemployment benefits impacts wage earners across different occupations. While the boost raises the potential benefits for all unemployed workers, some are actually able to make more than they could in their jobs.</p>
             <CallToAction
               link="/gallery"
               text="View Gallery"
