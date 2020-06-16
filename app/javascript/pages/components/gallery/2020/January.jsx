@@ -1,5 +1,4 @@
 import * as d3 from 'd3';
-import { groups, rollup } from 'd3-array';
 import React from 'react';
 import refresh from '../../../assets/images/refresh.png';
 
@@ -15,6 +14,34 @@ class January extends React.Component {
         employees: +d.avgemp,
       })),
     ]).then((employmentData) => {
+      function identity(x) {
+        return x;
+      }
+      function rollup(values, reduce, ...keys) {
+        return nest(values, identity, reduce, keys);
+      }
+      function nest(values, map, reduce, keys) {
+        return (function regroup(values, i) {
+          if (i >= keys.length) return reduce(values);
+          const groups = new Map();
+          const keyof = keys[i++];
+          let index = -1;
+          for (const value of values) {
+            const key = keyof(value, ++index, values);
+            const group = groups.get(key);
+            if (group) group.push(value);
+            else groups.set(key, [value]);
+          }
+          for (const [key, values] of groups) {
+            groups.set(key, regroup(values, i));
+          }
+          return map(groups);
+        })(values, 0);
+      }
+      function groups(values, ...keys) {
+        return nest(values, Array.from, identity, keys);
+      }
+
       const filteredData = employmentData[0].filter((d) => d.municipality === 'MAPC Region')
         .filter((d) => d.category !== 'Total, All Industries');
 
