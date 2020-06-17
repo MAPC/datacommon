@@ -43,7 +43,7 @@ const July = () => {
         [-74.728, 38.167], // Southwest bound
         [-66.541, 46.032], // Northeast bound
       ],
-      style: 'mapbox://styles/ihill/ckb7xc2iq1sxf1ip9rdi5x0u6',
+      style: 'mapbox://styles/ihill/ckb7xc2iq1sxf1ip9rdi5x0u6/draft',
     });
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
     setMap(map);
@@ -57,18 +57,12 @@ const July = () => {
             [
               'match',
               ['get', 'ppi5'],
-              0,
-              'hsl(0, 100%, 100%)',
-              1,
-              '#fee5da',
-              [2],
-              '#fdae95',
-              [3],
-              '#fd6a52',
-              [4],
-              '#e02d2f',
-              [5],
-              '#74004b',
+              0, 'hsl(0, 100%, 100%)',
+              1, '#fee5da',
+              2, '#fdae95',
+              3, '#fd6a52',
+              4, '#e02d2f',
+              5, '#74004b',
               'hsl(0, 27%, 16%)',
             ]);
         });
@@ -77,8 +71,8 @@ const July = () => {
           julyMap.setPaintProperty(layer, 'fill-color',
             [
               'step',
-              ['get', 'ppi5'],
-              colorsList[0], choroplethList[`${currentlySelected}`][0],
+              ['get', currentlySelected],
+              colorsList[0], 0,
               colorsList[1], choroplethList[`${currentlySelected}`][1],
               colorsList[2], choroplethList[`${currentlySelected}`][2],
               colorsList[3], choroplethList[`${currentlySelected}`][3],
