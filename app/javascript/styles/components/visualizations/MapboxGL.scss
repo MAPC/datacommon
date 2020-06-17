@@ -86,4 +86,19 @@
   &__legend-title {
     margin: .5rem;
   }
+
+  &__options {
+    @include media('x-small') {
+      left: 0;
+      top: 0;
+    }
+    
+    font-family: 'Montserrat';
+    font-size: .75rem;
+    left: .5rem;
+    position: absolute;
+    top: .5rem;
+    z-index: 20;
+  }
 }
+

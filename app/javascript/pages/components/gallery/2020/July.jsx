@@ -1,9 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 const July = () => {
   const colors = ['#FFFFFF', '#fee5da', '#fdae95', '#fd6a52', '#e02d2f', '#74004b'];
+  const layers = ['icc', 'tric', 'ssc', 'nstf', 'nspc', 'magic', 'swap', 'metrowest'];
+  const choropleths = {
+    ppi5: [0, 1, 2, 3, 4, 5],
+    nhwhi_10: [0, 10, 50, 100, 500, 1000],
+    nhaa_10: [0, 10, 50, 100, 500, 1000],
+    nhapi_10: [0, 10, 50, 100, 500, 1000],
+    lat_10: [0, 10, 50, 100, 500, 1000],
+    nhoth_10: [0, 10, 50, 100, 500, 1000],
+  };
   let zoom = 8.4;
   let center = [-70.944, 42.37];
   if (window.innerWidth <= 480) {
@@ -16,8 +25,15 @@ const July = () => {
     zoom = 8.4;
     center = [-71.039, 42.37];
   }
+
+  const [currentlySelected, updateSelection] = useState('ppi5');
+  const [julyMap, setMap] = useState();
+  const [colorsList] = useState(colors);
+  const [layerList] = useState(layers);
+  const [choroplethList] = useState(choropleths);
+
   useEffect(() => {
-    const julyMap = new mapboxgl.Map({
+    const map = new mapboxgl.Map({
       container: 'julyMap',
       zoom,
       minZoom: 6,
@@ -29,13 +45,65 @@ const July = () => {
       ],
       style: 'mapbox://styles/ihill/ckb7xc2iq1sxf1ip9rdi5x0u6',
     });
-    julyMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+    map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+    setMap(map);
   }, []);
+
+  useEffect(() => {
+    if (julyMap && julyMap.isStyleLoaded()) {
+      if (currentlySelected === 'ppi5') {
+        layerList.forEach((layer) => {
+          julyMap.setPaintProperty(layer, 'fill-color',
+            [
+              'match',
+              ['get', 'ppi5'],
+              0,
+              'hsl(0, 100%, 100%)',
+              1,
+              '#fee5da',
+              [2],
+              '#fdae95',
+              [3],
+              '#fd6a52',
+              [4],
+              '#e02d2f',
+              [5],
+              '#74004b',
+              'hsl(0, 27%, 16%)',
+            ]);
+        });
+      } else {
+        layerList.forEach((layer) => {
+          julyMap.setPaintProperty(layer, 'fill-color',
+            [
+              'step',
+              ['get', 'ppi5'],
+              colorsList[0], choroplethList[`${currentlySelected}`][0],
+              colorsList[1], choroplethList[`${currentlySelected}`][1],
+              colorsList[2], choroplethList[`${currentlySelected}`][2],
+              colorsList[3], choroplethList[`${currentlySelected}`][3],
+              colorsList[4], choroplethList[`${currentlySelected}`][4],
+              colorsList[5],
+            ]);
+        });
+      }
+    }
+  });
   return (
     <>
       <h1 className="calendar-viz__title">Pollution Proximity Index</h1>
       <div className="calendar-viz__wrapper">
         <div id="julyMap" className="mapboxgl__container" />
+        <form className="map__options">
+          <select onChange={(event) => updateSelection(event.target.value)}>
+            <option value="ppi5">PPI values</option>
+            <option value="nhwhi_10">Non-Hispanic White population</option>
+            <option value="nhaa_10">African American/Black population</option>
+            <option value="nhapi_10">Asian/Pacific Islander population</option>
+            <option value="lat_10">Latinx population</option>
+            <option value="nhoth_10">Non-Hispanic Other population</option>
+          </select>
+        </form>
         <div className="map__overlay" style={{ top: '98px' }}>
           <span className="map__legend-entry map__legend-entry--bold map__legend-title">Pollution Proximity Index</span>
           <svg height="160" width="160" className="map__legend map__legend--translucent">
