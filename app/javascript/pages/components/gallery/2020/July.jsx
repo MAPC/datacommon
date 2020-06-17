@@ -5,6 +5,14 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thO
 const July = () => {
   const colors = ['#FFFFFF', '#fee5da', '#fdae95', '#fd6a52', '#e02d2f', '#74004b'];
   const layers = ['icc', 'tric', 'ssc', 'nstf', 'nspc', 'magic', 'swap', 'metrowest'];
+  const titles = {
+    ppi5: 'Pollutions Proximity Index',
+    nhwhi_10: 'Non-Hispanic White population',
+    nhaa_10: 'African-American/Black population',
+    nhapi_10: 'Asian/Pacific Islander population',
+    lat_10: 'Latinx population',
+    nhoth_10: 'Non-Hispanic Other population',
+  };
   const choropleths = {
     ppi5: [0, 1, 2, 3, 4, 5],
     nhwhi_10: [0, 10, 50, 100, 500, 1000],
@@ -13,6 +21,7 @@ const July = () => {
     lat_10: [0, 10, 50, 100, 500, 1000],
     nhoth_10: [0, 10, 50, 100, 500, 1000],
   };
+
   let zoom = 8.4;
   let center = [-70.944, 42.37];
   if (window.innerWidth <= 480) {
@@ -28,9 +37,6 @@ const July = () => {
 
   const [currentlySelected, updateSelection] = useState('ppi5');
   const [julyMap, setMap] = useState();
-  const [colorsList] = useState(colors);
-  const [layerList] = useState(layers);
-  const [choroplethList] = useState(choropleths);
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -52,7 +58,7 @@ const July = () => {
   useEffect(() => {
     if (julyMap && julyMap.isStyleLoaded()) {
       if (currentlySelected === 'ppi5') {
-        layerList.forEach((layer) => {
+        layers.forEach((layer) => {
           julyMap.setPaintProperty(layer, 'fill-color',
             [
               'match',
@@ -67,17 +73,17 @@ const July = () => {
             ]);
         });
       } else {
-        layerList.forEach((layer) => {
+        layers.forEach((layer) => {
           julyMap.setPaintProperty(layer, 'fill-color',
             [
               'step',
               ['get', currentlySelected],
-              colorsList[0], 0,
-              colorsList[1], choroplethList[`${currentlySelected}`][1],
-              colorsList[2], choroplethList[`${currentlySelected}`][2],
-              colorsList[3], choroplethList[`${currentlySelected}`][3],
-              colorsList[4], choroplethList[`${currentlySelected}`][4],
-              colorsList[5],
+              colors[0], 0,
+              colors[1], choropleths[`${currentlySelected}`][1],
+              colors[2], choropleths[`${currentlySelected}`][2],
+              colors[3], choropleths[`${currentlySelected}`][3],
+              colors[4], choropleths[`${currentlySelected}`][4],
+              colors[5],
             ]);
         });
       }
@@ -99,20 +105,20 @@ const July = () => {
           </select>
         </form>
         <div className="map__overlay" style={{ top: '98px' }}>
-          <span className="map__legend-entry map__legend-entry--bold map__legend-title">Pollution Proximity Index</span>
+          <span className="map__legend-entry map__legend-entry--bold map__legend-title">{ titles[`${currentlySelected}`]}</span>
           <svg height="160" width="160" className="map__legend map__legend--translucent">
             <rect x="10" y="2" width="16" height="16" style={{ fill: colors[0], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="14" className="map__legend-entry" fill="#1F4E46">0</text>
+            <text x="32" y="14" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][0]}</text>
             <rect x="10" y="30" width="16" height="16" style={{ fill: colors[1], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="42" className="map__legend-entry" fill="#1F4E46">1</text>
+            <text x="32" y="42" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][1]}</text>
             <rect x="10" y="58" width="16" height="16" style={{ fill: colors[2], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="70" className="map__legend-entry" fill="#1F4E46">2</text>
+            <text x="32" y="70" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][2]}</text>
             <rect x="10" y="86" width="16" height="16" style={{ fill: colors[3], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="98" className="map__legend-entry" fill="#1F4E46">3</text>
+            <text x="32" y="98" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][3]}</text>
             <rect x="10" y="114" width="16" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="126" className="map__legend-entry" fill="#1F4E46">4</text>
+            <text x="32" y="126" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][4]}</text>
             <rect x="10" y="142" width="16" height="16" style={{ fill: colors[5], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="154" className="map__legend-entry" fill="#1F4E46">5</text>
+            <text x="32" y="154" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][5]}</text>
           </svg>
           <span className="map__legend-entry map__legend-entry--bold map__legend-title calendar-viz__link">
             <a href="https://datacommon.mapc.org/browser/datasets/413">Explore & Download Data</a>
