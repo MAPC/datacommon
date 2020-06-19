@@ -4,24 +4,6 @@ import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 const July = () => {
   const colors = ['#FFFFFF', '#fee5da', '#fdae95', '#fd6a52', '#e02d2f', '#74004b'];
-  const layers = ['icc', 'tric', 'ssc', 'nstf', 'nspc', 'magic', 'swap', 'metrowest'];
-  const titles = {
-    ppi5: 'Pollutions Proximity Index',
-    nhwhi_10: 'Non-Hispanic White population',
-    nhaa_10: 'African-American/Black population',
-    nhapi_10: 'Asian/Pacific Islander population',
-    lat_10: 'Latinx population',
-    nhoth_10: 'Non-Hispanic Other population',
-  };
-  const choropleths = {
-    ppi5: [0, 1, 2, 3, 4, 5],
-    nhwhi_10: [0, 10, 50, 100, 500, 1000],
-    nhaa_10: [0, 10, 50, 100, 500, 1000],
-    nhapi_10: [0, 10, 50, 100, 500, 1000],
-    lat_10: [0, 10, 50, 100, 500, 1000],
-    nhoth_10: [0, 10, 50, 100, 500, 1000],
-  };
-
   let zoom = 8.4;
   let center = [-70.944, 42.37];
   if (window.innerWidth <= 480) {
@@ -35,8 +17,9 @@ const July = () => {
     center = [-71.039, 42.37];
   }
 
-  const [currentlySelected, updateSelection] = useState('ppi5');
   const [julyMap, setMap] = useState();
+  const [borderState, setBorderVisibility] = useState(false);
+  const [roadState, setRoadVisibility] = useState(false);
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -49,7 +32,7 @@ const July = () => {
         [-74.728, 38.167], // Southwest bound
         [-66.541, 46.032], // Northeast bound
       ],
-      style: 'mapbox://styles/ihill/ckb7xc2iq1sxf1ip9rdi5x0u6/draft',
+      style: 'mapbox://styles/ihill/ckb7xc2iq1sxf1ip9rdi5x0u6/',
     });
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
     setMap(map);
@@ -57,69 +40,51 @@ const July = () => {
 
   useEffect(() => {
     if (julyMap && julyMap.isStyleLoaded()) {
-      if (currentlySelected === 'ppi5') {
-        layers.forEach((layer) => {
-          julyMap.setPaintProperty(layer, 'fill-color',
-            [
-              'match',
-              ['get', 'ppi5'],
-              0, 'hsl(0, 100%, 100%)',
-              1, '#fee5da',
-              2, '#fdae95',
-              3, '#fd6a52',
-              4, '#e02d2f',
-              5, '#74004b',
-              'hsl(0, 27%, 16%)',
-            ]);
-        });
-      } else {
-        layers.forEach((layer) => {
-          julyMap.setPaintProperty(layer, 'fill-color',
-            [
-              'step',
-              ['get', currentlySelected],
-              colors[0], 0,
-              colors[1], choropleths[`${currentlySelected}`][1],
-              colors[2], choropleths[`${currentlySelected}`][2],
-              colors[3], choropleths[`${currentlySelected}`][3],
-              colors[4], choropleths[`${currentlySelected}`][4],
-              colors[5],
-            ]);
-        });
-      }
+      julyMap.setPaintProperty('roads', 'line-opacity', (roadState ? 1 : 0));
+      julyMap.setPaintProperty('mapc-borders', 'line-opacity', (borderState ? 1 : 0));
     }
   });
+
   return (
     <>
       <h1 className="calendar-viz__title">Pollution Proximity Index</h1>
       <div className="calendar-viz__wrapper">
         <div id="julyMap" className="mapboxgl__container" />
-        <form className="map__options">
-          <select onChange={(event) => updateSelection(event.target.value)}>
-            <option value="ppi5">PPI values</option>
-            <option value="nhwhi_10">Non-Hispanic White population</option>
-            <option value="nhaa_10">African American/Black population</option>
-            <option value="nhapi_10">Asian/Pacific Islander population</option>
-            <option value="lat_10">Latinx population</option>
-            <option value="nhoth_10">Non-Hispanic Other population</option>
-          </select>
-        </form>
-        <div className="map__overlay" style={{ top: '98px' }}>
-          <span className="map__legend-entry map__legend-entry--bold map__legend-title">{ titles[`${currentlySelected}`]}</span>
+        <div className="map__overlay" style={{ top: '45px' }}>
+          <span className="map__legend-entry map__legend-entry--bold map__legend-title">Pollution Proximity Index</span>
           <svg height="160" width="160" className="map__legend map__legend--translucent">
-            <rect x="10" y="2" width="16" height="16" style={{ fill: colors[0], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="14" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][0]}</text>
-            <rect x="10" y="30" width="16" height="16" style={{ fill: colors[1], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="42" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][1]}</text>
-            <rect x="10" y="58" width="16" height="16" style={{ fill: colors[2], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="70" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][2]}</text>
-            <rect x="10" y="86" width="16" height="16" style={{ fill: colors[3], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="98" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][3]}</text>
-            <rect x="10" y="114" width="16" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="126" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][4]}</text>
-            <rect x="10" y="142" width="16" height="16" style={{ fill: colors[5], stroke: 'black', strokeWidth: '1px' }} />
-            <text x="32" y="154" className="map__legend-entry" fill="#1F4E46">{choropleths[`${currentlySelected}`][5]}</text>
+            <rect x="10" y="2" width="32" height="16" style={{ fill: colors[0], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="48" y="14" className="map__legend-entry" fill="#1F4E46">0</text>
+            <rect x="10" y="30" width="32" height="16" style={{ fill: colors[1], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="48" y="42" className="map__legend-entry" fill="#1F4E46">1</text>
+            <rect x="10" y="58" width="32" height="16" style={{ fill: colors[2], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="48" y="70" className="map__legend-entry" fill="#1F4E46">2</text>
+            <rect x="10" y="86" width="32" height="16" style={{ fill: colors[3], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="48" y="98" className="map__legend-entry" fill="#1F4E46">3</text>
+            <rect x="10" y="114" width="32" height="16" style={{ fill: colors[4], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="48" y="126" className="map__legend-entry" fill="#1F4E46">4</text>
+            <rect x="10" y="142" width="32" height="16" style={{ fill: colors[5], stroke: 'black', strokeWidth: '1px' }} />
+            <text x="48" y="154" className="map__legend-entry" fill="#1F4E46">5</text>
           </svg>
+          <span className="map__legend-entry map__legend-entry--bold map__legend-title">Additional features</span>
+          <div className="toggle__group">
+            <div className="toggle__wrapper">
+              <label className="toggle__switch">
+                <input type="checkbox" onClick={() => setBorderVisibility(!borderState)} className="toggle__input" />
+                <span className="toggle__circle"></span>
+              </label>
+              <span className="map__legend-entry">Municipal borders</span>
+            </div>
+
+            <div className="toggle__wrapper">
+              <label className="toggle__switch">
+                <input type="checkbox" onClick={() => setRoadVisibility(!roadState)} className="toggle__input" />
+                <span className="toggle__circle"></span>
+              </label>
+              <span className="map__legend-entry">Roads</span>
+            </div>
+          </div>
+
           <span className="map__legend-entry map__legend-entry--bold map__legend-title calendar-viz__link">
             <a href="https://datacommon.mapc.org/browser/datasets/413">Explore & Download Data</a>
           </span>
