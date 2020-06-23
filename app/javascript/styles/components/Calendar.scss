@@ -176,28 +176,28 @@
   }
 
   &__iframe {
-    $mobile-legend-height: 195px;
-    @include media(medium) {
-      display: block;
+    border: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    max-width: 700px;
+    width: 100%;
+    z-index: 10;
+  }
+
+  &__iframe-wrapper {
+    @include media('medium') {
       float: unset;
       margin: 0 auto;
     }
-
-    @include media(small) {
-      height: 333px + $mobile-legend-height;
-      width: 400px;
-    }
-
-    @include media(x-small) {
-      height: 250px + $mobile-legend-height;
-      width: 300px;
-    }
-    border: 0;
     float: left;
     height: 500px;
-    margin: 0 32px 32px 0;
-    width: 600px;
-    z-index: 10;
+    margin: 0 32px 0 0;
+    max-width: 700px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
   }
 
   &__title {
