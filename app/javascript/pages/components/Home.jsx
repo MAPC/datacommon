@@ -44,7 +44,7 @@ class Home extends React.Component {
           <div className="gallery-spotlight__info">
             <p>Find and explore data visualizations about the region. Check back monthly or sign up for our newsletter to receive maps and data visualizations. We cover a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
             <p>
-              <strong>June’s visualization</strong> examines how the Federal CARES Act's $600-per-week increase in unemployment benefits impacts unemployed Massachusetts workers. While it temporarily raises the potential benefits for all, its relative effect greatly varies by occupation.</p>
+              <strong>July’s visualization</strong> explores the levels of air pollution from vehicle emissions across the region. Most people in the region live near a major roadway, but exposure to pollutants is not equally experienced across racial groups.</p>
             <CallToAction
               link="/gallery"
               text="View Gallery"
