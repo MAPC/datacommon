@@ -44,7 +44,8 @@ class Home extends React.Component {
           <div className="gallery-spotlight__info">
             <p>Find and explore data visualizations about the region. Check back monthly or sign up for our newsletter to receive maps and data visualizations. We cover a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
             <p>
-              <strong>July’s visualization</strong> explores the levels of air pollution from vehicle emissions across the region. Most people in the region live near a major roadway, but exposure to pollutants is not equally experienced across racial groups.</p>
+              <strong>August’s visualization</strong> examines how Personal Paycheck Protection loans are spread across Massachusetts. Almost every municipality has a business that received a loan, but the percentage of total businesses covered broadly varies.
+            </p>
             <CallToAction
               link="/gallery"
               text="View Gallery"
