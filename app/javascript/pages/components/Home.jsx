@@ -44,7 +44,7 @@ class Home extends React.Component {
           <div className="gallery-spotlight__info">
             <p>Find and explore data visualizations about the region. Check back monthly or sign up for our newsletter to receive maps and data visualizations. We cover a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
             <p>
-              <strong>August’s visualization</strong> examines how Personal Paycheck Protection loans are spread across different sectors in Massachusetts. Almost half of all establishments received a loan, but some sectors had far broader coverage than others.
+              <strong>August’s visualization</strong> examines how Personal Paycheck Protection loans are spread across Massachusetts. Almost every municipality has a business that received a loan, but the percentage of total businesses covered broadly varies.
             </p>
             <CallToAction
               link="/gallery"
