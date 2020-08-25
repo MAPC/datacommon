@@ -51,4 +51,11 @@ RSpec.describe "calendar", :type => :system do
       expect(page).to have_css('.mapboxgl-canvas')
     end
   end
+
+  it "displays a map for September", js: true do
+    visit "/calendar/2020/september"
+    page.within_frame('september-iframe') do
+      expect(page).to have_css('.mapboxgl-canvas')
+    end
+  end
 end

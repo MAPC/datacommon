@@ -236,6 +236,19 @@
     height: 20rem;
     width: 100%;
   }
+
+  &__list {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: lighter;
+    line-height: 1.5rem;
+    list-style: unset;
+    padding: 0 2.5rem;
+  }
+
+  &__header {
+    font-weight: 700;
+  }
 }
 
 .replay {
