@@ -44,7 +44,7 @@ class Home extends React.Component {
           <div className="gallery-spotlight__info">
             <p>Find and explore data visualizations about the region. Check back monthly or sign up for our newsletter to receive maps and data visualizations. We cover a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
             <p>
-              <strong>September’s visualization</strong> revisits the 2020 Census and examines response rates across the region. With just one month left before counting efforts close, many communities are still undercounted.
+              <strong>September’s visualization</strong> revisits the 2020 Census and examines response rates across the region. With just one month left before counting efforts close, some communities are still undercounted.
             </p>
             <CallToAction
               link="/gallery"
