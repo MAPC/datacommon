@@ -39,7 +39,7 @@ class MapBox extends React.Component {
   componentDidMount() {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/ihill/cjjyl8uj509sj2smehs79fzyq',
+      style: 'mapbox://styles/ihill/ckeucj9gy9vt319qm4dxcn73l',
       scrollZoom: false,
       dragPan: false,
       dragRotate: false,
