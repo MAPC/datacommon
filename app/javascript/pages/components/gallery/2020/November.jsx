@@ -1,34 +1,67 @@
-import React, { useState} from 'react';
+/* eslint-disable no-await-in-loop */
+import React, { useEffect, useState } from 'react';
 import { Client } from '@petfinder/petfinder-js';
-import dotenv from 'dotenv';
-import D3Map from '../D3Map';
 
 function November() {
   const client = new Client({
     apiKey: '',
     secret: '',
   });
-  client.animal.search({
-    type: 'Dog',
-    location: 'MA',
-  })
-    .then((response) => {
-      console.log(response.data.animals)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  const [allDogs, setDogs] = useState([]);
+
+  useEffect(() => {
+    async function showAnimals() {
+      console.log("Show animals called")
+      let page = 1;
+      let apiResult;
+
+      const allTempDogs = [];
+      do {
+        apiResult = await client.animal.search({
+          type: 'Dog',
+          location: 'MA',
+          limit: 100,
+          page,
+        });
+        page += 1;
+        allTempDogs.push(...apiResult.data.animals);
+      } while (apiResult.data.pagination && apiResult.data.pagination.total_pages >= page);
+      setDogs(allTempDogs);
+    }
+    showAnimals();
+  }, []);
+
+
+  // client.animal.search({
+  //   type: 'Dog',
+  //   location: 'MA',
+  //   limit: 100,
+  //   currentPage,
+  // })
+  //   .then((response) => setPages(response.data.pagination.total_pages));
+
+  // useEffect(() => {
+  //   if (currentPage + 1 <= pages) {
+  //     client.animal.search({
+  //       type: 'Dog',
+  //       location: 'MA',
+  //       limit: 100,
+  //       currentPage,
+  //     })
+  //       .then((response) => {
+  //         let tempData = allDogs;
+  //         tempData.push(response.data.animals)
+  //         setDogs(tempData);
+  //         setCurrentPage(currentPage + 1);
+  //       });
+  //   }
+  // }, [pages, currentPage]);
+
   return (
     <>
       <h1 className="calendar-viz__title">Dog Map</h1>
       <div className="calendar-viz__wrapper">
-        <D3Map
-          oceanFill="#FEFDFE"
-          maFill="#F9F7FF"
-          newEngFill="#F9F7FF"
-          mapcFill="#ECE2FF"
-          mapcLine="#5a5a5a"
-        />
+        Insert map here (Mapbox or d3)
       </div>
     </>
   );
