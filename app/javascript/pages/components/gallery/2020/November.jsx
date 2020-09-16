@@ -1,61 +1,10 @@
-/* eslint-disable no-await-in-loop */
-import React, { useEffect, useState } from 'react';
-import { Client } from '@petfinder/petfinder-js';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
 function November() {
-  const client = new Client({
-    apiKey: '',
-    secret: '',
-  });
-  const [allDogs, setDogs] = useState([]);
-
   useEffect(() => {
-    async function showAnimals() {
-      console.log("Show animals called")
-      let page = 1;
-      let apiResult;
-
-      const allTempDogs = [];
-      do {
-        apiResult = await client.animal.search({
-          type: 'Dog',
-          location: 'MA',
-          limit: 100,
-          page,
-        });
-        page += 1;
-        allTempDogs.push(...apiResult.data.animals);
-      } while (apiResult.data.pagination && apiResult.data.pagination.total_pages >= page);
-      setDogs(allTempDogs);
-    }
-    showAnimals();
+    axios.get('/calendar/dogs').then((response) => console.log(response.data));
   }, []);
-
-
-  // client.animal.search({
-  //   type: 'Dog',
-  //   location: 'MA',
-  //   limit: 100,
-  //   currentPage,
-  // })
-  //   .then((response) => setPages(response.data.pagination.total_pages));
-
-  // useEffect(() => {
-  //   if (currentPage + 1 <= pages) {
-  //     client.animal.search({
-  //       type: 'Dog',
-  //       location: 'MA',
-  //       limit: 100,
-  //       currentPage,
-  //     })
-  //       .then((response) => {
-  //         let tempData = allDogs;
-  //         tempData.push(response.data.animals)
-  //         setDogs(tempData);
-  //         setCurrentPage(currentPage + 1);
-  //       });
-  //   }
-  // }, [pages, currentPage]);
 
   return (
     <>
