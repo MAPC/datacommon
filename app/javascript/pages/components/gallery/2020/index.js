@@ -7,8 +7,7 @@ import June from './June';
 import July from './July';
 import August from './August';
 import September from './September';
-import November from './November'
 
 export {
-  January, February, March, April, May, June, July, August, September, November
+  January, February, March, April, May, June, July, August, September
 };
