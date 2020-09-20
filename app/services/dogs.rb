@@ -7,7 +7,7 @@ class Dogs
     all_dogs = []
     Rails.cache.fetch('cachedDogs', expires_in: 1.hours) do
       current_page = 1
-      petfinder = Petfinder::Client.new(ENV.fetch('PETFINDER_API_KEY'), ENV.fetch('PETFINDER_SECRET'))
+      petfinder = Petfinder::Client.new(Rails.application.credentials.petfinder.api_key, Rails.application.credentials.petfinder.secret)
       animals, pagination = petfinder.animals(type: 'dog', location: 'MA', page: current_page, limit: 100)
       all_dogs.push(*animals)
 
