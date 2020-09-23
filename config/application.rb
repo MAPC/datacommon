@@ -31,5 +31,17 @@ module Datacommon
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    known_hosts = [
+      'http://localhost:4000',
+      'https://mapc.github.io'
+    ]
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins known_hosts
+        resource '/calendar/dogs', :headers => :any, :methods => [:get]
+      end
+    end
   end
 end
