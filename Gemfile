@@ -31,6 +31,7 @@ gem 'rubyzip'
 
 gem "aws-sdk-s3", require: false
 gem "mini_magick"
+gem 'petfinder'
 gem "non-digest-assets"
 
 group :development, :test do
