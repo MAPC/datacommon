@@ -44,7 +44,7 @@ class Home extends React.Component {
           <div className="gallery-spotlight__info">
             <p>Find and explore data visualizations about the region. Check back monthly or sign up for our newsletter to receive maps and data visualizations. We cover a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
             <p>
-              <strong>September’s visualization</strong> revisits the 2020 Census and examines response rates across the region. With just one month left before counting efforts close, some communities are still undercounted.
+              <strong>October’s visualization</strong> examines data from the 2018-2019 and 2019-2020 releases of the Massachusetts Municipal Association's Municipal Directory. In just two years, Massachusetts municipalities have made over fifty changes to their forms of local government.
             </p>
             <CallToAction
               link="/gallery"
