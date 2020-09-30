@@ -5,11 +5,12 @@ const September = () => (
   <>
     <h1 className="calendar-viz__title">Completing the 2020 Census</h1>
     <div className="calendar-viz__iframe-wrapper">
-      <iframe src="https://mapc.github.io/MapboxEmbeds/2020/08/07/census-response-rate.html" className="calendar-viz__iframe" id="september-iframe" title="Map of census response rates in MAPC region, August 31" />
+      <iframe src="https://mapc.github.io/MapboxEmbeds/2020/08/07/census-response-rate.html" className="calendar-viz__iframe" id="september-iframe" title="Map of census response rates in MAPC region, September" />
     </div>
+    <p><em>Note: at the original time of this map's publishing, the Census counting efforts were set to end on September 30, 2020. However, as of September 30 the official end date is unclear.</em></p>
     <p>A full four weeks earlier than planned, at the end of this month, the Federal government will conclude the 2020 Census. This new September 30 end means four fewer weeks to gather the data that will direct $675 billion annually in federal funds, determine the number of seats each state has in the House of Representatives, and affect much else, including local policy and planning decisions – for the next ten years.</p>
     <p>Some households are less likely to respond to the Census without a follow-up visit from a Census worker – visits for which there will be less time because of the premature cessation. The shortened process will have a disproportionate impact on these households and the municipalities where they are located.</p>
-    <p>This map shows Census response rates as of August 31 and, unfortunately, illustrates the wide range in participation throughout the region. Fortunately, there’s time to be counted, and to help others as well.</p>
+    <p>This map shows Census response rates as of September 30 and, unfortunately, illustrates the wide range in participation throughout the region. Fortunately, there’s time to be counted, and to help others as well.</p>
     <ul className="calendar-viz__list">
       <li><strong>Respond</strong> – If you haven't already done so, fill out your Census questionnaire <a href="https://my2020census.gov/" className="calendar-viz__link">here</a>.</li>
       <li><strong>Call State Elected Officials</strong> – While the power to extend the 2020 Census rests with the Federal government, Massachusetts has over one million dollars in funds earmarked for Census Complete Count efforts that have yet to be allocated to nonprofits and municipalities. Read more <a href="https://www.masslive.com/politics/2020/08/massachusetts-has-over-1-million-sitting-in-census-fund-as-communities-remain-undercounted-advocates-say.html" className="calendar-viz__link">here</a>, then call <a href="https://www.house.gov/representatives/find-your-representative" className="calendar-viz__link">your state representative</a> and ask them to help release these funds.</li>
