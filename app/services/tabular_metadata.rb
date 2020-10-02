@@ -4,19 +4,19 @@ class TabularMetadata
   end
 
   def metadata_for(tablename, columns, subset)
-    if subset == 'meta'
-      limit_clause = 'LIMIT 15'
-    else
-      limit_clause = ''
-    end
+    limit_clause = if subset == 'meta'
+                     'LIMIT 15'
+                   else
+                     ''
+                   end
 
     sql = <<~SQL
-    SELECT
-      #{columns}
-    FROM
-      #{tablename}
-      #{limit_clause}
-      ;
+      SELECT
+        #{columns}
+      FROM
+        #{tablename}
+        #{limit_clause}
+        ;
     SQL
     ActiveRecord::Base.connection.execute(sql)
   end
@@ -25,17 +25,13 @@ class TabularMetadata
     ActiveRecord::Base.connected_to(database: :tabular_metadata) do
       metadata = {}
 
-      if @params['tables']
-        tables = @params['tables'].split(',')
-      else
-        tables = ActiveRecord::Base.connection.tables
-      end
+      tables = if @params['tables']
+                 @params['tables'].split(',')
+               else
+                 ActiveRecord::Base.connection.tables
+               end
 
-      if @params['columns']
-        columns = @params['columns']
-      else
-        columns = 'name,alias,details'
-      end
+      columns = @params['columns'] || 'name,alias,details'
 
       tables.each do |table|
         metadata[table] = metadata_for(table, columns, @params['subset'])
