@@ -8,6 +8,8 @@
     <%= javascript_pack_tag 'application' %>
     <%= javascript_pack_tag 'direct_uploads' %>
     <%= yield :head %>
+
+    <%= favicon_link_tag asset_path('favicon.ico') %>
   </head>
 
   <body>
