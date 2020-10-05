@@ -8,7 +8,7 @@ class Particles extends React.Component {
     this.canvasRef = React.createRef();
     this.state = {
       width: window.innerWidth,
-      height: 421,
+      height: 423,
       dotArray: [],
       randNum(measurement) {
         return Math.floor(Math.random() * Math.floor(measurement));
@@ -37,7 +37,9 @@ class Particles extends React.Component {
 
   componentDidMount() {
     window.addEventListener('resize', this.updateDimensions);
-    if (window.innerWidth <= 770) {
+    if (window.innerWidth <= 480) {
+      this.setState({ height: 205 });
+    } else if (window.innerWidth <= 770) {
       this.setState({ height: 220 });
     }
     const contxt = this.canvas.getContext('2d');
@@ -161,10 +163,13 @@ class Particles extends React.Component {
   }
 
   updateDimensions() {
-    this.setState({
-      width: window.innerWidth,
-      height: window.innerWidth <= 770 ? 221 : 421,
-    });
+    if (window.innerWidth <= 480) {
+      this.setState({ width: window.innerWidth, height: 205 });
+    } else if (window.innerWidth <= 770) {
+      this.setState({ width: window.innerWidth, height: 220 });
+    } else {
+      this.setState({ width: window.innerWidth, height: 423 });
+    }
   }
 
   render() {
