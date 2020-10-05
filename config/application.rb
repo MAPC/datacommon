@@ -48,4 +48,5 @@ end
 
 Raven.configure do |config|
   config.dsn = 'https://4bb1a18f7fcf41a183a9033e4763ab7c@o109972.ingest.sentry.io/5453345'
+  config.environments = %w[staging production]
 end
