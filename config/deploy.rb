@@ -38,7 +38,7 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bund
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
-set :rvm_ruby_version, '2.6.5'
+set :rvm_ruby_version, '2.7.2'
 
 before 'deploy:assets:precompile', 'deploy:yarn_install'
 namespace :deploy do
