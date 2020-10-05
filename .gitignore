@@ -30,3 +30,10 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# dotenv suppressions
+.env.*.local
+.env.local
+
+# RSpec Suppresions
+/spec/examples.txt

@@ -1,8 +1,8 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.11"
+lock '~> 3.11'
 
-set :application, "datacommon"
-set :repo_url, "git@github.com:mapc/datacommon.git"
+set :application, 'datacommon'
+set :repo_url, 'git@github.com:mapc/datacommon.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -40,9 +40,9 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bund
 
 set :rvm_ruby_version, '2.6.5'
 
-before "deploy:assets:precompile", "deploy:yarn_install"
+before 'deploy:assets:precompile', 'deploy:yarn_install'
 namespace :deploy do
-  desc "Run rake yarn install"
+  desc 'Run rake yarn install'
   task :yarn_install do
     on roles(:web) do
       within release_path do
