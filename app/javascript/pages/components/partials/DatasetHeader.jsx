@@ -16,7 +16,7 @@ function downloadMetadata(
   let rows;
   if (database === 'towndata' || database === 'gisdata') {
     const metadataName = metadata.documentation.metadata.eainfo.detailed.attr.map(
-      (attr) => (attr.attlabl ? attr.attlabel : 'undefined')
+      (attr) => (attr.attrlabl ? attr.attrlabl : 'undefined')
     );
     const metadataAlias = metadata.documentation.metadata.eainfo.detailed.attr.map(
       (attr) => attr.attalias
