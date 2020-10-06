@@ -81,7 +81,7 @@ class CommunityProfiles extends React.Component {
                 <header className="print-header">
                   <h3>Demographics</h3>
                 </header>
-                <div className="tab-row">
+                <div className="tab__row">
                   <ChartDetails chart={charts.demographics.race_ethnicity}>
                     <StackedBarChart
                       chart={charts.demographics.race_ethnicity}
@@ -100,7 +100,7 @@ class CommunityProfiles extends React.Component {
                 <header className="print-header">
                   <h3>Economy</h3>
                 </header>
-                <div className="tab-row">
+                <div className="tab__row">
                   <ChartDetails chart={charts.economy.resident_employment}>
                     <StackedBarChart
                       chart={charts.economy.resident_employment}
@@ -119,7 +119,7 @@ class CommunityProfiles extends React.Component {
                 <header className="print-header">
                   <h3>Education</h3>
                 </header>
-                <div className="tab-row">
+                <div className="tab__row">
                   <ChartDetails chart={charts.education.school_enrollment}>
                     <StackedBarChart
                       chart={charts.education.school_enrollment}
@@ -141,7 +141,7 @@ class CommunityProfiles extends React.Component {
                 <header className="print-header">
                   <h3>Governance</h3>
                 </header>
-                <div className="tab-row">
+                <div className="tab__row">
                   <ChartDetails chart={charts.governance.tax_levy}>
                     <PieChart
                       chart={charts.governance.tax_levy}
@@ -154,7 +154,7 @@ class CommunityProfiles extends React.Component {
                 <header className="print-header">
                   <h3>Environment</h3>
                 </header>
-                <div className="tab-row">
+                <div className="tab__row">
                   <ChartDetails chart={charts.environment.water_usage_per_cap}>
                     <LineChart
                       chart={charts.environment.water_usage_per_cap}
@@ -168,7 +168,7 @@ class CommunityProfiles extends React.Component {
                     />
                   </ChartDetails>
                 </div>
-                <div className="tab-row">
+                <div className="tab__row">
                   <ChartDetails chart={charts.environment.energy_usage_electricity}>
                     <StackedAreaChart
                       chart={charts.environment.energy_usage_electricity}
@@ -181,7 +181,7 @@ class CommunityProfiles extends React.Component {
                 <header className="print-header">
                   <h3>Housing</h3>
                 </header>
-                <div className="tab-row">
+                <div className="tab__row">
                   <ChartDetails chart={charts.housing.cost_burden}>
                     <StackedBarChart
                       chart={charts.housing.cost_burden}
@@ -200,7 +200,7 @@ class CommunityProfiles extends React.Component {
                 <header className="print-header">
                   <h3>Public Health</h3>
                 </header>
-                <div className="tab-row">
+                <div className="tab__row">
                   <ChartDetails chart={charts['public-health'].premature_mortality_rate}>
                     <StackedBarChart
                       chart={charts['public-health'].premature_mortality_rate}
@@ -219,7 +219,7 @@ class CommunityProfiles extends React.Component {
                 <header className="print-header">
                   <h3>Transportation</h3>
                 </header>
-                <div className="tab-row">
+                <div className="tab__row">
                   <ChartDetails chart={charts.transportation.daily_vmt}>
                     <StackedAreaChart
                       chart={charts.transportation.daily_vmt}

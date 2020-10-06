@@ -1,5 +1,4 @@
 .chart {
-
   font-size: $font_size-xsmall;
   margin-bottom: 1em;
   svg {
@@ -76,6 +75,8 @@
   }
   @media print {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     .svg-wrapper {
       flex: 1;
       max-width: 66%;
@@ -96,6 +97,32 @@
           }
         }
       }
+    }
+  }
+}
+
+.chart-wrapper {
+  flex: 1;
+  max-width: calc(50% - 3em);
+
+  &:first-child {
+    margin-right: 6em;
+  }
+
+  @media print {
+    max-width: unset;
+    page-break-inside: avoid;
+    &:first-child {
+      margin-right: 0em;
+      margin-bottom: 2em;
+    }
+  }
+
+  @include media(large) {
+    max-width: none;
+    &:first-child {
+      margin-right: 0em;
+      margin-bottom: 2em;
     }
   }
 }
