@@ -72,8 +72,15 @@
       }
     }
     .description {
+      font-family: unset;
+      font-weight: unset;
+      line-height: unset;
+    }
+
+    .description-wrapper {
       flex: 1;
     }
+    
     @include media(medium) {
       padding: 0 0 1em 0;
     }

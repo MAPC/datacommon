@@ -8,15 +8,14 @@ import PieChart from '../containers/visualizations/PieChart';
 import LineChart from '../containers/visualizations/LineChart';
 import StackedAreaChart from '../containers/visualizations/StackedAreaChart';
 import StackedBarChart from '../containers/visualizations/StackedBarChart';
-import ChartDetails from '../components/visualizations/ChartDetails';
+import ChartDetails from './visualizations/ChartDetails';
 
-import tabs from './../constants/tabs';
+import tabs from '../constants/tabs';
 import charts from '../constants/charts';
 import descriptions from '../constants/descriptions';
 import capitalize from '../utils/capitalize';
 
 class CommunityProfiles extends React.Component {
-
   constructor() {
     super(...arguments);
 
@@ -25,7 +24,7 @@ class CommunityProfiles extends React.Component {
 
   loadData() {
     if (charts[this.props.match.params.tab]) {
-      Object.values(charts).forEach((tab) => Object.values(tab).forEach(chart => this.props.fetchChartData(chart)));
+      Object.values(charts).forEach((tab) => Object.values(tab).forEach((chart) => this.props.fetchChartData(chart)));
     }
   }
 
@@ -36,10 +35,9 @@ class CommunityProfiles extends React.Component {
   render() {
     return (
       <article className="component CommunityProfiles">
-
         <div className="page-header">
           <div className="container back-link">
-            <Link to={'/'} >{'< Back'}</Link>
+            <Link to="/">{'< Back'}</Link>
           </div>
           <div className="container">
             <header>
@@ -51,13 +49,15 @@ class CommunityProfiles extends React.Component {
                   feature={this.props.municipalFeature}
                 />
               </div>
-              <div className="description">
-                {descriptions[this.props.muniSlug.toLowerCase()] || 'No description available.'}
+              <div className="description-wrapper">
+                <p className="description">
+                  {descriptions[this.props.muniSlug.toLowerCase()] || 'No description available.'}
+                </p>
+                <button onClick={() => (window.print())} type="button" className="print-button">Print charts</button>
               </div>
             </section>
           </div>
         </div>
-
         <div className="data">
           <div className="container tab-selection">
             <ul className="tabs">
@@ -82,15 +82,15 @@ class CommunityProfiles extends React.Component {
                   <h3>Demographics</h3>
                 </header>
                 <div className="tab-row">
-                  <ChartDetails chart={charts['demographics']['race_ethnicity']}>
+                  <ChartDetails chart={charts.demographics.race_ethnicity}>
                     <StackedBarChart
-                      chart={charts['demographics']['race_ethnicity']}
+                      chart={charts.demographics.race_ethnicity}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
-                  <ChartDetails chart={charts['demographics']['pop_by_age']}>
+                  <ChartDetails chart={charts.demographics.pop_by_age}>
                     <StackedBarChart
-                      chart={charts['demographics']['pop_by_age']}
+                      chart={charts.demographics.pop_by_age}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
@@ -101,15 +101,15 @@ class CommunityProfiles extends React.Component {
                   <h3>Economy</h3>
                 </header>
                 <div className="tab-row">
-                  <ChartDetails chart={charts['economy']['resident_employment']}>
+                  <ChartDetails chart={charts.economy.resident_employment}>
                     <StackedBarChart
-                      chart={charts['economy']['resident_employment']}
+                      chart={charts.economy.resident_employment}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
-                  <ChartDetails chart={charts['economy']['emp_by_sector']}>
+                  <ChartDetails chart={charts.economy.emp_by_sector}>
                     <StackedAreaChart
-                      chart={charts['economy']['emp_by_sector']}
+                      chart={charts.economy.emp_by_sector}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
@@ -120,19 +120,19 @@ class CommunityProfiles extends React.Component {
                   <h3>Education</h3>
                 </header>
                 <div className="tab-row">
-                  <ChartDetails chart={charts['education']['school_enrollment']}>
+                  <ChartDetails chart={charts.education.school_enrollment}>
                     <StackedBarChart
-                      chart={charts['education']['school_enrollment']}
+                      chart={charts.education.school_enrollment}
                       muni={this.props.match.params.muni}
-                      horizontal={true}
+                      horizontal
                     />
                   </ChartDetails>
-                  <ChartDetails chart={charts['education']['edu_attainment_by_race']}>
+                  <ChartDetails chart={charts.education.edu_attainment_by_race}>
                     <StackedBarChart
-                      chart={charts['education']['edu_attainment_by_race']}
+                      chart={charts.education.edu_attainment_by_race}
                       muni={this.props.match.params.muni}
-                      horizontal={true}
-                      wrapLeftLabel={true}
+                      horizontal
+                      wrapLeftLabel
                     />
                   </ChartDetails>
                 </div>
@@ -142,9 +142,9 @@ class CommunityProfiles extends React.Component {
                   <h3>Governance</h3>
                 </header>
                 <div className="tab-row">
-                  <ChartDetails chart={charts['governance']['tax_levy']}>
+                  <ChartDetails chart={charts.governance.tax_levy}>
                     <PieChart
-                      chart={charts['governance']['tax_levy']}
+                      chart={charts.governance.tax_levy}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
@@ -155,23 +155,23 @@ class CommunityProfiles extends React.Component {
                   <h3>Environment</h3>
                 </header>
                 <div className="tab-row">
-                  <ChartDetails chart={charts['environment']['water_usage_per_cap']}>
+                  <ChartDetails chart={charts.environment.water_usage_per_cap}>
                     <LineChart
-                      chart={charts['environment']['water_usage_per_cap']}
+                      chart={charts.environment.water_usage_per_cap}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
-                  <ChartDetails chart={charts['environment']['energy_usage_gas']}>
+                  <ChartDetails chart={charts.environment.energy_usage_gas}>
                     <StackedAreaChart
-                      chart={charts['environment']['energy_usage_gas']}
+                      chart={charts.environment.energy_usage_gas}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
                 </div>
                 <div className="tab-row">
-                  <ChartDetails chart={charts['environment']['energy_usage_electricity']}>
+                  <ChartDetails chart={charts.environment.energy_usage_electricity}>
                     <StackedAreaChart
-                      chart={charts['environment']['energy_usage_electricity']}
+                      chart={charts.environment.energy_usage_electricity}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
@@ -182,15 +182,15 @@ class CommunityProfiles extends React.Component {
                   <h3>Housing</h3>
                 </header>
                 <div className="tab-row">
-                  <ChartDetails chart={charts['housing']['cost_burden']}>
+                  <ChartDetails chart={charts.housing.cost_burden}>
                     <StackedBarChart
-                      chart={charts['housing']['cost_burden']}
+                      chart={charts.housing.cost_burden}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
-                  <ChartDetails chart={charts['housing']['units_permitted']}>
+                  <ChartDetails chart={charts.housing.units_permitted}>
                     <StackedBarChart
-                      chart={charts['housing']['units_permitted']}
+                      chart={charts.housing.units_permitted}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
@@ -201,15 +201,15 @@ class CommunityProfiles extends React.Component {
                   <h3>Public Health</h3>
                 </header>
                 <div className="tab-row">
-                  <ChartDetails chart={charts['public-health']['premature_mortality_rate']}>
+                  <ChartDetails chart={charts['public-health'].premature_mortality_rate}>
                     <StackedBarChart
-                      chart={charts['public-health']['premature_mortality_rate']}
+                      chart={charts['public-health'].premature_mortality_rate}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
-                  <ChartDetails chart={charts['public-health']['hospitalizations']}>
+                  <ChartDetails chart={charts['public-health'].hospitalizations}>
                     <StackedBarChart
-                      chart={charts['public-health']['hospitalizations']}
+                      chart={charts['public-health'].hospitalizations}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
@@ -220,15 +220,15 @@ class CommunityProfiles extends React.Component {
                   <h3>Transportation</h3>
                 </header>
                 <div className="tab-row">
-                  <ChartDetails chart={charts['transportation']['daily_vmt']}>
+                  <ChartDetails chart={charts.transportation.daily_vmt}>
                     <StackedAreaChart
-                      chart={charts['transportation']['daily_vmt']}
+                      chart={charts.transportation.daily_vmt}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
-                  <ChartDetails chart={charts['transportation']['commute_to_work']}>
+                  <ChartDetails chart={charts.transportation.commute_to_work}>
                     <PieChart
-                      chart={charts['transportation']['commute_to_work']}
+                      chart={charts.transportation.commute_to_work}
                       muni={this.props.match.params.muni}
                     />
                   </ChartDetails>
@@ -237,7 +237,6 @@ class CommunityProfiles extends React.Component {
             </div>
           </div>
         </div>
-
       </article>
     );
   }
