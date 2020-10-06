@@ -1,3 +1,11 @@
 .component.HorizontalStackedBarChart {
 
 }
+
+.StackedBarChart {
+  @media print {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

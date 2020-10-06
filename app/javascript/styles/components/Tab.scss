@@ -12,6 +12,10 @@
     & > .chart-wrapper {
       flex: 1;
       max-width: calc(50% - 3em);
+
+      @media print {
+        max-width: unset;
+      }
       &:first-child {
         margin-right: 6em;
         @media print {
@@ -35,7 +39,7 @@
     }
     @media print {
       display: block;
-      padding: 2em 6em;
+      padding: 2em;
       & > .chart-wrapper {
         page-break-inside: avoid;
         &:first-child {

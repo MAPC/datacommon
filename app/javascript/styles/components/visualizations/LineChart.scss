@@ -1,4 +1,9 @@
 .component.LineChart {
+  @media print {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
   .legend {
     .color-patch {
       width: 1em;

@@ -80,7 +80,13 @@
     .description-wrapper {
       flex: 1;
     }
-    
+
+    .print-button {
+      @media print {
+        display: none;
+      }
+    }
+
     @include media(medium) {
       padding: 0 0 1em 0;
     }
@@ -158,7 +164,10 @@
       }
       .chart-wrapper {
         @media print {
-          page-break-inside: avoid;
+          // page-break-inside: avoid;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
 
         h3 {
