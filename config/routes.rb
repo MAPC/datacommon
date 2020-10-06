@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get '/browser', to: 'pages#index'
   get '/browser/datasets/*dataset', to: 'pages#index'
   get '/browser/*menuOneSelectedItem', to: 'pages#index'
+  get '/profile/*muni/*tab', to: 'pages#index'
 end
