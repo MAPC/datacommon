@@ -1,20 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ReactGA from 'react-ga';
 
-function downloadMetadata(e, database, metadata, title, table = '', description = '') {
+function downloadMetadata(
+  e,
+  database,
+  metadata,
+  title,
+  table = '',
+  description = ''
+) {
   e.preventDefault();
   const documentHeader = ['name', 'alias', 'details'];
   let rows;
   if (database === 'towndata' || database === 'gisdata') {
-    const metadataName = metadata.documentation.metadata.eainfo.detailed.attr.map((attr) => (attr.attlabl ? attr.attlabel : 'undefined'));
-    const metadataAlias = metadata.documentation.metadata.eainfo.detailed.attr.map((attr) => attr.attalias);
-    const metadataDescription = metadata.documentation.metadata.eainfo.detailed.attr.map((attr) => (attr.attrdef ? attr.attrdef : 'undefined'));
+    const metadataName = metadata.documentation.metadata.eainfo.detailed.attr.map(
+      (attr) => (attr.attlabl ? attr.attlabel : 'undefined')
+    );
+    const metadataAlias = metadata.documentation.metadata.eainfo.detailed.attr.map(
+      (attr) => attr.attalias
+    );
+    const metadataDescription = metadata.documentation.metadata.eainfo.detailed.attr.map(
+      (attr) => (attr.attrdef ? attr.attrdef : 'undefined')
+    );
     rows = [
       ['title', 'Title', title],
       ['tbl_table', 'Table', table],
       ['descriptn', 'Description', description],
-    ].concat(metadataName.map((item, i) => [item, metadataAlias[i], metadataDescription[i]]));
+    ].concat(
+      metadataName.map((item, i) => [
+        item,
+        metadataAlias[i],
+        metadataDescription[i],
+      ])
+    );
   } else {
     const values = metadata.map((row) => documentHeader.map((key) => row[key]));
     rows = values.map((row) => row.reduce((a, b) => `${a},${b}`));
@@ -22,7 +42,9 @@ function downloadMetadata(e, database, metadata, title, table = '', description 
   const csvHeader = 'data:text/csv;charset=utf-8,';
   const documentRows = rows.reduce((a, b) => `${a}\n${b}`);
 
-  const documentStructure = [[documentHeader], documentRows].reduce((a, b) => a.concat(b));
+  const documentStructure = [[documentHeader], documentRows].reduce((a, b) =>
+    a.concat(b)
+  );
   const documentBody = documentStructure.reduce((a, b) => `${a}\n${b}`);
 
   const csvFile = csvHeader + documentBody;
@@ -37,7 +59,13 @@ function downloadMetadata(e, database, metadata, title, table = '', description 
   link.click();
 }
 
-function downloadCsv(schema, table, database, selectedYears = [], queryYearColumn = '') {
+function downloadCsv(
+  schema,
+  table,
+  database,
+  selectedYears = [],
+  queryYearColumn = ''
+) {
   const yearString = selectedYears.join();
   if (selectedYears.length > 0 && queryYearColumn !== '') {
     return `/csv?table=${schema}.${table}&database=${database}&years=${yearString}&year_col=${queryYearColumn}`;
@@ -49,15 +77,57 @@ function downloadShp(database, schema, table) {
   return `/shapefile?table=${database}.${schema}.${table}&database=${database}`;
 }
 
-function setDownloadLinks(metadata, schema, table, title, description, selectedYears, queryYearColumn, database) {
+function setDownloadLinks(
+  metadata,
+  schema,
+  table,
+  title,
+  description,
+  selectedYears,
+  queryYearColumn,
+  database
+) {
   if (database === 'towndata' || database === 'gisdata') {
     return (
       <div className="details-content-column download-links">
         Download:
         <div className="download-buttons gradient-4">
-          <a className="button lift" onClick={(e) => downloadMetadata(e, database, metadata, title, table, description)}>metadata</a>
-          <a className="button lift" href={downloadCsv(schema, table, database)} download={table}>.csv</a>
-          <a className="button lift" href={downloadShp(database, schema, table)} download={table}>.shp</a>
+          <a
+            className="button lift"
+            onClick={(e) =>
+              downloadMetadata(e, database, metadata, title, table, description)
+            }
+          >
+            metadata
+          </a>
+          <a
+            className="button lift"
+            onClick={() =>
+              ReactGA.event({
+                category: 'Datasets',
+                action: 'Download CSV',
+                label: table,
+              })
+            }
+            href={downloadCsv(schema, table, database)}
+            download={table}
+          >
+            .csv
+          </a>
+          <a
+            className="button lift"
+            onClick={() =>
+              ReactGA.event({
+                category: 'Datasets',
+                action: 'Download SHP',
+                label: table,
+              })
+            }
+            href={downloadShp(database, schema, table)}
+            download={table}
+          >
+            .shp
+          </a>
         </div>
       </div>
     );
@@ -66,8 +136,32 @@ function setDownloadLinks(metadata, schema, table, title, description, selectedY
     <div className="details-content-column download-links">
       Download:
       <div className="download-buttons gradient-4">
-        <a className="button lift" onClick={(e) => downloadMetadata(e, database, metadata, title)}>metadata</a>
-        <a className="button lift" href={downloadCsv(schema, table, database, selectedYears, queryYearColumn)} download={table}>.csv</a>
+        <a
+          className="button lift"
+          onClick={(e) => downloadMetadata(e, database, metadata, title)}
+        >
+          metadata
+        </a>
+        <a
+          className="button lift"
+          onClick={() =>
+            ReactGA.event({
+              category: 'Datasets',
+              action: 'Download CSV',
+              label: table,
+            })
+          }
+          href={downloadCsv(
+            schema,
+            table,
+            database,
+            selectedYears,
+            queryYearColumn
+          )}
+          download={table}
+        >
+          .csv
+        </a>
       </div>
     </div>
   );
@@ -79,7 +173,15 @@ function setSelectYears(availableYears, updateSelectedYears, selectedYears) {
       <div className="year-filter">
         <span>Select Years:</span>
         <ul>
-          { availableYears.map((year) => <li key={year.toString()} onClick={(e) => updateSelectedYears(e, year)} className={selectedYears.includes(year) ? 'selected' : ''}>{year}</li>) }
+          {availableYears.map((year) => (
+            <li
+              key={year.toString()}
+              onClick={(e) => updateSelectedYears(e, year)}
+              className={selectedYears.includes(year) ? 'selected' : ''}
+            >
+              {year}
+            </li>
+          ))}
         </ul>
       </div>
     );
@@ -100,12 +202,25 @@ function setUniverse(universe) {
 }
 
 function DatasetHeader({
-  title, table, source, universe, description, availableYears, metadata, schema, database, updateSelectedYears, queryYearColumn, selectedYears,
+  title,
+  table,
+  source,
+  universe,
+  description,
+  availableYears,
+  metadata,
+  schema,
+  database,
+  updateSelectedYears,
+  queryYearColumn,
+  selectedYears,
 }) {
   return (
     <div className="page-header">
       <div className="container back-link">
-        <Link to="/browser" className="back-link">{'< Back'}</Link>
+        <Link to="/browser" className="back-link">
+          {'< Back'}
+        </Link>
       </div>
       <div className="container tight">
         <h2>{title}</h2>
@@ -120,15 +235,24 @@ function DatasetHeader({
                 Source:
                 <em>{` ${source}`}</em>
               </li>
-              { setUniverse(universe) }
+              {setUniverse(universe)}
               <li>
                 Description:
                 <em>{` ${description}`}</em>
               </li>
             </ul>
-            { setSelectYears(availableYears, updateSelectedYears, selectedYears) }
+            {setSelectYears(availableYears, updateSelectedYears, selectedYears)}
           </div>
-          { setDownloadLinks(metadata, schema, table, title, description, selectedYears, queryYearColumn, database) }
+          {setDownloadLinks(
+            metadata,
+            schema,
+            table,
+            title,
+            description,
+            selectedYears,
+            queryYearColumn,
+            database
+          )}
         </div>
       </div>
     </div>
@@ -136,7 +260,9 @@ function DatasetHeader({
 }
 
 DatasetHeader.propTypes = {
-  availableYears: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  availableYears: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
   database: PropTypes.string,
   description: PropTypes.string,
   metadata: PropTypes.oneOfType([
@@ -145,7 +271,9 @@ DatasetHeader.propTypes = {
   ]),
   queryYearColumn: PropTypes.string,
   schema: PropTypes.string,
-  selectedYears: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  selectedYears: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
   source: PropTypes.string,
   table: PropTypes.string,
   title: PropTypes.string,
