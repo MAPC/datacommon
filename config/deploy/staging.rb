@@ -32,7 +32,7 @@ set :branch, 'dev'
 
 set :nvm_type, :user
 set :nvm_node, 'v10.16.3'
-set :nvm_map_bins, %w{node npm yarn}
+set :nvm_map_bins, %w{node npm yarn rake}
 
 # Custom SSH Options
 # ==================
