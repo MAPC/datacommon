@@ -40,10 +40,6 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bund
 
 set :rvm_ruby_version, '2.7.2'
 
-set :nvm_type, :user # or :system, depends on your nvm setup
-set :nvm_node, 'v10.16.3'
-set :nvm_map_bins, %w{node npm yarn}
-
 before 'deploy:assets:precompile', 'deploy:yarn_install'
 namespace :deploy do
   desc 'Run rake yarn install'
