@@ -50,7 +50,7 @@
 
   section.about {
     display: flex;
-    padding: 0 8em 1em 8em;
+    padding: 0 8em;
 
     .outline {
       margin-right: 3em;
@@ -75,6 +75,7 @@
       font-family: unset;
       font-weight: unset;
       line-height: unset;
+      margin-top: 0;
     }
 
     .description-wrapper {
@@ -82,6 +83,16 @@
     }
 
     .print-button {
+      background: $color_brand-primary;
+      border: none;
+      border-radius: 5px;
+      color: #FFFFFF;
+      cursor: pointer;
+      font-family: "skolar-sans-latin", Helvetica, sans-serif;
+      // font-size: 0.75rem;
+      font-weight: 400;
+      margin: 0 3px 3em;
+      padding: .25em 1.5em .5em;
       @media print {
         display: none;
       }
