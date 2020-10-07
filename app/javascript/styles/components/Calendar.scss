@@ -144,13 +144,6 @@
     width: 700px;
     z-index: 10;
   }
-
-  // &__chart {
-  //   @include media(large) {
-  //     height: 100%;
-  //     width: 100%;
-  //   }
-  // }
   
   &__subtitle {
     @include media(large) {

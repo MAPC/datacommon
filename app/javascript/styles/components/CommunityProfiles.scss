@@ -162,38 +162,6 @@
       @media print {
         border: none;
       }
-      .chart-wrapper {
-        @media print {
-          // page-break-inside: avoid;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-        }
-
-        h3 {
-          margin: 0;
-          font-size: $font_size-small;
-          font-weight: 700;
-        }
-        .caveat, .metadata {
-          color: $color_font-medium;
-          font-size: $font_size-xsmall;
-        }
-        .metadata {
-          font-style: italic;
-          .source-timeframe {
-            display: flex;
-            & > *:not(:last-child) {
-              margin-right: 1em;
-            }
-          }
-          a {
-            color: $color_font-medium;
-            cursor: pointer;
-            text-decoration: underline;
-          }
-        }
-      }
     }
   }
 

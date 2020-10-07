@@ -2,9 +2,10 @@
   display: none;
 
   @media print {
+    break-before: page;
     display: block;
   }
-  
+
   &--active {
     display: block;
   }
@@ -20,8 +21,9 @@
       padding: 2em 0em;
     }
     @media print {
-      flex-direction: column;
-      padding-bottom: 2em;
+      padding: 0;
+      break-after: page;
+      position: relative;
     }
   }
 }
