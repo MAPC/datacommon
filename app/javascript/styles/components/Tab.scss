@@ -22,8 +22,11 @@
     }
     @media print {
       padding: 0;
-      break-after: page;
       position: relative;
+
+      &--break {
+        break-after: page;
+      }
     }
   }
 }

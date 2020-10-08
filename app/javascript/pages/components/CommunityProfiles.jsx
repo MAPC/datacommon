@@ -154,7 +154,7 @@ class CommunityProfiles extends React.Component {
                 <header className="print-header">
                   <h3>Environment</h3>
                 </header>
-                <div className="tab__row">
+                <div className="tab__row tab__row--break">
                   <ChartDetails chart={charts.environment.water_usage_per_cap}>
                     <LineChart
                       chart={charts.environment.water_usage_per_cap}
