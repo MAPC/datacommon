@@ -50,7 +50,7 @@
 
   section.about {
     display: flex;
-    padding: 0 8em 1em 8em;
+    padding: 0 8em;
 
     .outline {
       margin-right: 3em;
@@ -72,8 +72,32 @@
       }
     }
     .description {
+      font-family: unset;
+      font-weight: unset;
+      line-height: unset;
+      margin-top: 0;
+    }
+
+    .description-wrapper {
       flex: 1;
     }
+
+    .print-button {
+      background: $color_brand-primary;
+      border: none;
+      border-radius: 5px;
+      color: #FFFFFF;
+      cursor: pointer;
+      font-family: "skolar-sans-latin", Helvetica, sans-serif;
+      // font-size: 0.75rem;
+      font-weight: 400;
+      margin: 0 3px 3em;
+      padding: .25em 1.5em .5em;
+      @media print {
+        display: none;
+      }
+    }
+
     @include media(medium) {
       padding: 0 0 1em 0;
     }
@@ -148,35 +172,6 @@
       }
       @media print {
         border: none;
-      }
-      .chart-wrapper {
-        @media print {
-          page-break-inside: avoid;
-        }
-
-        h3 {
-          margin: 0;
-          font-size: $font_size-small;
-          font-weight: 700;
-        }
-        .caveat, .metadata {
-          color: $color_font-medium;
-          font-size: $font_size-xsmall;
-        }
-        .metadata {
-          font-style: italic;
-          .source-timeframe {
-            display: flex;
-            & > *:not(:last-child) {
-              margin-right: 1em;
-            }
-          }
-          a {
-            color: $color_font-medium;
-            cursor: pointer;
-            text-decoration: underline;
-          }
-        }
       }
     }
   }
