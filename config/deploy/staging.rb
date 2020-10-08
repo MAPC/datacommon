@@ -30,10 +30,6 @@ set :passenger_restart_command, 'passenger-config restart-app'
 set :rvm_custom_path, '/usr/share/rvm'
 set :branch, 'dev'
 
-set :nvm_type, :user
-set :nvm_node, 'v10.16.3'
-set :nvm_map_bins, %w{node npm yarn rake}
-
 # Custom SSH Options
 # ==================
 # You may pass any option but keep in mind that net/ssh understands a
