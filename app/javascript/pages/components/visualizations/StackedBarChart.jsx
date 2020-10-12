@@ -23,12 +23,11 @@ const defaultMargin = {
 };
 
 class StackedBarChart extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.renderChart = this.renderChart.bind(this);
-
+    this.renderBlankChart = this.renderBlankChart.bind(this);
     this.stack = d3.stack();
 
 
@@ -50,6 +49,32 @@ class StackedBarChart extends React.Component {
       margin,
       container,
     };
+  }
+
+  componentDidMount() {
+    const { width, height } = container;
+
+    this.chart = d3.select(this.svg)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('width', width)
+      .attr('height', height);
+
+    this.legend = d3.select(this.legendContainer);
+
+    if (this.props.hasData) {
+      this.renderChart();
+    } else {
+      this.renderBlankChart();
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.hasData) {
+      this.renderChart();
+    } else {
+      this.renderBlankChart();
+    }
   }
 
   renderChart() {
@@ -209,27 +234,37 @@ class StackedBarChart extends React.Component {
     drawLegend(this.legend, this.color, keys);
   }
 
+  renderBlankChart() {
+    const maxLeftLabel = this.props.horizontal
+        ? this.props.data.reduce((acc, d) =>
+          Math.max(acc, this.props.xAxis.format
+            ? this.props.xAxis.format(d.x).length
+            : String(d.x).length), 0)
+        : this.props.data.reduce((acc, d) =>
+          Math.max(acc, this.props.yAxis.format
+            ? this.props.yAxis.format(d.y).length
+            : String(d.y).length), 0);
+    const clippedMaxLeftLabel = ((this.props.horizontal
+      && maxLeftLabel > LEFT_LABEL_MAX)
+        ? LEFT_LABEL_MAX
+        : maxLeftLabel)
+    const bonusLeftMargin = maxTextToMargin(clippedMaxLeftLabel, 12);
 
-  componentDidMount() {
-    const { width, height } = container;
-
-    this.chart = d3.select(this.svg)
-      .attr('preserveAspectRatio', 'xMinYMin meet')
-      .attr('viewBox', `0 0 ${width} ${height}`)
-      .attr('width', width)
-      .attr('height', height);
-
-
-    this.legend = d3.select(this.legendContainer);
-
-    this.renderChart();
+    const margin = Object.assign({}, defaultMargin, {
+      left: defaultMargin.left + bonusLeftMargin,
+    });
+    const width = (container.width - margin.left) - margin.right;
+    const height = (container.height - margin.top) - margin.bottom;
+    
+    this.chart.selectAll('*').remove(); // Clear chart before drawing lines
+    this.chart.append('text')
+      .attr('class', 'missing-data')
+      .attr('x', width / 2)
+      .attr('y', height / 2 - 12)
+      .attr('dy', '12')
+      .style('text-anchor', 'middle')
+      .text('Oops! We can\'t find this data right now.');
   }
-
-
-  componentDidUpdate() {
-    this.renderChart();
-  }
-
 
   render() {
     return (
