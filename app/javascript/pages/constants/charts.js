@@ -1,7 +1,7 @@
-import colors from '../constants/colors';
-import locations from '../constants/locations';
+import colors from './colors';
+import locations from './locations';
 
-const notNothing = (d) => (typeof(d) != 'undefined' && d != null);
+const notNothing = (d) => (typeof (d) !== 'undefined' && d != null);
 
 const format = {
   string: {
@@ -9,20 +9,20 @@ const format = {
     default: (d) => (notNothing(d) ? String(d) : ''),
   },
   number: {
-    thousands: (d) => (notNothing(d) ? `${(d/1000).toFixed(0)}k` : ''),
+    thousands: (d) => (notNothing(d) ? `${(d / 1000).toFixed(0)}k` : ''),
     percentage: (d) => (notNothing(d) ? `${d * 100}%` : ''),
     integer: (d) => (notNothing(d) ? d.toFixed(0) : ''),
     nearestTenth: (d) => (notNothing(d) ? d.toFixed(1) : ''),
     ignoreFloat: (d) => ((notNothing(d) && d % 1 == 0) ? d.toFixed(0) : ''),
-    integerPercentage: (d) => (notNothing(d) ? `${(d*100).toFixed(0)}%` : ''),
+    integerPercentage: (d) => (notNothing(d) ? `${(d * 100).toFixed(0)}%` : ''),
     localeString: (d) => (notNothing(d) ? d.toLocaleString() : ''),
   },
 };
 
 export default {
-  'demographics' : {
+  demographics: {
 
-    'race_ethnicity': {
+    race_ethnicity: {
       type: 'stacked-bar',
       title: 'Race and Ethnicity',
       xAxis: { label: '5-Year Estimates' },
@@ -45,18 +45,18 @@ export default {
         },
       },
       labels: {
-        'nhwhi': 'Non-hispanic White',
-        'nhaa': 'Non-hispanic Black or African American',
-        'nhapi': 'Non-hispanic Asian and Pacific Islander',
-        'nhother': 'Non-hispanic Other',
-        'lat': 'Hispanic or Latino',
+        nhwhi: 'Non-hispanic White',
+        nhaa: 'Non-hispanic Black or African American',
+        nhapi: 'Non-hispanic Asian and Pacific Islander',
+        nhother: 'Non-hispanic Other',
+        lat: 'Hispanic or Latino',
       },
       colors: {
-        'nhwhi': colors.CHART.EXTENDED.get('YELLOW'),
-        'nhaa': colors.CHART.EXTENDED.get('DARK_RED'),
-        'nhapi': colors.CHART.EXTENDED.get('TEAL_GREEN'),
-        'nhother': colors.CHART.EXTENDED.get('BLUE'),
-        'lat': colors.CHART.EXTENDED.get('PINK'),
+        nhwhi: colors.CHART.EXTENDED.get('YELLOW'),
+        nhaa: colors.CHART.EXTENDED.get('DARK_RED'),
+        nhapi: colors.CHART.EXTENDED.get('TEAL_GREEN'),
+        nhother: colors.CHART.EXTENDED.get('BLUE'),
+        lat: colors.CHART.EXTENDED.get('PINK'),
       },
       source: 'American Community Survey',
       timeframe: '2012-2016 5-Year Estimates',
@@ -67,27 +67,26 @@ export default {
         if (raceEthnicityData.length < 1) { return []; }
         const row = raceEthnicityData[0];
         const groupings = {
-          'nhwhi': row['nhwhi'],
-          'nhaa': row['nhaa'],
-          'nhapi': row['nhas'] + row['nhpi'],
-          'nhother': row['nhoth'] + row['nhmlt'] + row['nhna'],
-          'lat': row['lat'],
+          nhwhi: row.nhwhi,
+          nhaa: row.nhaa,
+          nhapi: row.nhas + row.nhpi,
+          nhother: row.nhoth + row.nhmlt + row.nhna,
+          lat: row.lat,
         };
-        return Object.keys(groupings).reduce((set, key) =>
-          (tableDef.yearCol == key ? set : set.concat([{
-            x: row[tableDef.yearCol],
-            y: groupings[key],
-            z: chart.labels[key],
-            color: chart.colors[key],
-          }]))
-        , []);
+        return Object.keys(groupings).reduce((set, key) => (tableDef.yearCol == key ? set : set.concat([{
+          x: row[tableDef.yearCol],
+          y: groupings[key],
+          z: chart.labels[key],
+          color: chart.colors[key],
+        }])),
+        []);
       },
     },
 
-    'pop_by_age': {
+    pop_by_age: {
       type: 'stacked-bar',
       title: 'Population by Age',
-      xAxis: { label: 'Year',  },
+      xAxis: { label: 'Year' },
       yAxis: { label: 'Population', format: format.number.localeString },
       tables: {
         'tabular.census2010_p12_pop_by_age_m': {
@@ -113,7 +112,7 @@ export default {
             'pop80_84',
             'pop85o',
           ],
-        }
+        },
       },
       labels: {
         pop_u18: 'Under 18',
@@ -132,15 +131,15 @@ export default {
         if (popData.length < 1) { return []; }
         const row = popData[0];
         const data = {
-          pop_u18: row['pop_u18'],
-          pop18_24: row['pop18_24'],
-          pop25_34: row['pop25_34'],
-          pop35_49: row['pop35_39'] + row['pop40_44'] + row['pop45_49'],
-          pop50_64: row['pop50_54'] + row['pop55_59'] + row['pop60_61'] + row['pop62_64'],
-          pop65_74: row['pop65_66'] + row['pop67_69'] + row['pop70_74'],
-          pop75o: row['pop75_79'] + row['pop80_84'] + row['pop85o'],
+          pop_u18: row.pop_u18,
+          pop18_24: row.pop18_24,
+          pop25_34: row.pop25_34,
+          pop35_49: row.pop35_39 + row.pop40_44 + row.pop45_49,
+          pop50_64: row.pop50_54 + row.pop55_59 + row.pop60_61 + row.pop62_64,
+          pop65_74: row.pop65_66 + row.pop67_69 + row.pop70_74,
+          pop75o: row.pop75_79 + row.pop80_84 + row.pop85o,
         };
-        return Object.keys(data).map(k => ({
+        return Object.keys(data).map((k) => ({
           x: row[chart.tables['tabular.census2010_p12_pop_by_age_m'].yearCol],
           y: data[k],
           z: chart.labels[k],
@@ -148,8 +147,8 @@ export default {
       },
     },
   },
-  'economy': {
-    'resident_employment': {
+  economy: {
+    resident_employment: {
       type: 'stacked-bar',
       title: 'Employment of Residents',
       xAxis: { label: '5-Year Estimates', format: format.string.default },
@@ -166,7 +165,7 @@ export default {
             'emp',
             'unemp',
           ],
-        }
+        },
       },
       labels: {
         emp: 'Employed',
@@ -185,7 +184,7 @@ export default {
         }))), []);
       },
     },
-    'emp_by_sector': {
+    emp_by_sector: {
       type: 'stacked-area',
       title: 'Employment by Industry',
       xAxis: { label: 'Year', format: format.string.default },
@@ -199,21 +198,21 @@ export default {
             'naicscode',
             'avgemp',
           ],
-        }
+        },
       },
       labels: {
         '11+21': 'Agriculture, Forestry, Fishing, Hunting, and Mining',
-        '22': 'Construction',
+        22: 'Construction',
         '31-33': 'Manufacturing',
         '42+44-45': 'Wholesale and Retail Trade',
         '22+48-49': 'Transportation, warehousing, and utilities',
-        '51': 'Information',
+        51: 'Information',
         '52+53': 'Finance, Insurance, Real Estate, and Rental and Leasing',
         '54+55+56': 'Professional, technical, management, administrative, and waste management services',
         '61+62': 'Education, health, and social services',
         '71+72': 'Arts, entertainment, recreation, accommodation, and food services',
-        '81': 'Other services (other than public administration)',
-        '92': 'Public administration',
+        81: 'Other services (other than public administration)',
+        92: 'Public administration',
       },
       source: 'Executive Office of Labor and Workforce Development (EOLWD)',
       timeframe: '2001-2016',
@@ -223,27 +222,27 @@ export default {
         if (indData.length < 1) { return []; }
         const mapping = {};
         indData.forEach((row) => {
-          if (!mapping[row['cal_year']]) {
-            mapping[row['cal_year']] = {}
+          if (!mapping[row.cal_year]) {
+            mapping[row.cal_year] = {};
           }
-          mapping[row['cal_year']][row['naicscode']] = row['avgemp'] || 0;
+          mapping[row.cal_year][row.naicscode] = row.avgemp || 0;
         });
 
         const combineCategories = (year) => {
           const getOrZero = (obj, key) => (obj[key] || 0);
           return {
             '11+21': getOrZero(year, '11') + getOrZero(year, '21'),
-            '22': getOrZero(year, '22'),
+            22: getOrZero(year, '22'),
             '31-33': getOrZero(year, '31-33'),
             '42+44-45': getOrZero(year, '42') + getOrZero(year, '44-45'),
             '22+48-49': getOrZero(year, '22') + getOrZero(year, '48-49'),
-            '51': getOrZero(year, '51'),
+            51: getOrZero(year, '51'),
             '52+53': getOrZero(year, '52') + getOrZero(year, '53'),
             '54+55+56': getOrZero(year, '54') + getOrZero(year, '55') + getOrZero(year, '56'),
             '61+62': getOrZero(year, '61') + getOrZero(year, '62'),
             '71+72': getOrZero(year, '71') + getOrZero(year, '72'),
-            '81': getOrZero(year, '81'),
-            '92': getOrZero(year, '92'),
+            81: getOrZero(year, '81'),
+            92: getOrZero(year, '92'),
           };
         };
         const data = Object.keys(mapping).reduce((acc, year) => {
@@ -258,8 +257,8 @@ export default {
       },
     },
   },
-  'education': {
-    'school_enrollment': {
+  education: {
+    school_enrollment: {
       type: 'stacked-bar',
       title: 'School Enrollment',
       xAxis: { label: 'Year', format: format.string.default },
@@ -270,23 +269,23 @@ export default {
             const spatial_api = `${locations.BROWSER_API}?token=${locations.GISDATA_TOKEN}&query=`;
             const tabular_api = `${locations.BROWSER_API}?token=${locations.DS_TOKEN}&query=`;
             const gis_query = `${spatial_api}`
-              + `SELECT districtid, district, madisttype, town_reg, municipal `
-              + `FROM mapc.school_districts_poly `
-              + `JOIN mapc.ma_municipalities `
-              + `ON ST_Intersects(mapc.school_districts_poly.shape, mapc.ma_municipalities.shape) `
-              + `WHERE `
+              + 'SELECT districtid, district, madisttype, town_reg, municipal '
+              + 'FROM mapc.school_districts_poly '
+              + 'JOIN mapc.ma_municipalities '
+              + 'ON ST_Intersects(mapc.school_districts_poly.shape, mapc.ma_municipalities.shape) '
+              + 'WHERE '
               + `municipal ilike '${municipality}' `
-              + `AND madisttype in ('Local School', 'Regional Academic') `
-              + `AND (ST_Area(ST_Intersection(mapc.school_districts_poly.shape, mapc.ma_municipalities.shape)) / ST_Area(mapc.ma_municipalities.shape)) > 0.5`;
+              + 'AND madisttype in (\'Local School\', \'Regional Academic\') '
+              + 'AND (ST_Area(ST_Intersection(mapc.school_districts_poly.shape, mapc.ma_municipalities.shape)) / ST_Area(mapc.ma_municipalities.shape)) > 0.5';
             const gis_response = await fetch(gis_query);
             const gis_payload = await gis_response.json() || {};
             if (!gis_payload.rows || gis_payload.rows.length < 1) { return dispatchUpdate([]); }
-            const districtIds = gis_payload.rows.map((district) => `'${district['districtid']}'`);
+            const districtIds = gis_payload.rows.map((district) => `'${district.districtid}'`);
             const query = `${tabular_api}`
-              + `SELECT district, districtid, schoolyear, grade_k, grade_1,`
-              + `grade_2, grade_3, grade_4, grade_5, grade_6, grade_7, grade_8,`
-              + `grade_9, grade_10, grade_11, grade_12 `
-              + `FROM tabular.educ_enrollment_by_year_districts `
+              + 'SELECT district, districtid, schoolyear, grade_k, grade_1,'
+              + 'grade_2, grade_3, grade_4, grade_5, grade_6, grade_7, grade_8,'
+              + 'grade_9, grade_10, grade_11, grade_12 '
+              + 'FROM tabular.educ_enrollment_by_year_districts '
               + `WHERE districtid IN (${districtIds.join(',')})`;
             const response = await fetch(query);
             const payload = await response.json() || {};
@@ -295,19 +294,19 @@ export default {
         },
       },
       labels: {
-        'grade_k': { label: 'Kindergarden', order: 0 },
-        'grade_1': { label: '1st Grade', order: 1 },
-        'grade_2': { label: '2nd Grade', order: 2 },
-        'grade_3': { label: '3rd Grade', order: 3 },
-        'grade_4': { label: '4th Grade', order: 4 },
-        'grade_5': { label: '5th Grade', order: 5 },
-        'grade_6': { label: '6th Grade', order: 6 },
-        'grade_7': { label: '7th Grade', order: 7 },
-        'grade_8': { label: '8th Grade', order: 8 },
-        'grade_9': { label: '9th Grade', order: 9 },
-        'grade_10': { label: '10th Grade', order: 10 },
-        'grade_11': { label: '11th Grade', order: 11 },
-        'grade_12': { label: '12th Grade', order: 12 },
+        grade_k: { label: 'Kindergarden', order: 0 },
+        grade_1: { label: '1st Grade', order: 1 },
+        grade_2: { label: '2nd Grade', order: 2 },
+        grade_3: { label: '3rd Grade', order: 3 },
+        grade_4: { label: '4th Grade', order: 4 },
+        grade_5: { label: '5th Grade', order: 5 },
+        grade_6: { label: '6th Grade', order: 6 },
+        grade_7: { label: '7th Grade', order: 7 },
+        grade_8: { label: '8th Grade', order: 8 },
+        grade_9: { label: '9th Grade', order: 9 },
+        grade_10: { label: '10th Grade', order: 10 },
+        grade_11: { label: '11th Grade', order: 11 },
+        grade_12: { label: '12th Grade', order: 12 },
       },
       source: 'MA Department of Elementary and Secondary Education',
       timeframe: '2007-2018',
@@ -315,24 +314,23 @@ export default {
       transformer: (tables, chart) => {
         const rows = tables['tabular.educ_enrollment_by_year_districts'];
         if (rows.length < 1) { return []; }
-        const data = rows.reduce((acc, district) =>
-          acc.concat(Object.keys(district).reduce((group, key) => (
-            key == 'district' || key == 'districtid' || key == 'schoolyear' ? group : group.concat([{
-              x: `${district['schoolyear']} ${district['district']}`,
-              y: district[key],
-              z: chart.labels[key].label,
-              order: chart.labels[key].order,
-            }])
-          ), []))
-        , []);
+        const data = rows.reduce((acc, district) => acc.concat(Object.keys(district).reduce((group, key) => (
+          key == 'district' || key == 'districtid' || key == 'schoolyear' ? group : group.concat([{
+            x: `${district.schoolyear} ${district.district}`,
+            y: district[key],
+            z: chart.labels[key].label,
+            order: chart.labels[key].order,
+          }])
+        ), [])),
+        []);
         return data;
       },
     },
-    'edu_attainment_by_race': {
+    edu_attainment_by_race: {
       type: 'stacked-bar',
       title: 'Educational Attainment by Race',
-      xAxis: { label: '2012-2016 5-Year Estimates'},
-      yAxis: { label: 'Attainment', format: format.number.percentage},
+      xAxis: { label: '2012-2016 5-Year Estimates' },
+      yAxis: { label: 'Attainment', format: format.number.percentage },
       tables: {
         'tabular.c15002_educational_attainment_by_race_acs_m': {
           yearCol: 'acs_year',
@@ -371,18 +369,18 @@ export default {
             'latsc',
             'latbd',
           ],
-        }
+        },
       },
       labels: {
-        'lh': 'Less than high school diploma',
-        'hs': 'High school diploma',
-        'sc': 'Some college or associate degree',
-        'bd': 'Bachelor degree or higher',
-        'nhw': 'Non-hispanic White',
-        'aa': 'Black and African American',
-        'api': 'Asian and Pacific Islander',
-        'oth': 'Other',
-        'lat': 'Hispanic or Latino',
+        lh: 'Less than high school diploma',
+        hs: 'High school diploma',
+        sc: 'Some college or associate degree',
+        bd: 'Bachelor degree or higher',
+        nhw: 'Non-hispanic White',
+        aa: 'Black and African American',
+        api: 'Asian and Pacific Islander',
+        oth: 'Other',
+        lat: 'Hispanic or Latino',
       },
       source: 'American Community Survey',
       timeframe: '2012-2016 5-Year Estimates',
@@ -390,34 +388,31 @@ export default {
       transformer: (tables, chart) => {
         const eduData = tables['tabular.c15002_educational_attainment_by_race_acs_m'];
         if (eduData.length < 1) { return []; }
-        const row = Object.assign({}, eduData[0]);
+        const row = { ...eduData[0] };
         const raceKeys = ['nhw', 'aa', 'na', 'as', 'pi', 'oth', 'mlt', 'lat'];
         const combinedRaceKeys = ['nhw', 'aa', 'api', 'oth', 'lat'];
         const eduKeys = ['lh', 'hs', 'sc', 'bd'];
         const totals = eduKeys.reduce((obj, edu) => Object.assign(obj, {
-          [edu]: raceKeys.reduce((sum, k) => sum + row[`${k}${edu}`], 0)
+          [edu]: raceKeys.reduce((sum, k) => sum + row[`${k}${edu}`], 0),
         }), {});
-        const consolidatedRow = eduKeys.reduce((obj, edu) => {
-          return Object.assign(obj, {
-            [`nhw${edu}`]: (row[`nhw${edu}`]) / totals[edu],
-            [`aa${edu}`]: (row[`aa${edu}`]) / totals[edu],
-            [`lat${edu}`]: (row[`lat${edu}`]) / totals[edu],
-            [`api${edu}`]: (row[`as${edu}`] + row[`pi${edu}`]) / totals[edu],
-            [`oth${edu}`]: (row[`oth${edu}`] + row[`mlt${edu}`] + row[`na${edu}`]) / totals[edu],
-          });
-        }, {});
-        return combinedRaceKeys.reduce((raceAcc, race) =>
-          raceAcc.concat(eduKeys.reduce((eduAcc, edu) => eduAcc.concat([{
-            x: chart.labels[edu],
-            y: consolidatedRow[`${race}${edu}`],
-            z: chart.labels[race],
-          }]), []))
-        , []);
+        const consolidatedRow = eduKeys.reduce((obj, edu) => Object.assign(obj, {
+          [`nhw${edu}`]: (row[`nhw${edu}`]) / totals[edu],
+          [`aa${edu}`]: (row[`aa${edu}`]) / totals[edu],
+          [`lat${edu}`]: (row[`lat${edu}`]) / totals[edu],
+          [`api${edu}`]: (row[`as${edu}`] + row[`pi${edu}`]) / totals[edu],
+          [`oth${edu}`]: (row[`oth${edu}`] + row[`mlt${edu}`] + row[`na${edu}`]) / totals[edu],
+        }), {});
+        return combinedRaceKeys.reduce((raceAcc, race) => raceAcc.concat(eduKeys.reduce((eduAcc, edu) => eduAcc.concat([{
+          x: chart.labels[edu],
+          y: consolidatedRow[`${race}${edu}`],
+          z: chart.labels[race],
+        }]), [])),
+        []);
       },
     },
   },
-  'governance': {
-    'tax_levy': {
+  governance: {
+    tax_levy: {
       type: 'pie',
       title: 'Share of Tax Revenue by Source',
       xAxis: { label: 'Year' },
@@ -435,15 +430,15 @@ export default {
             'p_prop_tax',
             'tot_rev',
           ],
-        }
+        },
       },
       labels: {
-        'res_taxes': 'Residential',
-        'os_taxes': 'Open Space',
-        'comm_taxes': 'Commercial',
-        'ind_taxes': 'Industrial',
-        'p_prop_tax': 'Personal Property',
-        'other': 'Non-Property',
+        res_taxes: 'Residential',
+        os_taxes: 'Open Space',
+        comm_taxes: 'Commercial',
+        ind_taxes: 'Industrial',
+        p_prop_tax: 'Personal Property',
+        other: 'Non-Property',
       },
       source: 'MA Dept. of Revenue',
       timeframe: '2016',
@@ -454,7 +449,7 @@ export default {
         const row = taxData[0];
         const directRev = ['res_taxes', 'os_taxes', 'comm_taxes', 'ind_taxes', 'p_prop_tax'];
         const withImplied = Object.assign(row, {
-          'other': row['tot_rev'] - directRev.reduce((sum, k) => sum + row[k], 0),
+          other: row.tot_rev - directRev.reduce((sum, k) => sum + row[k], 0),
         });
         return Object.keys(chart.labels).map((key) => ({
           value: withImplied[key],
@@ -463,8 +458,8 @@ export default {
       },
     },
   },
-  'environment': {
-    'water_usage_per_cap': {
+  environment: {
+    water_usage_per_cap: {
       type: 'line',
       title: 'Water Usage per Capita',
       xAxis: { label: 'Year', format: format.number.integer, ticks: 7 },
@@ -480,7 +475,7 @@ export default {
             'rgpcd2014',
             'rgpcd2015',
           ],
-        }
+        },
       },
       labels: {
       },
@@ -489,7 +484,12 @@ export default {
       datasetLinks: { 'Annual Average Residential Water Use (Municipal)': 260 },
       transformer: (tables, chart) => {
         const waterData = tables['tabular.env_dep_reviewed_water_demand_m'];
-        if (waterData.length < 1) { return []; }
+        if (waterData.length < 1) {
+          return [{
+            label: 'Water Useage per Capita',
+            values: [],
+          }];
+        }
         const row = waterData[0];
         const pairs = [
           [2009, 'rgpcd2009'],
@@ -502,12 +502,11 @@ export default {
         ];
         return [{
           label: 'Water Usage per Capita',
-          values: pairs.reduce((acc, [ year, key ]) =>
-              (row[key] ? acc.concat([[year, row[key]]]) : acc), []),
+          values: pairs.reduce((acc, [year, key]) => (row[key] ? acc.concat([[year, row[key]]]) : acc), []),
         }];
       },
     },
-    'energy_usage_gas': {
+    energy_usage_gas: {
       type: 'stacked-area',
       title: 'Thermal Energy Usage (Gas, oil, etc.)',
       xAxis: { label: 'Year', format: format.number.ignoreFloat, ticks: 3 },
@@ -533,7 +532,7 @@ export default {
         },
       },
       labels: {
-        'therm_use': 'Annual Therm Usage',
+        therm_use: 'Annual Therm Usage',
       },
       source: 'MassSave',
       timeframe: '2013-2015',
@@ -546,17 +545,15 @@ export default {
         const resData = tables['tabular.energy_masssave_elec_gas_res_li_consumption_m'];
         const rows = commData.concat(resData);
         if (rows.length < 1) { return []; }
-        const data = rows.reduce((acc, row) => {
-          return acc.concat([{
-            x: row['cal_year'],
-            y: row['therm_use'],
-            z: `${row['sector']} ${chart.labels['therm_use']}`,
-          }]);
-        }, []);
+        const data = rows.reduce((acc, row) => acc.concat([{
+          x: row.cal_year,
+          y: row.therm_use,
+          z: `${row.sector} ${chart.labels.therm_use}`,
+        }]), []);
         return data;
       },
     },
-    'energy_usage_electricity': {
+    energy_usage_electricity: {
       type: 'stacked-area',
       title: 'Electrical Energy Usage',
       xAxis: { label: 'Year', format: format.number.ignoreFloat },
@@ -582,7 +579,7 @@ export default {
         },
       },
       labels: {
-        'mwh_use': 'Annual MWh Usage',
+        mwh_use: 'Annual MWh Usage',
       },
       source: 'MassSave',
       timeframe: '2013-2015',
@@ -595,21 +592,19 @@ export default {
         const resData = tables['tabular.energy_masssave_elec_gas_res_li_consumption_m'];
         const rows = commData.concat(resData);
         if (rows.length < 1) { return []; }
-        return rows.reduce((acc, row) => {
-          return (row['mwh_use'] ? acc.concat([{
-            x: row['cal_year'],
-            y: row['mwh_use'],
-            z: `${row['sector']} ${chart.labels['mwh_use']}`,
-          }]) : acc);
-        }, []);
+        return rows.reduce((acc, row) => (row.mwh_use ? acc.concat([{
+          x: row.cal_year,
+          y: row.mwh_use,
+          z: `${row.sector} ${chart.labels.mwh_use}`,
+        }]) : acc), []);
       },
     },
   },
-  'housing': {
-    'cost_burden': {
+  housing: {
+    cost_burden: {
       type: 'stacked-bar',
       title: 'Housing Cost Burden',
-      xAxis: { label: 'Cost Burden Categories'},
+      xAxis: { label: 'Cost Burden Categories' },
       yAxis: { label: 'Owner-Renter Ratio', format: format.number.integerPercentage },
       tables: {
         'tabular.b25091_b25070_costburden_acs_m': {
@@ -628,14 +623,14 @@ export default {
             'r_cb50',
             'cb_50',
           ],
-        }
+        },
       },
       labels: {
-        'not_cb': 'Not Cost Burdened',
-        'p3050': 'Paying 30-50% of Income',
+        not_cb: 'Not Cost Burdened',
+        p3050: 'Paying 30-50% of Income',
         'p50+': 'Paying 50%+ of Income',
-        'owner': 'Owner Occupied',
-        'renter': 'Renter Occupied',
+        owner: 'Owner Occupied',
+        renter: 'Renter Occupied',
       },
       source: 'American Community Survey',
       timeframe: '2012-2016 5-Year Estimates',
@@ -645,37 +640,37 @@ export default {
         if (costData.length < 1) { return []; }
         const row = costData[0];
         return [{
-          x: chart.labels['not_cb'],
-          y: row['o_notcb'] / (row['occv2'] - row['cb']),
-          z: chart.labels['owner'],
+          x: chart.labels.not_cb,
+          y: row.o_notcb / (row.occv2 - row.cb),
+          z: chart.labels.owner,
         }, {
-          x: chart.labels['not_cb'],
-          y: row['r_notcb'] / (row['occv2'] - row['cb']),
-          z: chart.labels['renter'],
+          x: chart.labels.not_cb,
+          y: row.r_notcb / (row.occv2 - row.cb),
+          z: chart.labels.renter,
         }, {
-          x: chart.labels['p3050'],
-          y: row['ocb3050'] / row['cb_3050'],
-          z: chart.labels['owner'],
+          x: chart.labels.p3050,
+          y: row.ocb3050 / row.cb_3050,
+          z: chart.labels.owner,
         }, {
-          x: chart.labels['p3050'],
-          y: row['rcb3050'] / row['cb_3050'],
-          z: chart.labels['renter'],
-        }, {
-          x: chart.labels['p50+'],
-          y: row['o_cb50'] / row['cb_50'],
-          z: chart.labels['owner'],
+          x: chart.labels.p3050,
+          y: row.rcb3050 / row.cb_3050,
+          z: chart.labels.renter,
         }, {
           x: chart.labels['p50+'],
-          y: row['r_cb50'] / row['cb_50'],
-          z: chart.labels['renter'],
+          y: row.o_cb50 / row.cb_50,
+          z: chart.labels.owner,
+        }, {
+          x: chart.labels['p50+'],
+          y: row.r_cb50 / row.cb_50,
+          z: chart.labels.renter,
         }];
       },
     },
-    'units_permitted': {
+    units_permitted: {
       type: 'stacked-area',
       title: 'Housing Units Permitted',
       xAxis: { label: 'Year' },
-      yAxis: { label: 'Units Permitted'},
+      yAxis: { label: 'Units Permitted' },
       tables: {
         'tabular.hous_building_permits_m': {
           yearCol: 'cal_year',
@@ -686,18 +681,18 @@ export default {
             'sf_units',
             'mf_units',
           ],
-        }
+        },
       },
       labels: {
-        'sf_units': 'Single Family Units',
-        'mf_units': 'Multi Family Units',
+        sf_units: 'Single Family Units',
+        mf_units: 'Multi Family Units',
       },
       source: 'Census Building Permit Survey',
       caveat: '*Ignoring years for which the municipality did not report all 12 months.',
       timeframe: '2001-2017',
       datasetLinks: { 'Building Permits by Type and Year (Municipal)': 384 },
       transformer: (tables, chart) => {
-        const [ offset, numYears ] = [ 2001, 17 ];
+        const [offset, numYears] = [2001, 17];
         const permitData = tables['tabular.hous_building_permits_m'];
         const tableDef = chart.tables['tabular.hous_building_permits_m'];
         if (permitData.length < 1) { return []; }
@@ -708,23 +703,23 @@ export default {
             allData[yearIndex] = permitData[rowIndex];
             rowIndex += 1;
           } else {
-            allData[yearIndex] = { [tableDef.yearCol]: `${(offset + yearIndex)}*`, 'mf_units': 0, 'sf_units': 0 };
+            allData[yearIndex] = { [tableDef.yearCol]: `${(offset + yearIndex)}*`, mf_units: 0, sf_units: 0 };
           }
         }
         return allData.reduce((acc, year) => acc.concat([{
           x: String(year[tableDef.yearCol]),
-          y: year['mf_units'],
-          z: chart.labels['mf_units'],
+          y: year.mf_units,
+          z: chart.labels.mf_units,
         }, {
           x: String(year[tableDef.yearCol]),
-          y: year['sf_units'],
-          z: chart.labels['sf_units'],
+          y: year.sf_units,
+          z: chart.labels.sf_units,
         }]), []);
       },
     },
   },
   'public-health': {
-    'premature_mortality_rate': {
+    premature_mortality_rate: {
       type: 'stacked-bar',
       title: 'Premature Mortality Rate by Race',
       xAxis: { label: 'Race' },
@@ -754,31 +749,31 @@ export default {
             'lat_artlci',
             'lat_artuci',
           ],
-        }
+        },
       },
       abbreviations: {
-        'whi_art': 'W',
-        'aa_art': 'B & AA',
-        'api_art': 'A & PA',
-        'na_art': 'NA',
-        'oth_art': 'Other',
-        'lat_art': 'H & L',
+        whi_art: 'W',
+        aa_art: 'B & AA',
+        api_art: 'A & PA',
+        na_art: 'NA',
+        oth_art: 'Other',
+        lat_art: 'H & L',
       },
       labels: {
-        'whi_art': 'White',
-        'aa_art': 'Black and African American',
-        'api_art': 'Asian and Pacific Islander',
-        'na_art': 'Native American',
-        'oth_art': 'Other',
-        'lat_art': 'Hispanic and Latino',
+        whi_art: 'White',
+        aa_art: 'Black and African American',
+        api_art: 'Asian and Pacific Islander',
+        na_art: 'Native American',
+        oth_art: 'Other',
+        lat_art: 'Hispanic and Latino',
       },
       colors: {
-        'whi_art': colors.CHART.EXTENDED.get('YELLOW'),
-        'aa_art': colors.CHART.EXTENDED.get('DARK_RED'),
-        'api_art': colors.CHART.EXTENDED.get('TEAL_GREEN'),
-        'na_art': colors.CHART.EXTENDED.get('CYAN'),
-        'oth_art': colors.CHART.EXTENDED.get('BLUE'),
-        'lat_art': colors.CHART.EXTENDED.get('PINK'),
+        whi_art: colors.CHART.EXTENDED.get('YELLOW'),
+        aa_art: colors.CHART.EXTENDED.get('DARK_RED'),
+        api_art: colors.CHART.EXTENDED.get('TEAL_GREEN'),
+        na_art: colors.CHART.EXTENDED.get('CYAN'),
+        oth_art: colors.CHART.EXTENDED.get('BLUE'),
+        lat_art: colors.CHART.EXTENDED.get('PINK'),
       },
       source: 'MA Dept. of Public Health',
       timeframe: '2008-2012 5-year averages',
@@ -795,17 +790,16 @@ export default {
           'oth_art',
           'lat_art',
         ];
-        return raceKeys.reduce((acc, key) =>
-          acc.concat([{
-            x: chart.abbreviations[key],
-            y: row[key] || 0,
-            z: chart.labels[key],
-            color: chart.colors[key],
-          }])
-        , []);
+        return raceKeys.reduce((acc, key) => acc.concat([{
+          x: chart.abbreviations[key],
+          y: row[key] || 0,
+          z: chart.labels[key],
+          color: chart.colors[key],
+        }]),
+        []);
       },
     },
-    'hospitalizations': {
+    hospitalizations: {
       type: 'stacked-bar',
       title: 'Hypertension Hospitalizations by Race',
       xAxis: { label: 'Cause', format: format.string.default },
@@ -839,28 +833,28 @@ export default {
         },
       },
       abbreviations: {
-        'whi_arte': 'W',
-        'aa_arte': 'B & AA',
-        'api_arte': 'A & PA',
-        'na_arte': 'NA',
-        'oth_arte': 'Other',
-        'lat_arte': 'H & L',
+        whi_arte: 'W',
+        aa_arte: 'B & AA',
+        api_arte: 'A & PA',
+        na_arte: 'NA',
+        oth_arte: 'Other',
+        lat_arte: 'H & L',
       },
       labels: {
-        'whi_arte': 'White',
-        'aa_arte': 'Black and African American',
-        'api_arte': 'Asian and Pacific Islander',
-        'na_arte': 'Native American',
-        'oth_arte': 'Other',
-        'lat_arte': 'Hispanic and Latino',
+        whi_arte: 'White',
+        aa_arte: 'Black and African American',
+        api_arte: 'Asian and Pacific Islander',
+        na_arte: 'Native American',
+        oth_arte: 'Other',
+        lat_arte: 'Hispanic and Latino',
       },
       colors: {
-        'whi_arte': colors.CHART.EXTENDED.get('YELLOW'),
-        'aa_arte': colors.CHART.EXTENDED.get('DARK_RED'),
-        'api_arte': colors.CHART.EXTENDED.get('TEAL_GREEN'),
-        'na_arte': colors.CHART.EXTENDED.get('CYAN'),
-        'oth_arte': colors.CHART.EXTENDED.get('BLUE'),
-        'lat_arte': colors.CHART.EXTENDED.get('PINK'),
+        whi_arte: colors.CHART.EXTENDED.get('YELLOW'),
+        aa_arte: colors.CHART.EXTENDED.get('DARK_RED'),
+        api_arte: colors.CHART.EXTENDED.get('TEAL_GREEN'),
+        na_arte: colors.CHART.EXTENDED.get('CYAN'),
+        oth_arte: colors.CHART.EXTENDED.get('BLUE'),
+        lat_arte: colors.CHART.EXTENDED.get('PINK'),
       },
       source: 'MA Dept. of Public Health',
       timeframe: '2008-2012 5-year averages',
@@ -877,20 +871,19 @@ export default {
           'oth_arte',
           'lat_arte',
         ];
-        return raceKeys.reduce((acc, key) =>
-          acc.concat([{
-            x: chart.abbreviations[key],
-            y: row[key],
-            z: chart.labels[key],
-            color: chart.colors[key],
-          }])
-        , []);
+        return raceKeys.reduce((acc, key) => acc.concat([{
+          x: chart.abbreviations[key],
+          y: row[key],
+          z: chart.labels[key],
+          color: chart.colors[key],
+        }]),
+        []);
         return [];
       },
     },
   },
-  'transportation': {
-    'daily_vmt': {
+  transportation: {
+    daily_vmt: {
       type: 'stacked-area',
       title: 'Daily Vehicle Miles Traveled per Household',
       xAxis: { label: 'Year', format: format.string.default, ticks: 3 },
@@ -906,8 +899,8 @@ export default {
         },
       },
       labels: {
-        'pass_vmt_hh': 'Passenger vehicles',
-        'comm_vmt_hh': 'Commercial vehicles',
+        pass_vmt_hh: 'Passenger vehicles',
+        comm_vmt_hh: 'Commercial vehicles',
       },
       source: 'MAPC and MA RMV',
       timeframe: '2009-2015',
@@ -916,21 +909,21 @@ export default {
         const vmtData = tables['tabular.trans_mavc_public_summary_m'];
         if (vmtData.length < 1) { return []; }
         const quarterToYear = (quarter) => {
-          const [ year, fourth ] = quarter.split('_q');
+          const [year, fourth] = quarter.split('_q');
           return parseInt(year) + (parseInt(fourth) / 4);
         };
         return vmtData.reduce((acc, row) => acc.concat([{
-          x: quarterToYear(row['quarter']),
-          y: row['pass_vmt'] / row['hh_est'],
-          z: chart.labels['pass_vmt_hh'],
+          x: quarterToYear(row.quarter),
+          y: row.pass_vmt / row.hh_est,
+          z: chart.labels.pass_vmt_hh,
         }, {
-          x: quarterToYear(row['quarter']),
-          y: row['comm_vmt'] / row['hh_est'],
-          z: chart.labels['comm_vmt_hh'],
+          x: quarterToYear(row.quarter),
+          y: row.comm_vmt / row.hh_est,
+          z: chart.labels.comm_vmt_hh,
         }]), []);
       },
     },
-    'commute_to_work': {
+    commute_to_work: {
       type: 'pie',
       title: 'Commute to Work',
       tables: {
@@ -948,17 +941,17 @@ export default {
             'walk',
             'other',
           ],
-        }
+        },
       },
       labels: {
-        'ctvsngl': 'Drive alone to work',
-        'carpool': 'Carpool',
-        'pub': 'Public transportation',
-        'taxi': 'Taxi',
-        'mcycle': 'Motorcycle',
-        'bicycle': 'Bicycle',
-        'walk': 'Walk',
-        'other': 'Other',
+        ctvsngl: 'Drive alone to work',
+        carpool: 'Carpool',
+        pub: 'Public transportation',
+        taxi: 'Taxi',
+        mcycle: 'Motorcycle',
+        bicycle: 'Bicycle',
+        walk: 'Walk',
+        other: 'Other',
       },
       source: 'American Community Survey',
       timeframe: '2012-2016 5-Year Estimates',
