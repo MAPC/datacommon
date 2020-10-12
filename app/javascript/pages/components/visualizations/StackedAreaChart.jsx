@@ -26,10 +26,34 @@ class StackedAreaChart extends React.Component {
     super(props);
 
     this.renderChart = this.renderChart.bind(this);
-
+    this.renderBlankChart = this.renderBlankChart.bind(this);
     this.stack = d3.stack();
   }
 
+  componentDidMount() {
+    const { width, height } = container;
+
+    this.chart = d3.select(this.svg)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('width', width)
+      .attr('height', height);
+
+    this.legend = d3.select(this.legendContainer);
+    if (this.props.hasData) {
+      this.renderChart();
+    } else {
+      this.renderBlankChart();
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.hasData) {
+      this.renderChart();
+    } else {
+      this.renderBlankChart();
+    }
+  }
 
   renderChart() {
     const bonusLeftMargin = maxToMargin(d3.max(this.props.data, d => d.y));
@@ -142,30 +166,27 @@ class StackedAreaChart extends React.Component {
         .text('Please try again later.');
     }
 
-
     this.legend.selectAll('*').remove();
     drawLegend(this.legend, this.color, keys);
   }
 
+  renderBlankChart() {
+    const bonusLeftMargin = maxToMargin(d3.max(this.props.data, d => d.y));
+    const margin = Object.assign({}, defaultMargin, {
+      left: defaultMargin.left + bonusLeftMargin,
+    });
+    const width = (container.width - margin.left) - margin.right;
+    const height = (container.height - margin.top) - margin.bottom;
 
-  componentDidMount() {
-    const { width, height } = container;
-
-    this.chart = d3.select(this.svg)
-      .attr('preserveAspectRatio', 'xMinYMin meet')
-      .attr('viewBox', `0 0 ${width} ${height}`)
-      .attr('width', width)
-      .attr('height', height);
-
-    this.legend = d3.select(this.legendContainer);
-    this.renderChart();
+    this.chart.selectAll('*').remove(); // Clear chart before drawing lines
+    this.chart.append('text')
+      .attr('class', 'missing-data')
+      .attr('x', width / 2)
+      .attr('y', height / 2 - 12)
+      .attr('dy', '12')
+      .style('text-anchor', 'middle')
+      .text('Oops! We can\'t find this data right now.');
   }
-
-
-  componentDidUpdate() {
-    this.renderChart();
-  }
-
 
   render() {
     return (
