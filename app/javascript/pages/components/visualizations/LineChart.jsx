@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import * as d3 from 'd3';
 import colors from '../../constants/colors';
-import { maxToMargin, maxTextToMargin, drawLegend } from '../../utils/charts';
-import * as d3 from 'd3'
+import { maxTextToMargin, drawLegend } from '../../utils/charts';
 
 const primaryColors = Array.from(colors.CHART.PRIMARY.values());
 const extendedColors = Array.from(colors.CHART.EXTENDED.values());
@@ -21,52 +20,74 @@ const defaultMargin = {
 };
 
 class LineChart extends React.Component {
-
   constructor(props) {
     super(props);
-
     this.getBounds = this.getBounds.bind(this);
     this.renderChart = this.renderChart.bind(this);
+    this.renderBlankChart = this.renderBlankChart.bind(this);
+  }
 
+  componentDidMount() {
+    const { width, height } = container;
+
+    this.chart = d3.select(this.svg)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('width', width)
+      .attr('height', height);
+
+    this.legend = d3.select(this.legendContainer);
+
+    if (this.props.hasData) {
+      this.renderChart();
+    } else {
+      this.renderBlankChart();
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.hasData) {
+      this.renderChart();
+    } else {
+      this.renderBlankChart();
+    }
   }
 
   getBounds() {
-    const bounds = this.props.data.reduce((lBounds, line) =>
-      line.values.reduce((pBounds, point) => ({
-        xMin: (pBounds.xMin ? Math.min(pBounds.xMin, point[0]) : point[0]),
-        xMax: (pBounds.xMax ? Math.max(pBounds.xMax, point[0]) : point[0]),
-        yMin: (pBounds.yMin ? Math.min(pBounds.yMin, point[1]) : point[1]),
-        yMax: (pBounds.yMax ? Math.max(pBounds.yMax, point[1]) : point[1]),
-      }), lBounds
-    ), { xMin: null, xMax: null, yMin: null, yMax: null });
+    const bounds = this.props.data.reduce((lBounds, line) => line.values.reduce((pBounds, point) => ({
+      xMin: (pBounds.xMin ? Math.min(pBounds.xMin, point[0]) : point[0]),
+      xMax: (pBounds.xMax ? Math.max(pBounds.xMax, point[0]) : point[0]),
+      yMin: (pBounds.yMin ? Math.min(pBounds.yMin, point[1]) : point[1]),
+      yMax: (pBounds.yMax ? Math.max(pBounds.yMax, point[1]) : point[1]),
+    }), lBounds), {
+      xMin: null, xMax: null, yMin: null, yMax: null,
+    });
     return {
       xMin: (this.props.xAxis.min != null || this.props.xAxis.min != undefined
-          ? this.props.xAxis.min
-          : bounds.xMin),
+        ? this.props.xAxis.min
+        : bounds.xMin),
       xMax: (this.props.xAxis.max != null || this.props.xAxis.max != undefined
-          ? this.props.xAxis.max
-          : bounds.xMax),
+        ? this.props.xAxis.max
+        : bounds.xMax),
       yMin: (this.props.yAxis.min != null || this.props.yAxis.min != undefined
-          ? this.props.yAxis.min
-          : bounds.yMin),
+        ? this.props.yAxis.min
+        : bounds.yMin),
       yMax: (this.props.yAxis.max != null || this.props.yAxis.max != undefined
-          ? this.props.yAxis.max
-          : bounds.yMax),
+        ? this.props.yAxis.max
+        : bounds.yMax),
     };
   }
 
   renderChart() {
     // Measure and scale
-    const { xMin, xMax, yMin, yMax } = this.getBounds();
-    const yFormattedMax = this.props.data.reduce((max, line) =>
-      Math.max(max, line.values.reduce((lineMax, point) =>
-        Math.max(lineMax, this.props.yAxis.format
-          ? this.props.yAxis.format(point[1]).length
-          : String(point[1]).length), 0)), 0);
+    const {
+      xMin, xMax, yMin, yMax,
+    } = this.getBounds();
+    const yFormattedMax = this.props.data.reduce((max, line) => Math.max(max, line.values.reduce((lineMax, point) => Math.max(lineMax, this.props.yAxis.format
+      ? this.props.yAxis.format(point[1]).length
+      : String(point[1]).length), 0)), 0);
     const bonusLeftMargin = maxTextToMargin(yFormattedMax, 12);
-    const margin = Object.assign({}, defaultMargin, {
-      left: defaultMargin.left + bonusLeftMargin,
-    });
+    const margin = { ...defaultMargin, left: defaultMargin.left + bonusLeftMargin };
     const width = (container.height - margin.left) - margin.right;
     const height = (container.width - margin.top) - margin.bottom;
 
@@ -74,10 +95,10 @@ class LineChart extends React.Component {
     const colors = this.props.data.reduce((acc, d) => (d.color ? acc.concat([d.color]) : acc), []);
 
     this.color = d3.scaleOrdinal(
-        colors.length
-            ? colors
-            : (keys.length > primaryColors.length ? extendedColors : primaryColors)
-      )
+      colors.length
+        ? colors
+        : (keys.length > primaryColors.length ? extendedColors : primaryColors),
+    )
       .domain(keys);
 
     const xScale = d3.scaleLinear()
@@ -97,8 +118,8 @@ class LineChart extends React.Component {
       .tickPadding(10)
       .tickFormat(this.props.yAxis.format);
     const lineGenerator = d3.line()
-      .x(d => xScale(d[0]))
-      .y(d => yScale(d[1]));
+      .x((d) => xScale(d[0]))
+      .y((d) => yScale(d[1]));
 
     // Draw chart
     this.chart.selectAll('*').remove(); // Clear chart before drawing lines
@@ -116,22 +137,22 @@ class LineChart extends React.Component {
       .call(yAxis);
 
     this.props.data.forEach((line, i) => {
-      this.gChart.append("path")
+      this.gChart.append('path')
         .datum(line.values)
-        .attr("class", "line")
+        .attr('class', 'line')
         .attr('stroke', this.color(line.label))
         .attr('stroke-width', 1.5)
         .attr('fill', 'none')
-        .attr("d", lineGenerator);
+        .attr('d', lineGenerator);
 
       this.gChart.selectAll(`.dots-for-line-${i}`)
         .data(line.values)
-        .enter().append("circle")
-        .attr("class", `dot dots-for-line-${i}`)
-        .attr("cx", d => xScale(d[0]))
-        .attr("cy", d => yScale(d[1]))
+        .enter().append('circle')
+        .attr('class', `dot dots-for-line-${i}`)
+        .attr('cx', (d) => xScale(d[0]))
+        .attr('cy', (d) => yScale(d[1]))
         .attr('fill', this.color(line.label))
-        .attr("r", 3)
+        .attr('r', 3);
     });
 
     this.chart.append('text')
@@ -139,7 +160,7 @@ class LineChart extends React.Component {
       .attr('x', (height / -2) - margin.top)
       .attr('y', 2)
       .attr('transform', 'rotate(-90)')
-      .attr("dy", "12")
+      .attr('dy', '12')
       .style('text-anchor', 'middle')
       .text(this.props.yAxis.label);
 
@@ -147,7 +168,7 @@ class LineChart extends React.Component {
       .attr('class', 'axis-label')
       .attr('x', width / 2 + margin.left)
       .attr('y', height + margin.top + margin.bottom - 22)
-      .attr("dy", "12")
+      .attr('dy', '12')
       .style('text-anchor', 'middle')
       .text(this.props.xAxis.label);
 
@@ -155,37 +176,35 @@ class LineChart extends React.Component {
     drawLegend(this.legend, this.color, keys);
   }
 
+  renderBlankChart() {
+    const yFormattedMax = this.props.data.reduce((max, line) => Math.max(max, line.values.reduce((lineMax, point) => Math.max(lineMax, this.props.yAxis.format
+      ? this.props.yAxis.format(point[1]).length
+      : String(point[1]).length), 0)), 0);
+    const bonusLeftMargin = maxTextToMargin(yFormattedMax, 12);
+    const margin = { ...defaultMargin, left: defaultMargin.left + bonusLeftMargin };
+    const width = (container.height - margin.left) - margin.right;
+    const height = (container.width - margin.top) - margin.bottom;
 
-  componentDidMount() {
-    const { width, height } = container;
-
-    this.chart = d3.select(this.svg)
-      .attr('preserveAspectRatio', 'xMinYMin meet')
-      .attr('viewBox', `0 0 ${width} ${height}`)
-      .attr('width', width)
-      .attr('height', height);
-
-    this.legend = d3.select(this.legendContainer);
-    this.renderChart();
+    this.chart.selectAll('*').remove(); // Clear chart before drawing lines
+    this.chart.append('text')
+      .attr('class', 'missing-data')
+      .attr('x', width / 2)
+      .attr('y', height / 2 - 12)
+      .attr('dy', '12')
+      .style('text-anchor', 'middle')
+      .text('Oops! We can\'t find this data right now.');
   }
-
-
-  componentDidUpdate() {
-    this.renderChart();
-  }
-
 
   render() {
     return (
       <div className="component chart LineChart">
         <div className="svg-wrapper">
-          <svg ref={el => this.svg = el}></svg>
+          <svg ref={(el) => this.svg = el} />
         </div>
-        <div ref={el => this.legendContainer = el} className="legend"></div>
+        <div ref={(el) => this.legendContainer = el} className="legend" />
       </div>
     );
   }
-
 }
 
 LineChart.propTypes = {
@@ -202,8 +221,9 @@ LineChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     color: PropTypes.string,
-    values: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    values: PropTypes.array.isRequired,
   })).isRequired,
+  hasData: PropTypes.bool.isRequired,
 };
 
 export default LineChart;
