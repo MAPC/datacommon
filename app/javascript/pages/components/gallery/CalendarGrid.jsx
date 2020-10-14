@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CalendarItem from './CalendarItem';
 import BlankCalendarItem from './BlankCalendarItem';
-import data from '../../assets/data/temp-cal-data.json';
+import data from '../../assets/data/calendar-data.json';
+import images from './images';
 
 function populateGrid(selectedYear) {
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -12,10 +13,9 @@ function populateGrid(selectedYear) {
       return (
         <CalendarItem
           link={monthData.url}
-          month={monthData.month}
-          year={monthData.year}
-          image={monthData.image}
-          item={monthData}
+          month={currentMonth}
+          year={selectedYear}
+          image={images[selectedYear][currentMonth]}
           title={monthData.title}
           key={`ci-${currentMonth}-${selectedYear}`}
         />
