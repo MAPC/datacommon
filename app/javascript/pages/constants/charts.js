@@ -21,7 +21,6 @@ const format = {
 
 export default {
   demographics: {
-
     race_ethnicity: {
       type: 'stacked-bar',
       title: 'Race and Ethnicity',
@@ -59,7 +58,7 @@ export default {
         lat: colors.CHART.EXTENDED.get('PINK'),
       },
       source: 'American Community Survey',
-      timeframe: '2012-2016 5-Year Estimates',
+      timeframe: '2014-2018 5-Year Estimates',
       datasetLinks: { 'Race and Ethnicity Estimates (Municipal)': 6 },
       transformer: (tables, chart) => {
         const raceEthnicityData = tables['tabular.b03002_race_ethnicity_acs_m'];
@@ -157,8 +156,8 @@ export default {
         'tabular.b23025_employment_acs_m': {
           yearCol: 'acs_year',
           years: [
-            '2007-11',
-            '2012-16',
+            '2009-13',
+            '2014-18',
           ],
           columns: [
             'acs_year',
@@ -172,7 +171,7 @@ export default {
         unemp: 'Unemployed',
       },
       source: 'American Community Survey',
-      timeframe: '2007-2011 and 2012-2016 5-Year Estimates',
+      timeframe: '2009-2013 and 2014-2018 5-Year Estimates',
       datasetLinks: { 'Labor Force (Municipal)': 129 },
       transformer: (tables, chart) => {
         const empData = tables['tabular.b23025_employment_acs_m'];
@@ -215,8 +214,8 @@ export default {
         92: 'Public administration',
       },
       source: 'Executive Office of Labor and Workforce Development (EOLWD)',
-      timeframe: '2001-2016',
-      datasetLinks: { 'Occupational Employment and Wages by Industry (NAICS) (MA)': 319 },
+      timeframe: '2001-2018',
+      datasetLinks: { '2 Digit Sector: Employment & Avg Wkly Wages (Municipal)': 387 },
       transformer: (tables, chart) => {
         const indData = tables['tabular.econ_es202_naics_2d_m'];
         if (indData.length < 1) { return []; }
@@ -309,7 +308,7 @@ export default {
         grade_12: { label: '12th Grade', order: 12 },
       },
       source: 'MA Department of Elementary and Secondary Education',
-      timeframe: '2007-2018',
+      timeframe: '2005-2020',
       datasetLinks: { 'Enrollment by School Year (School Districts)': 320 },
       transformer: (tables, chart) => {
         const rows = tables['tabular.educ_enrollment_by_year_districts'];
@@ -329,7 +328,7 @@ export default {
     edu_attainment_by_race: {
       type: 'stacked-bar',
       title: 'Educational Attainment by Race',
-      xAxis: { label: '2012-2016 5-Year Estimates' },
+      xAxis: { label: '2014-2018 5-Year Estimates' },
       yAxis: { label: 'Attainment', format: format.number.percentage },
       tables: {
         'tabular.c15002_educational_attainment_by_race_acs_m': {
@@ -383,12 +382,12 @@ export default {
         lat: 'Hispanic or Latino',
       },
       source: 'American Community Survey',
-      timeframe: '2012-2016 5-Year Estimates',
+      timeframe: '2014-2018 5-Year Estimates',
       datasetLinks: { 'Educational Attainment by Race (Municipal)': 202 },
       transformer: (tables, chart) => {
         const eduData = tables['tabular.c15002_educational_attainment_by_race_acs_m'];
         if (eduData.length < 1) { return []; }
-        const row = { ...eduData[0] };
+        const row = eduData.find((entry) => entry.acs_year === '2014-18');
         const raceKeys = ['nhw', 'aa', 'na', 'as', 'pi', 'oth', 'mlt', 'lat'];
         const combinedRaceKeys = ['nhw', 'aa', 'api', 'oth', 'lat'];
         const eduKeys = ['lh', 'hs', 'sc', 'bd'];
@@ -609,7 +608,7 @@ export default {
       tables: {
         'tabular.b25091_b25070_costburden_acs_m': {
           yearCol: 'acs_year',
-          years: ['2012-16'],
+          years: ['2014-18'],
           columns: [
             'acs_year',
             'occv2',
@@ -633,7 +632,7 @@ export default {
         renter: 'Renter Occupied',
       },
       source: 'American Community Survey',
-      timeframe: '2012-2016 5-Year Estimates',
+      timeframe: '2014-2018 5-Year Estimates',
       datasetLinks: { 'Cost Burdened Households (Municipal)': 185 },
       transformer: (tables, chart) => {
         const costData = tables['tabular.b25091_b25070_costburden_acs_m'];
@@ -689,10 +688,10 @@ export default {
       },
       source: 'Census Building Permit Survey',
       caveat: '*Ignoring years for which the municipality did not report all 12 months.',
-      timeframe: '2001-2017',
+      timeframe: '2001-2018',
       datasetLinks: { 'Building Permits by Type and Year (Municipal)': 384 },
       transformer: (tables, chart) => {
-        const [offset, numYears] = [2001, 17];
+        const [offset, numYears] = [2001, 18];
         const permitData = tables['tabular.hous_building_permits_m'];
         const tableDef = chart.tables['tabular.hous_building_permits_m'];
         if (permitData.length < 1) { return []; }
@@ -903,7 +902,7 @@ export default {
         comm_vmt_hh: 'Commercial vehicles',
       },
       source: 'MAPC and MA RMV',
-      timeframe: '2009-2015',
+      timeframe: '2009-2014',
       datasetLinks: { 'Massachusetts Vehicle Municipal Summary Statistics (Municipal)': 330 },
       transformer: (tables, chart) => {
         const vmtData = tables['tabular.trans_mavc_public_summary_m'];
@@ -954,7 +953,7 @@ export default {
         other: 'Other',
       },
       source: 'American Community Survey',
-      timeframe: '2012-2016 5-Year Estimates',
+      timeframe: '2014-2018 5-Year Estimates',
       datasetLinks: { 'Transportation to Work from Residence (Municpal)': 38 },
       transformer: (tables, chart) => {
         const commData = tables['tabular.b08301_means_transportation_to_work_by_residence_acs_m'];
