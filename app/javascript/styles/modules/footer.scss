@@ -1,4 +1,4 @@
-footer {
+.footer {
   $_opaque: .8;
   $_break: 745px;
 
@@ -21,6 +21,10 @@ footer {
       height: 0;
       margin-top: -2px;
     }
+  }
+  
+  @media print {
+    display: none;
   }
 
   .container {

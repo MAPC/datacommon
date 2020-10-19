@@ -1,24 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CalendarItem = (props) => {
-  const { link, month, year, image, title } = props;
-  return (
-    <li className="calendar-item__wrapper">
-      <a href={link}>
-        <h2 className="calendar-item__month">
-          {month} {year}
-        </h2>
-        <div className="calendar-item__box">
-          <img src={image} className="calendar-item__image" alt={`Visualization for ${month}`} />
-          <div className="calendar-item__title-box">
-            <h3 className="calendar-item__title">{title}</h3>
-          </div>
+const CalendarItem = ({ link, month, year, image, title }) => (
+  <li className="calendar-item__wrapper">
+    <a href={link}>
+      <h2 className="calendar-item__month">
+        {month} {year}
+      </h2>
+      <div className="calendar-item__box">
+        <img src={image} className="calendar-item__image" alt={`Visualization for ${month}`} />
+        <div className="calendar-item__title-box">
+          <h3 className="calendar-item__title">{title}</h3>
         </div>
-      </a>
-    </li>
-  );
-};
+      </div>
+    </a>
+  </li>
+);
 
 CalendarItem.propTypes = {
   link: PropTypes.string.isRequired,

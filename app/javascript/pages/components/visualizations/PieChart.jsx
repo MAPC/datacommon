@@ -20,31 +20,47 @@ const defaultMargin = {
   bottom: 80,
 };
 
-
 class PieChart extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.renderChart = this.renderChart.bind(this);
+    this.renderBlankChart = this.renderBlankChart.bind(this);
 
     this.pie = d3.pie()
-                .sort((a,b) => a.value > b.value)
-                .value(d => d.value);
+      .sort((a, b) => a.value > b.value)
+      .value((d) => d.value);
   }
 
+  componentDidMount() {
+    const { width, height } = container;
+
+    this.chart = d3.select(this.svg)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('width', width)
+      .attr('height', height);
+
+    this.legend = d3.select(this.legendContainer);
+    this.renderChart();
+  }
+
+  componentDidUpdate() {
+    this.renderChart();
+  }
 
   renderChart() {
-    const keys = [...(new Set(this.props.data.map(slice => slice.label)))];
+    const keys = [...(new Set(this.props.data.map((slice) => slice.label)))];
     const keyValue = this.props.data.reduce((map, d) => Object.assign(map, { [d.label]: d.value }), {});
     const sum = this.props.data.reduce((acc, slice) => slice.value + acc, 0);
     const formatter = (key) => `${key} ${(keyValue[key] * 100 / sum).toFixed(1)}%`;
 
     const bonusSideMargin = maxTextToMargin(keys.reduce((acc, k) => Math.max(acc, k.length), 0), 12);
-    const margin = Object.assign({}, defaultMargin, {
+    const margin = {
+      ...defaultMargin,
       left: defaultMargin.left + bonusSideMargin,
       right: defaultMargin.right + bonusSideMargin,
-    });
+    };
     const width = (container.width - margin.left) - margin.right;
     const height = (container.height - margin.top) - margin.bottom;
     this.chart.attr('viewBox', `0 0 ${container.width} ${height}`);
@@ -56,9 +72,9 @@ class PieChart extends React.Component {
       .innerRadius(0);
 
     this.color = d3.scaleOrdinal(
-        this.props.colors
-        || (keys.length > primaryColors.length ? extendedColors : primaryColors)
-      )
+      this.props.colors
+        || (keys.length > primaryColors.length ? extendedColors : primaryColors),
+    )
       .domain(keys);
     this.chart.selectAll('*').remove(); // Clear chart before drawing
 
@@ -76,7 +92,7 @@ class PieChart extends React.Component {
 
     arc.append('path')
       .attr('d', innerArc)
-      .attr('fill', d => this.color(d.data.label))
+      .attr('fill', (d) => this.color(d.data.label))
       .attr('stroke', 'white')
       .attr('stroke-width', '1');
 
@@ -84,37 +100,35 @@ class PieChart extends React.Component {
     drawLegend(this.legend, this.color, keys, formatter);
   }
 
-
-  componentDidMount() {
-    const { width, height } = container;
-
-    this.chart = d3.select(this.svg)
-      .attr('preserveAspectRatio', 'xMinYMin meet')
-      .attr('viewBox', `0 0 ${width} ${height}`)
-      .attr('width', width)
-      .attr('height', height);
-
-    this.legend = d3.select(this.legendContainer);
-    this.renderChart();
+  renderBlankChart() {
+    const bonusSideMargin = maxTextToMargin(keys.reduce((acc, k) => Math.max(acc, k.length), 0), 12);
+    const margin = {
+      ...defaultMargin,
+      left: defaultMargin.left + bonusSideMargin,
+      right: defaultMargin.right + bonusSideMargin,
+    };
+    const width = (container.width - margin.left) - margin.right;
+    const height = (container.height - margin.top) - margin.bottom;
+    this.chart.selectAll('*').remove(); // Clear chart before drawing lines
+    this.chart.append('text')
+      .attr('class', 'missing-data')
+      .attr('x', width / 2)
+      .attr('y', height / 2 - 12)
+      .attr('dy', '12')
+      .style('text-anchor', 'middle')
+      .text('Oops! We can\'t find this data right now.');
   }
-
-
-  componentDidUpdate() {
-    this.renderChart();
-  }
-
 
   render() {
     return (
       <div className="component chart PieChart">
         <div className="svg-wrapper">
-          <svg ref={el => this.svg = el}></svg>
-          <div ref={el => this.legendContainer = el} className="legend"></div>
+          <svg ref={(el) => this.svg = el} />
+          <div ref={(el) => this.legendContainer = el} className="legend" />
         </div>
       </div>
     );
   }
-
 }
 
 PieChart.propTypes = {

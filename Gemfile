@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.1'
@@ -10,7 +10,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 4.3'
 # Use rack-cors to set appropriate headers
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -31,24 +31,25 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'faraday'
 gem 'rubyzip'
 
-gem "aws-sdk-s3", require: false
-gem "mini_magick"
+gem 'aws-sdk-s3', require: false
+gem 'mini_magick'
+gem 'non-digest-assets'
 gem 'petfinder'
-gem "non-digest-assets"
+gem 'sentry-raven'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   gem 'dotenv-rails'
@@ -65,6 +66,7 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-rails', '~> 1.3', require: false
   gem 'capistrano-rvm'
+  gem 'capistrano-nvm', require: false
   gem 'guard'
   gem 'guard-livereload'
   gem 'guard-rspec'
@@ -74,9 +76,9 @@ group :development do
 end
 
 group :test do
+  gem 'axe-matchers'
   gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem 'parallel'
-  gem 'axe-matchers'
+  gem 'selenium-webdriver'
 end

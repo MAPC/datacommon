@@ -1,18 +1,18 @@
 require_relative 'boot'
 
-require "rails"
+require 'rails'
 # Pick the frameworks you want:
-require "active_model/railtie"
-require "active_job/railtie"
-require "active_record/railtie"
-require "active_storage/engine"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "action_mailbox/engine"
-require "action_text/engine"
-require "action_view/railtie"
-require "action_cable/engine"
-require "sprockets/railtie"
+require 'active_model/railtie'
+require 'active_job/railtie'
+require 'active_record/railtie'
+require 'active_storage/engine'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'action_mailbox/engine'
+require 'action_text/engine'
+require 'action_view/railtie'
+require 'action_cable/engine'
+require 'sprockets/railtie'
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -40,8 +40,13 @@ module Datacommon
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins known_hosts
-        resource '/calendar/dogs', :headers => :any, :methods => [:get]
+        resource '/calendar/dogs', headers: :any, methods: [:get]
       end
     end
   end
+end
+
+Raven.configure do |config|
+  config.dsn = 'https://4bb1a18f7fcf41a183a9033e4763ab7c@o109972.ingest.sentry.io/5453345'
+  config.environments = %w[staging production]
 end

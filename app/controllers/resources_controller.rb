@@ -1,8 +1,8 @@
 require 'digest/md5'
 
 class ResourcesController < ApplicationController
-before_action :set_resource, only: [:edit, :update, :show, :destroy]
-skip_before_action :verify_authenticity_token
+  before_action :set_resource, only: %i[edit update show destroy]
+  skip_before_action :verify_authenticity_token
 
   def index
     @resources = Resource.all
@@ -15,7 +15,7 @@ skip_before_action :verify_authenticity_token
 
   def show
     if @resource.attachment.previewable?
-      @image_thumbnail = @resource.attachment&.preview(resize: params["image_size"] || "300x300")
+      @image_thumbnail = @resource.attachment&.preview(resize: params['image_size'] || '300x300')
     end
 
     respond_to do |f|
@@ -36,13 +36,12 @@ skip_before_action :verify_authenticity_token
         f.json { render json: @resource }
       end
     else
-      flash[:notice] = "Resource not created."
+      flash[:notice] = 'Resource not created.'
       render :new
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @resource.update(resource_params)
@@ -59,6 +58,7 @@ skip_before_action :verify_authenticity_token
   end
 
   private
+
   def set_resource
     @resource = Resource.find(params[:id])
   end

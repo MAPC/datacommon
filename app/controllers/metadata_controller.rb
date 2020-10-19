@@ -1,5 +1,4 @@
 class MetadataController < ApplicationController
-
   def tabular
     render json: TabularMetadata.new(metadata_params).execute
   end

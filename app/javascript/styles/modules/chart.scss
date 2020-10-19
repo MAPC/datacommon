@@ -1,7 +1,12 @@
 .chart {
-
   font-size: $font_size-xsmall;
   margin-bottom: 1em;
+
+  &__title {
+    margin: 0;
+    font-size: $font_size-small;
+    font-weight: 700;
+  }
   svg {
     .axis {
       text {
@@ -68,21 +73,14 @@
           width: $_size;
           margin-right: $_size / 2;
         }
-        span.label {
-          // width: 50%;
-        }
       }
     }
   }
   @media print {
     display: flex;
-    .svg-wrapper {
-      flex: 1;
-      max-width: 66%;
-    }
+    flex-direction: column;
+    justify-content: space-between;
     .legend {
-      flex: 1;
-      max-width: 33%;
       ul { display: block; }
       &.two-column {
         display: block;
@@ -96,6 +94,61 @@
           }
         }
       }
+    }
+  }
+}
+
+.chart-wrapper {
+  flex: 1;
+  max-width: calc(50% - 3em);
+
+  &:first-child {
+    margin-right: 6em;
+  }
+
+  @media print {
+    display: flex;
+    flex-direction:column;
+    position: relative;
+    max-width: none;
+
+    &:first-child {
+      margin-right: 0em;
+    }
+  }
+
+  @include media(large) {
+    max-width: none;
+    &:first-child {
+      margin-right: 0em;
+      margin-bottom: 2em;
+    }
+  }
+  a {
+      color: $color_font-medium;
+      cursor: pointer;
+      text-decoration: underline;
+
+      @media print {
+        color: unset;
+      }
+    }
+}
+
+.caveat, .metadata {
+  color: $color_font-medium;
+  font-size: $font_size-xsmall;
+
+  @media print {
+    color: unset;
+  }
+}
+.metadata {
+  font-style: italic;
+  .source-timeframe {
+    display: flex;
+    & > *:not(:last-child) {
+      margin-right: 1em;
     }
   }
 }
