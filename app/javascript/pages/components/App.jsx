@@ -24,17 +24,28 @@ const App = (props) => (
         <Route exact path="/faq" component={Faq} />
         <Route
           path="/profile/:muni/:tab?"
-          render={(props2) => (props.muniOptions.includes(props2.match.params.muni)
-            ? (props.tabOptions.includes(props2.match.params.tab)
-              ? (<CommunityProfiles {...props2} />)
-              : (<Redirect to={`/profile/${props2.match.params.muni}/${props.tabOptions[0]}`} />))
-            : (<Redirect to="/" />))}
+          render={(props2) =>
+            props.muniOptions.includes(props2.match.params.muni) ? (
+              props.tabOptions.includes(props2.match.params.tab) ? (
+                <CommunityProfiles {...props2} />
+              ) : (
+                <Redirect
+                  to={`/profile/${props2.match.params.muni}/${props.tabOptions[0]}`}
+                />
+              )
+            ) : (
+              <Redirect to="/" />
+            )
+          }
         />
         <Route exact path="/gallery" component={Gallery} />
         <Route exact path="/login" component={Login} />
         <Route path="/calendar/:year/:month" component={CalendarEntry} />
         <Route path="/browser/datasets/:id" component={DataViewer} />
-        <Route path="/browser/:menuOneSelectedItem" component={Browser} />
+        <Route
+          path="/browser/:menuOneSelectedItem?/:menuTwoSelectedItem?"
+          component={Browser}
+        />
         <Route path="/browser" component={Browser} />
         <PrivateRoute exact path="/admin" component={Admin} />
       </Switch>
