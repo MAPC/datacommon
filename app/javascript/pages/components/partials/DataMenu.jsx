@@ -7,8 +7,14 @@ export default function DataMenu({
   datasets,
 }) {
   const datasetCount = (item) => {
-    const count = item.length;
-    return count + ' Datasets';
+    if (item[0].dataset) {
+      return `${item.length} ${item.length > 1 ? 'Datasets' : 'Dataset'}`;
+    } else {
+      const datasetCount = item
+        .map((item) => item.items.length)
+        .reduce((a, b) => a + b, 0);
+      return `${datasetCount} ${datasetCount > 1 ? 'Datasets' : 'Dataset'}`;
+    }
   };
 
   return (
