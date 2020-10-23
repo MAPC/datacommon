@@ -46,6 +46,10 @@ class Browser extends React.Component {
   }
 
   handleMenuSelectedItem(childKey, event) {
+    if (childKey === 'menuOneSelectedItem') {
+      delete this.state.menuTwoSelectedItem;
+    }
+
     this.setState(
       {
         [childKey]: event.currentTarget.getAttribute('data-key'),
