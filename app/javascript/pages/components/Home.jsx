@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import Particles from './partials/Particles';
 import SearchBar from '../containers/SearchBar';
@@ -33,18 +33,29 @@ class Home extends React.Component {
 
           <div className="container tight">
             <SearchBar
-              contextKey={'dataset'}
-              searchColumn={'title'}
-              action={selected => this.toDataset(selected)}
+              contextKey="dataset"
+              searchColumn="title"
+              action={(selected) => this.toDataset(selected)}
               placeholder={`Search ${this.props.datasets.length} datasets ...`}
             />
           </div>
         </div>
         <section className="page-section container gallery-spotlight__wrapper">
           <div className="gallery-spotlight__info">
-            <p>Find and explore data visualizations about the region. Check back monthly or sign up for our newsletter to receive maps and data visualizations. We cover a range of vital and interrelated topics: equity, housing, transportation, climate, arts and culture, and more. Always with data first, and always with an interdisciplinary lens.</p>
             <p>
-              <strong>November’s visualization</strong> highlights adoptable dogs across Masschusetts. Many people across the state and country have added new four-legged family members during COVID-19, but there are still plenty of pups looking for homes!
+              Find and explore data visualizations about the region. Check back
+              monthly or sign up for our newsletter to receive maps and data
+              visualizations. We cover a range of vital and interrelated topics:
+              equity, housing, transportation, climate, arts and culture, and
+              more. Always with data first, and always with an interdisciplinary
+              lens.
+            </p>
+            <p>
+              <strong>November’s visualization</strong>
+              &nbsp;highlights adoptable dogs across Massachusetts. Many people
+              across the state and country have added new four-legged family
+              members during COVID-19, but there are still plenty of pups
+              looking for homes!
             </p>
             <CallToAction
               link="/gallery"
@@ -73,7 +84,7 @@ class Home extends React.Component {
         </div>
 
         <div className="page-section page-section__map">
-          <a name="community-profiles"></a>
+          <a name="community-profiles" />
           <CommunitySelector />
         </div>
       </section>
