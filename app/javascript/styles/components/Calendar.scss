@@ -144,6 +144,11 @@
     width: 700px;
     z-index: 10;
   }
+
+  &__chart {
+    height: 500px;
+    margin: 0 32px 32px 0;
+  }
   
   &__subtitle {
     @include media(large) {
