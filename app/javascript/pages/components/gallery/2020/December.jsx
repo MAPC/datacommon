@@ -15,16 +15,27 @@ const colorPolygon = (value) => {
 };
 const colorExpression = ['match', ['get', 'town']];
 
+function setHeader(currentMuni, medianObj) {
+  if (currentMuni) {
+    return `${currentMuni}: ${medianObj[currentMuni]} mbps`;
+  }
+  return 'Please select a muni';
+}
+
 const December = () => {
   const [mapData, setMapData] = useState();
   const [map, setMap] = useState();
+  const [medianObj, setMedianObj] = useState({});
   const [currentMuni, setMuni] = useState();
+  const [chartData, setChartData] = useState();
+  const [chart, setChart] = useState();
+  // Get map data
   useEffect(() => {
     d3.csv('/assets/december2020.csv').then((response) => {
       setMapData(response);
     });
   }, []);
-
+  // Declare map
   useEffect(() => {
     const decMap = new mapboxgl.Map({
       container: 'decMap',
@@ -41,12 +52,15 @@ const December = () => {
     });
     setMap(decMap);
   }, []);
-
+  // Add map features
   useEffect(() => {
     if (mapData) {
+      let tempMedianObj = {};
       mapData.forEach((row) => {
         colorExpression.push(row.muni, row.median_download_speed_mbps_2020 !== '-' ? colorPolygon(+row.median_download_speed_mbps_2020) : colorPalette[4]);
+        tempMedianObj[row.muni] = row.median_download_speed_mbps_2020;
       });
+      setMedianObj(tempMedianObj);
       colorExpression.push(colorPalette[4]);
       map.on('load', () => {
         map.addLayer({
@@ -64,22 +78,34 @@ const December = () => {
       });
     }
   }, [mapData]);
-
+  // Get chart data
   useEffect(() => {
-    const margin = {
-      top: 10, right: 30, bottom: 30, left: 40,
-    };
-    const width = 400 - margin.left - margin.right;
-    const height = 500 - margin.top - margin.bottom;
-
-    const svg = d3.select('#decChart')
-      .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform',
-        `translate(${margin.left},${margin.top})`);
+    d3.csv('/assets/december2020-chart.csv').then((response) => {
+      setChartData(response);
+    });
   }, []);
+  // Set up chart
+  useEffect(() => {
+    // set the dimensions and margins of the graph
+    if (chartData) {
+      console.log(chartData)
+      const margin = {
+        top: 10, right: 30, bottom: 30, left: 40,
+      };
+      const width = 460 - margin.left - margin.right;
+      const height = 400 - margin.top - margin.bottom;
+
+      // append the svg object to the body of the page
+      const svg = d3.select('#decChart')
+        .append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform',
+          `translate(${margin.left},${margin.top})`);
+      setChart(svg);
+    }
+  }, [chartData]);
 
   if (map) {
     map.on('click', 'Median Download Speed', (e) => {
@@ -110,7 +136,9 @@ const December = () => {
           </svg>
         </div>
       </div>
-      <div id="decChart" className="calendar-viz__chart" />
+      <div id="decChart" className="calendar-viz__chart">
+        { setHeader(currentMuni, medianObj) }
+      </div>
       <p>Have you ever used that convenient widget that appears at the top of Google searches for “speed test”? Maybe your Zoom video keeps cutting out and you hop over to Google for a quick speed test. Ever wonder where all that data goes or how you compare with your neighbors? Well, Google partners with the Measurement Lab (M-Lab) to run those speed tests. M-Lab is committed to making the non-identifiable data open and available to the public.</p>
       <p>We took speed tests submitted by users and averaged the results of all speed tests made by a single user on a single day. decMapped are these median speeds by municipality for 2020. In the tooltip we show the distribution for each municipality. We put those averages into 5 megabit per second bins. The higher the bar in the histogram, the more people that have experienced speeds within the range for the bin (example 0-5Mbps). While there may be some clustering around speed tiers offered by internet service providers, there are a lot of factors that contribute to speed from equipment performance to heavy use with multiple family members sharing a connection.</p>
       <p>Despite broadband currently not treated as a public utility, it has been become an even more an essential resource in 2020. Across the Commonwealth, governments and communities are looking to make investments in the infrastructure, equipment and training that can increase access to the internet and the need speed to keep residents connected.</p>
