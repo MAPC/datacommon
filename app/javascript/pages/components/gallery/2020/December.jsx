@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import mapboxgl from 'mapbox-gl';
+import { VegaLite } from 'react-vega';
 
 const colorPalette = ['#F3F3F3', '#B1C6D8', '#50789D', '#2e4b66', '#c1b9bb'];
 const colorPolygon = (value) => {
@@ -29,6 +30,7 @@ const December = () => {
   const [currentMuni, setMuni] = useState();
   const [chartData, setChartData] = useState();
   const [chart, setChart] = useState();
+  const [spec, setSpec] = useState();
   // Get map data
   useEffect(() => {
     d3.csv('/assets/december2020.csv').then((response) => {
@@ -55,7 +57,7 @@ const December = () => {
   // Add map features
   useEffect(() => {
     if (mapData) {
-      let tempMedianObj = {};
+      const tempMedianObj = {};
       mapData.forEach((row) => {
         colorExpression.push(row.muni, row.median_download_speed_mbps_2020 !== '-' ? colorPolygon(+row.median_download_speed_mbps_2020) : colorPalette[4]);
         tempMedianObj[row.muni] = row.median_download_speed_mbps_2020;
@@ -81,29 +83,33 @@ const December = () => {
   // Get chart data
   useEffect(() => {
     d3.csv('/assets/december2020-chart.csv').then((response) => {
-      setChartData(response);
+      setChartData({ table: response });
     });
   }, []);
   // Set up chart
   useEffect(() => {
     // set the dimensions and margins of the graph
     if (chartData) {
-      console.log(chartData)
-      const margin = {
-        top: 10, right: 30, bottom: 30, left: 40,
+      console.log(chartData);
+      const specTemp = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
+        data: {name: 'table'},
+        mark: 'bar',
+        width: 'container',
+        height: 450,
+        encoding: {
+          x: {
+            bin: { binned: true, step: 2 },
+            field: 'buckets',
+          },
+          x2: { field: 'bucket_end' },
+          y: {
+            field: 'frequency',
+            type: 'quantitative',
+          },
+        },
       };
-      const width = 460 - margin.left - margin.right;
-      const height = 400 - margin.top - margin.bottom;
-
-      // append the svg object to the body of the page
-      const svg = d3.select('#decChart')
-        .append('svg')
-        .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
-        .append('g')
-        .attr('transform',
-          `translate(${margin.left},${margin.top})`);
-      setChart(svg);
+      setSpec(specTemp);
     }
   }, [chartData]);
 
@@ -118,26 +124,29 @@ const December = () => {
   return (
     <>
       <h1 className="calendar-viz__title">The Need for Speed</h1>
-      <div className="calendar-viz__wrapper">
-        <div id="decMap" className="mapboxgl__container" />
-        <div className="map__overlay" style={{ top: '98px' }}>
-          <span className="map__legend-entry map__legend-entry--bold map__legend-title">Median Download Speed (Megabits per Second)</span>
-          <svg height="132" width="168">
-            <rect x="2" y="2" width="16" height="16" fill="#F3F3F3" stroke="#231F20" />
-            <text x="28" y="14" className="map__legend-entry" fill="#1F4E46">1 – 50</text>
-            <rect x="2" y="30" width="16" height="16" fill="#B1C6D8" stroke="#231F20" />
-            <text x="28" y="42" className="map__legend-entry" fill="#1F4E46">50 – 100</text>
-            <rect x="2" y="58" width="16" height="16" fill="#50789D" stroke="#231F20" />
-            <text x="28" y="70" className="map__legend-entry" fill="#1F4E46">100 – 200</text>
-            <rect x="2" y="86" width="16" height="16" fill="#2e4b66" stroke="#231F20" />
-            <text x="28" y="98" className="map__legend-entry" fill="#1F4E46">200+</text>
-            <rect x="2" y="114" width="16" height="16" fill="#c1b9bb" stroke="#231F20" />
-            <text x="28" y="126" className="map__legend-entry" fill="#1F4E46">Data unavailable</text>
-          </svg>
+      <div className="calendar-viz__wrapper--two-col">
+        <div className="calendar-viz__wrapper">
+          <div id="decMap" className="mapboxgl__container" />
+          <div className="map__overlay" style={{ top: '98px' }}>
+            <span className="map__legend-entry map__legend-entry--bold map__legend-title">Median Download Speed (Megabits per Second)</span>
+            <svg height="132" width="168">
+              <rect x="2" y="2" width="16" height="16" fill="#F3F3F3" stroke="#231F20" />
+              <text x="28" y="14" className="map__legend-entry" fill="#1F4E46">1 – 50</text>
+              <rect x="2" y="30" width="16" height="16" fill="#B1C6D8" stroke="#231F20" />
+              <text x="28" y="42" className="map__legend-entry" fill="#1F4E46">50 – 100</text>
+              <rect x="2" y="58" width="16" height="16" fill="#50789D" stroke="#231F20" />
+              <text x="28" y="70" className="map__legend-entry" fill="#1F4E46">100 – 200</text>
+              <rect x="2" y="86" width="16" height="16" fill="#2e4b66" stroke="#231F20" />
+              <text x="28" y="98" className="map__legend-entry" fill="#1F4E46">200+</text>
+              <rect x="2" y="114" width="16" height="16" fill="#c1b9bb" stroke="#231F20" />
+              <text x="28" y="126" className="map__legend-entry" fill="#1F4E46">Data unavailable</text>
+            </svg>
+          </div>
         </div>
-      </div>
-      <div id="decChart" className="calendar-viz__chart">
-        { setHeader(currentMuni, medianObj) }
+        {/* <div id="decChart" className="calendar-viz__chart">
+          { setHeader(currentMuni, medianObj) }
+        </div> */}
+        { spec ? <VegaLite spec={spec} data={chartData} /> : ''}
       </div>
       <p>Have you ever used that convenient widget that appears at the top of Google searches for “speed test”? Maybe your Zoom video keeps cutting out and you hop over to Google for a quick speed test. Ever wonder where all that data goes or how you compare with your neighbors? Well, Google partners with the Measurement Lab (M-Lab) to run those speed tests. M-Lab is committed to making the non-identifiable data open and available to the public.</p>
       <p>We took speed tests submitted by users and averaged the results of all speed tests made by a single user on a single day. decMapped are these median speeds by municipality for 2020. In the tooltip we show the distribution for each municipality. We put those averages into 5 megabit per second bins. The higher the bar in the histogram, the more people that have experienced speeds within the range for the bin (example 0-5Mbps). While there may be some clustering around speed tiers offered by internet service providers, there are a lot of factors that contribute to speed from equipment performance to heavy use with multiple family members sharing a connection.</p>

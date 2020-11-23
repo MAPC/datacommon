@@ -143,6 +143,14 @@
     margin: 0 32px 32px 0;
     width: 700px;
     z-index: 10;
+
+    &--two-col {
+      display: grid;
+      grid-template-columns: 700px 1fr;
+      grid-template-rows: auto;
+      height: 500px;
+      margin: 0 32px 32px 0;
+    }
   }
 
   &__chart {
