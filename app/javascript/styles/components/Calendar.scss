@@ -251,6 +251,10 @@
     line-height: 1.5rem;
     list-style: unset;
     padding: 0 2.5rem;
+
+    &--numbered {
+      list-style-type: arabic;
+    }
   }
 
   &__header {
