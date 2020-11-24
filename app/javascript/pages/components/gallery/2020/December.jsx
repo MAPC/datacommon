@@ -33,7 +33,7 @@ const December = () => {
   const [mapData, setMapData] = useState();
   const [map, setMap] = useState();
   const [medianObj, setMedianObj] = useState({});
-  const [currentMuni, setMuni] = useState('BOSTON');
+  const [currentMuni, setMuni] = useState('');
   const [chartData, setChartData] = useState({});
   const [spec, setSpec] = useState();
   // Get map data
@@ -101,7 +101,6 @@ const December = () => {
   }, []);
 
   useEffect(() => {
-    console.log(currentMuni)
     setSpec({
       $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
       data: { name: currentMuni },
@@ -137,7 +136,7 @@ const December = () => {
       <div className="calendar-viz__wrapper--two-col">
         <div className="calendar-viz__wrapper">
           <div id="decMap" className="mapboxgl__container" />
-          <div className="map__overlay" style={{ top: '98px' }}>
+          <div className="map__overlay" style={{ top: '8px' }}>
             <span className="map__legend-entry map__legend-entry--bold map__legend-title">Median Download Speed (Megabits per Second)</span>
             <svg height="132" width="168">
               <rect x="2" y="2" width="16" height="16" fill="#F3F3F3" stroke="#231F20" />
