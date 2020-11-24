@@ -80,38 +80,33 @@ const December = () => {
       });
     }
   }, [mapData]);
-  // Get chart data
+  // Get chart data and set spec
   useEffect(() => {
     d3.csv('/assets/december2020-chart.csv').then((response) => {
       setChartData({ table: response });
-    });
-  }, []);
-  // Set up chart
-  useEffect(() => {
-    // set the dimensions and margins of the graph
-    if (chartData) {
-      console.log(chartData);
-      const specTemp = {
+      setSpec({
         $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
-        data: {name: 'table'},
+        title: 'Please select a municipality',
+        data: { name: 'table' },
         mark: 'bar',
-        width: 'container',
-        height: 450,
+        width: 400,
+        height: 400,
         encoding: {
           x: {
-            bin: { binned: true, step: 2 },
-            field: 'buckets',
+            bin: { binned: true, step: 200 },
+            field: 'bucket_start',
+            title: 'Mbps (megabits per second) download speed',
           },
           x2: { field: 'bucket_end' },
           y: {
             field: 'frequency',
             type: 'quantitative',
+            title: 'Number of tests (2020)',
           },
         },
-      };
-      setSpec(specTemp);
-    }
-  }, [chartData]);
+      });
+    });
+  }, []);
 
   if (map) {
     map.on('click', 'Median Download Speed', (e) => {
