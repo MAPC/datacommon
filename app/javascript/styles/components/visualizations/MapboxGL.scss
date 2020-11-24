@@ -65,7 +65,7 @@
     flex-direction: column;
     position: absolute;
     right: 8px;
-    width: 160px;
+    width: 168px;
     z-index: 10;
   }
 
@@ -81,6 +81,7 @@
 
   &__legend-link {
     text-decoration: underline;
+    margin: .5rem;
   }
 
   &__legend-title {
