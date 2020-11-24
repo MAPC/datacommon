@@ -26,16 +26,15 @@ function setHeader(currentMuni, medianObj) {
   if (currentMuni) {
     return `${toCamelCase(currentMuni)} (Median download speed: ${d3.format('.2f')(medianObj[currentMuni])} mbps)`;
   }
-  return 'Please select a muni';
+  return 'Please select a municipality';
 }
 
 const December = () => {
   const [mapData, setMapData] = useState();
   const [map, setMap] = useState();
   const [medianObj, setMedianObj] = useState({});
-  const [currentMuni, setMuni] = useState();
-  const [chartData, setChartData] = useState();
-  const [chart, setChart] = useState();
+  const [currentMuni, setMuni] = useState('BOSTON');
+  const [chartData, setChartData] = useState({});
   const [spec, setSpec] = useState();
   // Get map data
   useEffect(() => {
@@ -89,38 +88,49 @@ const December = () => {
   // Get chart data and set spec
   useEffect(() => {
     d3.csv('/assets/december2020-chart.csv').then((response) => {
-      setChartData({ table: response });
-      setSpec({
-        $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
-        data: { name: 'table' },
-        mark: 'bar',
-        width: 400,
-        height: 400,
-        encoding: {
-          x: {
-            bin: { binned: true, step: 200 },
-            field: 'bucket_start',
-            title: 'Mbps (megabits per second) download speed',
-          },
-          x2: { field: 'bucket_end' },
-          y: {
-            field: 'frequency',
-            type: 'quantitative',
-            title: 'Number of tests (2020)',
-          },
-        },
-      });
+      const reducedResponse = response.reduce((munis, row) => {
+        const temp = munis;
+        if (!Object.keys(temp).includes(row.City)) {
+          temp[row.City] = { [row.City]: [] };
+        }
+        temp[row.City][row.City] = [...temp[row.City][row.City], row];
+        return temp;
+      }, {});
+      setChartData(reducedResponse);
     });
   }, []);
+
+  useEffect(() => {
+    console.log(currentMuni)
+    setSpec({
+      $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
+      data: { name: currentMuni },
+      mark: 'bar',
+      width: 400,
+      height: 400,
+      encoding: {
+        x: {
+          bin: { binned: true, step: 200 },
+          field: 'bucket_start',
+          title: 'Mbps (megabits per second) download speed',
+        },
+        x2: { field: 'bucket_end' },
+        y: {
+          field: 'frequency',
+          type: 'quantitative',
+          title: 'Number of tests (2020)',
+        },
+      },
+    });
+  }, [currentMuni]);
 
   if (map) {
     map.on('click', 'Median Download Speed', (e) => {
       setMuni(e.features[0].properties.town);
-      map.setPaintProperty('Muni borders', 'line-color', ['match', ['get', 'town'], e.features[0].properties.town, '#EE3125', 'black']);
+      map.setPaintProperty('Muni borders', 'line-color', ['match', ['get', 'town'], e.features[0].properties.town, '#FDB525', 'black']);
       map.setPaintProperty('Muni borders', 'line-width', ['match', ['get', 'town'], e.features[0].properties.town, 3, 1]);
     });
   }
-
   return (
     <>
       <h1 className="calendar-viz__title">The Need for Speed</h1>
@@ -144,12 +154,12 @@ const December = () => {
           </div>
         </div>
         <div className="calendar-viz__chart-wrapper">
-          { spec ? (
+          { spec && currentMuni && chartData ? (
             <>
               <h3 className="calendar-viz__chart-title">
                 { setHeader(currentMuni, medianObj) }
               </h3>
-              <VegaLite spec={spec} data={chartData} />
+              <VegaLite spec={spec} data={chartData[currentMuni]} />
             </>
           ) : ''}
         </div>
