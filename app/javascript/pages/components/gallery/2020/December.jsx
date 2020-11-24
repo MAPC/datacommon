@@ -16,9 +16,15 @@ const colorPolygon = (value) => {
 };
 const colorExpression = ['match', ['get', 'town']];
 
+function toCamelCase(muniName) {
+  return muniName.split(' ')
+    .map((word) => word.charAt(0).concat(word.slice(1).toLowerCase()))
+    .join(' ');
+}
+
 function setHeader(currentMuni, medianObj) {
   if (currentMuni) {
-    return `${currentMuni}: ${medianObj[currentMuni]} mbps`;
+    return `${toCamelCase(currentMuni)} (Median download speed: ${d3.format('.2f')(medianObj[currentMuni])} mbps)`;
   }
   return 'Please select a muni';
 }
@@ -86,7 +92,6 @@ const December = () => {
       setChartData({ table: response });
       setSpec({
         $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
-        title: 'Please select a municipality',
         data: { name: 'table' },
         mark: 'bar',
         width: 400,
@@ -138,10 +143,16 @@ const December = () => {
             </svg>
           </div>
         </div>
-        {/* <div id="decChart" className="calendar-viz__chart">
-          { setHeader(currentMuni, medianObj) }
-        </div> */}
-        { spec ? <VegaLite spec={spec} data={chartData} /> : ''}
+        <div className="calendar-viz__chart-wrapper">
+          { spec ? (
+            <>
+              <h3 className="calendar-viz__chart-title">
+                { setHeader(currentMuni, medianObj) }
+              </h3>
+              <VegaLite spec={spec} data={chartData} />
+            </>
+          ) : ''}
+        </div>
       </div>
       <p>Despite broadband currently not being treated as a public utility, it has been become an essential resource in 2020.  The COVID pandemic has created an environment where multiple members of the same household may need to be accessing video calls, online cloud storage, and other digital tools for work, school, and healthcare – potentially at the same time.  Having access to high speed and reliable internet is now no longer an amenity, it is a critical tool for daily life.</p>
       <p>The issue of internet access, broadly referred to as the &quot;Digital Divide&quot;, is a function of three critical access elements:</p>
@@ -158,7 +169,13 @@ const December = () => {
         <li>Partnership and Program Development –Once the critical missing access elements have been identified in a community, assembling the right stakeholders to address the issues is the next step.Those stakeholders will depend on the missing element(s) and community context, but will likely involve entities that can provide community connections (community organizations, healthcare providers, housing authorities), digital services and equipment (libraries, nonprofits specializing in digital access, school districts) and ongoing access and maintenance (internet service providers, IT support providers, workforce training programs)</li>
         <li>Technology Evaluation and Procurement – Evaluating the existing and needed infrastructure to improve connectivity can be an important final step in improving digital access. Knowing where existing resources such as dark fiber lines, carrier hotels, and other components of internet infrastructure can provide direction for a municipality looking to improve connectivity for it’s residents and businesses.</li>
       </ol>
-      <p>If your community is interested in exploring issues related to the digital divide, please reach out to MAPC Senior Economic Development Planner, Josh Eichen, at <a href="mailto:jeichen@mapc.org" className="calendar-viz__link">jeichen@mapc.org</a> and we would be happy to discuss potential technical assistance options. </p>
+      <p>
+        If your community is interested in exploring issues related to the digital divide, please reach out to MAPC Senior Economic Development Planner, Josh Eichen, at
+        <a href="mailto:jeichen@mapc.org" className="calendar-viz__link">jeichen@mapc.org</a>
+        {' '}
+        and we would be happy to discuss potential technical assistance options.
+        {' '}
+      </p>
     </>
   );
 };

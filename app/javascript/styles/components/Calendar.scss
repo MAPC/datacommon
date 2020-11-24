@@ -153,9 +153,15 @@
     }
   }
 
-  &__chart {
-    height: 500px;
-    margin: 0 32px 32px 0;
+  &__chart-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__chart-title {
+    display: inline-block;
+    text-align: center;
   }
   
   &__subtitle {
