@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import mapboxgl from 'mapbox-gl';
 import { VegaLite } from 'react-vega';
+import chartData from '../../../../../assets/data/december2020-chart.json';
 
 const colorPalette = ['#F3F3F3', '#B1C6D8', '#50789D', '#2e4b66', '#c1b9bb'];
 const colorPolygon = (value) => {
@@ -34,7 +35,6 @@ const December = () => {
   const [map, setMap] = useState();
   const [medianObj, setMedianObj] = useState({});
   const [currentMuni, setMuni] = useState('');
-  const [chartData, setChartData] = useState({});
   const [spec, setSpec] = useState();
   // Get map data
   useEffect(() => {
@@ -85,20 +85,6 @@ const December = () => {
       });
     }
   }, [mapData]);
-  // Get chart data and set spec
-  useEffect(() => {
-    d3.csv('/assets/december2020-chart.csv').then((response) => {
-      const reducedResponse = response.reduce((munis, row) => {
-        const temp = munis;
-        if (!Object.keys(temp).includes(row.City)) {
-          temp[row.City] = { [row.City]: [] };
-        }
-        temp[row.City][row.City] = [...temp[row.City][row.City], row];
-        return temp;
-      }, {});
-      setChartData(reducedResponse);
-    });
-  }, []);
 
   useEffect(() => {
     setSpec({
@@ -110,10 +96,10 @@ const December = () => {
       encoding: {
         x: {
           bin: { binned: true, step: 200 },
-          field: 'bucket_start',
+          field: 'bin0',
           title: 'Mbps (megabits per second) download speed',
         },
-        x2: { field: 'bucket_end' },
+        x2: { field: 'bin1' },
         y: {
           field: 'frequency',
           type: 'quantitative',
@@ -156,7 +142,7 @@ const December = () => {
           </div>
         </div>
         <div className="calendar-viz__chart-wrapper">
-          { spec && currentMuni && chartData ? (
+          { spec ? (
             <>
               <h3 className="calendar-viz__chart-title">
                 { setHeader(currentMuni, medianObj) }
