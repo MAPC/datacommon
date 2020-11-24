@@ -24,8 +24,11 @@ function toCamelCase(muniName) {
 }
 
 function setHeader(currentMuni, medianObj) {
-  if (currentMuni) {
+  if (currentMuni && medianObj[currentMuni] !== '-') {
     return `${toCamelCase(currentMuni)} (Median download speed: ${d3.format('.2f')(medianObj[currentMuni])} mbps)`;
+  }
+  if (currentMuni) {
+    return `${toCamelCase(currentMuni)} (Data unavailable)`;
   }
   return 'Please select a municipality';
 }
@@ -59,7 +62,7 @@ const December = () => {
     });
     setMap(decMap);
   }, []);
-  // Add map features
+  // Add map features and set median object
   useEffect(() => {
     if (mapData) {
       const tempMedianObj = {};
@@ -81,11 +84,22 @@ const December = () => {
         });
         map.moveLayer('Muni borders');
         map.moveLayer('MAPC outline');
+        map.addLayer({
+          id: 'Highlighted municipality',
+          type: 'line',
+          source: 'composite',
+          'source-layer': 'MA_Munis',
+          paint: {
+            'line-color': '#FDB525',
+            'line-width': 3,
+            'line-opacity': 0,
+          },
+        });
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
       });
     }
   }, [mapData]);
-
+  // Declare spec for histogram
   useEffect(() => {
     setSpec({
       $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
@@ -110,10 +124,15 @@ const December = () => {
   }, [currentMuni]);
 
   if (map) {
-    map.on('click', 'Median Download Speed', (e) => {
-      setMuni(e.features[0].properties.town);
-      map.setPaintProperty('Muni borders', 'line-color', ['match', ['get', 'town'], e.features[0].properties.town, '#FDB525', 'black']);
-      map.setPaintProperty('Muni borders', 'line-width', ['match', ['get', 'town'], e.features[0].properties.town, 3, 1]);
+    map.on('click', (e) => {
+      const clickedData = map.queryRenderedFeatures([e.point.x, e.point.y], { layers: ['Median Download Speed'] });
+      if (clickedData.length > 0) {
+        setMuni(clickedData[0].properties.town);
+        map.setPaintProperty('Highlighted municipality', 'line-opacity', ['match', ['get', 'town'], clickedData[0].properties.town, 1, 0]);
+      } else {
+        setMuni('');
+        map.setPaintProperty('Highlighted municipality', 'line-opacity', 0);
+      }
     });
   }
   return (
