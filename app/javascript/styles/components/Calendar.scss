@@ -130,7 +130,7 @@
 
 .calendar-viz {
   &__wrapper {
-    @include media(medium) {
+    @include media(large) {
       float: unset;
       height: 100%;
       margin: 0 auto;
@@ -153,7 +153,7 @@
 
       @include media(large) {
         grid-template-columns: auto;
-        grid-template-rows: 500px 1fr;
+        grid-template-rows: 500px 400px;
         height: unset;
       }
     }
@@ -299,4 +299,72 @@
     margin: .5rem 0;
     width: 17rem;
   }
+}
+
+.calendar-viz__wrapper {
+  .legend {
+    max-height: 300px;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+
+    &__wrapper {
+      background-color: rgba(255, 255, 255, .8);
+      max-width: 168px;
+      min-height: 20px;
+      padding: 5px 15px;
+      position: absolute;
+      right: 0;
+      z-index: 10;
+
+      &--datacommon {
+        right: 8px;
+        top: 8px;
+      }
+    }
+
+    &__title {
+      display: block;
+      fill: #231F20;
+      font-size: 1rem;
+      font-weight: bolder;
+      margin-bottom: .5rem;
+
+      &--datacommon {
+        color: #1f4e46;
+        font-family: 'Montserrat';
+        font-size: .75rem;
+        font-weight: 700;
+      }
+    }
+
+    &__entry {
+      font-size: .75rem;
+
+      &--datacommon {
+        color: #1f4e46;
+        fill: #1f4e46;
+        font-family: 'Montserrat';
+        font-weight: 300;
+      }
+    }
+
+    &__select {
+      margin-bottom: .5rem;
+      width: 168px;
+    }
+
+    &__disclaimer {
+      font-size: .75rem;
+
+      &--datacommon {
+        color: #1f4e46;
+        font-family: 'Montserrat';
+        font-weight: 300;
+      }
+    }
+  }
+}
+
+#decMap {
+  height: 500px;
 }

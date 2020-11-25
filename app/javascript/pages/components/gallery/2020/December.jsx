@@ -33,7 +33,7 @@ function setHeader(currentMuni, medianObj) {
           {' '}
           {d3.format('.2f')(medianObj[currentMuni])}
           {' '}
-          mbps
+          Mbps
         </h4>
       </>
     );
@@ -162,24 +162,26 @@ const December = () => {
       <div className="calendar-viz__wrapper--two-col">
         <div className="calendar-viz__wrapper">
           <div id="decMap" className="mapboxgl__container" />
-          <div className="map__overlay" style={{ top: '8px' }}>
-            <span className="map__legend-entry map__legend-entry--bold map__legend-title">Median Download Speed (Megabits per Second)</span>
-            <svg height="160" width="152" style={{ margin: '0 auto' }}>
-              <rect x="2" y="2" width="16" height="16" fill="#F3F3F3" stroke="#231F20" />
-              <text x="28" y="14" className="map__legend-entry" fill="#1F4E46">1 – 50</text>
-              <rect x="2" y="30" width="16" height="16" fill="#B1C6D8" stroke="#231F20" />
-              <text x="28" y="42" className="map__legend-entry" fill="#1F4E46">50 – 100</text>
-              <rect x="2" y="58" width="16" height="16" fill="#50789D" stroke="#231F20" />
-              <text x="28" y="70" className="map__legend-entry" fill="#1F4E46">100 – 200</text>
-              <rect x="2" y="86" width="16" height="16" fill="#2e4b66" stroke="#231F20" />
-              <text x="28" y="98" className="map__legend-entry" fill="#1F4E46">200+</text>
-              <rect x="2" y="114" width="16" height="16" fill="#c1b9bb" stroke="#231F20" />
-              <text x="28" y="126" className="map__legend-entry" fill="#1F4E46">Data unavailable</text>
-              <line x1="2" y1="148" x2="18" y2="148" style={{ stroke: '#231F20', strokeWidth: 3.5 }} />
-              <text x="28" y="154" className="map__legend-entry" fill="#1F4E46">MAPC border</text>
-            </svg>
-            <a href="https://www.speedtest.net/" className="map__legend-entry map__legend-entry--bold map__legend-link" fill="#1F4E46">Test your Internet speed</a>
-          </div>
+          <aside className="legend__wrapper legend__wrapper--datacommon">
+            <div className="legend">
+              <span className="legend__title legend__title--datacommon">Median Download Speed (Megabits per Second)</span>
+              <svg height="160" width="168">
+                <rect x="2" y="2" width="16" height="16" fill="#F3F3F3" stroke="#231F20" />
+                <text x="28" y="14" className="legend__entry legend__entry--datacommon" fill="#231F20">1 – 50</text>
+                <rect x="2" y="30" width="16" height="16" fill="#B1C6D8" stroke="#231F20" />
+                <text x="28" y="42" className="legend__entry legend__entry--datacommon" fill="#231F20">50 – 100</text>
+                <rect x="2" y="58" width="16" height="16" fill="#50789D" stroke="#231F20" />
+                <text x="28" y="70" className="legend__entry legend__entry--datacommon" fill="#231F20">100 – 200</text>
+                <rect x="2" y="86" width="16" height="16" fill="#2e4b66" stroke="#231F20" />
+                <text x="28" y="98" className="legend__entry legend__entry--datacommon" fill="#231F20">200+</text>
+                <rect x="2" y="114" width="16" height="16" fill="#c1b9bb" stroke="#231F20" />
+                <text x="28" y="126" className="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
+                <line x1="2" y1="148" x2="18" y2="148" style={{ stroke: '#231F20', strokeWidth: 3.5 }} />
+                <text x="28" y="154" className="map__legend-entry" fill="#1F4E46">MAPC border</text>
+              </svg>
+              <a href="https://www.speedtest.net/" className="map__legend-entry map__legend-entry--bold map__legend-link" fill="#1F4E46">Test your Internet speed</a>
+            </div>
+          </aside>
         </div>
         <div className="calendar-viz__chart-wrapper">
           { spec ? (
