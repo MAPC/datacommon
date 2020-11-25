@@ -25,12 +25,33 @@ function toCamelCase(muniName) {
 
 function setHeader(currentMuni, medianObj) {
   if (currentMuni && medianObj[currentMuni] !== '-') {
-    return `${toCamelCase(currentMuni)} (Median download speed: ${d3.format('.2f')(medianObj[currentMuni])} mbps)`;
+    return (
+      <>
+        <h3 className="calendar-viz__chart-title">{toCamelCase(currentMuni)}</h3>
+        <h4 className="calendar-viz__chart-subtitle">
+          Median download speed:
+          {' '}
+          {d3.format('.2f')(medianObj[currentMuni])}
+          {' '}
+          mbps
+        </h4>
+      </>
+    );
   }
   if (currentMuni) {
-    return `${toCamelCase(currentMuni)} (Data unavailable)`;
+    return (
+      <>
+        <h3 className="calendar-viz__chart-title">{toCamelCase(currentMuni)}</h3>
+        <h4 className="calendar-viz__chart-subtitle">Data unavailable</h4>
+      </>
+    );
   }
-  return 'Please select a municipality';
+  return (
+    <>
+      <h3 className="calendar-viz__chart-title">Select a municipality</h3>
+      <h4 className="calendar-viz__chart-subtitle">Median download speed</h4>
+    </>
+  );
 }
 
 const December = () => {
@@ -106,7 +127,7 @@ const December = () => {
       data: { name: currentMuni },
       mark: 'bar',
       width: 400,
-      height: 400,
+      height: 'container',
       encoding: {
         x: {
           bin: { binned: true, step: 200 },
@@ -163,9 +184,7 @@ const December = () => {
         <div className="calendar-viz__chart-wrapper">
           { spec ? (
             <>
-              <h3 className="calendar-viz__chart-title">
-                { setHeader(currentMuni, medianObj) }
-              </h3>
+              { setHeader(currentMuni, medianObj) }
               <VegaLite spec={spec} data={chartData[currentMuni]} />
             </>
           ) : ''}
@@ -188,10 +207,10 @@ const December = () => {
       </ol>
       <p>
         If your community is interested in exploring issues related to the digital divide, please reach out to MAPC Senior Economic Development Planner, Josh Eichen, at
+        {' '}
         <a href="mailto:jeichen@mapc.org" className="calendar-viz__link">jeichen@mapc.org</a>
         {' '}
         and we would be happy to discuss potential technical assistance options.
-        {' '}
       </p>
     </>
   );

@@ -150,22 +150,36 @@
       grid-template-rows: auto;
       height: 500px;
       margin-bottom: 32px;
+
+      @include media(large) {
+        grid-template-columns: auto;
+        grid-template-rows: 500px 1fr;
+        height: unset;
+      }
     }
   }
 
   &__chart-wrapper {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    max-width: 500px;
+    margin-bottom: 32px;
     width: 100%;
   }
 
   &__chart-title {
     display: inline-block;
+    margin: 0 auto;
     text-align: center;
   }
-  
+
+  &__chart-subtitle {
+    display: inline-block;
+    text-align: center;
+    font-style: italic;
+    margin: 0 auto 8px auto;
+  }
+
   &__subtitle {
     @include media(large) {
       float: initial;
