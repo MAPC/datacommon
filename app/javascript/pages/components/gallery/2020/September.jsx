@@ -5,7 +5,7 @@ const September = () => (
   <>
     <h1 className="calendar-viz__title">Completing the 2020 Census</h1>
     <div className="calendar-viz__iframe-wrapper">
-      <iframe src="https://mapc.github.io/MapboxEmbeds/2020/08/07/census-response-rate.html" className="calendar-viz__iframe" id="september-iframe" title="Map of census response rates in MAPC region, September" />
+      <iframe src="https://mapc.github.io/MapboxEmbeds/2020/08/07/census-response-rate.html" className="calendar-viz__iframe" id="september-iframe" title="Map of census response rates in MAPC region, September 30, 2020" />
     </div>
     <p><em>Note: at the original time of this map's publishing, the Census counting efforts were set to end on September 30, 2020. However, on October 13 the Census Bureau <a href="https://www.census.gov/newsroom/press-releases/2020/2020-census-data-collection-ending.html" className="calendar-viz__link">released a statement</a> that counting efforts would end on October 15.</em></p>
     <p>A full four weeks earlier than planned, at the end of this month, the Federal government will conclude the 2020 Census. This new September 30 end means four fewer weeks to gather the data that will direct $675 billion annually in federal funds, determine the number of seats each state has in the House of Representatives, and affect much else, including local policy and planning decisions – for the next ten years.</p>
