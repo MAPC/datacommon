@@ -47,10 +47,7 @@ function setHeader(currentMuni, medianObj) {
     );
   }
   return (
-    <>
-      <h3 className="calendar-viz__chart-title">Select a municipality</h3>
-      <h4 className="calendar-viz__chart-subtitle">Median download speed</h4>
-    </>
+    <h3 className="calendar-viz__chart-title">Click on a municipality to see the distribution of its speed test results</h3>
   );
 }
 
@@ -179,7 +176,7 @@ const December = () => {
                 <line x1="2" y1="148" x2="18" y2="148" style={{ stroke: '#231F20', strokeWidth: 3.5 }} />
                 <text x="28" y="154" className="map__legend-entry" fill="#1F4E46">MAPC border</text>
               </svg>
-              <a href="https://www.speedtest.net/" className="map__legend-entry map__legend-entry--bold map__legend-link" fill="#1F4E46">Test your Internet speed</a>
+              <a href="https://speed.measurementlab.net/" className="map__legend-entry map__legend-entry--bold map__legend-link" fill="#1F4E46">Test your Internet speed</a>
             </div>
           </aside>
         </div>
@@ -192,20 +189,14 @@ const December = () => {
           ) : ''}
         </div>
       </div>
-      <p>Despite broadband currently not being treated as a public utility, it has been become an essential resource in 2020.  The COVID pandemic has created an environment where multiple members of the same household may need to be accessing video calls, online cloud storage, and other digital tools for work, school, and healthcare – potentially at the same time.  Having access to high speed and reliable internet is now no longer an amenity, it is a critical tool for daily life.</p>
-      <p>The issue of internet access, broadly referred to as the &quot;Digital Divide&quot;, is a function of three critical access elements:</p>
+      <p>Fast, reliable internet is a basic need in the world of COVID. Not only does work, school, healthcare and often get done online, it often gets done online by multiple members of a household at once. That’s why the unequal distribution of internet access–the <a href="https://datacommon.mapc.org/calendar/2020/april" className="calendar-viz__link">&quot;Digital Divide&quot;</a>–is a more urgent problem than ever.</p>
+      <p>The map shows, to no one&apos;s surprise, that lower-median-income municipalities experience slower download speeds.</p>
+      <p>Of course, many factors contribute to speed, from equipment performance to heavy user with multiple people sharing a connection. And download speed is not the only measure of internet access: That also requires an adequate device and digital literacy. This might help explain why residents of wealthy Dover and Lincoln, for example, presumably have the access they desire–despite median download speeds akint o less prosperous municipalities.</p>
+      <p>MAPC recommends municipalities tackle the digital divide in three steps:</p>
       <ol className="calendar-viz__list calendar-viz__list--numbered">
-        <li>An adequate device – A phone of tablet may be good for entertainment but nor for school or work.</li>
-        <li>Literacy – The ability to use the device to access the tools and resources an individual needs.</li>
-        <li>Connection – A household or building connection to an internet service provider at a price that they can afford.</li>
-      </ol>
-      <p>To better understand where there might be issues of quality connectivity or service provision, MAPC took M-Lab speed tests submitted by users and averaged the results of all speed tests made by a single user on a single day. Mapped are these median speeds by municipality for 2020. In the tooltip we show the distribution for each municipality. We put those averages into 5 megabit per second bins. The higher the bar in the histogram, the more people that have experienced speeds within the range for the bin (example 0-5Mbps). While there may be some clustering around speed tiers offered by internet service providers, there are a lot of factors that contribute to speed from equipment performance to heavy use with multiple family members sharing a connection.</p>
-      <p>Across the Commonwealth, communities are looking to make investments in the infrastructure, equipment and training that can increase quality access to the internet.  MAPC believes that in collaboration with community stakeholders, municipal entities can play a leading role in ensuring internet access and connectivity for families, students, seniors, and other individuals who are needing to use digital resources in new ways.</p>
-      <p>MAPC proposes a three-step approach to tackling municipal Digital Divide issues:</p>
-      <ol className="calendar-viz__list calendar-viz__list--numbered">
-        <li>Digital Community Needs Assessment – Identifying the barriers that individuals and households are facing across a community is an important first step to addressing Digital Divide issues. This evaluation should work to understand which critical element, or elements, are causing the barrier to access.</li>
-        <li>Partnership and Program Development –Once the critical missing access elements have been identified in a community, assembling the right stakeholders to address the issues is the next step.Those stakeholders will depend on the missing element(s) and community context, but will likely involve entities that can provide community connections (community organizations, healthcare providers, housing authorities), digital services and equipment (libraries, nonprofits specializing in digital access, school districts) and ongoing access and maintenance (internet service providers, IT support providers, workforce training programs)</li>
-        <li>Technology Evaluation and Procurement – Evaluating the existing and needed infrastructure to improve connectivity can be an important final step in improving digital access. Knowing where existing resources such as dark fiber lines, carrier hotels, and other components of internet infrastructure can provide direction for a municipality looking to improve connectivity for it’s residents and businesses.</li>
+        <li>Digital Community-Needs Assessment: Specify and evaluate the municipality&apos;s varriers to access.</li>
+        <li>Partnership and Program Development: Assembling the right stakeholders to address the issues is the next step.  Those stakeholders will depend on the missing element(s) and community context, but will likely involve entities that can provide community connections (community organizations, healthcare providers, housing authorities), digital services and equipment (libraries, nonprofits specializing in digital access, school districts) and ongoing access and maintenance (internet service providers, IT support providers, workforce training programs).</li>
+        <li>Technology Evaluation and Procurement: Evaluating the existing and needed infrastructure to improve connectivity can be an important final step in improving digital access. Knowing where existing resources such as dark fiber lines, carrier hotels, and other components of internet infrastructure can provide direction for a municipality looking to improve connectivity for it’s residents and businesses.</li>
       </ol>
       <p>
         If your community is interested in exploring issues related to the digital divide, please reach out to MAPC Senior Economic Development Planner, Josh Eichen, at

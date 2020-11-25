@@ -51,11 +51,9 @@ class Home extends React.Component {
               lens.
             </p>
             <p>
-              <strong>November’s visualization</strong>
-              &nbsp;highlights adoptable dogs across Massachusetts. Many people
-              across the state and country have added new four-legged family
-              members during COVID-19, but there are still plenty of pups
-              looking for homes!
+              <strong>December’s visualization</strong>
+              {' '}
+              revisits the digital divide in an exploration of internet download speeds across Massachusetts. As more and more aspects of our lives go online, the need for reliable internet access is more crucial than ever.
             </p>
             <CallToAction
               link="/gallery"
