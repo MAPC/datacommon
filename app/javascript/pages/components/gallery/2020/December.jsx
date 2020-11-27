@@ -122,7 +122,7 @@ const December = () => {
     setSpec({
       $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
       data: { name: currentMuni },
-      mark: 'bar',
+      mark: { type: 'bar', binSpacing: 0 },
       width: 400,
       height: 'container',
       encoding: {
@@ -162,7 +162,7 @@ const December = () => {
           <aside className="legend__wrapper legend__wrapper--datacommon">
             <div className="legend">
               <span className="legend__title legend__title--datacommon">Median Download Speed (Megabits per Second)</span>
-              <svg height="160" width="168">
+              <svg height="200" width="168">
                 <rect x="2" y="2" width="16" height="16" fill="#F3F3F3" stroke="#231F20" />
                 <text x="28" y="14" className="legend__entry legend__entry--datacommon" fill="#231F20">1 – 50</text>
                 <rect x="2" y="30" width="16" height="16" fill="#B1C6D8" stroke="#231F20" />
@@ -175,6 +175,10 @@ const December = () => {
                 <text x="28" y="126" className="legend__entry legend__entry--datacommon" fill="#231F20">Data unavailable</text>
                 <line x1="2" y1="148" x2="18" y2="148" style={{ stroke: '#231F20', strokeWidth: 3.5 }} />
                 <text x="28" y="154" className="map__legend-entry" fill="#1F4E46">MAPC border</text>
+                <line x1="2" y1="176" x2="18" y2="176" style={{ stroke: '#FDB525', strokeWidth: 3.5 }} />
+                <text x="28" y="182" className="map__legend-entry" fill="#1F4E46">Selected</text>
+                <text x="28" y="194" className="map__legend-entry" fill="#1F4E46">municipality</text>
+
               </svg>
               <a href="https://speed.measurementlab.net/" className="map__legend-entry map__legend-entry--bold map__legend-link" fill="#1F4E46">Test your Internet speed</a>
             </div>
@@ -189,21 +193,38 @@ const December = () => {
           ) : ''}
         </div>
       </div>
-      <p>Fast, reliable internet is a basic need in the world of COVID. Not only does work, school, healthcare and often get done online, it often gets done online by multiple members of a household at once. That’s why the unequal distribution of internet access–the <a href="https://datacommon.mapc.org/calendar/2020/april" className="calendar-viz__link">&quot;Digital Divide&quot;</a>–is a more urgent problem than ever.</p>
-      <p>The map shows, to no one&apos;s surprise, that lower-median-income municipalities experience slower download speeds.</p>
-      <p>Of course, many factors contribute to speed, from equipment performance to heavy user with multiple people sharing a connection. And download speed is not the only measure of internet access: That also requires an adequate device and digital literacy. This might help explain why residents of wealthy Dover and Lincoln, for example, presumably have the access they desire–despite median download speeds akint o less prosperous municipalities.</p>
+      <p>
+        Fast, reliable internet is a basic need in the world of COVID. Not only does work, school, healthcare and often get done online, it often gets done online by multiple members of a household at once. That’s why the unequal distribution of internet access–the
+        {' '}
+        <a href="https://datacommon.mapc.org/calendar/2020/april" className="calendar-viz__link">&quot;Digital Divide&quot;</a>
+        –is a more urgent problem than ever.
+      </p>
+      <p>To reveal which Massachusetts communities have better and worse internet access, MAPC mapped the median download speed for each municipality. We also charted, by city or town, the distribution of internet connections that perform at various rates of download speeds.</p>
+      <p>The map shows, to no one&apos;s surprise, that lower-median-income municipalities show slower download speeds.</p>
+      <p>Of course, many factors contribute to speed, from equipment performance to heavy use to multiple people sharing a connection. And download speed is not the only measure of internet access: That also requires an adequate device and digital literacy.</p>
+      <p>This might help explain why residents of wealthy Dover and Lincoln, for example, can meet their needs despite slow download speeds. It explains, too, why poor connectivity in less prosperous communities like Chelsea and Everett really matters: it can compound any barriers already presented by less sophisticated equipment or limited digital know-how </p>
       <p>MAPC recommends municipalities tackle the digital divide in three steps:</p>
       <ol className="calendar-viz__list calendar-viz__list--numbered">
-        <li>Digital Community-Needs Assessment: Specify and evaluate the municipality&apos;s varriers to access.</li>
-        <li>Partnership and Program Development: Assembling the right stakeholders to address the issues is the next step.  Those stakeholders will depend on the missing element(s) and community context, but will likely involve entities that can provide community connections (community organizations, healthcare providers, housing authorities), digital services and equipment (libraries, nonprofits specializing in digital access, school districts) and ongoing access and maintenance (internet service providers, IT support providers, workforce training programs).</li>
-        <li>Technology Evaluation and Procurement: Evaluating the existing and needed infrastructure to improve connectivity can be an important final step in improving digital access. Knowing where existing resources such as dark fiber lines, carrier hotels, and other components of internet infrastructure can provide direction for a municipality looking to improve connectivity for it’s residents and businesses.</li>
+        <li>
+          <strong>Perform a digital community-needs assessment</strong>
+          {' – '}
+          Specify and evaluate the municipality’s particular barriers to access.
+        </li>
+        <li>
+          <strong>Assemble appropriate provider partners</strong>
+          {' – '}
+          Gather entities capable of providing the main elements of access: connections, digital services, equipment, and ongoing maintenance. Depending on the community this may include entities such as housing authorities, healthcare providers, schools, library, IT support providers, workforce training programs, and others.
+        </li>
+        <li>
+          <strong>Technology and Procurement</strong>
+          {' – '}
+          Take inventory resources such as dark fiber lines, carrier hotels, and other components of internet infrastructure in order to determine needs.
+        </li>
       </ol>
       <p>
-        If your community is interested in exploring issues related to the digital divide, please reach out to MAPC Senior Economic Development Planner, Josh Eichen, at
+        For assistance in exploring issues related to the digital divide, please reach contact
         {' '}
-        <a href="mailto:jeichen@mapc.org" className="calendar-viz__link">jeichen@mapc.org</a>
-        {' '}
-        and we would be happy to discuss potential technical assistance options.
+        <a href="mailto:jeichen@mapc.org" className="calendar-viz__link">MAPC Senior Economic Development Planner, Josh Eichen.</a>
       </p>
     </>
   );
