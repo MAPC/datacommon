@@ -55,7 +55,7 @@ const December = () => {
   const [mapData, setMapData] = useState();
   const [map, setMap] = useState();
   const [medianObj, setMedianObj] = useState({});
-  const [currentMuni, setMuni] = useState('');
+  const [currentMuni, setMuni] = useState('BOSTON');
   const [spec, setSpec] = useState();
   // Get map data
   useEffect(() => {
@@ -110,7 +110,7 @@ const December = () => {
           paint: {
             'line-color': '#FDB525',
             'line-width': 3,
-            'line-opacity': 0,
+            'line-opacity': ['match', ['get', 'town'], 'BOSTON', 1, 0],
           },
         });
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
