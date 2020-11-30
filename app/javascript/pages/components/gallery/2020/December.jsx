@@ -194,16 +194,24 @@ const December = () => {
         </div>
       </div>
       <p>
-        Fast, reliable internet is a basic need in the world of COVID. Not only does work, school, healthcare and often get done online, it often gets done online by multiple members of a household at once. That’s why the unequal distribution of internet access–the
-        {' '}
-        <a href="https://datacommon.mapc.org/calendar/2020/april" className="calendar-viz__link">&quot;Digital Divide&quot;</a>
-        –is a more urgent problem than ever.
+        Fast, reliable internet is a basic need in the world of COVID. Not only does work, school, healthcare and often get done online, it often gets done online by multiple members of a household at once.
       </p>
-      <p>To reveal which Massachusetts communities have better and worse internet access, MAPC mapped the median download speed for each municipality. We also charted, by city or town, the distribution of internet connections that perform at various rates of download speeds.</p>
-      <p>The map shows, to no one&apos;s surprise, that lower-median-income municipalities show slower download speeds.</p>
-      <p>Of course, many factors contribute to speed, from equipment performance to heavy use to multiple people sharing a connection. And download speed is not the only measure of internet access: That also requires an adequate device and digital literacy.</p>
-      <p>This might help explain why residents of wealthy Dover and Lincoln, for example, can meet their needs despite slow download speeds. It explains, too, why poor connectivity in less prosperous communities like Chelsea and Everett really matters: it can compound any barriers already presented by less sophisticated equipment or limited digital know-how </p>
-      <p>MAPC recommends municipalities tackle the digital divide in three steps:</p>
+      <p>
+        To reveal where there might be speed deserts – gaps in adequate internet access – MAPC mapped the median download speed for each municipality in the Commonwealth. We also charted, by city or town, the distribution of internet connections that perform at various rates of download speeds.
+      </p>
+      <p>
+        Most Massachusetts communities have an average download speed of 50–100 megabits per second (mbps). But some average less than 30mbps – close to the threshold of what’s considered acceptable service by the federal government.
+      </p>
+      <p>
+        Of course, many factors contribute to speed, from equipment performance to heavy use to multiple people sharing a connection. And download speed is not the only measure of internet access: That also requires an adequate device and digital literacy.
+      </p>
+      <p>
+        For a household already working to bridge the
+        {' '}
+        <a href="https://www.mapc.org/resource-library/digital-divide/" className="calendar-viz__link">Digital Divide</a>
+        – already likely to have slower or fewer devices and to face barriers to internet fluency – low download speeds and poor connectivity can make things even harder.
+      </p>
+      <p>MAPC recommends municipalities tackle speed deserts in three steps:</p>
       <ol className="calendar-viz__list calendar-viz__list--numbered">
         <li>
           <strong>Perform a digital community-needs assessment</strong>
