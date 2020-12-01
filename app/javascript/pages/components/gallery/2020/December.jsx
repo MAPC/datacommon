@@ -194,7 +194,7 @@ const December = () => {
         </div>
       </div>
       <p>
-        Fast, reliable internet is a basic need in the world of COVID. Not only does work, school, healthcare and often get done online, it often gets done online by multiple members of a household at once.
+        Fast, reliable internet is a basic need in the world of COVID. Not only does work, school, and healthcare often get done online, it often gets done online by multiple members of a household at once.
       </p>
       <p>
         To reveal where there might be speed deserts – gaps in adequate internet access – MAPC mapped the median download speed for each municipality in the Commonwealth. We also charted, by city or town, the distribution of internet connections that perform at various rates of download speeds.
@@ -209,6 +209,7 @@ const December = () => {
         For a household already working to bridge the
         {' '}
         <a href="https://www.mapc.org/resource-library/digital-divide/" className="calendar-viz__link">Digital Divide</a>
+        {' '}
         – already likely to have slower or fewer devices and to face barriers to internet fluency – low download speeds and poor connectivity can make things even harder.
       </p>
       <p>MAPC recommends municipalities tackle speed deserts in three steps:</p>
@@ -230,9 +231,9 @@ const December = () => {
         </li>
       </ol>
       <p>
-        For assistance in exploring issues related to the digital divide, please reach contact
+        For assistance in exploring issues related to the digital divide, contact
         {' '}
-        <a href="mailto:jeichen@mapc.org" className="calendar-viz__link">MAPC Senior Economic Development Planner, Josh Eichen.</a>
+        <a href="mailto:jeichen@mapc.org" className="calendar-viz__link">MAPC Senior Economic Development Planner, Josh Eichen</a>.
       </p>
     </>
   );
