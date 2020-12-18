@@ -1,0 +1,33 @@
+.leaflet {
+  &-container {
+    height: 31.25rem;
+    width: 100%;
+  }
+
+  &-control-container {
+    height: 31.25rem;
+    width: 100%;
+  }
+
+  &-top {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  &-bottom {
+    bottom: 0;
+  }
+
+  &-right {
+    right: 0;
+  }
+
+  &-bottom {
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+  }
+}
