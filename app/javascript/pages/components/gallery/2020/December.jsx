@@ -310,6 +310,12 @@ const December = () => {
               >
                 Test your Internet speed
               </a>
+              <a
+                href="https://www.measurementlab.net/data/"
+                className="map__legend-entry map__legend-link"
+              >
+                Explore and Download the Data
+              </a>
             </div>
           </aside>
         </div>
@@ -324,12 +330,6 @@ const December = () => {
           )}
         </div>
       </div>
-      <a
-        href="https://www.measurementlab.net/data/"
-        className="map__legend-entry map__legend-link"
-      >
-        Data from Measurement Lab from 1-1-2020 to 11-23-2020
-      </a>
       <p>
         Fast, reliable internet is a basic need in the world of COVID. Not only
         does work, school, and healthcare often get done online, it often gets
@@ -396,6 +396,12 @@ const December = () => {
           MAPC Senior Economic Development Planner, Josh Eichen
         </a>
         .
+      </p>
+      <p>
+        The M-Lab NDT Data Set 2020-01-01–2020-11-23.{' '}
+        <a href="https://www.measurementlab.net/tests/ndt/">
+          https://www.measurementlab.net/tests/ndt/
+        </a>
       </p>
     </>
   );
