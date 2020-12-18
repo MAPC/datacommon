@@ -183,7 +183,7 @@ const December = () => {
               <span className="legend__title legend__title--datacommon">
                 Median Download Speed (Megabits per Second)
               </span>
-              <svg height="200" width="168">
+              <svg height="230" width="168">
                 <rect
                   x="2"
                   y="2"
@@ -302,19 +302,21 @@ const December = () => {
                 >
                   municipality
                 </text>
+                <text x="8" y="214" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Explore & Download</text>
+                <text x="8" y="228" className="map__legend-entry map__legend-entry--bold" fill="#1F4E46">Data</text>
               </svg>
               <a
-                href="https://speed.measurementlab.net/"
-                className="map__legend-entry map__legend-entry--bold map__legend-link"
-                fill="#1F4E46"
-              >
-                Test your Internet speed
-              </a>
-              <a
-                href="https://www.measurementlab.net/data/"
+                href="https://www.measurementlab.net/data"
                 className="map__legend-entry map__legend-link"
               >
-                Explore and Download the Data
+                &#8226; M-Lab Data
+              </a>
+              <a
+                href="https://speed.measurementlab.net/"
+                className="map__legend-entry map__legend-link"
+                fill="#1F4E46"
+              >
+                &#8226; Test your Internet speed
               </a>
             </div>
           </aside>
@@ -398,10 +400,12 @@ const December = () => {
         .
       </p>
       <p>
-        The M-Lab NDT Data Set 2020-01-01–2020-11-23.{' '}
-        <a href="https://www.measurementlab.net/tests/ndt/">
-          https://www.measurementlab.net/tests/ndt/
-        </a>
+        <em>
+          The M-Lab NDT Data Set 2020-01-01–2020-11-23.{' '}
+          <a href="https://www.measurementlab.net/tests/ndt/" className="calendar-viz__link">
+            https://www.measurementlab.net/tests/ndt/
+          </a>
+        </em>
       </p>
     </>
   );
