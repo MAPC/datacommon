@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import * as calendar2020 from './2020/index';
+import * as calendar2021 from './2021/index';
 
 const CalendarEntry = () => (
   <section className="route Calendar">
@@ -19,6 +20,7 @@ const CalendarEntry = () => (
         <Route path="/calendar/2020/october" component={calendar2020.October} />
         <Route path="/calendar/2020/november" component={calendar2020.November} />
         <Route path="/calendar/2020/december" component={calendar2020.December} />
+        <Route path="/gallery/2021/january" component={calendar2021.January} />
       </Switch>
     </div>
   </section>

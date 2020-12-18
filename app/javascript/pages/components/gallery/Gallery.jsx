@@ -1,12 +1,11 @@
 import React from 'react';
 import YearNav from './YearNav';
 import CalendarGrid from './CalendarGrid';
-import GalleryFooter from './GalleryFooter';
 
 class Gallery extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selectedYear: 2020 };
+    this.state = { selectedYear: 2021 };
     this.changeYear = this.changeYear.bind(this);
     this.mobileChangeYear = this.mobileChangeYear.bind(this);
   }
@@ -41,7 +40,6 @@ class Gallery extends React.Component {
         <CalendarGrid
           selectedYear={this.state.selectedYear}
         />
-        <GalleryFooter />
       </>
     );
   }
