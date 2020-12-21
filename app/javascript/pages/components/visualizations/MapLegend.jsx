@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function setLegend(legend) {
@@ -12,18 +12,30 @@ function setLegend(legend) {
   ));
 }
 
-const MapLegend = ({ legend, title, columns, children }) => (
-  <div position="topright" className="map-legend">
-    <span className="map-legend__title">{title}</span>
-    <ul className={columns === 1 ? 'map-legend__list map-legend__list--one-col' : 'map-legend__list map-legend__list--two-col'}>
-      {setLegend(legend)}
-    </ul>
-    {children}
-  </div>
-);
+const MapLegend = ({
+  legend, title, columns, children,
+}) => {
+  const [isExpanded, setExpansion] = useState(true);
+  return (
+    <div position="topright" className="map-legend">
+      { isExpanded ? (
+        <>
+          <span className="map-legend__title">{title}</span>
+          <ul className={columns === 1 ? 'map-legend__list map-legend__list--one-col' : 'map-legend__list map-legend__list--two-col'}>
+            {setLegend(legend)}
+          </ul>
+          {children}
+        </>
+      ) : <span className="map-legend__title">Expand Legend</span>}
+      <button type="button" className="map-legend__toggle" onClick={() => setExpansion(!isExpanded)}>
+        {isExpanded ? '-' : '+'}
+      </button>
+    </div>
+  );
+};
 
 MapLegend.propTypes = {
-  legend: PropTypes.object.isRequired,
+  legend: PropTypes.arrayOf(PropTypes.object).isRequired,
   title: PropTypes.string.isRequired,
   columns: PropTypes.number,
 };
