@@ -3,35 +3,23 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { MapContainer, TileLayer, ZoomControl } from 'react-leaflet';
 import { FeatureLayer } from 'react-esri-leaflet';
+import MapLegend from '../../visualizations/MapLegend';
 
-const scale = ['#f6c61e', '#f4a617', '#F8970D', '#e96b14', '#fc3a1c', '#eb003f', '#dd0058', '#f40080', '#b700a6', '#6800b6', '#0000E3'];
 const dataNa = '#d8d8d8';
-
 const legend = [
-  { color: scale[0], value: '1–4', min: 1, max: 5 },
-  { color: scale[1], value: '5–9', min: 5, max: 10 },
-  { color: scale[2], value: '10–14', min: 10, max: 15 },
-  { color: scale[3], value: '15–19', min: 15, max: 20 },
-  { color: scale[4], value: '20–24', min: 20, max: 25 },
-  { color: scale[5], value: '25–49', min: 25, max: 50 },
-  { color: scale[6], value: '50–74', min: 50, max: 75 },
-  { color: scale[7], value: '75–99', min: 75, max: 100 },
-  { color: scale[8], value: '100–199', min: 100, max: 200 },
-  { color: scale[9], value: '200–299', min: 200, max: 300 },
-  { color: scale[10], value: '300–399', min: 300, max: 400 },
+  { color: '#f6c61e', value: '1–4', min: 1, max: 5 },
+  { color: '#f4a617', value: '5–9', min: 5, max: 10 },
+  { color: '#F8970D', value: '10–14', min: 10, max: 15 },
+  { color: '#e96b14', value: '15–19', min: 15, max: 20 },
+  { color: '#fc3a1c', value: '20–24', min: 20, max: 25 },
+  { color: '#eb003f', value: '25–49', min: 25, max: 50 },
+  { color: '#dd0058', value: '50–74', min: 50, max: 75 },
+  { color: '#f40080', value: '75–99', min: 75, max: 100 },
+  { color: '#b700a6', value: '100–199', min: 100, max: 200 },
+  { color: '#6800b6', value: '200–299', min: 200, max: 300 },
+  { color: '#0000E3', value: '300–399', min: 300, max: 400 },
   { color: dataNa, value: 'Data n/a' },
 ];
-
-function setLegend() {
-  return legend.map((entry) => (
-    <li className="legend__list-row" key={entry.value}>
-      <svg width="10" height="10">
-        <circle cx="5" cy="5" r="5" fill={entry.color} />
-      </svg>
-      <span className="map__legend-entry">{entry.value}</span>
-    </li>
-  ));
-}
 
 const January = () => (
   <>
@@ -55,7 +43,7 @@ const January = () => (
     <h1 className="calendar-viz__title">Zoning</h1>
     <div className="calendar-viz__wrapper">
       <MapContainer
-        center={[42.3317, -71.05]}
+        center={[42.37, -70.944]}
         zoom={9}
         maxZoom={14}
         minZoom={9}
@@ -84,11 +72,22 @@ const January = () => (
           }}
         />
         <TileLayer pane="overlayPane" url="https://api.mapbox.com/styles/v1/ihill/cki9ablq87wb01apa878hhbj8/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg" />
-        <div position="topright" className="map-legend">
-          <span className="map-legend__title">Effective Dwelling Units per Acre</span>
-          {setLegend()}
-          <a href="https://datacommon.mapc.org/browser/datasets/421" className="map-legend__title" fill="#1F4E46">Explore & Download Data</a>
-        </div>
+        <MapLegend
+          columns={2}
+          title="Effective Dwelling Units per Acre"
+          legend={legend}
+          dataLink=""
+        >
+          <span className="map-legend__title">Explore & Download Data</span>
+          <ul className="map-legend__resource-list">
+            <li className="map-legend__resource map-legend__entry">
+              <a className="map-legend__link" href="https://datacommon.mapc.org/browser/datasets/421">DataCommon dataset</a>
+            </li>
+            <li className="map-legend__resource map-legend__entry">
+              <a className="map-legend__link" href="https://zoningatlas.mapc.org/data">MAPC Zoning Atlas</a>
+            </li>
+          </ul>
+        </MapLegend>
         <ZoomControl position="bottomright" />
       </MapContainer>
       <a href="http://mapbox.com/about/maps" className="mapboxgl__watermark" target="_blank">Mapbox</a>

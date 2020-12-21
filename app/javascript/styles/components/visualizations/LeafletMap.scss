@@ -4,6 +4,10 @@
     width: 100%;
   }
 
+  &-container a.map-legend__link {
+    color: $color_bg-dark;
+  }
+
   &-control-container {
     height: 31.25rem;
     width: 100%;
@@ -29,18 +33,5 @@
     position: absolute;
     z-index: 1000;
     pointer-events: none;
-  }
-
-  &__legend {
-    position: absolute;
-    right: 8px;
-    top: 8px;
-    width: 6.25rem;
-    z-index: 1000;
-
-    background-color: rgba(255, 255, 255, 0.8);
-    width: 168px;
-    min-height: 20px;
-    padding: 5px 15px;
   }
 }
