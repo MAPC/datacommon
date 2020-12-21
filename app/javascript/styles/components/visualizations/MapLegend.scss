@@ -1,0 +1,19 @@
+.map-legend {
+  position: absolute;
+    right: 8px;
+    top: 8px;
+    width: 6.25rem;
+    z-index: 1000;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 168px;
+    min-height: 20px;
+    padding: 5px 15px;
+
+    &__title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .75rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+}

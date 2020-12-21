@@ -22,6 +22,17 @@ const legend = [
   { color: dataNa, value: 'Data n/a' },
 ];
 
+function setLegend() {
+  return legend.map((entry) => (
+    <li className="legend__list-row" key={entry.value}>
+      <svg width="10" height="10">
+        <circle cx="5" cy="5" r="5" fill={entry.color} />
+      </svg>
+      <span className="map__legend-entry">{entry.value}</span>
+    </li>
+  ));
+}
+
 const January = () => (
   <>
     <Helmet>
@@ -73,6 +84,11 @@ const January = () => (
           }}
         />
         <TileLayer pane="overlayPane" url="https://api.mapbox.com/styles/v1/ihill/cki9ablq87wb01apa878hhbj8/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg" />
+        <div position="topright" className="map-legend">
+          <span className="map-legend__title">Effective Dwelling Units per Acre</span>
+          {setLegend()}
+          <a href="https://datacommon.mapc.org/browser/datasets/421" className="map-legend__title" fill="#1F4E46">Explore & Download Data</a>
+        </div>
         <ZoomControl position="bottomright" />
       </MapContainer>
       <a href="http://mapbox.com/about/maps" className="mapboxgl__watermark" target="_blank">Mapbox</a>
