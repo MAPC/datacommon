@@ -1,3 +1,3 @@
-import January from '../../../assets/images/calendar/2021/january.png';
+import January from '../../../assets/images/gallery/2021/january.png';
 
 export { January };

@@ -13,6 +13,10 @@
     width: 100%;
   }
 
+  &-popup {
+    max-width: 240px;
+  }
+
   &-top {
     display: flex;
     flex-direction: row;
@@ -33,5 +37,9 @@
     position: absolute;
     z-index: 1000;
     pointer-events: none;
+  }
+
+  &-popup-content p.tooltip__title {
+    margin: 0;
   }
 }

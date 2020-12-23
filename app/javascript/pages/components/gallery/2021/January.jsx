@@ -43,7 +43,7 @@ const January = () => {
           href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css"
         />
       </Helmet>
-      <h1 className="calendar-viz__title">Zoning</h1>
+      <h1 className="calendar-viz__title">Introducing the MAPC Zoning Atlas</h1>
       <div className="calendar-viz__wrapper">
         <MapContainer
           center={[42.37, -70.944]}
@@ -59,7 +59,7 @@ const January = () => {
             zoomOffset={-1}
           />
           <FeatureLayer
-            url="https://geo.mapc.org/server/rest/services/gisdata/Zoning_Atlas_v01/MapServer/1"
+            url="https://geo.mapc.org/server/rest/services/gisdata/Zoning_Atlas_v01/MapServer/2"
             pane="tilePane"
             simplifyFactor={0.25}
             style={(feature) => {
@@ -83,7 +83,7 @@ const January = () => {
           <TileLayer pane="overlayPane" url="https://api.mapbox.com/styles/v1/ihill/cki9ablq87wb01apa878hhbj8/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg" />
           <MapLegend
             columns={2}
-            title="Effective Dwelling Units per Acre"
+            title="Effective Maximum Dwelling Units per Acre"
             legend={legend}
             dataLink=""
           >
@@ -102,9 +102,12 @@ const January = () => {
           </MapLegend>
           {selectedZone ? (
             <Popup position={latLng}>
-              <p className="tooltip__text">
-                {selectedZone.dupac_eff ? `${selectedZone.dupac_eff} dwelling units per acre` : 'Dwelling units per acre data not available'}
-              </p>
+              <p className="tooltip__title">{selectedZone.zo_name} ({selectedZone.muni})</p>
+              <ul className="tooltip__list">
+                <li className="tooltip__text">
+                  {selectedZone.dupac_eff ? `${selectedZone.dupac_eff} effective maximum dwelling units per acre` : 'Effective maximum dwelling units per acre data not available'}
+                  </li>
+              </ul>
             </Popup>
           ) : ''}
           <ZoomControl position="bottomright" />

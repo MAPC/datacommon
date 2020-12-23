@@ -5,7 +5,7 @@ function setLegend(legend) {
   return legend.map((entry) => (
     <li key={entry.value}>
       <svg width="10" height="10">
-        <circle cx="5" cy="5" r="5" fill={entry.color} />
+        <circle cx="5" cy="5" r="5" fill={entry.color} stroke="black" />
       </svg>
       <span className="map-legend__entry">{entry.value}</span>
     </li>
