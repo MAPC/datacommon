@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable object-curly-newline */
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
@@ -93,30 +94,64 @@ const January = () => {
                 <a className="map-legend__link" href="https://mapc365.sharepoint.com/:x:/s/DataServicesSP/Efonrnmw_kdMhmG3Dw2BkTcBIpe2sC_2ADWTWfUjOs4JhQ?e=K65BCE">Tabular data (.csv)</a>
               </li>
               <li className="map-legend__resource map-legend__entry">
-                <a className="map-legend__link" href="https://mapc365.sharepoint.com/:u:/s/DataServicesSP/EVZjRVVEcotIt7rlqWFTp5EBOqvbwavvGTCoGMZ8K2lQtw?e=4M8kyP">Spatial data (.shp)</a>
+                <a className="map-legend__link" href="https://mapc365.sharepoint.com/sites/DataServicesSP/Shared%20Documents/Forms/AllItems.aspx?originalPath=aHR0cHM6Ly9tYXBjMzY1LnNoYXJlcG9pbnQuY29tLzpmOi9zL0RhdGFTZXJ2aWNlc1NQL0VyS2tYU0xIX2lCT2xEaEpyVFhsZHJZQklJWjRaWGU0Qmt3N095VmFwVnBYM1E%5FcnRpbWU9ekZlV3AzeW4yRWc&viewid=8aabc982%2D537d%2D48a6%2D89f7%2D8d8f0e9b716c&id=%2Fsites%2FDataServicesSP%2FShared%20Documents%2FZoning%20Database%2FShapefiles">Spatial data (.shp)</a>
               </li>
               <li className="map-legend__resource map-legend__entry">
-                <a className="map-legend__link" href="https://zoningatlas.mapc.org/data">MAPC Zoning Atlas</a>
+                <a className="map-legend__link" href="https://zoningatlas.mapc.org">MAPC Zoning Atlas</a>
               </li>
             </ul>
           </MapLegend>
           {selectedZone ? (
             <Popup position={latLng}>
-              <p className="tooltip__title">{selectedZone.zo_name} ({selectedZone.muni})</p>
+              <p className="tooltip__title">
+                {selectedZone.zo_name}
+                {' '}
+                (
+                {selectedZone.muni}
+                )
+              </p>
               <ul className="tooltip__list">
                 <li className="tooltip__text">
                   {selectedZone.dupac_eff ? `${selectedZone.dupac_eff} effective maximum dwelling units per acre` : 'Effective maximum dwelling units per acre data not available'}
-                  </li>
+                </li>
               </ul>
             </Popup>
           ) : ''}
           <ZoomControl position="bottomright" />
         </MapContainer>
-        <a href="http://mapbox.com/about/maps" className="mapboxgl__watermark" target="_blank">Mapbox</a>
+        <a href="http://mapbox.com/about/maps" className="mapboxgl__watermark" target="_blank" rel="noreferrer">Mapbox</a>
       </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p>Vivendum intellegat et qui, ei denique consequuntur vix. Pri posse graeco definitiones cu, id eam populo quaestio adipiscing, usu quod malorum te. Vivendum intellegat et qui, ei denique consequuntur vix. Scripta periculis ei eam, te pro movet reformidans. Pri posse graeco definitiones cu, id eam populo quaestio adipiscing, usu quod malorum te.</p>
-      <p>Offendit eleifend moderatius ex vix, quem odio mazim et qui, purto expetendis cotidieque quo cu, veri persius vituperata ei nec. Sonet cotidieque ei vel. No dicam aperiam vis. Scripta periculis ei eam, te pro movet reformidans. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Vivendum intellegat et qui, ei denique consequuntur vix. Erroribus adipiscing id eam. Vivendum intellegat et qui, ei denique consequuntur vix. Qui gloriatur scribentur et, id velit verear mel, cum no porro debet.</p>
+      <p>MAPC&apos;s Zoning Atlas, nine years in the making, is the first zoning map for Greater Boston since 1999, and the first to include region-wide information about commercial density, overlay districts, multifamily housing, and more.</p>
+      <p>
+        Among much else, the map offers a standardized way to compare residential density across zones that allow that use by right: Dwelling units per acre are shown in this month’s map.
+        <sup>1</sup>
+      </p>
+      <p>Why does the Atlas matter? Zoning is the DNA of a community&apos;s land use. It doesn&apos;t determine everything, but it&apos;s an underlying, coded blueprint for change, or sometimes the lack thereof. It affects a community&apos;s housing options, climate resilience, economy, public health, equity, transportation, emissions, and more.</p>
+      <p>In this sense, zoning not only shapes a municipality&apos;s own future, but also that of its neighbors, and its neighbors&apos; neighbors. Our larger challenges demand an understanding of land use regulations on a regional basis.</p>
+      <p>Yet Greater Boston’s zoning codes are complex, varied, hard to access, and bewildering, both as a whole and often on a municipality-by-municipality basis. The codes we were able to collect are a localized jumble of approaches, regulated metrics, exceptions and use-specific regulations, methods of calculation, and even definitions. One base zoning district had 58 footnotes detailing possible edge cases.</p>
+      <p>To make sense of it all, the Atlas condenses the zoning codes of the region’s 101 municipalities into just under 80 fields. We identified a set of five “core fields” covering use allowances and dimensional requirements: minimum lot size, dwelling units allowed per acre, maximum building height, maximum floor area ratio (FAR), and whether multifamily housing was a permitted use (by right or with a special permit).</p>
+      <p>
+        Explore the Atlas and read more its creation and significance
+        {' '}
+        <a href="https://zoningatlas.mapc.org/" className="calendar-viz__link">here</a>
+        . Even more important, help make the Atlas better. It is a dynamic online resource that will improve over time as municipal staff and other contributors refine the data and provide updates.
+      </p>
+      <p>
+        The Zoning Atlas is part of
+        {' '}
+        <a href="https://metrocommon.mapc.org/" className="calendar-viz__link">MetroCommon 2050</a>
+        , Greater Boston&apos;s next long-term plan, underway now.
+      </p>
+      <p>
+        <em>
+          <sup>1</sup>
+          {' '}
+          This metric is based directly on zoning code for approximately 20% of eligible zones and estimated for an additional 80%. A more thorough examination of our estimation methods and calculations can be found in the project’s
+          {' '}
+          <a href="https://metropolitan-area-planning-counc.gitbook.io/zoning-atlas-appendix/" className="calendar-viz__link">technical appendix</a>
+          .
+        </em>
+      </p>
     </>
   );
 };
