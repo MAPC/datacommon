@@ -1,11 +1,12 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import * as calendar2020 from './2020/index';
+import * as calendar2021 from './2021/index';
 
 const CalendarEntry = () => (
   <section className="route Calendar">
     <div className="container">
-      <a href="/gallery" className="back-link">&lt;&lt; Back to 2020 Gallery</a>
+      <a href="/gallery" className="back-link">&lt;&lt; Back to Gallery</a>
       <Switch>
         <Route path="/calendar/2020/january" component={calendar2020.January} />
         <Route path="/calendar/2020/february" component={calendar2020.February} />
@@ -19,6 +20,10 @@ const CalendarEntry = () => (
         <Route path="/calendar/2020/october" component={calendar2020.October} />
         <Route path="/calendar/2020/november" component={calendar2020.November} />
         <Route path="/calendar/2020/december" component={calendar2020.December} />
+        <Route path="/gallery/2021/january" component={calendar2021.January} />
+        <Route path="/calendar/2021/january">
+          <Redirect to="/gallery/2021/january" />
+        </Route>
       </Switch>
     </div>
   </section>

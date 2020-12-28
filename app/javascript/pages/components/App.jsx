@@ -41,6 +41,7 @@ const App = (props) => (
         <Route exact path="/gallery" component={Gallery} />
         <Route exact path="/login" component={Login} />
         <Route path="/calendar/:year/:month" component={CalendarEntry} />
+        <Route path="/gallery/:year/:month" component={CalendarEntry} />
         <Route path="/browser/datasets/:id" component={DataViewer} />
         <Route
           path="/browser/:menuOneSelectedItem?/:menuTwoSelectedItem?"

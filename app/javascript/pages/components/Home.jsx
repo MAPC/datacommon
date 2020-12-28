@@ -51,9 +51,9 @@ class Home extends React.Component {
               lens.
             </p>
             <p>
-              <strong>December’s visualization</strong>
+              <strong>January’s visualization</strong>
               {' '}
-              revisits the digital divide in an exploration of internet download speeds across Massachusetts. As more and more aspects of our lives go online, the need for reliable internet access is more crucial than ever.
+              highlights the recently-released MAPC Zoning Atlas and explores residential density throughout the region. A resource nine years in the making, the Zoning Atlas provides standardized methods for comparing land use across the 101 municipalities of Greater Boston.
             </p>
             <CallToAction
               link="/gallery"

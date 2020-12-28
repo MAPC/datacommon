@@ -1,0 +1,45 @@
+.leaflet {
+  &-container {
+    height: 31.25rem;
+    width: 100%;
+  }
+
+  &-container a.map-legend__link {
+    color: $color_bg-dark;
+  }
+
+  &-control-container {
+    height: 31.25rem;
+    width: 100%;
+  }
+
+  &-popup {
+    max-width: 240px;
+  }
+
+  &-top {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  &-bottom {
+    bottom: 0;
+  }
+
+  &-right {
+    right: 0;
+  }
+
+  &-bottom {
+    position: absolute;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  &-popup-content p.tooltip__title {
+    margin: 0;
+  }
+}
