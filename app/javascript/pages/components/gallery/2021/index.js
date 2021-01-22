@@ -1,3 +1,4 @@
 import January from './January';
+import February from './February';
 
-export { January };
+export { January, February };
