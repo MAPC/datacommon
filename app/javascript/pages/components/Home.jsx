@@ -51,9 +51,9 @@ class Home extends React.Component {
               lens.
             </p>
             <p>
-              <strong>January’s visualization</strong>
+              <strong>February’s visualization</strong>
               {' '}
-              highlights the recently-released MAPC Zoning Atlas and explores residential density throughout the region. A resource nine years in the making, the Zoning Atlas provides standardized methods for comparing land use across the 101 municipalities of Greater Boston.
+              provides a sneak peak into MAPC's upcoming research release on housing submarkets. Our region is not made of one housing market, but many, and a range of housing policies are needed to best serve them.
             </p>
             <CallToAction
               link="/gallery"

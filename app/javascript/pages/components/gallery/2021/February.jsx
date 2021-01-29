@@ -1,14 +1,30 @@
 import React from 'react';
-import FebruaryMap from './FebruaryMap';
 
 const February = () => (
   <>
-    <h1 className="calendar-viz__title">Introducing the MAPC Zoning Atlas</h1>
-    <div className="calendar-viz__wrapper">
-      <FebruaryMap />
+    <h1 className="calendar-viz__title">Exploring the Housing Markets in Greater Boston</h1>
+    <div className="calendar-viz__iframe-wrapper">
+      <iframe src="https://mapc.github.io/MapboxEmbeds/2021/01/22/housing-submarkets.html" className="calendar-viz__iframe" id="february-iframe" title="Maps of Census tracts in the MAPC region" />
     </div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Offendit eleifend moderatius ex vix, quem odio mazim et qui, purto expetendis cotidieque quo cu, veri persius vituperata ei nec. Pri posse graeco definitiones cu, id eam populo quaestio adipiscing, usu quod malorum te. Pri posse graeco definitiones cu, id eam populo quaestio adipiscing, usu quod malorum te. Saepe imperdiet at per, appareat vituperata vix te, pri sint assueverit te. Offendit eleifend moderatius ex vix, quem odio mazim et qui, purto expetendis cotidieque quo cu, veri persius vituperata ei nec. Offendit eleifend moderatius ex vix, quem odio mazim et qui, purto expetendis cotidieque quo cu, veri persius vituperata ei nec. Sit fugit nostrum et. Tritani reprehendunt pro an, his ne liber iusto. Scripta periculis ei eam, te pro movet reformidans. Offendit eleifend moderatius ex vix, quem odio mazim et qui, purto expetendis cotidieque quo cu, veri persius vituperata ei nec.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Pri viderer tamquam ei. Qui gloriatur scribentur et, id velit verear mel, cum no porro debet. Et mazim recteque nam. Offendit eleifend moderatius ex vix, quem odio mazim et qui, purto expetendis cotidieque quo cu, veri persius vituperata ei nec. Scripta periculis ei eam, te pro movet reformidans. Pri posse graeco definitiones cu, id eam populo quaestio adipiscing, usu quod malorum te. Vivendum intellegat et qui, ei denique consequuntur vix. Id mundi quando mandamus sit, est vide option accusata et. Scripta periculis ei eam, te pro movet reformidans. Scripta periculis ei eam, te pro movet reformidans. Offendit eleifend moderatius ex vix, quem odio mazim et qui, purto expetendis cotidieque quo cu, veri persius vituperata ei nec. Scripta periculis ei eam, te pro movet reformidans. Cum ne case tation rationibus, nam ad iusto atomorum assueverit.</p>
+    <p>Greater Boston is not one housing market, but many – and the factors that distinguish them don’t follow lines on a map. In a single municipality, there can be wild differences from block to block. There are neighborhoods more akin to other parts of the region than to the next streets over.</p>
+    <p>Some areas, for example in the inner core, are characterized by high density and increasing home prices. Others, often suburban, have mostly older housing stock and residents with incomes high enough to affect supply and demand. The defining variables may – but don’t always – vary directly.</p>
+    <p>A one-size-fits-all housing policy can’t serve the region’s needs – they’re too heterogeneous. But so are the needs of any municipality. Instead, policies should be tailored to housing submarkets: areas, wherever they are, with similar characteristics.</p>
+    <p>MAPC examined 28 indicators and how they combine across 2010 Census tracts. We drew from this seven submarkets, as will be detailed in a report and interactive map to be released this month. The accompanying map charts five of the variables we used:</p>
+    <ol className="calendar-viz__list calendar-viz__list--numbered">
+      <li>Median home value</li>
+      <li>Percent change in median h ome value (from 2000 to 2017)</li>
+      <li>Percentage of renter households</li>
+      <li>Percent of home stock built before 1960</li>
+      <li>Percent of homes bought with cash</li>
+    </ol>
+    <p>These maps do not directly display the submarkets, but they do reveal patterns in the ways even these few indicators combine. For example, tracts in the southwest and near the north shore tend to have median home values under $250,000 and a low percentage of renters. Downtown Boston has, as a whole, experienced a surge in median home values, but the percentage of houses built before 1960 varies from tract to tract.</p>
+
+    <p>
+      Be among the first to dive into housing submarkets and submarket-specific policy at our
+      {' '}
+      <a href="https://zoom.us/meeting/register/tJUtfuGrqz0vGtBEPHGFupQL9SgXVqJFI6m7" className="calendar-viz__link">February 23 webinar</a>
+      . We hope to see you there!
+    </p>
   </>
 );
 
