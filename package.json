@@ -50,6 +50,7 @@
     "react-ga": "^2.7.0",
     "react-helmet": "^6.1.0",
     "react-leaflet": "^3.0.4",
+    "react-map-gl": "^6.0.3",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
