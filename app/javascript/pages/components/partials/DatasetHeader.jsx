@@ -67,6 +67,9 @@ function downloadCsv(
   queryYearColumn = ''
 ) {
   const yearString = selectedYears.join();
+  if (table === 'zoning_atlas') {
+    return 'https://mapc365.sharepoint.com/:x:/s/DataServicesSP/Efonrnmw_kdMhmG3Dw2BkTcBIpe2sC_2ADWTWfUjOs4JhQ?e=K65BCE';
+  }
   if (selectedYears.length > 0 && queryYearColumn !== '') {
     return `/csv?table=${schema}.${table}&database=${database}&years=${yearString}&year_col=${queryYearColumn}`;
   }
@@ -74,6 +77,9 @@ function downloadCsv(
 }
 
 function downloadShp(database, schema, table) {
+  if (table === 'zoning_atlas') {
+    return 'https://mapc365.sharepoint.com/:f:/s/DataServicesSP/ErKkXSLH_iBOlDhJrTXldrYBIIZ4ZXe4Bkw7OyVapVpX3Q?e=iRkWVB';
+  }
   return `/shapefile?table=${database}.${schema}.${table}&database=${database}`;
 }
 
