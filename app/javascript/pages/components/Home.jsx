@@ -53,7 +53,7 @@ class Home extends React.Component {
             <p>
               <strong>February’s visualization</strong>
               {' '}
-              provides a sneak peak into MAPC's upcoming research release on housing submarkets. Our region is not made of one housing market, but many, and a range of housing policies are needed to best serve them.
+              provides a sneak peek into MAPC's upcoming research release on housing submarkets. Our region is not made of one housing market, but many, and a range of housing policies are needed to best serve them.
             </p>
             <CallToAction
               link="/gallery"
