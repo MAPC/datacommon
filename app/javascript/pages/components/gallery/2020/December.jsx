@@ -34,7 +34,11 @@ function setHeader(currentMuni, medianObj) {
           {toCamelCase(currentMuni)}
         </h3>
         <h4 className="calendar-viz__chart-subtitle">
-          Median download speed: {d3.format('.2f')(medianObj[currentMuni])} Mbps
+          Median download speed:
+          {' '}
+          {d3.format('.2f')(medianObj[currentMuni])}
+          {' '}
+          Mbps
         </h4>
       </>
     );
@@ -95,13 +99,14 @@ const December = () => {
           row.muni,
           row.median_download_speed_mbps_2020 !== '-'
             ? colorPolygon(+row.median_download_speed_mbps_2020)
-            : colorPalette[4]
+            : colorPalette[4],
         );
         tempMedianObj[row.muni] = row.median_download_speed_mbps_2020;
       });
       setMedianObj(tempMedianObj);
       colorExpression.push(colorPalette[4]);
       map.on('load', () => {
+        map.resize();
         map.addLayer({
           id: 'Median Download Speed',
           type: 'fill',
@@ -356,13 +361,15 @@ const December = () => {
         adequate device and digital literacy.
       </p>
       <p>
-        For a household already working to bridge the{' '}
+        For a household already working to bridge the
+        {' '}
         <a
           href="https://www.mapc.org/resource-library/digital-divide/"
           className="calendar-viz__link"
         >
           Digital Divide
-        </a>{' '}
+        </a>
+        {' '}
         – already likely to have slower or fewer devices and to face barriers to
         internet fluency – low download speeds and poor connectivity can make
         things even harder.
@@ -393,7 +400,8 @@ const December = () => {
       </ol>
       <p>
         For assistance in exploring issues related to the digital divide,
-        contact{' '}
+        contact
+        {' '}
         <a href="mailto:jeichen@mapc.org" className="calendar-viz__link">
           MAPC Senior Economic Development Planner, Josh Eichen
         </a>
@@ -401,7 +409,8 @@ const December = () => {
       </p>
       <p>
         <em>
-          The M-Lab NDT Data Set 2020-01-01–2020-11-23.{' '}
+          The M-Lab NDT Data Set 2020-01-01–2020-11-23.
+          {' '}
           <a href="https://www.measurementlab.net/tests/ndt/" className="calendar-viz__link">
             https://www.measurementlab.net/tests/ndt/
           </a>
