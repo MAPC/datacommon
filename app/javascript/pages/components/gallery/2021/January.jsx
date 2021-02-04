@@ -2,7 +2,7 @@
 /* eslint-disable object-curly-newline */
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { MapContainer, TileLayer, ZoomControl, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, ZoomControl, Popup, useMapEvent } from 'react-leaflet';
 import { FeatureLayer } from 'react-esri-leaflet';
 import MapLegend from '../../visualizations/MapLegend';
 
@@ -21,6 +21,13 @@ const legend = [
   { color: '#0000E3', value: '300–399', min: 300, max: 400 },
   { color: dataNa, value: 'Data n/a' },
 ];
+
+function ResizeComponent() {
+  const map = useMapEvent('load', () => {
+    map.resize();
+  });
+  return null;
+}
 
 const January = () => {
   const [selectedZone, setZone] = useState('');
@@ -53,6 +60,7 @@ const January = () => {
           minZoom={9}
           zoomControl={false}
         >
+          <ResizeComponent />
           <TileLayer
             url="https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/{z}/{x}/{y}/?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA#1.07/0/0"
             attribution='© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'
