@@ -1,5 +1,9 @@
 .map-narrative {
   background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 350px;
   min-height: 20px;
   padding: 5px 15px;
   position: absolute;
@@ -8,7 +12,26 @@
   width: 300px;
   z-index: 1000;
 
-  &__button {
+  &__navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 1rem;
+  }
 
+  &__button {
+    background: none;
+    border: none;
+
+    &:disabled {
+      color: $color_font-medium;
+    }
+  }
+
+  &__legend-entry {
+    font-family: $font_family-secondary;
+    font-size: 1rem;
+    font-weight: 300;
+    margin: 0 0 0 .75rem;
   }
 }
