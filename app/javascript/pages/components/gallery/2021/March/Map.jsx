@@ -30,7 +30,7 @@ function impactChoropleth(data) {
   return choropleth;
 }
 
-function boardRatingChoropleth(data) {
+function scaleChoropleth(data, column) {
   const colorFunc = (value) => {
     if (value === 1) {
       return scale[0];
@@ -46,7 +46,7 @@ function boardRatingChoropleth(data) {
 
   const choropleth = ['match', ['get', 'town']];
   data.forEach((row) => {
-    choropleth.push(row.municipality, row['board sentiment'] ? colorFunc(row['board sentiment']) : '#F0F8F3');
+    choropleth.push(row.municipality, +row[column] ? colorFunc(+row[column]) : '#F0F8F3');
   });
   choropleth.push('#B6B6B6');
   return choropleth;
@@ -55,8 +55,8 @@ function boardRatingChoropleth(data) {
 const Map = ({ data, slide }) => {
   const [choropleth, setChoropleth] = useState('#00613F');
   const [viewport, setViewport] = useState({
-    latitude: 42.10884,
-    longitude: -71.42386,
+    latitude: 42.111491576125616,
+    longitude: -71.18796001765833,
     zoom: 7.62,
   });
 
@@ -73,7 +73,31 @@ const Map = ({ data, slide }) => {
           setChoropleth(impactChoropleth(data));
           break;
         case 4:
-          setChoropleth(boardRatingChoropleth(data));
+          setChoropleth(impactChoropleth(data));
+          break;
+        case 5:
+          setChoropleth(impactChoropleth(data));
+          break;
+        case 6:
+          setChoropleth(impactChoropleth(data));
+          break;
+        case 7:
+          setChoropleth(scaleChoropleth(data, 'board sentiment'));
+          break;
+        case 8:
+          setChoropleth(scaleChoropleth(data, 'board sentiment'));
+          break;
+        case 9:
+          setChoropleth(scaleChoropleth(data, 'board sentiment'));
+          break;
+        case 10:
+          setChoropleth(scaleChoropleth(data, 'board sentiment'));
+          break;
+        case 11:
+          setChoropleth(scaleChoropleth(data, 'board sentiment'));
+          break;
+        case 12:
+          setChoropleth(respondentsChoropleth(data));
           break;
         default:
           setChoropleth('#00613F');
