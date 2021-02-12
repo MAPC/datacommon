@@ -1,0 +1,352 @@
+municipality,answers,board sentiment,public sentiment,impact
+KINGSTON,TRUE,1,1,Fewer people participate
+AMHERST,TRUE,1,1,More people participate
+HOPKINTON,TRUE,1,1,More people participate
+NEWTON,TRUE,1,1,More people participate
+NORTHBOROUGH,TRUE,1,1,More people participate
+DIGHTON,TRUE,3,1,More people participate
+ALFORD,TRUE,1,1,No difference
+NANTUCKET,TRUE,1,1,No difference
+MEDFIELD,TRUE,1,1,
+CARLISLE,TRUE,2,2,Fewer people participate
+FOXBOROUGH,TRUE,2,2,Fewer people participate
+GREENFIELD,TRUE,2,2,Fewer people participate
+MARION,TRUE,2,2,Fewer people participate
+WATERTOWN,TRUE,2,2,Fewer people participate
+AGAWAM,TRUE,5,2,Fewer people participate
+LOWELL,TRUE,1,2,More people participate
+SOUTHBRIDGE,TRUE,1,2,More people participate
+WRENTHAM,TRUE,1,2,More people participate
+BEDFORD,TRUE,2,2,More people participate
+BEVERLY,TRUE,2,2,More people participate
+BILLERICA,TRUE,2,2,More people participate
+BRIDGEWATER,TRUE,2,2,More people participate
+BURLINGTON,TRUE,2,2,More people participate
+NORTHAMPTON,TRUE,2,2,More people participate
+EASTHAMPTON,TRUE,2,2,More people participate
+EDGARTOWN,TRUE,2,2,More people participate
+GREAT BARRINGTON,TRUE,2,2,More people participate
+HARWICH,TRUE,2,2,More people participate
+HOLDEN,TRUE,2,2,More people participate
+HOLLISTON,TRUE,2,2,More people participate
+HUDSON,TRUE,2,2,More people participate
+HULL,TRUE,2,2,More people participate
+LYNN,TRUE,2,2,More people participate
+MIDDLETON,TRUE,2,2,More people participate
+NORTON,TRUE,2,2,More people participate
+NORWELL,TRUE,2,2,More people participate
+PLYMOUTH,TRUE,2,2,More people participate
+QUINCY,TRUE,2,2,More people participate
+COHASSET,TRUE,2,2,More people participate
+LEXINGTON,TRUE,2,2,More people participate
+WEST SPRINGFIELD,TRUE,2,2,More people participate
+WELLESLEY,TRUE,3,2,More people participate
+ASHBY,TRUE,1,2,No difference
+EASTON,TRUE,1,2,No difference
+WEBSTER,TRUE,1,2,No difference
+BROCKTON,TRUE,2,2,No difference
+CHELMSFORD,TRUE,2,2,No difference
+DENNIS,TRUE,2,2,No difference
+IPSWICH,TRUE,2,2,No difference
+LENOX,TRUE,2,2,No difference
+MARSHFIELD,TRUE,2,2,No difference
+MELROSE,TRUE,2,2,No difference
+NORWOOD,TRUE,3,2,No difference
+MARLBOROUGH,TRUE,1,3,Fewer people participate
+FAIRHAVEN,TRUE,2,3,Fewer people participate
+FALMOUTH,TRUE,2,3,Fewer people participate
+CHELSEA,TRUE,3,3,Fewer people participate
+GRANBY,TRUE,3,3,Fewer people participate
+MONTEREY,TRUE,3,3,Fewer people participate
+AYER,TRUE,3,3,Fewer people participate
+WEYMOUTH,TRUE,3,3,More people participate
+STERLING,TRUE,3,3,More people participate
+CHARLTON,TRUE,3,3,More people participate
+NEWBURYPORT,TRUE,4,3,More people participate
+PEPPERELL,TRUE,4,3,More people participate
+WORCESTER,TRUE,4,3,More people participate
+GRAFTON,TRUE,2,3,No difference
+MEDWAY,TRUE,2,3,No difference
+DRACUT,TRUE,3,3,No difference
+HAMILTON,TRUE,3,3,No difference
+LEICESTER,TRUE,3,3,No difference
+LUNENBURG,TRUE,3,3,No difference
+OXFORD,TRUE,4,3,No difference
+ATHOL,TRUE,4,3,No difference
+TEWKSBURY,TRUE,4,3,
+CANTON,TRUE,3,4,Fewer people participate
+SOUTH HADLEY,TRUE,3,4,Fewer people participate
+TRURO,TRUE,3,4,Fewer people participate
+WESTFORD,TRUE,3,4,Fewer people participate
+SOMERSET,TRUE,2,4,More people participate
+BRAINTREE,TRUE,4,4,More people participate
+BROOKLINE,TRUE,4,4,More people participate
+MEDFORD,TRUE,4,4,More people participate
+DEDHAM,TRUE,4,4,More people participate
+ERVING,TRUE,4,4,More people participate
+GEORGETOWN,TRUE,4,4,More people participate
+HARVARD,TRUE,4,4,More people participate
+LANCASTER,TRUE,4,4,More people participate
+NORFOLK,TRUE,4,4,More people participate
+OTIS,TRUE,4,4,More people participate
+RANDOLPH,TRUE,3,4,No difference
+DUXBURY,TRUE,4,4,No difference
+EASTHAM,TRUE,4,4,No difference
+LYNNFIELD,TRUE,4,4,No difference
+ATTLEBORO,TRUE,5,5,More people participate
+HUNTINGTON,TRUE,,,N/A - we're not holding public hearings
+NEW MARLBOROUGH,TRUE,,,N/A - we're not holding public hearings
+WINTHROP,TRUE,,,N/A - we're not holding public hearings
+ABINGTON,,,,
+ACTON,,,,
+ACUSHNET,,,,
+ADAMS,,,,
+AMESBURY,,,,
+ANDOVER,,,,
+AQUINNAH,,,,
+ARLINGTON,,,,
+ASHBURNHAM,,,,
+ASHFIELD,,,,
+ASHLAND,,,,
+AUBURN,,,,
+AVON,,,,
+BARNSTABLE,,,,
+BARRE,,,,
+BECKET,,,,
+BELCHERTOWN,,,,
+BELLINGHAM,,,,
+BELMONT,,,,
+BERKLEY,,,,
+BERLIN,,,,
+BERNARDSTON,,,,
+BLACKSTONE,,,,
+BLANDFORD,,,,
+BOLTON,,,,
+BOSTON,,,,
+BOURNE,,,,
+BOXBOROUGH,,,,
+BOXFORD,,,,
+BOYLSTON,,,,
+BREWSTER,,,,
+BRIMFIELD,,,,
+BROOKFIELD,,,,
+BUCKLAND,,,,
+CAMBRIDGE,,,,
+CARVER,,,,
+CHARLEMONT,,,,
+CHATHAM,,,,
+CHESHIRE,,,,
+CHESTER,,,,
+CHESTERFIELD,,,,
+CHICOPEE,,,,
+CHILMARK,,,,
+CLARKSBURG,,,,
+CLINTON,,,,
+COLRAIN,,,,
+CONCORD,,,,
+CONWAY,,,,
+CUMMINGTON,,,,
+DALTON,,,,
+DANVERS,,,,
+DARTMOUTH,,,,
+DEERFIELD,,,,
+DOUGLAS,,,,
+DOVER,,,,
+DUDLEY,,,,
+DUNSTABLE,,,,
+EAST BRIDGEWATER,,,,
+EAST BROOKFIELD,,,,
+EAST LONGMEADOW,,,,
+EGREMONT,,,,
+ESSEX,,,,
+EVERETT,,,,
+FALL RIVER,,,,
+FITCHBURG,,,,
+FLORIDA,,,,
+FRAMINGHAM,,,,
+FRANKLIN,,,,
+FREETOWN,,,,
+GARDNER,,,,
+GILL,,,,
+GLOUCESTER,,,,
+GOSHEN,,,,
+GOSNOLD,,,,
+GRANVILLE,,,,
+GROTON,,,,
+GROVELAND,,,,
+HADLEY,,,,
+HALIFAX,,,,
+HAMPDEN,,,,
+HANCOCK,,,,
+HANOVER,,,,
+HANSON,,,,
+HARDWICK,,,,
+HATFIELD,,,,
+HAVERHILL,,,,
+HAWLEY,,,,
+HEATH,,,,
+HINGHAM,,,,
+HINSDALE,,,,
+HOLBROOK,,,,
+HOLLAND,,,,
+HOLYOKE,,,,
+HOPEDALE,,,,
+HUBBARDSTON,,,,
+LAKEVILLE,,,,
+LANESBOROUGH,,,,
+LAWRENCE,,,,
+LEE,,,,
+LEOMINSTER,,,,
+LEVERETT,,,,
+LEYDEN,,,,
+LINCOLN,,,,
+LITTLETON,,,,
+LONGMEADOW,,,,
+LUDLOW,,,,
+MALDEN,,,,
+MANCHESTER,,,,
+MANSFIELD,,,,
+MARBLEHEAD,,,,
+MASHPEE,,,,
+MATTAPOISETT,,,,
+MAYNARD,,,,
+MENDON,,,,
+MERRIMAC,,,,
+METHUEN,,,,
+MIDDLEBOROUGH,,,,
+MIDDLEFIELD,,,,
+MILFORD,,,,
+MILLBURY,,,,
+MILLIS,,,,
+MILLVILLE,,,,
+MILTON,,,,
+MONROE,,,,
+MONSON,,,,
+MONTAGUE,,,,
+MONTGOMERY,,,,
+MOUNT WASHINGTON,,,,
+NAHANT,,,,
+NATICK,,,,
+NEEDHAM,,,,
+NEW ASHFORD,,,,
+NEW BEDFORD,,,,
+NEW BRAINTREE,,,,
+NEW SALEM,,,,
+NEWBURY,,,,
+NORTH ADAMS,,,,
+NORTH ANDOVER,,,,
+NORTH ATTLEBOROUGH,,,,
+NORTH BROOKFIELD,,,,
+NORTH READING,,,,
+NORTHBRIDGE,,,,
+NORTHFIELD,,,,
+OAK BLUFFS,,,,
+OAKHAM,,,,
+ORANGE,,,,
+ORLEANS,,,,
+PALMER,,,,
+PAXTON,,,,
+PEABODY,,,,
+PELHAM,,,,
+PEMBROKE,,,,
+PERU,,,,
+PETERSHAM,,,,
+PHILLIPSTON,,,,
+PITTSFIELD,,,,
+PLAINFIELD,,,,
+PLAINVILLE,,,,
+PLYMPTON,,,,
+PRINCETON,,,,
+PROVINCETOWN,,,,
+RAYNHAM,,,,
+READING,,,,
+REHOBOTH,,,,
+REVERE,,,,
+RICHMOND,,,,
+ROCHESTER,,,,
+ROCKLAND,,,,
+ROCKPORT,,,,
+ROWE,,,,
+ROWLEY,,,,
+ROYALSTON,,,,
+RUSSELL,,,,
+RUTLAND,,,,
+SALEM,,,,
+SALISBURY,,,,
+SANDISFIELD,,,,
+SANDWICH,,,,
+SAUGUS,,,,
+SAVOY,,,,
+SCITUATE,,,,
+SEEKONK,,,,
+SHARON,,,,
+SHEFFIELD,,,,
+SHELBURNE,,,,
+SHERBORN,,,,
+SHIRLEY,,,,
+SHREWSBURY,,,,
+SHUTESBURY,,,,
+SOMERVILLE,,,,
+SOUTHAMPTON,,,,
+SOUTHBOROUGH,,,,
+SOUTHWICK,,,,
+SPENCER,,,,
+SPRINGFIELD,,,,
+STOCKBRIDGE,,,,
+STONEHAM,,,,
+STOUGHTON,,,,
+STOW,,,,
+STURBRIDGE,,,,
+SUDBURY,,,,
+SUNDERLAND,,,,
+SUTTON,,,,
+SWAMPSCOTT,,,,
+SWANSEA,,,,
+TAUNTON,,,,
+TEMPLETON,,,,
+TISBURY,,,,
+TOLLAND,,,,
+TOPSFIELD,,,,
+TOWNSEND,,,,
+TYNGSBOROUGH,,,,
+TYRINGHAM,,,,
+UPTON,,,,
+UXBRIDGE,,,,
+WAKEFIELD,,,,
+WALES,,,,
+WALPOLE,,,,
+WALTHAM,,,,
+WARE,,,,
+WAREHAM,,,,
+WARREN,,,,
+WARWICK,,,,
+WASHINGTON,,,,
+WAYLAND,,,,
+WELLFLEET,,,,
+WENDELL,,,,
+WENHAM,,,,
+WEST BOYLSTON,,,,
+WEST BRIDGEWATER,,,,
+WEST BROOKFIELD,,,,
+WEST NEWBURY,,,,
+WEST STOCKBRIDGE,,,,
+WEST TISBURY,,,,
+WESTBOROUGH,,,,
+WESTFIELD,,,,
+WESTHAMPTON,,,,
+WESTMINSTER,,,,
+WESTON,,,,
+WESTPORT,,,,
+WESTWOOD,,,,
+WHATELY,,,,
+WHITMAN,,,,
+WILBRAHAM,,,,
+WILLIAMSBURG,,,,
+WILLIAMSTOWN,,,,
+WILMINGTON,,,,
+WINCHENDON,,,,
+WINCHESTER,,,,
+WINDSOR,,,,
+WOBURN,,,,
+WORTHINGTON,,,,
+YARMOUTH,,,,
