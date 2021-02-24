@@ -22,16 +22,38 @@
   &__button {
     background: none;
     border: none;
+    width: 60px;
 
     &:disabled {
       color: $color_font-medium;
     }
   }
 
+  &__legend {
+    margin: .5rem 0;
+  }
+
+  &__legend-title {
+    font-family: $font_family-secondary;
+    font-size: .875rem;
+    font-weight: 800;
+    margin: 0;
+  }
+
   &__legend-entry {
     font-family: $font_family-secondary;
-    font-size: 1rem;
+    font-size: .875rem;
     font-weight: 300;
     margin: 0 0 0 .75rem;
+  }
+
+  &__quote {
+    border-left: 5px solid $color_font-medium;
+    font-family: $font_family-secondary;
+    font-style: italic;
+    font-weight: lighter;
+    line-height: 1.5rem;
+    margin: 1rem 0;
+    padding-left: 1.25rem;
   }
 }
