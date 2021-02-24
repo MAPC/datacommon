@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import ReactMapGL, { Source, Layer } from 'react-map-gl';
 import { participation, scale } from './colors';
 
-
 function respondentsChoropleth(data) {
   const choropleth = ['match', ['get', 'town']];
   data.forEach((row) => {
@@ -97,7 +96,7 @@ const Map = ({ data, slide }) => {
           setChoropleth(scaleChoropleth(data, 'board sentiment'));
           break;
         case 12:
-          setChoropleth(respondentsChoropleth(data));
+          setChoropleth('#4DC1B9');
           break;
         default:
           setChoropleth('#00613F');
@@ -112,7 +111,7 @@ const Map = ({ data, slide }) => {
       width="100%"
       onViewportChange={(viewport) => setViewport(viewport)}
       mapboxApiAccessToken="pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg"
-      mapStyle="mapbox://styles/ihill/ckcnnn63u26o11ip2qf4odwyp"
+      mapStyle="mapbox://styles/ihill/cki9ablq87wb01apa878hhbj8"
       scrollZoom={false}
     >
       <Layer type="background" paint={{ 'background-color': '#F0F8F3' }} />
