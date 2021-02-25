@@ -51,9 +51,9 @@ class Home extends React.Component {
               lens.
             </p>
             <p>
-              <strong>February’s visualization</strong>
+              <strong>March’s visualization</strong>
               {' '}
-              provides a sneak peek into MAPC's upcoming research release on housing submarkets. Our region is not made of one housing market, but many, and a range of housing policies are needed to best serve them.
+              highlights reflections on virtual zoning and planning board meetings across the state: what's worked, what hasn't, and what lessons we can take from one another.
             </p>
             <CallToAction
               link="/gallery"
