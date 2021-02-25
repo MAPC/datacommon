@@ -113,6 +113,7 @@ const Map = ({ data, slide }) => {
       mapboxApiAccessToken="pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg"
       mapStyle="mapbox://styles/ihill/cki9ablq87wb01apa878hhbj8"
       scrollZoom={false}
+      touchZoom={false}
     >
       <Layer type="background" paint={{ 'background-color': '#F0F8F3' }} />
       <Source id="MA municipalities" type="vector" url="mapbox://ihill.1akk89mh">
