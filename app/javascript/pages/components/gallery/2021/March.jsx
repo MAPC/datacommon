@@ -46,7 +46,7 @@ const March = () => {
             href="https://mapc365.sharepoint.com/:b:/s/DataServicesSP/Eb1QlcdSwPRJvX4atU60UO4BEPW7mgczKNhSFUYXeaoKBg?e=XaoEIn"
             className="calendar-viz__link"
           >
-            Report: Findings on Virtual Hearings
+            Report: <em>Findings on Virtual Hearings</em> by Ashley Clark, AICP
           </a>
         </li>
         <li>
@@ -54,7 +54,7 @@ const March = () => {
             href="https://www.mapc.org/planning101/its-time-to-embrace-the-virtual-meeting-for-the-long-haul/"
             className="calendar-viz__link"
           >
-            Blog: It&apos;s Time to Embrace the Virtual Meeting for the Long Haul
+            Blog: &quot;It&apos;s Time to Embrace the Virtual Meeting for the Long Haul&quot; by Carolina Prieto
           </a>
         </li>
         <li>

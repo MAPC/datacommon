@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactMapGL, { Source, Layer } from 'react-map-gl';
+import * as mapboxgl from 'mapbox-gl';
 import { participation, scale } from './colors';
 
 function respondentsChoropleth(data) {
@@ -53,6 +54,7 @@ function scaleChoropleth(data, column) {
 
 const Map = ({ data, slide }) => {
   const [choropleth, setChoropleth] = useState('#00613F');
+  const [map, setMap] = useState();
   const [viewport, setViewport] = useState({
     latitude: 42.111491576125616,
     longitude: -71.18796001765833,
@@ -104,6 +106,12 @@ const Map = ({ data, slide }) => {
       }
     }
   }, [data, slide]);
+
+  useEffect(() => {
+    if (map) {
+      map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+    }
+  }, [map]);
   return (
     <ReactMapGL
       {...viewport}
@@ -113,7 +121,7 @@ const Map = ({ data, slide }) => {
       mapboxApiAccessToken="pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg"
       mapStyle="mapbox://styles/ihill/cki9ablq87wb01apa878hhbj8"
       scrollZoom={false}
-      touchZoom={false}
+      ref={(ref) => ref && setMap(ref.getMap())}
     >
       <Layer type="background" paint={{ 'background-color': '#F0F8F3' }} />
       <Source id="MA municipalities" type="vector" url="mapbox://ihill.1akk89mh">
