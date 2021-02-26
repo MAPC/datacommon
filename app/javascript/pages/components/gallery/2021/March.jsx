@@ -31,14 +31,41 @@ const March = () => {
 
   return (
     <>
-      <h1 className="calendar-viz__title">Lessons from Across Massachusetts</h1>
+      <h1 className="calendar-viz__title">Municipal Reflections on the Pivot to Online Meetings</h1>
       <div className="calendar-viz">
         <Map data={state.data} slide={state.slide} />
         <NarrativePanel dispatch={dispatch} data={state.data} slide={state.slide} />
       </div>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Vivendum intellegat et qui, ei denique consequuntur vix. Offendit eleifend moderatius ex vix, quem odio mazim et qui, purto expetendis cotidieque quo cu, veri persius vituperata ei nec. Id doctus accommodare eam, pri an esse tota prodesset, te veniam oblique posidonium mel. Offendit eleifend moderatius ex vix, quem odio mazim et qui, purto expetendis cotidieque quo cu, veri persius vituperata ei nec. Vivendum intellegat et qui, ei denique consequuntur vix. Feugiat ceteros appellantur et sed, at illum virtute persequeris duo. Scripta periculis ei eam, te pro movet reformidans. Vivendum intellegat et qui, ei denique consequuntur vix. Scripta periculis ei eam, te pro movet reformidans. Pro ea animal dolores. Offendit eleifend moderatius ex vix, quem odio mazim et qui, purto expetendis cotidieque quo cu, veri persius vituperata ei nec. Pri viderer tamquam ei.
+        Last Autumn (September 9 - October 14, 2020), six months into Massachusetts&apos;s COVID-19 state of emergency, a survey gauging ZBA (zoning board of approval) and planning board reactions to virtual meetings was sent to planners across the state. Now, with almost a full year of virtual hearings and meetings under our belts, we reflect on what we&apos;ve learned to make these meetings as effective and accessible as possible. The above map summarizes some of these findings.
       </p>
+      <p><strong>Helpful links</strong></p>
+      <ul className="calendar-viz__list">
+        <li>
+          <a
+            href="https://mapc365.sharepoint.com/:b:/s/DataServicesSP/Eb1QlcdSwPRJvX4atU60UO4BEPW7mgczKNhSFUYXeaoKBg?e=XaoEIn"
+            className="calendar-viz__link"
+          >
+            Report: Findings on Virtual Hearings
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.mapc.org/planning101/its-time-to-embrace-the-virtual-meeting-for-the-long-haul/"
+            className="calendar-viz__link"
+          >
+            Blog: It&apos;s Time to Embrace the Virtual Meeting for the Long Haul
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.mapc.org/resource-library/shared-practices-for-engagement-in-virtual-meetings/"
+            className="calendar-viz__link"
+          >
+            Shared Practices for Engagement in Virtual Meetings
+          </a>
+        </li>
+      </ul>
     </>
   );
 };
