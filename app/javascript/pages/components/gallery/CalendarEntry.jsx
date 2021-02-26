@@ -29,6 +29,9 @@ const CalendarEntry = () => (
           <Redirect to="/gallery/2021/february" />
         </Route>
         <Route path="/gallery/2021/march" component={calendar2021.March} />
+        <Route path="/calendar/2021/march">
+          <Redirect to="/gallery/2021/march" />
+        </Route>
       </Switch>
     </div>
   </section>
