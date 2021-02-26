@@ -155,6 +155,7 @@ const NarrativePanel = ({ dispatch, data, slide }) => (
     <nav className="map-narrative__navigation">
       <button
         className="map-narrative__button"
+        tabIndex={0}
         type="button"
         onClick={() => dispatch({ type: 'changeSlide', slide: slide - 1 })}
         disabled={!(slide > 1)}
@@ -163,6 +164,7 @@ const NarrativePanel = ({ dispatch, data, slide }) => (
       </button>
       <button
         className="map-narrative__button"
+        tabIndex={0}
         type="button"
         onClick={() => dispatch({ type: 'changeSlide', slide: slide + 1 })}
         disabled={!(slide < 12)}

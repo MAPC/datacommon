@@ -255,6 +255,10 @@
 
   &__link {
     text-decoration: underline;
+
+    &:focus {
+      border: 2px solid $color_brand-secondary;
+    }
   }
 
   &__cta {
