@@ -31,13 +31,13 @@ const March = () => {
 
   return (
     <>
-      <h1 className="calendar-viz__title">Municipal Reflections on the Pivot to Online Meetings</h1>
+      <h1 className="calendar-viz__title">The Online Municipal Meeting Pivot</h1>
       <div className="calendar-viz">
         <Map data={state.data} slide={state.slide} />
         <NarrativePanel dispatch={dispatch} data={state.data} slide={state.slide} />
       </div>
       <p>
-        Last Autumn (September 9 - October 14, 2020), six months into Massachusetts&apos;s COVID-19 state of emergency, a survey gauging ZBA (zoning board of approval) and planning board reactions to virtual meetings was sent to planners across the state. Now, with almost a full year of virtual hearings and meetings under our belts, we reflect on what we&apos;ve learned to make these meetings as effective and accessible as possible. The above map summarizes some of these findings.
+        By the autumn of 2020, six months after the Governor’s executive order allowed public meetings to be held remotely in Massachusetts, by far most municipalities had made the switch. Then-Walpole Director of Community and Economic Development Ashley Clark, AICP surveyed her municipal planning peers across the state to gather insights about this unanticipated experiment in virtual government. This month’s visualization shares some of what she learned from the 102 responding municipalities.
       </p>
       <p><strong>Helpful links</strong></p>
       <ul className="calendar-viz__list">
