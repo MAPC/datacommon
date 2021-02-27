@@ -68,7 +68,7 @@ const Map = ({ data, slide }) => {
           setChoropleth(respondentsChoropleth(data));
           break;
         case 2:
-          setChoropleth(respondentsChoropleth(data));
+          setChoropleth(impactChoropleth(data));
           break;
         case 3:
           setChoropleth(impactChoropleth(data));
@@ -80,26 +80,14 @@ const Map = ({ data, slide }) => {
           setChoropleth(impactChoropleth(data));
           break;
         case 6:
-          setChoropleth(impactChoropleth(data));
+          setChoropleth(scaleChoropleth(data, 'board sentiment'));
           break;
         case 7:
           setChoropleth(scaleChoropleth(data, 'board sentiment'));
           break;
         case 8:
-          setChoropleth(scaleChoropleth(data, 'board sentiment'));
-          break;
-        case 9:
-          setChoropleth(scaleChoropleth(data, 'board sentiment'));
-          break;
-        case 10:
-          setChoropleth(scaleChoropleth(data, 'board sentiment'));
-          break;
-        case 11:
-          setChoropleth(scaleChoropleth(data, 'board sentiment'));
-          break;
-        case 12:
           setChoropleth('#4DC1B9');
-          break;
+        break;
         default:
           setChoropleth('#00613F');
           break;
