@@ -88,7 +88,7 @@ const slides = {
   8: (
     <>
       <p>
-        Be assured that norms and practices will continue to evolve to meet the times, and that we planning professionals will continue to learn from one another. to create safe, equitable hearings.
+        Be assured that norms and practices will continue to evolve to meet the times, and that we planning professionals will continue to learn from one another to create safe, equitable hearings. To contribute your thoughts, click <a href="https://mapc.az1.qualtrics.com/jfe/form/SV_6JexC8H5RTw6OmW" className="calendar-viz__link">here</a>.
       </p>
     </>
   )
