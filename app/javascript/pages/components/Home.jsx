@@ -51,9 +51,9 @@ class Home extends React.Component {
               lens.
             </p>
             <p>
-              <strong>March’s visualization</strong>
+              <strong>April’s visualization</strong>
               {' '}
-              highlights reflections on virtual zoning and planning board meetings across the state: what's worked, what hasn't, and what lessons we can take from one another.
+              explores the region&apos;s sewer lines and wastewater management systems. How we handle wastewater has an impact on community growth, and different systems will require different approaches.
             </p>
             <CallToAction
               link="/gallery"
