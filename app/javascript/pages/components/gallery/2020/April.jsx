@@ -1,6 +1,7 @@
 import React from 'react';
 import * as d3 from 'd3';
 import mapboxgl from 'mapbox-gl';
+import blankSquare from '../../../assets/images/blank-square.png';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
 const colors = ['#F15B52', '#F37871', '#F8B4B0', '#FBD2CF', '#F0EFE7'];
@@ -68,13 +69,13 @@ const April = () => {
       });
 
       response[1].forEach((row) => {
-        responseRate.push(row.tractID, +row.MailReturnRateCen2010 <= 73 ? 'Pattern_Hatching_Brown' : 'blank');
+        responseRate.push(row.tractID, +row.MailReturnRateCen2010 <= 73 ? 'Pattern_Hatching_Brown' : 'new-blank');
         responseRateOpacity.push(row.tractID, +row.MailReturnRateCen2010 <= 73 ? 1 : 0);
         responseRates[row.tractID] = row.MailReturnRateCen2010;
       });
 
       choropleth.push(colors[4]);
-      responseRate.push('black');
+      responseRate.push('new-blank');
       responseRateOpacity.push(0);
       aprilMap.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
       aprilMap.addLayer({
@@ -87,14 +88,19 @@ const April = () => {
         },
       });
 
-      aprilMap.addLayer({
-        id: '2010 Response Rates',
-        type: 'fill',
-        source: 'composite',
-        'source-layer': 'Tracts-2jsl06',
-        paint: {
-          'fill-pattern': responseRate,
-        },
+      aprilMap.loadImage(blankSquare, (err, image) => {
+        if (err) throw err;
+        aprilMap.addImage('new-blank', image);
+
+        aprilMap.addLayer({
+          id: '2010 Response Rates',
+          type: 'fill',
+          source: 'composite',
+          'source-layer': 'Tracts-2jsl06',
+          paint: {
+            'fill-pattern': responseRate,
+          },
+        });
       });
 
       aprilMap.moveLayer('Computer Ownership by Tract', 'MAPC municipal borders');
