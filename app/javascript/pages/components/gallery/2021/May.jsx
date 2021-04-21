@@ -28,6 +28,14 @@ const May = () => {
       return tooltipDetails;
     };
 
+    function tooltipLeft(event, tooltip) {
+      return `${event.clientX - tooltip.offsetWidth - 40}px`;
+    }
+
+    function tooltipTop(event, tooltip) {
+      return `${event.pageY - tooltip.offsetHeight - 140}px`;
+    }
+
     const x = d3.scaleLinear()
       .domain([0, 1])
       .range([0, width]);
@@ -61,8 +69,8 @@ const May = () => {
           .duration(50)
           .style('opacity', 0.9);
         tooltip.html(tooltipHtml(d))
-          .style('left', (d3.mouse(this)[0]+30) + "px")
-          .style('top', (d3.mouse(this)[1]+30) + "px");
+          .style('left', tooltipLeft(d3.event, document.getElementsByClassName('tooltip')[0]))
+          .style('top', tooltipTop(d3.event, document.getElementsByClassName('tooltip')[0]));
       })
       .on('mouseleave', () => {
         tooltip.transition()
