@@ -4,13 +4,13 @@ import * as d3 from 'd3';
 const May = () => {
   d3.csv('/assets/arp_scoring.csv').then((response) => {
     const margin = {
-      top: 10, right: 20, bottom: 30, left: 50,
+      top: 10, right: 20, bottom: 40, left: 50,
     };
     const width = getComputedStyle(document.querySelector('.calendar-viz')).width.slice(0, -2);
     const height = 700;
     const svg = d3.select('.calendar-viz')
       .append('svg')
-      .attr('width', width + margin.left + margin.right)
+      .attr('width', width - margin.left - margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
@@ -77,7 +77,23 @@ const May = () => {
           .duration(200)
           .style('opacity', 0);
       });
+
+    svg.append('text')
+      .attr('transform', `translate(${width / 2}, ${height + margin.top + 20})`)
+      .style('text-anchor', 'middle')
+      .style('font-family', 'Montserrat, sans-serif')
+      .text('COVID Impact Score');
+
+    svg.append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 0 - margin.left)
+      .attr('x', 0 - (height / 2))
+      .attr('dy', '1em')
+      .style('text-anchor', 'middle')
+      .style('font-family', 'Montserrat, sans-serif')
+      .text('Income Score');
   });
+
   return (
     <>
       <h1 className="calendar-viz__title">COVID Vulnerability Index</h1>
