@@ -2,12 +2,16 @@ import React from 'react';
 import * as d3 from 'd3';
 
 const May = () => {
-  d3.csv('/assets/arp_scoring.csv').then((response) => {
+  d3.csv('/assets/arp_scoring_entitlement_communities_aid.csv').then((response) => {
     const margin = {
-      top: 10, right: 20, bottom: 40, left: 50,
+      top: 10, right: 20, bottom: 40, left: 100,
     };
     const width = getComputedStyle(document.querySelector('.calendar-viz')).width.slice(0, -2);
     const height = 700;
+    const bubbleColors = {
+      TRUE: '#69b3a2',
+      FALSE: '#2c4d46',
+    };
     const svg = d3.select('.calendar-viz')
       .append('svg')
       .attr('width', width - margin.left - margin.right)
@@ -37,21 +41,21 @@ const May = () => {
     }
 
     const x = d3.scaleLinear()
-      .domain([0, 1])
+      .domain([0, 1.15])
       .range([0, width]);
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
       .call(d3.axisBottom(x));
 
     const y = d3.scaleLinear()
-      .domain([0, 1])
+      .domain([0, 570000000])
       .range([height, 0]);
     svg.append('g')
       .call(d3.axisLeft(y));
 
     const z = d3.scaleLinear()
-      .domain([75, 51000])
-      .range([1, 40]);
+      .domain([75, 690000])
+      .range([2, 100]);
 
     svg.append('g')
       .selectAll('dot')
@@ -59,9 +63,9 @@ const May = () => {
       .enter()
       .append('circle')
       .attr('cx', (d) => x(d['COVID Impact Score']))
-      .attr('cy', (d) => y(d['Income Score']))
+      .attr('cy', (d) => y(d['Estimated Aid']))
       .attr('r', (d) => z(d.Population))
-      .style('fill', '#69b3a2')
+      .style('fill', (d) => bubbleColors[d.entitlement])
       .style('opacity', '.7')
       .attr('stroke', 'black')
       .on('mousemove', (d) => {
@@ -91,7 +95,7 @@ const May = () => {
       .attr('dy', '1em')
       .style('text-anchor', 'middle')
       .style('font-family', 'Montserrat, sans-serif')
-      .text('Income Score');
+      .text('Allocated Aid (US Dollars)');
   });
 
   return (
@@ -108,7 +112,7 @@ const May = () => {
       <ul>
         <li>COVID Impact Sub-score – COVID-19 case rates and average unemployment rate from February 2020 to January 2021; this score is weighted x1.5 in the final Recovery Need Score.</li>
         <li>Income Sub-score - poverty rate, percent low-income population; this score is weighted x1 in the final Recovery Need Score.</li>
-        <li> Demographic Score - percent people of color, and percent born outside the United States; this score is weighted x1 in the final Recovery Need Score.</li>
+        <li>Demographic Score - percent people of color, and percent born outside the United States; this score is weighted x1 in the final Recovery Need Score.</li>
       </ul>
     </>
   );
