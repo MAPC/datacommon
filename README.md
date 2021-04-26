@@ -1,8 +1,8 @@
 # DataCommon
 
 ## Installation
-1. `bin/setup`
-2. Setup your database settings by either replacing the values in database.yml with real values or settings them in your `.env` file.
+1. Set up your `.env` (for database connections) and `config/master.key` (for encrypted credentials). You can find these values in the Digital Services group on Dashlane.
+2. Run `bin/setup`
 3. For the shapefile endpoint make sure your server has ogr2ogr. If it is an Ubuntu server you can follow the instructions to [install GDAL on Ubuntu](http://www.sarasafavi.com/installing-gdalogr-on-ubuntu.html):
 ```
 sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update
@@ -11,13 +11,22 @@ sudo apt-get install gdal-bin
 4. The user you run the application under needs a valid `.pgpass` file in their home directory with credentials to access the defined databases in order for the csv endpoint to work.
 5. We have enabled caching in 20 minute periods on prql.mapc.org in its nginx configuration. This may cause issues later and should be investigated if data does not refresh as expected.
 
+## Running the app
+This is a React-on-Rails app, so you'll need to run both `bundle exec rails s` and `bin/webpack-dev-server` to run the app on localhost:3000
+
 ## Testing
 All server-side tests are written in RSpec.
 `bundle exec rspec`
 
-## Deployment
-TODO: Update deployment strategy for the Rails monorepo.
+Javascript tests are written in Jest *(note: some tests are not fully implemented and will fail on default)*
+`yarn test`
 
+## Deployment
+1 In one terminal, ssh into the appropriate environment (either `ssh username@prep.mapc.org` or `ssh ubuntu@live.mapc.org`). Instructions/scripts for getting set on these servers is available in the [infrastructure report](https://github.com/MAPC/infrastructure/blob/1de75d64378000280cc289a480985fd02568845e/bin/add_app_to_server.sh).
+2. In another terminal window, run the appropriate capistrano command (either `cap staging deploy` or `cap production deploy`)
+3. **Important:** Staging deploys from the current state of the `dev` branch on Github, and production deploys from the current `master` branch on Github. Make sure the appropriate changes are up on the remote repo!
+
+### Server configuration
 Make sure to install poppler on your production/staging server to get PDF previews to work.
 
 ```
