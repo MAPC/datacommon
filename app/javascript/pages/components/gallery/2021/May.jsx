@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
-function tooltipLeft(event, tooltip, width) {
-  if (event.clientX > width / 2) {
-    return `${event.clientX - tooltip.offsetWidth - 40}px`;
+function tooltipLeft(event, tooltip) {
+  if (event.pageX > window.innerWidth / 2) {
+    return `${event.pageX - tooltip.offsetWidth + 20}px`;
   }
-  return `${event.clientX - tooltip.offsetWidth + 200}px`;
+  return `${event.pageX + 10}px`;
 }
 
 function tooltipTop(event, tooltip) {
-  return `${event.pageY - tooltip.offsetHeight - 140}px`;
+  return `${event.pageY - tooltip.offsetHeight - 10}px`;
 }
 
 const margin = {
@@ -38,20 +38,18 @@ const May = () => {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    const tooltip = d3.select('.calendar-viz')
-      .append('div')
-      .style('opacity', 0)
-      .attr('class', 'tooltip');
+    const tooltip = d3.select('body').append('div').attr('class', 'tooltip');
 
     const tooltipHtml = (municipality) => `
       <p class='tooltip__title'>${municipality.municipal} (pop. ${d3.format(',')(municipality.Population)})</p>
       <ul class='tooltip__list'>
+        <li class='tooltip__text'>${municipality.entitlement === 'TRUE' ? 'Entitlement community' : 'Not an entitlement community'}</li>
         <li class='tooltip__text'>Allocated aid: ${d3.format('$,')(municipality['Estimated Aid'])}</li>
         <li class='tooltip__text'>COVID Recovery Need Score: ${d3.format('.3')(municipality['Weighted Score'])}</li>
       </ul>`;
 
     const x = d3.scaleLinear()
-      .domain([0, 1.15])
+      .domain([0, 1.2])
       .range([0, width]);
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
@@ -83,7 +81,7 @@ const May = () => {
           .duration(50)
           .style('opacity', 0.9);
         tooltip.html(tooltipHtml(d))
-          .style('left', tooltipLeft(d3.event, document.getElementsByClassName('tooltip')[0], width))
+          .style('left', tooltipLeft(d3.event, document.getElementsByClassName('tooltip')[0]))
           .style('top', tooltipTop(d3.event, document.getElementsByClassName('tooltip')[0]));
       })
       .on('mouseleave', () => {
@@ -110,7 +108,7 @@ const May = () => {
 
   return (
     <>
-      <h1 className="calendar-viz__title">COVID Vulnerability Index</h1>
+      <h1 className="calendar-viz__title">Defining Entitlement</h1>
       <div className="calendar-viz">
         <svg className="calendar-viz__chart" />
         <div
@@ -128,7 +126,7 @@ const May = () => {
             >
               Municipality Type
             </text>
-            <circle fill={bubbleColors.TRUE} opacity="0.6" cx="10" cy="30" r="6" width="25" height="10" stroke="black"/>
+            <circle fill={bubbleColors.TRUE} opacity="0.6" cx="10" cy="30" r="6" width="25" height="10" stroke="black" />
             <text
               x="24"
               y="33"

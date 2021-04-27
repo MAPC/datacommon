@@ -118,3 +118,14 @@ server {
 ## Usage
 
 The app will serve up the metadata for these tables in JSON from the ArcSDE Postgres tables at http://server.com/tabular and http://server.com/geospatial where server.com is the server you have deployed this app to.
+
+## Gallery entries
+
+Images for the grid view of the data visualization gallery should be 250x175 pixels and highlight the visualization (not the surrounding narrative, as much as possible). An additional square crop should be added to `calendar-home.svg` in Illustrator. To export the fonts correctly, save the image by selecting `Export as...`, save the image, and follow these SVG options:
+- Styling: Presentation Attributes
+- Font: Convert to Outlines
+- Images: Embed
+- Object IDs: Layer names
+- Decimal: 4
+
+And check both "Minify" and "Responsive"
