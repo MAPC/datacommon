@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
-function tooltipLeft(event, tooltip) {
-  return `${event.clientX - tooltip.offsetWidth - 40}px`;
+function tooltipLeft(event, tooltip, width) {
+  if (event.clientX > width / 2) {
+    return `${event.clientX - tooltip.offsetWidth - 40}px`;
+  }
+  return `${event.clientX - tooltip.offsetWidth + 200}px`;
 }
 
 function tooltipTop(event, tooltip) {
@@ -10,12 +13,12 @@ function tooltipTop(event, tooltip) {
 }
 
 const margin = {
-  top: 10, right: 20, bottom: 40, left: 100,
+  top: 10, right: 40, bottom: 50, left: 100,
 };
 
 const bubbleColors = {
-  TRUE: '#69b3a2',
-  FALSE: '#2c4d46',
+  TRUE: '#FDB525',
+  FALSE: '#0097C4',
 };
 
 const May = () => {
@@ -29,7 +32,7 @@ const May = () => {
     const height = 700;
     const width = getComputedStyle(document.querySelector('.calendar-viz')).width.slice(0, -2);
     const svg = d3.select('.calendar-viz__chart')
-      .attr('width', width - margin.left - margin.right)
+      .attr('width', width - margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .attr('class', 'calendar-viz__svg')
       .append('g')
@@ -41,11 +44,11 @@ const May = () => {
       .attr('class', 'tooltip');
 
     const tooltipHtml = (municipality) => `
-        <p class='tooltip__title'>${municipality.municipal}</p>
-        <ul class='tooltip__list'>
-          <li class='tooltip__text'>Popluation: ${d3.format(',')(municipality.Population)}</li>
-          <li class='tooltip__text'>${municipality.entitlement === 'TRUE' ? 'Entitlement community' : 'Not an entitlement community'}</li>
-        </ul>`;
+      <p class='tooltip__title'>${municipality.municipal} (pop. ${d3.format(',')(municipality.Population)})</p>
+      <ul class='tooltip__list'>
+        <li class='tooltip__text'>Allocated aid: ${d3.format('$,')(municipality['Estimated Aid'])}</li>
+        <li class='tooltip__text'>COVID Recovery Need Score: ${d3.format('.3')(municipality['Weighted Score'])}</li>
+      </ul>`;
 
     const x = d3.scaleLinear()
       .domain([0, 1.15])
@@ -61,15 +64,15 @@ const May = () => {
       .call(d3.axisLeft(y));
 
     const z = d3.scaleLinear()
-      .domain([75, 690000])
-      .range([2, 100]);
+      .domain([75, 190000])
+      .range([2, 50]);
 
     svg.append('g')
       .selectAll('dot')
       .data(data)
       .enter()
       .append('circle')
-      .attr('cx', (d) => x(d['COVID Impact Score']))
+      .attr('cx', (d) => x(d['Weighted Score']))
       .attr('cy', (d) => y(d['Estimated Aid']))
       .attr('r', (d) => z(d.Population))
       .style('fill', (d) => bubbleColors[d.entitlement])
@@ -80,7 +83,7 @@ const May = () => {
           .duration(50)
           .style('opacity', 0.9);
         tooltip.html(tooltipHtml(d))
-          .style('left', tooltipLeft(d3.event, document.getElementsByClassName('tooltip')[0]))
+          .style('left', tooltipLeft(d3.event, document.getElementsByClassName('tooltip')[0], width))
           .style('top', tooltipTop(d3.event, document.getElementsByClassName('tooltip')[0]));
       })
       .on('mouseleave', () => {
@@ -90,10 +93,10 @@ const May = () => {
       });
 
     svg.append('text')
-      .attr('transform', `translate(${width / 2}, ${height + margin.top + 20})`)
+      .attr('transform', `translate(${width / 2}, ${height + margin.top + 30})`)
       .style('text-anchor', 'middle')
       .style('font-family', 'Montserrat, sans-serif')
-      .text('COVID Impact Score');
+      .text('COVID Recovery Need Score');
 
     svg.append('text')
       .attr('transform', 'rotate(-90)')
@@ -113,10 +116,10 @@ const May = () => {
         <div
           className="calendar-viz__legend"
           style={{
-            position: 'absolute', top: '0', right: '120px', background: '#F0EFE7', padding: '8px',
+            position: 'absolute', top: '0', right: '100px', background: 'rgba(240, 239, 231, .5)', padding: '8px',
           }}
         >
-          <svg className="calendar-viz__legend" height="120" width="168">
+          <svg className="calendar-viz__legend" height="94" width="168">
             <text
               x="0"
               y="10"
@@ -125,7 +128,7 @@ const May = () => {
             >
               Municipality Type
             </text>
-            <circle fill={bubbleColors.TRUE} opacity="0.6" cx="10" cy="30" r="6" width="25" height="10" />
+            <circle fill={bubbleColors.TRUE} opacity="0.6" cx="10" cy="30" r="6" width="25" height="10" stroke="black"/>
             <text
               x="24"
               y="33"
@@ -142,7 +145,7 @@ const May = () => {
             >
               community
             </text>
-            <circle fill={bubbleColors.FALSE} opacity="0.6" cx="10" cy="70" r="6" width="25" height="10" />
+            <circle fill={bubbleColors.FALSE} stroke="black" opacity="0.6" cx="10" cy="70" r="6" width="25" height="10" />
             <text
               x="24"
               y="73"
