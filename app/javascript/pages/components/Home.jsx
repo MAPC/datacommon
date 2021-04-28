@@ -53,7 +53,7 @@ class Home extends React.Component {
             <p>
               <strong>May’s visualization</strong>
               {' '}
-              explores the distribution of American Rescue Plan funds across the state. Over half of the funding is distributed through an entitlement program formula, which we show does not necessarily track community need.
+              displays the distribution of American Rescue Plan funds across the state. We explored if determinations from the older federal formula match current community needs.
             </p>
             <CallToAction
               link="/gallery"
