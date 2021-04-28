@@ -51,9 +51,9 @@ class Home extends React.Component {
               lens.
             </p>
             <p>
-              <strong>April’s visualization</strong>
+              <strong>May’s visualization</strong>
               {' '}
-              explores the region&apos;s sewer lines and wastewater management systems. How we handle wastewater has an impact on community growth, and different systems will require different approaches.
+              explores the distribution of American Rescue Plan funds across the state. Over half of the funding is distributed through an entitlement program formula, which we show does not necessarily track community need.
             </p>
             <CallToAction
               link="/gallery"
