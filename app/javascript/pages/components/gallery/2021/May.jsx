@@ -38,14 +38,15 @@ const May = () => {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    const tooltip = d3.select('body').append('div').attr('class', 'tooltip');
+    const tooltip = d3.select('body').append('div').attr('class', 'tooltip').style('display', 'none');
 
     const tooltipHtml = (municipality) => `
       <p class='tooltip__title'>${municipality.municipal} (pop. ${d3.format(',')(municipality.Population)})</p>
       <ul class='tooltip__list'>
         <li class='tooltip__text'>${municipality.entitlement === 'TRUE' ? 'Entitlement community' : 'Not an entitlement community'}</li>
-        <li class='tooltip__text'>Allocated aid: ${d3.format('$,')(municipality['Estimated Aid'])}</li>
         <li class='tooltip__text'>COVID Recovery Need Score: ${d3.format('.3')(municipality['Weighted Score'])}</li>
+        <li class='tooltip__text'>Total allocated aid: ${d3.format('$,')(municipality['Estimated Aid'])}</li>
+        <li class='tooltip__text'>Aid/person: $${(+municipality['Aid per person']).toFixed(2)}</li>
       </ul>`;
 
     const x = d3.scaleLinear()
@@ -79,7 +80,8 @@ const May = () => {
       .on('mousemove', (d) => {
         tooltip.transition()
           .duration(50)
-          .style('opacity', 0.9);
+          .style('opacity', 0.9)
+          .style('display', 'inline');
         tooltip.html(tooltipHtml(d))
           .style('left', tooltipLeft(d3.event, document.getElementsByClassName('tooltip')[0]))
           .style('top', tooltipTop(d3.event, document.getElementsByClassName('tooltip')[0]));
@@ -114,10 +116,10 @@ const May = () => {
         <div
           className="calendar-viz__legend"
           style={{
-            position: 'absolute', top: '0', right: '100px', background: 'rgba(240, 239, 231, .5)', padding: '8px',
+            position: 'absolute', top: '0', right: '100px', background: 'rgba(240, 239, 231, .5)', padding: '8px', maxWidth: '168px'
           }}
         >
-          <svg className="calendar-viz__legend" height="94" width="168">
+          <svg className="calendar-viz__legend" height="160" width="168">
             <text
               x="0"
               y="10"
@@ -160,20 +162,106 @@ const May = () => {
             >
               community
             </text>
+            <text
+              x="0"
+              y="116"
+              className="d3-map__legend-entry d3-map__legend-entry--bold"
+              fill="#1F4E46"
+            >
+              Population
+            </text>
+            <text
+              x="0"
+              y="138"
+              className="d3-map__legend-entry"
+              fill="#1F4E46"
+            >
+              Circle size corresponds
+            </text>
+            <text
+              x="0"
+              y="154"
+              className="d3-map__legend-entry"
+              fill="#1F4E46"
+            >
+              to population size
+            </text>
           </svg>
         </div>
       </div>
       <p>
-        MAPC has created a COVID-19 Recovery Need Score to better identify where municipalities stand in relation to each other on factors important to the need for COVID-19 recovery support. According to this analysis, Chelsea scores higher (more in need of funding support) than all of the Entitlement communities except for Lawrence.
+        <em>
+          Note: Boston, an entitlement community with a population of almost 700,000, is not included in this visualization due to scale. MMA estimates that Boston will receive $569,007,913 in ARP aid; MAPC calculated Boston's COVID-19 Recovery Need Score as 0.697.
+        </em>
       </p>
       <p>
-        The score is measured across three dimensions (sub-scores), which include data as follows:
+        The American Rescue Plan federal aid package was signed by President Joe Biden last month. It allocated over $3 billion to Massachusetts for local coronavirus relief. How these funds will be distributed amongst municipalities is important.
       </p>
-      <ul>
-        <li>COVID Impact Sub-score – COVID-19 case rates and average unemployment rate from February 2020 to January 2021; this score is weighted x1.5 in the final Recovery Need Score.</li>
-        <li>Income Sub-score - poverty rate, percent low-income population; this score is weighted x1 in the final Recovery Need Score.</li>
-        <li>Demographic Score - percent people of color, and percent born outside the United States; this score is weighted x1 in the final Recovery Need Score.</li>
+      <p>
+        About a third of funding will go to municipalities and counties on a per-capita basis. The rest will be distributed through a modified Community Development Block Grant (CDBG)
+        {' '}
+        <a href="https://www.hudexchange.info/programs/cdbg-entitlement/cdbg-entitlement-program-eligibility-requirements/" className="calendar-viz__link">entitlement program formula</a>
+        {' '}
+        that relies on population thresholds (50,000-person threshold). Use of these thresholds has the effect of excluding several very-high-need communities. Newton, for example, as a community over the population threshold, is designated an entitlement community that will receive funds. Chelsea is not.
+        <sup>1</sup>
+        {' '}
+        This is a systemic inequity.
+      </p>
+      <p>
+        In order to demonstrate the difference between need and &quot;entitlement,&quot; we have visualized the distribution of the American Rescue Plan funds in comparison to the defined poverty and COVID impacts communities face. We’ve done this with
+        {' '}
+        <a href="https://www.mma.org/mma-provides-analysis-of-municipal-aid-expected-from-american-rescue-plan/" className="calendar-viz__link">data developed by our partners at the MMA</a>
+        , and by creating a COVID-19 Recovery Need Score.
+      </p>
+      <p>
+        The score is measured across three dimensions (sub-scores):
+      </p>
+      <ul className="calendar-viz__list">
+        <li>
+          <strong>COVID Impact sub-score</strong>
+          {' '}
+          – COVID-19 case rates and average unemployment rate from February 2020 to January 2021. This sub-score is weighted x1.5 in the final Recovery Need Score.
+        </li>
+        <li>
+          <strong>
+            Income sub-score
+          </strong>
+          {' '}
+          – Poverty rate, percent low-income population. This sub-score is weighted x1 in the final Recovery Need Score.
+        </li>
+        <li>
+          <strong>Demographic sub-score</strong>
+          {' '}
+          – Percent people of color, and percent born outside the United States. This sub-score is weighted x1 in the final Recovery Need Score.
+        </li>
       </ul>
+      <p>
+        According to this analysis, Chelsea scores higher (more in need of funding support) than all of the Entitlement communities except for Lawrence. To address this disparity, Governor Baker directed supplemental state funding to Chelsea and several other cities and towns that aren’t entitlement communities, but that do have demonstrated need.
+      </p>
+      <p>
+        If we want to address systemic issues that affect the equitable distribution of resources, improving the formulas that underpin these systems is an important first step. Formulae more representative of need include
+        {' '}
+        <a href="https://www.mass.gov/info-details/environmental-justice-populations-in-massachusetts" className="calendar-viz__link">Environmental Justice Indicators</a>
+        {', '}
+        <a href="https://housing-submarkets.mapc.org/" className="calendar-viz__link">Housing Submarket Indicators</a>
+        {', '}
+        <a href="https://climate-vulnerability.mapc.org/" className="calendar-viz__link">Climate Vulnerability Indicators</a>
+        {', '}
+        <a href="https://localaccess.mapc.org/" className="calendar-viz__link">Local Access Scores</a>
+        {', '}
+        and others.
+      </p>
+      <p>
+        <sup>1</sup>
+        {' '}
+        Read the
+        {' '}
+        <em>Boston Globe</em>
+        {' '}
+        related story
+        {' '}
+        <a href="https://www.bostonglobe.com/2021/03/18/metro/cities-hit-hard-by-virus-are-underfunded-relative-peers-federal-stimulus/" className="calendar-viz__link">here</a>.
+      </p>
     </>
   );
 };
