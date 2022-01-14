@@ -50,29 +50,12 @@ class Home extends React.Component {
               more. Always with data first, and always with an interdisciplinary
               lens.
             </p>
-            <p>
-              <strong>May’s visualization</strong>
-              {' '}
-              displays the distribution of American Rescue Plan funds across the state. We explored if determinations from the older federal formula match current community needs.
-            </p>
             <CallToAction
               link="/gallery"
               text="View Gallery"
               extraClassNames="gallery-spotlight__cta"
             />
           </div>
-          <Link to="/gallery" className="gallery-spotlight__link">
-            <img
-              src={CalendarImage}
-              className="gallery-spotlight__image"
-              alt="gallery"
-            />
-          </Link>
-          <CallToAction
-            link="/gallery"
-            text="View Gallery"
-            extraClassNames="gallery-spotlight__cta--mobile"
-          />
         </section>
 
         <div className="container tight page-section">
