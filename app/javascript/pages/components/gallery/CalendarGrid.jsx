@@ -22,10 +22,7 @@ function populateGrid(selectedYear) {
       );
     }
     return (
-      <BlankCalendarItem
-        month={`${currentMonth} ${selectedYear}`}
-        key={`b-${currentMonth}-${selectedYear}`}
-      />
+      null
     );
   });
 }
