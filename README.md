@@ -129,3 +129,12 @@ Images for the grid view of the data visualization gallery should be 250x175 pix
 - Decimal: 4
 
 And check both "Minify" and "Responsive"
+
+## Cached CSVs
+
+When data has been updated the cached csv files have to be deleted from the server and they regenerate when the csv file is requested again.
+
+Cached files are located in
+```
+/var/www/datacommon/shared/public/cache
+```
