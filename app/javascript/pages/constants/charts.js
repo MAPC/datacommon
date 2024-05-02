@@ -58,7 +58,7 @@ export default {
         lat: colors.CHART.EXTENDED.get('PINK'),
       },
       source: 'American Community Survey',
-      timeframe: '2014-2018 5-Year Estimates',
+      timeframe: '2017-2021 5-Year Estimates',
       datasetLinks: { 'Race and Ethnicity Estimates (Municipal)': 6 },
       transformer: (tables, chart) => {
         const raceEthnicityData = tables['tabular.b03002_race_ethnicity_acs_m'];
@@ -214,7 +214,7 @@ export default {
         92: 'Public administration',
       },
       source: 'Executive Office of Labor and Workforce Development (EOLWD)',
-      timeframe: '2001-2018',
+      timeframe: '2001-2022',
       datasetLinks: { '2 Digit Sector: Employment & Avg Wkly Wages (Municipal)': 387 },
       transformer: (tables, chart) => {
         const indData = tables['tabular.econ_es202_naics_2d_m'];
@@ -308,7 +308,7 @@ export default {
         grade_12: { label: '12th Grade', order: 12 },
       },
       source: 'MA Department of Elementary and Secondary Education',
-      timeframe: '2005-2020',
+      timeframe: '2005-2023',
       datasetLinks: { 'Enrollment by School Year (School Districts)': 320 },
       transformer: (tables, chart) => {
         const rows = tables['tabular.educ_enrollment_by_year_districts'];
@@ -382,7 +382,7 @@ export default {
         lat: 'Hispanic or Latino',
       },
       source: 'American Community Survey',
-      timeframe: '2014-2018 5-Year Estimates',
+      timeframe: '2017-2021 5-Year Estimates',
       datasetLinks: { 'Educational Attainment by Race (Municipal)': 202 },
       transformer: (tables, chart) => {
         const eduData = tables['tabular.c15002_educational_attainment_by_race_acs_m'];
@@ -688,7 +688,7 @@ export default {
       },
       source: 'Census Building Permit Survey',
       caveat: '*Ignoring years for which the municipality did not report all 12 months.',
-      timeframe: '2001-2018',
+      timeframe: '2001-2023',
       datasetLinks: { 'Building Permits by Type and Year (Municipal)': 384 },
       transformer: (tables, chart) => {
         const [offset, numYears] = [2001, 18];
@@ -953,7 +953,7 @@ export default {
         other: 'Other',
       },
       source: 'American Community Survey',
-      timeframe: '2014-2018 5-Year Estimates',
+      timeframe: '2017-2021 5-Year Estimates',
       datasetLinks: { 'Transportation to Work from Residence (Municpal)': 38 },
       transformer: (tables, chart) => {
         const commData = tables['tabular.b08301_means_transportation_to_work_by_residence_acs_m'];
