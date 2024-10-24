@@ -82,3 +82,7 @@ group :test do
   gem 'parallel'
   gem 'selenium-webdriver'
 end
+
+gem "ed25519", "~> 1.3"
+
+gem "bcrypt_pbkdf", "~> 1.1"

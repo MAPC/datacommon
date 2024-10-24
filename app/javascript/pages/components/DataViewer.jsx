@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import MoonLoader from 'react-spinners/MoonLoader';
 import DatasetHeader from './partials/DatasetHeader';
 import DatasetTable from './partials/DatasetTable';
@@ -140,15 +140,15 @@ export default class DataViewer extends React.Component {
     let pageContents;
     if (this.state.loading) {
       pageContents = (
-          <div className="moonloader__wrapper">
-            <MoonLoader
-              size={'56px'}
-              css={override}
-              color={'#767676'}
-              loading={this.state.loading}
-            />
-            Fetching Data
-          </div>
+        <div className="moonloader__wrapper">
+          <MoonLoader
+            size="56px"
+            css={override}
+            color="#767676"
+            loading={this.state.loading}
+          />
+          Fetching Data
+        </div>
       );
     } else {
       pageContents = (

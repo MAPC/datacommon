@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import CommunitySelector from '../components/CommunitySelector';
 import hexToRgb from '../utils/hexToRgb';

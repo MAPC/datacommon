@@ -6,10 +6,10 @@ import './polyfills/math-log10';
 import '../styles/app.scss';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { Route } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 
 import { history, store } from './store';
 import App from './containers/App';
@@ -26,7 +26,10 @@ const Index = () => (
   </Provider>
 );
 
-ReactDOM.render(
-  <Index />,
-  document.querySelector('#root'),
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(
+  <React.StrictMode>
+    <Index />
+  </React.StrictMode>,
 );

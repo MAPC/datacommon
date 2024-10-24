@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import { fetchChartData } from '../actions/chart';
 import CommunityProfiles from '../components/CommunityProfiles';

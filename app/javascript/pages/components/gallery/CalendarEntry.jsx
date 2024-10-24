@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import * as calendar2020 from './2020/index';
 import * as calendar2021 from './2021/index';
 
@@ -7,7 +7,7 @@ const CalendarEntry = () => (
   <section className="route Calendar">
     <div className="container">
       <a href="/gallery" className="back-link">&lt;&lt; Back to Gallery</a>
-      <Switch>
+      <Routes>
         <Route path="/calendar/2020/january" component={calendar2020.January} />
         <Route path="/calendar/2020/february" component={calendar2020.February} />
         <Route path="/calendar/2020/march" component={calendar2020.March} />
@@ -22,25 +22,25 @@ const CalendarEntry = () => (
         <Route path="/calendar/2020/december" component={calendar2020.December} />
         <Route path="/gallery/2021/january" component={calendar2021.January} />
         <Route path="/calendar/2021/january">
-          <Redirect to="/gallery/2021/january" />
+          <Navigate to="/gallery/2021/january" />
         </Route>
         <Route path="/gallery/2021/february" component={calendar2021.February} />
         <Route path="/calendar/2021/february">
-          <Redirect to="/gallery/2021/february" />
+          <Navigate to="/gallery/2021/february" />
         </Route>
         <Route path="/gallery/2021/march" component={calendar2021.March} />
         <Route path="/calendar/2021/march">
-          <Redirect to="/gallery/2021/march" />
+          <Navigate to="/gallery/2021/march" />
         </Route>
         <Route path="/gallery/2021/april" component={calendar2021.April} />
         <Route path="/calendar/2021/april">
-          <Redirect to="/gallery/2021/april" />
+          <Navigate to="/gallery/2021/april" />
         </Route>
         <Route path="/gallery/2021/may" component={calendar2021.May} />
         <Route path="/calendar/2021/may">
-          <Redirect to="/gallery/2021/may" />
+          <Navigate to="/gallery/2021/may" />
         </Route>
-      </Switch>
+      </Routes>
     </div>
   </section>
 );

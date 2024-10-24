@@ -1,6 +1,6 @@
-import middleware from 'redux-thunk';
+import { thunk } from 'redux-thunk';
 import { applyMiddleware, createStore } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
+import { routerMiddleware } from 'connected-react-router'
 import { createBrowserHistory } from 'history';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import ReactGA from 'react-ga';
@@ -31,7 +31,7 @@ export const store = ((initialState, history) => (
     composeWithDevTools(
       applyMiddleware(
         gaTrackingMiddleware,
-        middleware,
+        thunk,
         routerMiddleware(history),
       ),
     ),

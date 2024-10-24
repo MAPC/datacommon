@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Routes, Redirect } from 'react-router-dom';
 
 import Faq from './Faq';
 import Gallery from './gallery/Gallery';
@@ -19,7 +19,7 @@ const App = (props) => (
   <section className="component App">
     <Header location={props.location} />
     <main>
-      <Switch>
+      <Routes>
         <Route exact path="/" component={Home} />
         <Route exact path="/faq" component={Faq} />
         <Route
@@ -29,12 +29,12 @@ const App = (props) => (
               props.tabOptions.includes(props2.match.params.tab) ? (
                 <CommunityProfiles {...props2} />
               ) : (
-                <Redirect
+                <Navigate
                   to={`/profile/${props2.match.params.muni}/${props.tabOptions[0]}`}
                 />
               )
             ) : (
-              <Redirect to="/" />
+              <Navigate to="/" />
             )
           }
         />
@@ -49,7 +49,7 @@ const App = (props) => (
         />
         <Route path="/browser" component={Browser} />
         <PrivateRoute exact path="/admin" component={Admin} />
-      </Switch>
+      </Routes>
     </main>
     <Footer />
   </section>
