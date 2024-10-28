@@ -15,7 +15,7 @@ import CalendarEntry from './gallery/CalendarEntry';
 import Browser from '../containers/Browser';
 import DataViewer from '../containers/DataViewer';
 
-// 創建一個包裝組件來處理 profile 路由的邏輯
+// profile route
 const ProfileRoute = ({ muniOptions, tabOptions }) => {
   const { muni, tab } = useParams();
   
@@ -43,8 +43,6 @@ const App = ({ muniOptions, tabOptions }) => (
         />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/calendar/:year/:month" element={<CalendarEntry />} />
-        <Route path="/gallery/:year/:month" element={<CalendarEntry />} />
         <Route path="/browser/datasets/:id" element={<DataViewer />} />
         <Route path="/browser/:menuOneSelectedItem?/:menuTwoSelectedItem?" element={<Browser />} />
         <Route path="/browser" element={<Browser />} />
