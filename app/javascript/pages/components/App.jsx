@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, Redirect } from 'react-router-dom';
+import { Route, Routes, Navigate, useParams } from 'react-router-dom';
 
 import Faq from './Faq';
 import Gallery from './gallery/Gallery';
@@ -9,46 +9,46 @@ import Home from '../containers/Home';
 import Header from './partials/Header';
 import Footer from './partials/Footer';
 import CommunityProfiles from '../containers/CommunityProfiles';
-import PrivateRoute from './PrivateRoute';
+import PrivateRoute from './PrivateRoute'; // Make sure this is compatible with v6
 import { AuthContext } from './context/auth';
 import CalendarEntry from './gallery/CalendarEntry';
 import Browser from '../containers/Browser';
 import DataViewer from '../containers/DataViewer';
 
-const App = (props) => (
+// 創建一個包裝組件來處理 profile 路由的邏輯
+const ProfileRoute = ({ muniOptions, tabOptions }) => {
+  const { muni, tab } = useParams();
+  
+  if (!muniOptions.includes(muni)) {
+    return <Navigate to="/" />;
+  }
+  
+  if (!tab || !tabOptions.includes(tab)) {
+    return <Navigate to={`/profile/${muni}/${tabOptions[0]}`} />;
+  }
+  
+  return <CommunityProfiles muni={muni} tab={tab} />;
+};
+
+const App = ({ muniOptions, tabOptions }) => (
   <section className="component App">
-    <Header location={props.location} />
+    <Header />
     <main>
       <Routes>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/faq" component={Faq} />
-        <Route
-          path="/profile/:muni/:tab?"
-          render={(props2) =>
-            props.muniOptions.includes(props2.match.params.muni) ? (
-              props.tabOptions.includes(props2.match.params.tab) ? (
-                <CommunityProfiles {...props2} />
-              ) : (
-                <Navigate
-                  to={`/profile/${props2.match.params.muni}/${props.tabOptions[0]}`}
-                />
-              )
-            ) : (
-              <Navigate to="/" />
-            )
-          }
+        <Route path="/" element={<Home />} />
+        <Route path="/faq" element={<Faq />} />
+        <Route 
+          path="/profile/:muni/:tab?" 
+          element={<ProfileRoute muniOptions={muniOptions} tabOptions={tabOptions} />} 
         />
-        <Route exact path="/gallery" component={Gallery} />
-        <Route exact path="/login" component={Login} />
-        <Route path="/calendar/:year/:month" component={CalendarEntry} />
-        <Route path="/gallery/:year/:month" component={CalendarEntry} />
-        <Route path="/browser/datasets/:id" component={DataViewer} />
-        <Route
-          path="/browser/:menuOneSelectedItem?/:menuTwoSelectedItem?"
-          component={Browser}
-        />
-        <Route path="/browser" component={Browser} />
-        <PrivateRoute exact path="/admin" component={Admin} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/calendar/:year/:month" element={<CalendarEntry />} />
+        <Route path="/gallery/:year/:month" element={<CalendarEntry />} />
+        <Route path="/browser/datasets/:id" element={<DataViewer />} />
+        <Route path="/browser/:menuOneSelectedItem?/:menuTwoSelectedItem?" element={<Browser />} />
+        <Route path="/browser" element={<Browser />} />
+        <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>} />
       </Routes>
     </main>
     <Footer />
