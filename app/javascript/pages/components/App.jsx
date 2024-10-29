@@ -17,6 +17,7 @@ import DataViewer from '../containers/DataViewer';
 
 // profile route
 const ProfileRoute = ({ muniOptions, tabOptions }) => {
+  debugger
   const { muni, tab } = useParams();
   
   if (!muniOptions.includes(muni)) {
@@ -43,6 +44,8 @@ const App = ({ muniOptions, tabOptions }) => (
         />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/calendar/:year/:month" element={<CalendarEntry />} />
+        <Route path="/gallery/:year/:month" element={<CalendarEntry /> }/>
         <Route path="/browser/datasets/:id" element={<DataViewer />} />
         <Route path="/browser/:menuOneSelectedItem?/:menuTwoSelectedItem?" element={<Browser />} />
         <Route path="/browser" element={<Browser />} />
