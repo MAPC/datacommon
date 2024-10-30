@@ -1,29 +1,36 @@
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
+import { useParams } from 'react-router-dom';
 import { fetchChartData } from '../actions/chart';
 import CommunityProfiles from '../components/CommunityProfiles';
-
+import React from 'react';
 const capitalize = (string) => {
   return string.split().map(word =>
       word.slice(0,1).toUpperCase() + word.slice(1).toLowerCase()).join('');
 }
 
-const mapStateToProps = (state, props) => {
-  const muniSlug = props.match.params.muni;
+// Create a wrapper component to use the params hook
+const CommunityProfilesWrapper = (props) => {
+  const { muni: muniSlug, tab: tabSlug } = useParams();
+  
   const muni = muniSlug
-      ? state.municipality.cache[muniSlug.toLowerCase()]
-      : state.municipality.cache['boston'];
-  return {
-    name: capitalize(muni.properties.town),
-    municipalFeature: muni,
-    muniSlug,
-    tabSlug: props.match.params.tab,
-  };
+    ? props.municipalityCache[muniSlug.toLowerCase()]
+    : props.municipalityCache['boston'];
+
+  return <CommunityProfiles 
+    {...props}
+    name={capitalize(muni.properties.town)}
+    municipalFeature={muni}
+    muniSlug={muniSlug}
+    tabSlug={tabSlug}
+  />;
 };
 
-const mapDispatchToProps = (dispatch, props) => ({
-  fetchChartData: (chart) => dispatch(fetchChartData(chart, props.match.params.muni)),
-  push: (path) => dispatch(push(path)),
+const mapStateToProps = (state) => ({
+  municipalityCache: state.municipality.cache,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommunityProfiles);
+const mapDispatchToProps = (dispatch) => ({
+  fetchChartData: (chart, muni) => dispatch(fetchChartData(chart, muni)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommunityProfilesWrapper);
