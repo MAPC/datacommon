@@ -9,7 +9,7 @@ import Home from '../containers/Home';
 import Header from './partials/Header';
 import Footer from './partials/Footer';
 import CommunityProfiles from '../containers/CommunityProfiles';
-import PrivateRoute from './PrivateRoute'; // Make sure this is compatible with v6
+import PrivateRoute from './PrivateRoute';
 import { AuthContext } from './context/auth';
 import CalendarEntry from './gallery/CalendarEntry';
 import Browser from '../containers/Browser';
@@ -17,7 +17,7 @@ import DataViewer from '../containers/DataViewer';
 
 // profile route
 const ProfileRoute = ({ muniOptions, tabOptions }) => {
-  debugger
+  
   const { muni, tab } = useParams();
   
   if (!muniOptions.includes(muni)) {

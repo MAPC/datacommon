@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-
 import SearchBar from '../components/SearchBar';
 import { setResults, setHovering, clear } from '../actions/search';
 

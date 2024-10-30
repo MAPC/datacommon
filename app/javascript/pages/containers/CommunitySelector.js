@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-
 import CommunitySelector from '../components/CommunitySelector';
 import hexToRgb from '../utils/hexToRgb';
 import colors from '../constants/colors';
@@ -10,7 +9,7 @@ import { fillPoly, emptyPoly } from '../actions/municipality';
 const mapStateToProps = ({ municipality, search }, props) => {
   const munisPoly = { ...municipality.geojson };
   let { results, hovering } = search.municipality;
-
+  
   let lineFeatures = (
     results.length
     ? { ...munisPoly, ...{ features: munisPoly.features.filter(feature => {

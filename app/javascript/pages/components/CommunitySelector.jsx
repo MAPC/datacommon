@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import MapBox from './MapBox';
 import SearchBar from '../containers/SearchBar';
 
