@@ -1,5 +1,16 @@
 # DataCommon
 
+## Prerequisites (Recommand)
+Please ensure you have follow the [Development Environment Section] (https://app.gitbook.com/o/-LiJPToAjY5PGjVljsgl/s/55IbpbRL6XEf6CerezEU/guides/software-development-on-boarding) in Software development On-Boarding on gitbook
+to set up your development enviroment
+
+Moreover, you will also need: 
+1. Install language version management tool for Ruby
+   [rbenv](https://github.com/rbenv/rbenv)
+2. Install package management tools
+   [bundler](https://bundler.io/guides/getting_started.html) (Ruby) 
+   
+
 ## Installation
 1. Set up your `.env` (for database connections) and `config/master.key` (for encrypted credentials). You can find these values in the Digital Services group on Dashlane.
 2. Run `bin/setup`
@@ -12,7 +23,29 @@ sudo apt-get install gdal-bin
 5. We have enabled caching in 20 minute periods on prql.mapc.org in its nginx configuration. This may cause issues later and should be investigated if data does not refresh as expected.
 
 ## Running the app
-This is a React-on-Rails app, so you'll need to run both `bundle exec rails s` and `bin/webpack-dev-server` to run the app on localhost:3000
+This is a React-on-Rails app.
+So, to run the React-on-Rails application locally, execute the following commands in your terminal:
+
+1. Database
+
+The database config is written in `database.yml`.
+Execute the following command before you run the application locally:
+
+```
+bundle exec rake db:reset
+```
+
+2. Start the Rails server
+```
+bundle exec rails s
+```
+
+3. Start the Webpack development server
+```
+bin/webpack-dev-server
+```
+Once both servers are running, you can access the app at [http://localhost:3000](http://localhost:3000).
+
 
 ## Testing
 All server-side tests are written in RSpec.
