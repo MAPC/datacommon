@@ -1,7 +1,7 @@
 # DataCommon
 
 ## Prerequisites (Recommand)
-Please ensure you have follow the [Development Environment Section] (https://app.gitbook.com/o/-LiJPToAjY5PGjVljsgl/s/55IbpbRL6XEf6CerezEU/guides/software-development-on-boarding) in Software development On-Boarding on gitbook
+Please ensure you have follow the [Development Environment Section](https://app.gitbook.com/o/-LiJPToAjY5PGjVljsgl/s/55IbpbRL6XEf6CerezEU/guides/software-development-on-boarding) in Software development On-Boarding on gitbook
 to set up your development enviroment
 
 Moreover, you will also need: 
