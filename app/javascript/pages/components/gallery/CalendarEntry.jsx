@@ -1,48 +1,50 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Link, useLocation, useParams } from 'react-router-dom';
 import * as calendar2020 from './2020/index';
 import * as calendar2021 from './2021/index';
 
-const CalendarEntry = () => (
-  <section className="route Calendar">
-    <div className="container">
-      <a href="/gallery" className="back-link">&lt;&lt; Back to Gallery</a>
-      <Routes>
-        <Route path="/calendar/2020/january" component={calendar2020.January} />
-        <Route path="/calendar/2020/february" component={calendar2020.February} />
-        <Route path="/calendar/2020/march" component={calendar2020.March} />
-        <Route path="/calendar/2020/april" component={calendar2020.April} />
-        <Route path="/calendar/2020/may" component={calendar2020.May} />
-        <Route path="/calendar/2020/june" component={calendar2020.June} />
-        <Route path="/calendar/2020/july" component={calendar2020.July} />
-        <Route path="/calendar/2020/august" component={calendar2020.August} />
-        <Route path="/calendar/2020/september" component={calendar2020.September} />
-        <Route path="/calendar/2020/october" component={calendar2020.October} />
-        <Route path="/calendar/2020/november" component={calendar2020.November} />
-        <Route path="/calendar/2020/december" component={calendar2020.December} />
-        <Route path="/gallery/2021/january" component={calendar2021.January} />
-        <Route path="/calendar/2021/january">
-          <Navigate to="/gallery/2021/january" />
-        </Route>
-        <Route path="/gallery/2021/february" component={calendar2021.February} />
-        <Route path="/calendar/2021/february">
-          <Navigate to="/gallery/2021/february" />
-        </Route>
-        <Route path="/gallery/2021/march" component={calendar2021.March} />
-        <Route path="/calendar/2021/march">
-          <Navigate to="/gallery/2021/march" />
-        </Route>
-        <Route path="/gallery/2021/april" component={calendar2021.April} />
-        <Route path="/calendar/2021/april">
-          <Navigate to="/gallery/2021/april" />
-        </Route>
-        <Route path="/gallery/2021/may" component={calendar2021.May} />
-        <Route path="/calendar/2021/may">
-          <Navigate to="/gallery/2021/may" />
-        </Route>
-      </Routes>
-    </div>
-  </section>
-);
+const CalendarEntry = () => {
+
+  const { year, month } = useParams();  
+  // Direct component rendering based on URL params
+  const renderCalendarContent = () => {
+    if (year === '2021') {
+      switch(month.toLowerCase()) {
+        case 'january': return <calendar2021.January />;
+        case 'february': return <calendar2021.February />;
+        case 'march': return <calendar2021.March />;
+        case 'april': return <calendar2021.April />;
+        case 'may': return <calendar2021.May />;
+        default: return null;
+      }
+    } else if (year === '2020') {
+      switch(month.toLowerCase()) {
+        case 'january': return <calendar2020.January />;
+        case 'february': return <calendar2020.February />;
+        case 'march': return <calendar2020.March />;
+        case 'april': return <calendar2020.April />;
+        case 'may': return <calendar2020.May />;
+        case 'june': return <calendar2020.June />;
+        case 'july': return <calendar2020.July />;
+        case 'august': return <calendar2020.August />;
+        case 'september': return <calendar2020.September />;
+        case 'october': return <calendar2020.October />;
+        case 'november': return <calendar2020.November />;
+        case 'december': return <calendar2020.December />;
+        default: return null;
+      }
+    }
+    return null;
+  };
+
+  return (
+    <section className="route Calendar">
+      <div className="container">
+        <Link to="/gallery" className="back-link">&lt;&lt; Back to Gallery</Link>
+        {renderCalendarContent()}
+      </div>
+    </section>
+  );
+};
 
 export default CalendarEntry;
