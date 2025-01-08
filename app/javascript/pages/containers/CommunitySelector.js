@@ -1,16 +1,12 @@
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
-
+import { useNavigate } from 'react-router-dom';
 import CommunitySelector from '../components/CommunitySelector';
-import hexToRgb from '../utils/hexToRgb';
-import colors from '../constants/colors';
 import { fillPoly, emptyPoly } from '../actions/municipality';
-
-
+import React from 'react';
 const mapStateToProps = ({ municipality, search }, props) => {
   const munisPoly = { ...municipality.geojson };
   let { results, hovering } = search.municipality;
-
+  
   let lineFeatures = (
     results.length
     ? { ...munisPoly, ...{ features: munisPoly.features.filter(feature => {
@@ -45,10 +41,18 @@ const mapStateToProps = ({ municipality, search }, props) => {
   return { muniLines, muniFill };
 };
 
-const mapDispatchToProps = (dispatch, props) => ({
-  toProfile: muni => dispatch(push(`/profile/${muni}`)),
+const mapDispatchToProps = (dispatch) => ({
   fillPoly: muni => dispatch(fillPoly(muni)),
   emptyPoly: muni => dispatch(emptyPoly(muni)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommunitySelector);
+// Create a wrapper component to use the navigation hook
+const WithNavigationCommunitySelector = (props) => {
+  const navigate = useNavigate();
+  return <CommunitySelector 
+    {...props} 
+    toProfile={(muni) => navigate(`/profile/${muni}`)} 
+  />;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WithNavigationCommunitySelector);

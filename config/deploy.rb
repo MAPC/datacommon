@@ -43,6 +43,8 @@ set :nvm_type, :user
 set :nvm_node, 'v10.16.3'
 set :nvm_map_bins, %w{node npm yarn rake}
 
+set :passenger_restart_with_touch, false
+
 before 'deploy:assets:precompile', 'deploy:yarn_install'
 namespace :deploy do
   desc 'Run rake yarn install'

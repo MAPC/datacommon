@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 import { useAuth } from "./context/auth";
 
 function PrivateRoute({ component: Component, ...rest }) {
@@ -9,7 +9,7 @@ function PrivateRoute({ component: Component, ...rest }) {
         authTokens ? (
             <Component {...props} />
         ) : (
-            <Redirect to="/"/>
+            <Navigate to="/"/>
         )
     )}
     />

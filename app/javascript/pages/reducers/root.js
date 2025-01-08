@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
-import { routerReducer as router } from 'react-router-redux';
+import { connectRouter } from 'connected-react-router'
 
 import chart from './chart';
 import search from './search';
 import dataset from './dataset';
 import municipality from './municipality';
 
-const rootReducer = combineReducers({
+const rootReducer = (history) => combineReducers({
+  router: connectRouter(history),
   chart,
-  router,
   dataset,
   search,
   municipality,

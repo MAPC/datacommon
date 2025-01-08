@@ -38,3 +38,6 @@ yarn-debug.log*
 
 # RSpec Suppresions
 /spec/examples.txt
+
+# MacOS
+.DS_Store

@@ -1,6 +1,12 @@
 const path = require('path');
 
 module.exports = {
+  mode: process.env.NODE_ENV,
+  node: {
+    global: false,
+    __filename: false,
+    __dirname: false,
+  },
   entry: './app/javascript/index.jsx',
   output: {
     filename: 'app.js',

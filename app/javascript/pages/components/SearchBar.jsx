@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import wordSearch from '../utils/wordSearch';
 import capitalize from '../utils/capitalize';
 

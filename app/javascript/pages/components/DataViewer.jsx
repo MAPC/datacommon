@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { css } from '@emotion/core';
+import { useParams } from 'react-router-dom';
+import { css } from '@emotion/react';
 import MoonLoader from 'react-spinners/MoonLoader';
 import DatasetHeader from './partials/DatasetHeader';
 import DatasetTable from './partials/DatasetTable';
@@ -11,7 +12,7 @@ const override = css`
   width: 3.5rem;
 `;
 
-export default class DataViewer extends React.Component {
+class DataViewerClass extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +32,13 @@ export default class DataViewer extends React.Component {
     };
 
     this.props.fetchDatasets().then((storeResponse) => {
-      const dataset = storeResponse.datasets.filter((datasetObj) => +datasetObj.seq_id === +this.props.match.params.id)[0];
+      const dataset = storeResponse.datasets.filter((datasetObj) => +datasetObj.seq_id === +this.props.params.id)[0];
+      
+      if (!dataset) {
+        this.setState({ loading: false, error: 'Dataset not found' });
+        return;
+      }
+
       const tableQuery = axios.get(`${queryBase}?token=${queryToken[dataset.db_name]}&query=SELECT * FROM ${dataset.schemaname}.${dataset.table_name} ${dataset.yearcolumn ? `ORDER BY ${dataset.yearcolumn} DESC` : ''} LIMIT 15000`);
       const headerQuery = axios.get(`/${dataset.db_name}?tables=${dataset.table_name}`);
 
@@ -42,13 +49,20 @@ export default class DataViewer extends React.Component {
             const yearResults = response[0];
             const tableResults = response[1];
             const metadata = Object.values(response[2].data)[0];
+
+            // Validate metadata structure
+            const universeData = metadata.find(row => row.name === 'universe');
+            const descriptionData = metadata.find(row => row.name === 'descriptn');
+
             this.setState({
               availableYears: yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse(),
               rows: tableResults.data.rows,
-              universe: metadata.filter((row) => row.name === 'universe')[0].details,
-              description: metadata.filter((row) => row.name === 'descriptn')[0].details,
-              columnKeys: metadata.filter((object) => Object.keys(tableResults.data.rows[0]).includes(object.name))
-                .filter((header) => header.name !== 'seq_id'),
+              universe: universeData ? universeData.details : '',
+              description: descriptionData ? descriptionData.details : '',
+              columnKeys: metadata.filter((object) => 
+                tableResults.data.rows[0] && 
+                Object.keys(tableResults.data.rows[0]).includes(object.name)
+              ).filter((header) => header.name !== 'seq_id'),
               metadata,
               selectedYears: [yearResults.data.rows.map((year) => Object.values(year)[0]).sort().reverse()[0]],
               table: dataset.table_name,
@@ -59,17 +73,27 @@ export default class DataViewer extends React.Component {
               queryYearColumn: dataset.yearcolumn,
               loading: false,
             });
+          }).catch(error => {
+            this.setState({ loading: false, error: 'Error loading dataset' });
+            console.error('Error:', error);
           });
         } else {
           axios.all([tableQuery, headerQuery]).then((response) => {
             const tableResults = response[0];
             const metadata = Object.values(response[1].data)[0];
+
+            // Validate metadata structure
+            const universeData = metadata.find(row => row.name === 'universe');
+            const descriptionData = metadata.find(row => row.name === 'descriptn');
+
             this.setState({
               rows: tableResults.data.rows,
-              universe: metadata.filter((row) => row.name === 'universe')[0].details,
-              description: metadata.filter((row) => row.name === 'descriptn')[0].details,
-              columnKeys: metadata.filter((object) => Object.keys(tableResults.data.rows[0]).includes(object.name))
-                .filter((header) => header.name !== 'seq_id'),
+              universe: universeData ? universeData.details : '',
+              description: descriptionData ? descriptionData.details : '',
+              columnKeys: metadata.filter((object) => 
+                tableResults.data.rows[0] && 
+                Object.keys(tableResults.data.rows[0]).includes(object.name)
+              ).filter((header) => header.name !== 'seq_id'),
               metadata,
               table: dataset.table_name,
               schema: dataset.schemaname,
@@ -79,30 +103,50 @@ export default class DataViewer extends React.Component {
               queryYearColumn: dataset.yearcolumn,
               loading: false,
             });
+          }).catch(error => {
+            this.setState({ loading: false, error: 'Error loading dataset' });
+            console.error('Error:', error);
           });
         }
       } else {
         axios.all([tableQuery, headerQuery]).then((response) => {
           const tableResults = response[0];
           const metadata = Object.values(response[1].data)[0];
-          const columns = Object.keys(tableResults.data.rows[0]);
-          const sortedMetadata = metadata.documentation.metadata.eainfo.detailed.attr.map((attribute) => ({ name: attribute.attrlabl, alias: attribute.attalias }))
-            .filter((header) => columns.includes(header.name))
-            .filter((header) => header.name !== 'shape');
-          this.setState({
-            rows: tableResults.data.rows,
-            columnKeys: sortedMetadata,
-            metadata,
-            description: metadata.documentation.metadata.dataIdInfo.idPurp,
-            schema: dataset.schemaname,
-            source: dataset.source,
-            database: dataset.db_name,
-            table: dataset.table_name,
-            title: dataset.menu3,
-            loading: false,
-          });
+          
+          try {
+            const columns = Object.keys(tableResults.data.rows[0] || {});
+            const sortedMetadata = metadata.documentation.metadata.eainfo.detailed.attr
+              .map((attribute) => ({ 
+                name: attribute.attrlabl, 
+                alias: attribute.attalias 
+              }))
+              .filter((header) => columns.includes(header.name))
+              .filter((header) => header.name !== 'shape');
+
+            this.setState({
+              rows: tableResults.data.rows,
+              columnKeys: sortedMetadata,
+              metadata,
+              description: metadata.documentation.metadata.dataIdInfo.idPurp || '',
+              schema: dataset.schemaname,
+              source: dataset.source,
+              database: dataset.db_name,
+              table: dataset.table_name,
+              title: dataset.menu3,
+              loading: false,
+            });
+          } catch (error) {
+            this.setState({ loading: false, error: 'Error parsing metadata' });
+            console.error('Error parsing metadata:', error);
+          }
+        }).catch(error => {
+          this.setState({ loading: false, error: 'Error loading dataset' });
+          console.error('Error:', error);
         });
       }
+    }).catch(error => {
+      this.setState({ loading: false, error: 'Error fetching datasets' });
+      console.error('Error:', error);
     });
   }
 
@@ -138,17 +182,24 @@ export default class DataViewer extends React.Component {
 
   render() {
     let pageContents;
+    
     if (this.state.loading) {
       pageContents = (
-          <div className="moonloader__wrapper">
-            <MoonLoader
-              size={'56px'}
-              css={override}
-              color={'#767676'}
-              loading={this.state.loading}
-            />
-            Fetching Data
-          </div>
+        <div className="moonloader__wrapper">
+          <MoonLoader
+            size="56px"
+            css={override}
+            color="#767676"
+            loading={this.state.loading}
+          />
+          Fetching Data
+        </div>
+      );
+    } else if (this.state.error) {
+      pageContents = (
+        <div className="error-message">
+          <p>{this.state.error}</p>
+        </div>
       );
     } else {
       pageContents = (
@@ -179,10 +230,12 @@ export default class DataViewer extends React.Component {
         </section>
       );
     }
-    return (
-      <>
-        {pageContents}
-      </>
-    );
+
+    return <>{pageContents}</>;
   }
 }
+const DataViewer = (props) => {
+  const params = useParams();
+  return <DataViewerClass {...props} params={params} />;
+};
+export default DataViewer;
