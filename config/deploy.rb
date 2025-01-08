@@ -40,7 +40,7 @@ append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bund
 
 set :rvm_ruby_version, '2.7.3'
 set :nvm_type, :user
-set :nvm_node, 'v10.16.3'
+set :nvm_node, 'v20.17.0'
 set :nvm_map_bins, %w{node npm yarn rake}
 
 set :passenger_restart_with_touch, false
