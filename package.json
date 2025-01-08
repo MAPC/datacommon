@@ -55,6 +55,7 @@
     "esri-leaflet": "^3.0.14",
     "file-loader": "^6.2.0",
     "history": "^4.10.1",
+    "html-webpack-plugin": "^5.6.3",
     "isomorphic-fetch": "^3.0.0",
     "leaflet": "^1.9.4",
     "mapbox-gl": "^3.7.0",
