@@ -38,6 +38,7 @@ module.exports = {
     historyApiFallback: true
   }
   optimization: {
-    sideEffects: false
+    sideEffects: false,
+    providedExports: false
   },
 };
