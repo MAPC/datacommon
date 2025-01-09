@@ -37,8 +37,4 @@ module.exports = {
     contentBase: './public',
     historyApiFallback: true
   }
-  optimization: {
-    sideEffects: false,
-    providedExports: false
-  },
 };
