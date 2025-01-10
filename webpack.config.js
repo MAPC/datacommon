@@ -9,8 +9,10 @@ module.exports = {
   },
   entry: './app/javascript/index.jsx',
   output: {
-    filename: 'app.js',
     path: path.resolve(__dirname, 'public'),
+    filename: "[name].[contenthash].js",
+    chunkFilename: 'chunks/[name].[chunkhash].js',
+    assetModuleFilename: 'media/[name][hash][ext][query]'
   },
   module: {
     rules: [
