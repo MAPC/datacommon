@@ -38,7 +38,7 @@ const mapStateToProps = ({ municipality, search }, props) => {
     muniFill.geojson = { ...munisPoly, ...{ features: [munisPoly.features[filledMuniIndex]]}};
   }
 
-  return { muniLines, muniFill };
+  return { muniLines, muniFill,  municipalityPoly: munisPoly };
 };
 
 const mapDispatchToProps = (dispatch) => ({
