@@ -1,105 +1,150 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import mapboxgl from 'mapbox-gl';
+import { MAP_CONFIG } from '../constants/mapConfig';
+import { setupMouseEvents } from '../utils/mapEventHandlers';
+import { addMapLayer, updateMapLayers } from '../utils/layerManager';
+import mapcRegions from "../data/mapc-regions.json";
+import colors from "../constants/colors";
 
-import colors from '../constants/colors';
-
-mapboxgl.accessToken = 'pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg';
-
+mapboxgl.accessToken = MAP_CONFIG.accessToken;
 
 class MapBox extends React.Component {
-
-  constructor() {
-    super(...arguments) ;
-
-    this.addLayer = this.addLayer.bind(this);
-
-    this.state = {
-      finishedLoading: false,
-    }
-  }
-
-
-  addLayer(layer = null) {
-    if (layer && !this.map.getSource(`ma-${layer.type}`)) {
-      this.map.addLayer({
-        id: `ma-${layer.type}`,
-        type: layer.type,
-        source: {
-          type: 'geojson',
-          data: layer.geojson,
-        },
-        paint: {
-          [`${layer.type}-color`]: colors.BRAND.PRIMARY,
-        },
-      });
-    }
-  }
-
+  state = {
+    finishedLoading: false,
+    showMapcRegions: false,
+  };
 
   componentDidMount() {
+    this.initializeMap();
+  }
+
+  componentDidUpdate() {
+    this.handleLayerUpdates();
+  }
+
+  componentWillUnmount() {
+    this.map?.remove();
+  }
+
+  initializeMap() {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: 'mapbox://styles/ihill/ckeucj9gy9vt319qm4dxcn73l',
-      scrollZoom: false,
+      style: MAP_CONFIG.style,
       dragPan: false,
       dragRotate: false,
-      doubleClickZoom: false,
-      boxZoom: false,
-      interactive: false,
       ...this.props,
     });
 
-    this.map.fitBounds([[-73.5081481933594, 41.1863288879395], [-69.8615341186523, 42.8867149353027]], {
-      padding: { top: 30, left: 300, right: 30, bottom: 30 },
+    this.map.fitBounds(MAP_CONFIG.bounds, {
+      padding: MAP_CONFIG.padding,
       animate: false,
-    })
+    });
 
-    this.map.on('load', () => {
-      this.map.resize();
+    this.map.addControl(
+      new mapboxgl.NavigationControl(MAP_CONFIG.navigationControl),
+      MAP_CONFIG.navigationControl.position
+    );
 
-      if (this.props.layers) {
-        this.props.layers.forEach(this.addLayer);
-      }
+    this.map.on("load", () => this.onMapLoad());
+  }
 
-      this.setState({ finishedLoading: true });
+  onMapLoad() {
+    this.map.resize();
+    window.map = this.map;
+    
+    this.initializeHoverLayer();
+    this.initializeMAPCRegions();
+    
+    if (this.props.layers) {
+      this.props.layers.forEach(layer => addMapLayer(this.map, layer));
+    }
+
+    setupMouseEvents(this.map, this.props.muniPoly, this.props.toProfile);
+    this.setState({ finishedLoading: true });
+  }
+
+  initializeHoverLayer() {
+    if (!this.props.muniPoly) return;
+
+    this.map.addSource("hover-fill", {
+      type: "geojson",
+      data: this.props.muniPoly,
+    });
+
+    this.map.addLayer({
+      id: "hover-fill",
+      type: "fill",
+      source: "hover-fill",
+      paint: {
+        "fill-color": colors.BRAND.PRIMARY,
+        "fill-opacity": 0,
+      },
     });
   }
 
+  initializeMAPCRegions() {
+    this.map.addSource("mapc-region", {
+      type: "geojson",
+      data: mapcRegions,
+    });
 
-  componentDidUpdate() {
-    if (
-      this.state.finishedLoading
-      && this.props.layers
-    ) {
-      this.props.layers.forEach(layer => {
-        if (layer) {
-          var source = this.map.getSource(`ma-${layer.type}`);
+    this.map.addLayer({
+      id: "mapc-region-line",
+      type: "fill",
+      source: "mapc-region",
+      layout: { visibility: "none" },
+      paint: {
+        "fill-color": "#006400",
+        "fill-opacity": 0.7,
+      },
+    });
+  }
 
-          if (source) {
-            source.setData(layer.geojson);
-          }
-          else {
-            this.addLayer(layer);
-          }
-        }
-      });
+  handleLayerUpdates() {
+    if (this.state.finishedLoading && this.props.layers) {
+      updateMapLayers(this.map, this.props.layers);
     }
   }
 
-
-  componentWillUnmount() {
-    this.map.remove();
-  }
-
+  toggleLayer = () => {
+    this.setState(
+      prevState => ({
+        showMAPCRegions: !prevState.showMAPCRegions,
+      }),
+      () => {
+        this.map?.setLayoutProperty(
+          "mapc-region-line",
+          "visibility",
+          this.state.showMAPCRegions ? "visible" : "none"
+        );
+      }
+    );
+  };
 
   render() {
     return (
       <section className="component MapBox">
-        <div className="map-layer" ref={el => this.mapContainer = el} />
+        <div className="map-controls">
+          <div className="toggle-container">
+            <label className="toggle-switch">
+              <input
+                type="checkbox"
+                checked={this.state.showMAPCRegions}
+                onChange={this.toggleLayer}
+              />
+              <span className="slider"></span>
+            </label>
+            <div className="slider-text">Show MAPC regions</div>
+          </div>
+        </div>
+        <div 
+          className="map-layer" 
+          ref={el => (this.mapContainer = el)} 
+        />
       </section>
     );
   }
-
 }
 
 MapBox.propTypes = {
@@ -109,11 +154,14 @@ MapBox.propTypes = {
   zoom: PropTypes.number,
   minZoom: PropTypes.number,
   maxZoom: PropTypes.number,
-  layers: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.string.required,
-    geojson: PropTypes.object.required,
-  })),
+  layers: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string.isRequired,
+      geojson: PropTypes.object.isRequired,
+    })
+  ),
+  muniPoly: PropTypes.object,
+  toProfile: PropTypes.func,
 };
 
 export default MapBox;
-

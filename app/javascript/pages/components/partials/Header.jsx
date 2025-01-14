@@ -1,19 +1,19 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';  // 添加這行
-import logoImg from '../../assets/images/logo.svg';
+import React from "react";
+import { useLocation } from "react-router-dom";
+import logoImg from "../../assets/images/logo.svg";
 
-function handleActivePage(subdirectory, link = '/home') {
+function handleActivePage(subdirectory, link = "/home") {
   if (subdirectory.startsWith(link)) {
-    return 'active';
-  } if (subdirectory.startsWith('/calendar') && link === '/gallery') {
-    return 'active';
+    return "active";
+  }
+  if (subdirectory.startsWith("/calendar") && link === "/gallery") {
+    return "active";
   }
   return null;
 }
 
-// 移除 location prop，改用 useLocation hook
 const Header = () => {
-  const location = useLocation();  // 添加這行
+  const location = useLocation();
 
   return (
     <header className="container">
@@ -28,24 +28,24 @@ const Header = () => {
 
           <ul>
             <li>
-              <a 
-                className={handleActivePage(location.pathname, '/browser')} 
+              <a
+                className={handleActivePage(location.pathname, "/browser")}
                 href="/browser"
               >
                 Datasets
               </a>
             </li>
             <li>
-              <a 
-                className={handleActivePage(location.pathname, '/profile')} 
-                href="/#community-profiles"
+              <a
+                className={handleActivePage(location.pathname, "/community")}
+                href="/community"
               >
                 Community Profiles
               </a>
             </li>
             <li>
-              <a 
-                className={handleActivePage(location.pathname, '/gallery')} 
+              <a
+                className={handleActivePage(location.pathname, "/gallery")}
                 href="/gallery"
               >
                 Gallery

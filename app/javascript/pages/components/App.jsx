@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes, Navigate, useParams } from 'react-router-dom';
-
+import Community from './Community';
 import Faq from './Faq';
 import Gallery from './gallery/Gallery';
 import Login from './Login';
@@ -42,6 +42,7 @@ const App = ({ muniOptions, tabOptions }) => (
           path="/profile/:muni/:tab?" 
           element={<ProfileRoute muniOptions={muniOptions} tabOptions={tabOptions} />} 
         />
+        <Route path="/community" element={<Community />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/login" element={<Login />} />
         <Route path="/calendar/:year/:month" element={<CalendarEntry />} />

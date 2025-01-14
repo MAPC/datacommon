@@ -25,6 +25,8 @@ class CommunitySelector extends React.Component {
 
         <MapBox
           layers={[this.props.muniLines, this.props.muniFill]}
+          muniPoly={this.props.municipalityPoly}
+          toProfile={this.props.toProfile}
         />
       </section>
     );

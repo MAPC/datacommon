@@ -1,28 +1,34 @@
-import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import CommunitySelector from '../components/CommunitySelector';
-import { fillPoly, emptyPoly } from '../actions/municipality';
-import React from 'react';
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import CommunitySelector from "../components/CommunitySelector";
+import { fillPoly, emptyPoly } from "../actions/municipality";
+import React from "react";
 const mapStateToProps = ({ municipality, search }, props) => {
   const munisPoly = { ...municipality.geojson };
+
   let { results, hovering } = search.municipality;
-  
-  let lineFeatures = (
-    results.length
-    ? { ...munisPoly, ...{ features: munisPoly.features.filter(feature => {
-        return !results.length || results.indexOf(feature.properties.town.toLowerCase()) > -1;
-      })}}
-    : munisPoly
-  );
+  let lineFeatures = results.length
+    ? {
+        ...munisPoly,
+        ...{
+          features: munisPoly.features.filter((feature) => {
+            return (
+              !results.length ||
+              results.indexOf(feature.properties.town.toLowerCase()) > -1
+            );
+          }),
+        },
+      }
+    : munisPoly;
 
   const muniLines = {
-    type: 'line',
+    type: "line",
     geojson: lineFeatures,
   };
 
   const muniFill = {
-    type: 'fill',
-    geojson: { ...munisPoly, ...{ features: []}}
+    type: "fill",
+    geojson: { ...munisPoly, ...{ features: [] } },
   };
 
   if (hovering) {
@@ -35,24 +41,32 @@ const mapStateToProps = ({ municipality, search }, props) => {
       }
     });
 
-    muniFill.geojson = { ...munisPoly, ...{ features: [munisPoly.features[filledMuniIndex]]}};
+    muniFill.geojson = {
+      ...munisPoly,
+      ...{ features: [munisPoly.features[filledMuniIndex]] },
+    };
   }
 
-  return { muniLines, muniFill };
+  return { muniLines, muniFill, municipalityPoly: munisPoly };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fillPoly: muni => dispatch(fillPoly(muni)),
-  emptyPoly: muni => dispatch(emptyPoly(muni)),
+  fillPoly: (muni) => dispatch(fillPoly(muni)),
+  emptyPoly: (muni) => dispatch(emptyPoly(muni)),
 });
 
 // Create a wrapper component to use the navigation hook
 const WithNavigationCommunitySelector = (props) => {
   const navigate = useNavigate();
-  return <CommunitySelector 
-    {...props} 
-    toProfile={(muni) => navigate(`/profile/${muni}`)} 
-  />;
+  return (
+    <CommunitySelector
+      {...props}
+      toProfile={(muni) => navigate(`/profile/${muni}`)}
+    />
+  );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WithNavigationCommunitySelector);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WithNavigationCommunitySelector);

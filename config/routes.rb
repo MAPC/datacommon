@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   get '/browser/datasets/*dataset', to: 'pages#index'
   get '/browser/*selectedItems', to: 'pages#index'
   get '/profile/*muni/*tab', to: 'pages#index'
+  get '/community', to: 'pages#index'
 end

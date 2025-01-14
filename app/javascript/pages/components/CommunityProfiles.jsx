@@ -34,7 +34,7 @@ const CommunityProfiles = (props) => {
     <article className="component CommunityProfiles">
       <div className="page-header">
         <div className="container back-link">
-          <Link to="/">{'< Back'}</Link>
+          <Link to="community">{'< Back'}</Link>
         </div>
         <div className="container">
           <header>
