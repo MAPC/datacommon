@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import colors from "../constants/colors";
-
+import mapcRegions from "../data/mapc-regions.json";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaWhpbGwiLCJhIjoiY2plZzUwMTRzMW45NjJxb2R2Z2thOWF1YiJ9.szIAeMS4c9YTgNsJeG36gg";
 
@@ -11,9 +10,10 @@ class MapBox extends React.Component {
     super(...arguments);
 
     this.addLayer = this.addLayer.bind(this);
-
+    this.toggleLayer = this.toggleLayer.bind(this);
     this.state = {
       finishedLoading: false,
+      showMapcRegions: false,
     };
   }
 
@@ -35,12 +35,40 @@ class MapBox extends React.Component {
                 "fill-color": colors.BRAND.PRIMARY,
                 "fill-opacity": 0.7,
               }
+            : layer.type === ""
+            ? {
+                "line-color": colors.BRAND.PRIMARY,
+                /*               'line-color': [
+                'case',
+                ['in', ['get', 'town'], ['literal', ['BOSTON', 'CAMBRIDGE']]],  // Replace with your town IDs
+                '#FF0000',  // Color for highlighted borders
+                colors.BRAND.PRIMARY  // Color for normal borders
+              ] */
+              }
             : {
+                // Default paint properties for other layer types
                 "line-color": colors.BRAND.PRIMARY,
                 "line-width": 1,
               },
       });
     }
+  }
+  toggleLayer() {
+    this.setState(
+      (prevState) => ({
+        showMAPCRegions: !prevState.showMAPCRegions,
+      }),
+      () => {
+        // Toggle layer visibility after state update
+        if (this.map) {
+          this.map.setLayoutProperty(
+            "mapc-region-line",
+            "visibility",
+            this.state.showMAPCRegions ? "visible" : "none"
+          );
+        }
+      }
+    );
   }
 
   componentDidMount() {
@@ -69,7 +97,7 @@ class MapBox extends React.Component {
 
     this.map.on("load", () => {
       this.map.resize();
-
+      window.map = this.map;
       // Create a transparent layer for hover and click detection
       // This layer covers the entire polygon area of each municipality
       if (this.props.muniPoly) {
@@ -88,14 +116,30 @@ class MapBox extends React.Component {
           },
         });
       }
-      // Add visible layers (lines and fills) for municipality boundaries
+      this.map.addSource("mapc-region", {
+        type: "geojson",
+        data: mapcRegions,
+      });
+      this.map.addLayer({
+        id: "mapc-region-line",
+        type: "fill",
+        source: "mapc-region",
+        layout: {
+          visibility: "none", // Hidden by default
+        },
+        paint: {
+          "fill-color": "#006400",
+          "fill-opacity": 0.7,
+        },
+      });
+      
       if (this.props.layers) {
         this.props.layers.forEach(this.addLayer);
       }
 
       this.setState({ finishedLoading: true });
     });
-    // Handle clicks on municipalities to navigate to their profile pages
+
     this.map.on("mousemove", "hover-fill", (e) => {
       if (e.features.length) {
         const feature = e.features[0];
@@ -172,6 +216,20 @@ class MapBox extends React.Component {
   render() {
     return (
       <section className="component MapBox">
+        {/* Add layer toggle switch */}
+        <div className="map-controls">
+          <div className="toggle-container">
+            <label className="toggle-switch">
+              <input
+                type="checkbox"
+                checked={this.state.showMAPCRegions}
+                onChange={this.toggleLayer}
+              />
+              <span className="slider"></span>
+            </label>
+            <div className="slider-text">Show MAPC regions</div>
+          </div>
+        </div>
         <div className="map-layer" ref={(el) => (this.mapContainer = el)} />
       </section>
     );
