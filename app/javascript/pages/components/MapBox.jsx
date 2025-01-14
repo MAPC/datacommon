@@ -35,16 +35,6 @@ class MapBox extends React.Component {
                 "fill-color": colors.BRAND.PRIMARY,
                 "fill-opacity": 0.7,
               }
-            : layer.type === ""
-            ? {
-                "line-color": colors.BRAND.PRIMARY,
-                /*               'line-color': [
-                'case',
-                ['in', ['get', 'town'], ['literal', ['BOSTON', 'CAMBRIDGE']]],  // Replace with your town IDs
-                '#FF0000',  // Color for highlighted borders
-                colors.BRAND.PRIMARY  // Color for normal borders
-              ] */
-              }
             : {
                 // Default paint properties for other layer types
                 "line-color": colors.BRAND.PRIMARY,
@@ -75,24 +65,27 @@ class MapBox extends React.Component {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/ihill/ckeucj9gy9vt319qm4dxcn73l",
-      scrollZoom: false,
       dragPan: false,
       dragRotate: false,
-      doubleClickZoom: false,
-      boxZoom: false,
-      interactive: false,
       ...this.props,
     });
-
     this.map.fitBounds(
       [
-        [-73.5081481933594, 41.1863288879395],
+        [-74.0081481933594, 41.1863288879395],
         [-69.8615341186523, 42.8867149353027],
       ],
       {
         padding: { top: 30, left: 300, right: 30, bottom: 30 },
         animate: false,
       }
+    );
+    this.map.addControl(
+      new mapboxgl.NavigationControl({
+        showCompass: false,
+        showZoom: true,
+        visualizePitch: false,
+      }),
+      "bottom-right"
     );
 
     this.map.on("load", () => {
@@ -132,7 +125,7 @@ class MapBox extends React.Component {
           "fill-opacity": 0.7,
         },
       });
-      
+
       if (this.props.layers) {
         this.props.layers.forEach(this.addLayer);
       }

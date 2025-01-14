@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import Particles from './partials/Particles';
-import SearchBar from '../containers/SearchBar';
-import CategoryGrid from '../containers/CategoryGrid';
-import CommunitySelector from '../containers/CommunitySelector';
-import CallToAction from './partials/CallToAction';
-import CalendarImage from '../assets/images/calendar-home.svg';
+import Particles from "./partials/Particles";
+import SearchBar from "../containers/SearchBar";
+import CategoryGrid from "../containers/CategoryGrid";
+import CommunitySelector from "../containers/CommunitySelector";
+import CallToAction from "./partials/CallToAction";
+import CalendarImage from "../assets/images/calendar-home.svg";
 
 class Home extends React.Component {
   constructor() {
@@ -63,11 +63,19 @@ class Home extends React.Component {
 
           <CategoryGrid />
         </div>
-
-        <div className="page-section page-section__map">
-          <a name="community-profiles" />
-          <CommunitySelector />
-        </div>
+        <section className="page-section container tight">
+          <div className="page-section page-section__map">
+            <h2>Community Profiles</h2>
+            <p className="gallery-spotlight__info">
+              a paragrah to explain what is community profile
+            </p>
+            <CallToAction
+              link="/community"
+              text="View Community Profiles"
+              extraClassNames="community-profiles__cta"
+            />
+          </div>
+        </section>
       </section>
     );
   }
